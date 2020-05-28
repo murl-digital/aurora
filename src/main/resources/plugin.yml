@@ -1,0 +1,11 @@
+name: EyeCandy
+version: @version@
+main: fyi.sorenneedscoffee.eyecandy.EyeCandy
+api-version: 1.13
+depend: [ProtocolLib]
+authors: [SorenNeedsCoffee]
+description: A collection of events and utilities for use in events
+commands:
+  dragon:
+    description: Your description
+    usage: /<command>
