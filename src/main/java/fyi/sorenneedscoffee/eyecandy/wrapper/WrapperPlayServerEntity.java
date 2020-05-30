@@ -1,4 +1,22 @@
-package fyi.sorenneedscoffee.eyecandy.wrappers;
+/**
+ * PacketWrapper - ProtocolLib wrappers for Minecraft packets
+ * Copyright (C) dmulloy2 <http://dmulloy2.net>
+ * Copyright (C) Kristian S. Strangeland
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package fyi.sorenneedscoffee.eyecandy.wrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
@@ -6,15 +24,15 @@ import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
-public class WrapperPlayServerEntityStatus extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Server.ENTITY_STATUS;
+public class WrapperPlayServerEntity extends AbstractPacket {
+    public static final PacketType TYPE = PacketType.Play.Server.ENTITY;
 
-    public WrapperPlayServerEntityStatus() {
+    public WrapperPlayServerEntity() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
 
-    public WrapperPlayServerEntityStatus(PacketContainer packet) {
+    public WrapperPlayServerEntity(PacketContainer packet) {
         super(packet, TYPE);
     }
 
@@ -56,25 +74,5 @@ public class WrapperPlayServerEntityStatus extends AbstractPacket {
      */
     public Entity getEntity(PacketEvent event) {
         return getEntity(event.getPlayer().getWorld());
-    }
-
-    /**
-     * Retrieve Entity Status.
-     * <p>
-     * Notes: see below
-     *
-     * @return The current Entity Status
-     */
-    public byte getEntityStatus() {
-        return handle.getBytes().read(0);
-    }
-
-    /**
-     * Set Entity Status.
-     *
-     * @param value - new value.
-     */
-    public void setEntityStatus(byte value) {
-        handle.getBytes().write(0, value);
     }
 }
