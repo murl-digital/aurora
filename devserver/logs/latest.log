@@ -1,860 +1,137 @@
-[09:12:54] [Server thread/INFO]: Starting minecraft server version 1.15.2
-[09:12:54] [Server thread/INFO]: Loading properties
-[09:12:55] [Server thread/INFO]: This server is running Paper version git-Paper-301 (MC: 1.15.2) (Implementing API version 1.15.2-R0.1-SNAPSHOT)
-[09:12:55] [Server thread/INFO]: Using 4 threads for Netty based IO
-[09:12:55] [Server thread/INFO]: Server Ping Player Sample Count: 12
-[09:12:55] [Server thread/INFO]: Debug logging is disabled
-[09:12:55] [Server thread/INFO]: Default game type: SURVIVAL
-[09:12:55] [Server thread/INFO]: Generating keypair
-[09:12:57] [Server thread/INFO]: Starting Minecraft server on *:25565
-[09:12:57] [Server thread/INFO]: Using default channel type
-[09:12:59] [Server thread/WARN]: Initializing Legacy Material Support. Unless you have legacy plugins and/or data this is a bug!
-[09:13:26] [Server thread/WARN]: Legacy plugin PlayerCameraEffect v1.1 does not specify an api-version.
-[09:13:27] [Server thread/INFO]: [PlugMan] Loading PlugMan v2.1.7
-[09:13:27] [Server thread/INFO]: [PlayerCameraEffect] Loading PlayerCameraEffect v1.1
-[09:13:27] [Server thread/INFO]: [ProtocolLib] Loading ProtocolLib v4.5.0
-[09:13:27] [Server thread/WARN]: [ProtocolLib] Version (MC: 1.15.2) has not yet been tested! Proceed with caution.
-[09:13:29] [Server thread/INFO]: [EyeCandy] Loading EyeCandy v1.0-SNAPSHOT
-[09:13:29] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
-[09:13:29] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.5.0
-[09:13:29] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
-[09:13:30] [Server thread/INFO]: Preparing level "world"
-[09:13:30] [Server thread/INFO]: Reloading ResourceManager: Default, bukkit
-[09:13:32] [Server thread/INFO]: Loaded 6 recipes
-[09:13:34] [Server thread/INFO]: -------- World Settings For [world] --------
-[09:13:35] [Server thread/INFO]: Item Merge Radius: 2.5
-[09:13:35] [Server thread/INFO]: Item Despawn Rate: 6000
-[09:13:35] [Server thread/INFO]: View Distance: 10
-[09:13:35] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
-[09:13:35] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
-[09:13:35] [Server thread/INFO]: Arrow Despawn Rate: 1200 Trident Respawn Rate:1200
-[09:13:35] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
-[09:13:35] [Server thread/INFO]: Mob Spawn Range: 8
-[09:13:35] [Server thread/INFO]: Cactus Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Cane Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Melon Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Mushroom Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Sapling Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Beetroot Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Carrot Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Potato Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Wheat Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: NetherWart Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Vine Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Cocoa Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Bamboo Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: SweetBerry Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Kelp Growth Modifier: 100%
-[09:13:35] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Ra 48 / Mi 16 / Tiv true
-[09:13:35] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
-[09:13:35] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Desert: 14357617 Igloo: 14357618 Jungle: 14357619 Swamp: 14357620 Monument: 10387313 Ocean: 14357621 Shipwreck: 165745295 End City: 10387313 Slime: 987234911
-[09:13:35] [Server thread/INFO]: Max TNT Explosions: 100
-[09:13:35] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
-[09:13:35] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 1 Hopper Amount: 1
-[09:13:35] [Server thread/INFO]: Experience Merge Radius: 3.0
-[09:14:14] [Server thread/INFO]: -------- World Settings For [world_nether] --------
-[09:14:14] [Server thread/INFO]: Item Merge Radius: 2.5
-[09:14:14] [Server thread/INFO]: Item Despawn Rate: 6000
-[09:14:14] [Server thread/INFO]: View Distance: 10
-[09:14:14] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
-[09:14:14] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
-[09:14:14] [Server thread/INFO]: Arrow Despawn Rate: 1200 Trident Respawn Rate:1200
-[09:14:14] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
-[09:14:14] [Server thread/INFO]: Mob Spawn Range: 8
-[09:14:14] [Server thread/INFO]: Cactus Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Cane Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Melon Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Mushroom Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Sapling Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Beetroot Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Carrot Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Potato Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Wheat Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: NetherWart Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Vine Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Cocoa Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Bamboo Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: SweetBerry Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Kelp Growth Modifier: 100%
-[09:14:14] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Ra 48 / Mi 16 / Tiv true
-[09:14:14] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
-[09:14:14] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Desert: 14357617 Igloo: 14357618 Jungle: 14357619 Swamp: 14357620 Monument: 10387313 Ocean: 14357621 Shipwreck: 165745295 End City: 10387313 Slime: 987234911
-[09:14:14] [Server thread/INFO]: Max TNT Explosions: 100
-[09:14:14] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
-[09:14:14] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 1 Hopper Amount: 1
-[09:14:14] [Server thread/INFO]: Experience Merge Radius: 3.0
-[09:14:15] [Server thread/INFO]: -------- World Settings For [world_the_end] --------
-[09:14:15] [Server thread/INFO]: Item Merge Radius: 2.5
-[09:14:15] [Server thread/INFO]: Item Despawn Rate: 6000
-[09:14:15] [Server thread/INFO]: View Distance: 10
-[09:14:15] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
-[09:14:15] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
-[09:14:15] [Server thread/INFO]: Arrow Despawn Rate: 1200 Trident Respawn Rate:1200
-[09:14:15] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
-[09:14:15] [Server thread/INFO]: Mob Spawn Range: 8
-[09:14:15] [Server thread/INFO]: Cactus Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Cane Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Melon Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Mushroom Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Sapling Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Beetroot Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Carrot Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Potato Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Wheat Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: NetherWart Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Vine Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Cocoa Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Bamboo Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: SweetBerry Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Kelp Growth Modifier: 100%
-[09:14:15] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Ra 48 / Mi 16 / Tiv true
-[09:14:15] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
-[09:14:15] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Desert: 14357617 Igloo: 14357618 Jungle: 14357619 Swamp: 14357620 Monument: 10387313 Ocean: 14357621 Shipwreck: 165745295 End City: 10387313 Slime: 987234911
-[09:14:15] [Server thread/INFO]: Max TNT Explosions: 100
-[09:14:15] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
-[09:14:15] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 1 Hopper Amount: 1
-[09:14:15] [Server thread/INFO]: Experience Merge Radius: 3.0
-[09:14:15] [Server thread/INFO]: Preparing start region for dimension 'world'/minecraft:overworld
-[09:14:15] [Paper RegionFile IO Thread/INFO]: [RegionFile] Using Java 8 DirectByteBuffer cleanup method
-[09:14:17] [Server thread/INFO]: Loaded 0 spawn chunks for world world
-[09:14:17] [Server thread/INFO]: Preparing spawn area: 0%
-[09:14:17] [Server thread/INFO]: Preparing spawn area: 0%
-[09:14:17] [Server thread/INFO]: Preparing spawn area: 0%
-[09:14:17] [Server thread/INFO]: Preparing spawn area: 0%
-[09:14:17] [Server thread/INFO]: Preparing spawn area: 0%
-[09:14:18] [Server thread/INFO]: Preparing spawn area: 0%
-[09:14:18] [Server thread/INFO]: Time elapsed: 2952 ms
-[09:14:18] [Server thread/INFO]: Preparing start region for dimension 'world_nether'/minecraft:the_nether
-[09:14:19] [Server thread/INFO]: Loaded 0 spawn chunks for world world_nether
-[09:14:19] [Server thread/INFO]: Time elapsed: 988 ms
-[09:14:19] [Server thread/INFO]: Preparing start region for dimension 'world_the_end'/minecraft:the_end
-[09:14:20] [Server thread/INFO]: Loaded 0 spawn chunks for world world_the_end
-[09:14:20] [Server thread/INFO]: Time elapsed: 1067 ms
-[09:14:20] [Server thread/INFO]: [PlugMan] Enabling PlugMan v2.1.7
-[09:14:21] [Server thread/INFO]: [PlayerCameraEffect] Enabling PlayerCameraEffect v1.1*
-[09:14:21] [Server thread/WARN]: [MBedwars] IMPORTANT: Failed to work with your version. (v1_15_R1)! Maybe it's unsupported?
-[09:14:21] [Server thread/WARN]: [MBedwars] Stopping the plugin...
-[09:14:21] [Server thread/INFO]: [PlayerCameraEffect] Disabling PlayerCameraEffect v1.1
-[09:14:21] [Server thread/INFO]: [EyeCandy] Enabling EyeCandy v1.0-SNAPSHOT
-[09:14:21] [Server thread/INFO]: Running delayed init tasks
-[09:14:21] [Server thread/INFO]: Done (87.470s)! For help, type "help"
-[09:14:21] [Server thread/INFO]: Timings Reset
-[09:14:43] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:14:43] [Paper Watchdog Thread/ERROR]: The server has not responded for 17 seconds! Creating thread dump
-[09:14:43] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:14:43] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:14:43] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:14:43] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:14:43] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: false | State: RUNNABLE
-[09:14:43] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.Chunk.getHardCollidingEntities(Chunk.java:104)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.World.getHardCollidingEntities(World.java:1207)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IEntityAccess.getEntityCollisions(IEntityAccess.java:63)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.GeneratorAccess.getEntityCollisions(GeneratorAccess.java:55)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IEntityAccess.b(IEntityAccess.java:59)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.GeneratorAccess.b(GeneratorAccess.java:58)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.Entity.e(Entity.java:849)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.Entity.move(Entity.java:632)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityLiving.e(EntityLiving.java:2270)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityPig.e(EntityPig.java:229)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityLiving.movementTick(EntityLiving.java:2637)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityInsentient.movementTick(EntityInsentient.java:525)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityAgeable.movementTick(EntityAgeable.java:171)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityAnimal.movementTick(EntityAnimal.java:28)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityLiving.tick(EntityLiving.java:2396)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.EntityInsentient.tick(EntityInsentient.java:288)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.WorldServer.entityJoinedWorld(WorldServer.java:803)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.WorldServer$$Lambda$2759/1047819725.accept(Unknown Source)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.World.a(World.java:878)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.WorldServer.doTick(WorldServer.java:528)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.b(MinecraftServer.java:1319)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.DedicatedServer.b(DedicatedServer.java:430)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.a(MinecraftServer.java:1173)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:962)
-[09:14:43] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:14:43] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:14:43] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:14:43] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:14:43] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 21329ms or 426 ticks behind
-[09:15:25] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 11898ms or 237 ticks behind
-[09:16:37] [Server thread/INFO]: com.mojang.authlib.GameProfile@31c3daa2[id=<null>,name=DraconiumMusic,properties={},legacy=false] (/127.0.0.1:55581) lost connection: Disconnected
-[09:16:51] [User Authenticator #1/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:16:53] [Server thread/INFO]: DraconiumMusic joined the game
-[09:16:53] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:55695] logged in with entity id 58 at ([world]-261.5487540350515, 63.0, 281.92598345008315)
-[09:17:06] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 8420ms or 168 ticks behind
-[09:17:21] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:17:21] [Server thread/INFO]: DraconiumMusic left the game
-[09:17:29] [User Authenticator #1/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:17:30] [Server thread/INFO]: DraconiumMusic joined the game
-[09:17:30] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:55789] logged in with entity id 408 at ([world]-261.5487540350515, 63.0, 281.92598345008315)
-[09:17:50] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 14642ms or 292 ticks behind
-[09:18:30] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5269ms or 105 ticks behind
-[09:24:31] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5090ms or 101 ticks behind
-[09:24:40] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:24:40] [Server thread/INFO]: DraconiumMusic left the game
-[09:33:09] [User Authenticator #2/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:33:10] [Server thread/INFO]: DraconiumMusic joined the game
-[09:33:10] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:57979] logged in with entity id 1204 at ([world]-275.9070827862935, 73.74313548392374, 280.96270933597657)
-[09:33:37] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5938ms or 118 ticks behind
-[09:35:18] [Server thread/INFO]: DraconiumMusic issued server command: /plugman reload all
-[09:35:30] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:35:30] [Paper Watchdog Thread/ERROR]: The server has not responded for 11 seconds! Creating thread dump
-[09:35:30] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:35:30] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:35:30] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:35:30] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:35:30] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: false | State: RUNNABLE
-[09:35:30] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:343)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:318)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reload(PluginUtil.java:380)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reloadAll(PluginUtil.java:390)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.command.ReloadCommand.execute(ReloadCommand.java:101)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.PlugManCommandHandler.onCommand(PlugManCommandHandler.java:95)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.PluginCommand.execute(PluginCommand.java:45)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchCommand(CraftServer.java:761)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.handleCommand(PlayerConnection.java:1860)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.a(PlayerConnection.java:1668)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:47)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:5)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils.lambda$ensureMainThread$0(PlayerConnectionUtils.java:23)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils$$Lambda$2985/679101252.run(Unknown Source)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.TickTask.run(SourceFile:18)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeTask(IAsyncTaskHandler.java:136)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandlerReentrant.executeTask(SourceFile:23)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeNext(IAsyncTaskHandler.java:109)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.ba(MinecraftServer.java:1097)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.executeNext(MinecraftServer.java:1090)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.awaitTasks(IAsyncTaskHandler.java:119)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.sleepForTick(MinecraftServer.java:1051)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:966)
-[09:35:30] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:35:30] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:35:30] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:35:30] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:35:30] [Server thread/WARN]: Legacy plugin PlayerCameraEffect v1.1 does not specify an api-version.
-[09:35:30] [Server thread/INFO]: [PlayerCameraEffect] Enabling PlayerCameraEffect v1.1*
-[09:35:30] [Server thread/WARN]: [MBedwars] IMPORTANT: Failed to work with your version. (v1_15_R1)! Maybe it's unsupported?
-[09:35:30] [Server thread/WARN]: [MBedwars] Stopping the plugin...
-[09:35:30] [Server thread/INFO]: [PlayerCameraEffect] Disabling PlayerCameraEffect v1.1
-[09:35:30] [Server thread/INFO]: [ProtocolLib] Disabling ProtocolLib v4.5.0
-[09:35:33] [Server thread/WARN]: [ProtocolLib] Version (MC: 1.15.2) has not yet been tested! Proceed with caution.
-[09:35:33] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.5.0
-[09:35:33] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
-[09:35:33] [Server thread/INFO]: [EyeCandy] Disabling EyeCandy v1.0-SNAPSHOT
-[09:35:33] [Server thread/INFO]: [EyeCandy] Enabling EyeCandy v1.0-SNAPSHOT
-[09:35:34] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 15297ms or 305 ticks behind
-[09:35:35] [Netty Server IO #0/INFO]: Packet
-[09:35:35] [Netty Server IO #0/INFO]: Packet
-[09:35:36] [Netty Server IO #0/INFO]: Packet
-[09:35:37] [Netty Server IO #0/INFO]: Packet
-[09:35:38] [Netty Server IO #0/INFO]: Packet
-[09:35:39] [Netty Server IO #0/INFO]: Packet
-[09:35:40] [Netty Server IO #0/INFO]: Packet
-[09:35:41] [Netty Server IO #0/INFO]: Packet
-[09:35:42] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:35:42] [Server thread/INFO]: DraconiumMusic left the game
-[09:35:52] [User Authenticator #3/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:35:52] [Server thread/INFO]: DraconiumMusic joined the game
-[09:35:53] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:58342] logged in with entity id 1552 at ([world]-271.1304144952504, 68.87379659071277, 281.87605753061604)
-[09:36:09] [Netty Server IO #1/INFO]: Packet
-[09:36:10] [Netty Server IO #1/INFO]: Packet
-[09:36:11] [Netty Server IO #1/INFO]: Packet
-[09:36:12] [Netty Server IO #1/INFO]: Packet
-[09:36:13] [Netty Server IO #1/INFO]: Packet
-[09:36:14] [Netty Server IO #1/INFO]: Packet
-[09:36:15] [Netty Server IO #1/INFO]: Packet
-[09:36:16] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:36:16] [Server thread/INFO]: DraconiumMusic left the game
-[09:44:21] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:44:21] [Paper Watchdog Thread/ERROR]: The server has not responded for 12 seconds! Creating thread dump
-[09:44:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:44:21] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:44:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:44:21] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:44:21] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: true | State: RUNNABLE
-[09:44:21] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.open(Native Method)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:225)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:155)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:166)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:130)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.plugin.java.JavaPluginLoader.getPluginDescription(JavaPluginLoader.java:158)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:343)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:318)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reload(PluginUtil.java:380)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reloadAll(PluginUtil.java:390)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.command.ReloadCommand.execute(ReloadCommand.java:101)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.PlugManCommandHandler.onCommand(PlugManCommandHandler.java:95)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.PluginCommand.execute(PluginCommand.java:45)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchCommand(CraftServer.java:761)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchServerCommand(CraftServer.java:723)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.DedicatedServer.handleCommandQueue(DedicatedServer.java:469)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.DedicatedServer.b(DedicatedServer.java:431)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.a(MinecraftServer.java:1173)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:962)
-[09:44:21] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:44:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:44:21] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:44:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:44:22] [Server thread/WARN]: Legacy plugin PlayerCameraEffect v1.1 does not specify an api-version.
-[09:44:22] [Server thread/INFO]: [PlayerCameraEffect] Enabling PlayerCameraEffect v1.1*
-[09:44:22] [Server thread/WARN]: [MBedwars] IMPORTANT: Failed to work with your version. (v1_15_R1)! Maybe it's unsupported?
-[09:44:22] [Server thread/WARN]: [MBedwars] Stopping the plugin...
-[09:44:22] [Server thread/INFO]: [PlayerCameraEffect] Disabling PlayerCameraEffect v1.1
-[09:44:22] [Server thread/INFO]: [ProtocolLib] Disabling ProtocolLib v4.5.0
-[09:44:24] [User Authenticator #4/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:44:24] [Server thread/WARN]: [ProtocolLib] Version (MC: 1.15.2) has not yet been tested! Proceed with caution.
-[09:44:24] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.5.0
-[09:44:24] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
-[09:44:24] [Server thread/INFO]: [EyeCandy] Disabling EyeCandy v1.0-SNAPSHOT
-[09:44:24] [Server thread/INFO]: [EyeCandy] Enabling EyeCandy v1.0-SNAPSHOT
-[09:44:24] [Server thread/INFO]: [PlugMan] All plugins have been reloaded.
-[09:44:24] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 15690ms or 313 ticks behind
-[09:44:25] [Server thread/INFO]: DraconiumMusic joined the game
-[09:44:25] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:59574] logged in with entity id 1715 at ([world]-271.1304144952504, 68.87379659071277, 281.87605753061604)
-[09:45:06] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:45:06] [Server thread/INFO]: DraconiumMusic left the game
-[09:45:20] [User Authenticator #4/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:45:20] [Server thread/INFO]: DraconiumMusic joined the game
-[09:45:21] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:59723] logged in with entity id 1945 at ([world]-261.3048702063534, 63.0, 282.00010472418376)
-[09:47:03] [Server thread/INFO]: DraconiumMusic issued server command: /plugman reload all
-[09:47:22] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:47:22] [Paper Watchdog Thread/ERROR]: The server has not responded for 19 seconds! Creating thread dump
-[09:47:22] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:22] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:47:22] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:22] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:47:22] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: false | State: RUNNABLE
-[09:47:22] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		sun.misc.PerfCounter.getZipFileCount(PerfCounter.java:174)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:227)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:155)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:166)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:130)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		org.bukkit.plugin.java.JavaPluginLoader.getPluginDescription(JavaPluginLoader.java:158)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:343)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:318)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reload(PluginUtil.java:380)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reloadAll(PluginUtil.java:390)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.command.ReloadCommand.execute(ReloadCommand.java:101)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.PlugManCommandHandler.onCommand(PlugManCommandHandler.java:95)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.PluginCommand.execute(PluginCommand.java:45)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchCommand(CraftServer.java:761)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.handleCommand(PlayerConnection.java:1860)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.a(PlayerConnection.java:1668)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:47)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:5)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils.lambda$ensureMainThread$0(PlayerConnectionUtils.java:23)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils$$Lambda$2985/679101252.run(Unknown Source)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.TickTask.run(SourceFile:18)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeTask(IAsyncTaskHandler.java:136)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandlerReentrant.executeTask(SourceFile:23)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeNext(IAsyncTaskHandler.java:109)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.ba(MinecraftServer.java:1097)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.executeNext(MinecraftServer.java:1090)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.awaitTasks(IAsyncTaskHandler.java:119)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.sleepForTick(MinecraftServer.java:1051)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:966)
-[09:47:22] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:47:22] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:22] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:47:22] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:23] [Server thread/WARN]: Legacy plugin PlayerCameraEffect v1.1 does not specify an api-version.
-[09:47:23] [Server thread/INFO]: [PlayerCameraEffect] Enabling PlayerCameraEffect v1.1*
-[09:47:23] [Server thread/WARN]: [MBedwars] IMPORTANT: Failed to work with your version. (v1_15_R1)! Maybe it's unsupported?
-[09:47:23] [Server thread/WARN]: [MBedwars] Stopping the plugin...
-[09:47:23] [Server thread/INFO]: [PlayerCameraEffect] Disabling PlayerCameraEffect v1.1
-[09:47:23] [Server thread/INFO]: [ProtocolLib] Disabling ProtocolLib v4.5.0
-[09:47:27] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:47:27] [Paper Watchdog Thread/ERROR]: The server has not responded for 24 seconds! Creating thread dump
-[09:47:27] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:27] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:47:28] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:28] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:47:28] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: false | State: RUNNABLE
-[09:47:28] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		java.lang.Runtime.gc(Native Method)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		java.lang.System.gc(System.java:993)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.unload(PluginUtil.java:519)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reload(PluginUtil.java:379)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reloadAll(PluginUtil.java:390)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.command.ReloadCommand.execute(ReloadCommand.java:101)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.PlugManCommandHandler.onCommand(PlugManCommandHandler.java:95)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.PluginCommand.execute(PluginCommand.java:45)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchCommand(CraftServer.java:761)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.handleCommand(PlayerConnection.java:1860)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.a(PlayerConnection.java:1668)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:47)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:5)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils.lambda$ensureMainThread$0(PlayerConnectionUtils.java:23)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils$$Lambda$2985/679101252.run(Unknown Source)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.TickTask.run(SourceFile:18)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeTask(IAsyncTaskHandler.java:136)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandlerReentrant.executeTask(SourceFile:23)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeNext(IAsyncTaskHandler.java:109)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.ba(MinecraftServer.java:1097)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.executeNext(MinecraftServer.java:1090)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.awaitTasks(IAsyncTaskHandler.java:119)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.sleepForTick(MinecraftServer.java:1051)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:966)
-[09:47:28] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:47:28] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:28] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:47:28] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:28] [Server thread/WARN]: [ProtocolLib] Version (MC: 1.15.2) has not yet been tested! Proceed with caution.
-[09:47:30] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.5.0
-[09:47:30] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
-[09:47:30] [Server thread/INFO]: [EyeCandy] Disabling EyeCandy v1.0-SNAPSHOT
-[09:47:34] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:47:34] [Paper Watchdog Thread/ERROR]: The server has not responded for 31 seconds! Creating thread dump
-[09:47:34] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:34] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:47:34] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:34] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:47:34] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: true | State: RUNNABLE
-[09:47:34] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.open(Native Method)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:225)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:155)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:166)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:130)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		org.bukkit.plugin.java.JavaPluginLoader.getPluginDescription(JavaPluginLoader.java:158)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:343)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:318)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reload(PluginUtil.java:380)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reloadAll(PluginUtil.java:390)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.command.ReloadCommand.execute(ReloadCommand.java:101)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.PlugManCommandHandler.onCommand(PlugManCommandHandler.java:95)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.PluginCommand.execute(PluginCommand.java:45)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchCommand(CraftServer.java:761)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.handleCommand(PlayerConnection.java:1860)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.a(PlayerConnection.java:1668)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:47)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:5)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils.lambda$ensureMainThread$0(PlayerConnectionUtils.java:23)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils$$Lambda$2985/679101252.run(Unknown Source)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.TickTask.run(SourceFile:18)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeTask(IAsyncTaskHandler.java:136)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandlerReentrant.executeTask(SourceFile:23)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeNext(IAsyncTaskHandler.java:109)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.ba(MinecraftServer.java:1097)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.executeNext(MinecraftServer.java:1090)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.awaitTasks(IAsyncTaskHandler.java:119)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.sleepForTick(MinecraftServer.java:1051)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:966)
-[09:47:34] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:47:34] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:34] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:47:34] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:47:34] [Server thread/INFO]: [EyeCandy] Enabling EyeCandy v1.0-SNAPSHOT
-[09:47:35] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 32538ms or 650 ticks behind
-[09:47:35] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:47:36] [Server thread/INFO]: DraconiumMusic left the game
-[09:47:46] [User Authenticator #5/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:47:47] [Server thread/INFO]: DraconiumMusic joined the game
-[09:47:47] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:60120] logged in with entity id 2240 at ([world]-261.3048702063534, 63.0, 282.00010472418376)
-[09:48:15] [Netty Server IO #0/ERROR]: [EyeCandy] Unhandled exception occured in onPacketReceiving(PacketEvent) for EyeCandy
-java.lang.NullPointerException: null
-	at fyi.sorenneedscoffee.eyecandy.effects.implementations.DragonEffect$DragonPacketListener.onPacketReceiving(DragonEffect.java:94) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokeReceivingListener(SortedPacketListenerList.java:114) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokePacketRecieving(SortedPacketListenerList.java:67) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.handlePacket(PacketFilterManager.java:590) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.invokePacketRecieving(PacketFilterManager.java:557) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.packetReceived(ProtocolInjector.java:352) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.onPacketReceiving(ProtocolInjector.java:317) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ChannelInjector.decode(ChannelInjector.java:533) ~[?:?]
-	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:489) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:428) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:265) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at com.comphenix.protocol.injector.netty.ChannelInjector$2.channelRead(ChannelInjector.java:259) ~[?:?]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1434) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:965) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:163) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:647) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:582) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:499) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:461) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884) ~[patched_1.15.2.jar:git-Paper-301]
-	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
-[09:48:16] [Netty Server IO #0/ERROR]: Parameters: 
-  net.minecraft.server.v1_15_R1.PacketPlayInFlying$PacketPlayInPosition@1b633f44[
-    x=-261.3048702063534
-    y=63.0
-    z=282.00010472418376
-    yaw=0.0
-    pitch=0.0
-    f=true
-    hasPos=true
-    hasLook=false
-  ]
-
-[09:48:17] [Netty Server IO #0/ERROR]: [EyeCandy] Unhandled exception occured in onPacketReceiving(PacketEvent) for EyeCandy
-java.lang.NullPointerException: null
-	at fyi.sorenneedscoffee.eyecandy.effects.implementations.DragonEffect$DragonPacketListener.onPacketReceiving(DragonEffect.java:94) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokeReceivingListener(SortedPacketListenerList.java:114) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokePacketRecieving(SortedPacketListenerList.java:67) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.handlePacket(PacketFilterManager.java:590) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.invokePacketRecieving(PacketFilterManager.java:557) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.packetReceived(ProtocolInjector.java:352) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.onPacketReceiving(ProtocolInjector.java:317) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ChannelInjector.decode(ChannelInjector.java:533) ~[?:?]
-	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:489) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:428) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:265) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at com.comphenix.protocol.injector.netty.ChannelInjector$2.channelRead(ChannelInjector.java:259) ~[?:?]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1434) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:965) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:163) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:647) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:582) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:499) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:461) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884) ~[patched_1.15.2.jar:git-Paper-301]
-	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
-[09:48:17] [Netty Server IO #0/ERROR]: Parameters: 
-  net.minecraft.server.v1_15_R1.PacketPlayInFlying$PacketPlayInPosition@23f60f0a[
-    x=-261.3048702063534
-    y=63.0
-    z=282.00010472418376
-    yaw=0.0
-    pitch=0.0
-    f=true
-    hasPos=true
-    hasLook=false
-  ]
-
-[09:48:18] [Netty Server IO #0/ERROR]: [EyeCandy] Unhandled exception occured in onPacketReceiving(PacketEvent) for EyeCandy
-java.lang.NullPointerException: null
-	at fyi.sorenneedscoffee.eyecandy.effects.implementations.DragonEffect$DragonPacketListener.onPacketReceiving(DragonEffect.java:94) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokeReceivingListener(SortedPacketListenerList.java:114) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokePacketRecieving(SortedPacketListenerList.java:67) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.handlePacket(PacketFilterManager.java:590) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.invokePacketRecieving(PacketFilterManager.java:557) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.packetReceived(ProtocolInjector.java:352) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.onPacketReceiving(ProtocolInjector.java:317) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ChannelInjector.decode(ChannelInjector.java:533) ~[?:?]
-	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:489) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:428) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:265) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at com.comphenix.protocol.injector.netty.ChannelInjector$2.channelRead(ChannelInjector.java:259) ~[?:?]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1434) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:965) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:163) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:647) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:582) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:499) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:461) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884) ~[patched_1.15.2.jar:git-Paper-301]
-	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
-[09:48:18] [Netty Server IO #0/ERROR]: Parameters: 
-  net.minecraft.server.v1_15_R1.PacketPlayInFlying$PacketPlayInPosition@1d90437f[
-    x=-261.3048702063534
-    y=63.0
-    z=282.00010472418376
-    yaw=0.0
-    pitch=0.0
-    f=true
-    hasPos=true
-    hasLook=false
-  ]
-
-[09:48:19] [Netty Server IO #0/ERROR]: [EyeCandy] Unhandled exception occured in onPacketReceiving(PacketEvent) for EyeCandy
-java.lang.NullPointerException: null
-	at fyi.sorenneedscoffee.eyecandy.effects.implementations.DragonEffect$DragonPacketListener.onPacketReceiving(DragonEffect.java:94) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokeReceivingListener(SortedPacketListenerList.java:114) ~[?:?]
-	at com.comphenix.protocol.injector.SortedPacketListenerList.invokePacketRecieving(SortedPacketListenerList.java:67) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.handlePacket(PacketFilterManager.java:590) ~[?:?]
-	at com.comphenix.protocol.injector.PacketFilterManager.invokePacketRecieving(PacketFilterManager.java:557) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.packetReceived(ProtocolInjector.java:352) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ProtocolInjector.onPacketReceiving(ProtocolInjector.java:317) ~[?:?]
-	at com.comphenix.protocol.injector.netty.ChannelInjector.decode(ChannelInjector.java:533) ~[?:?]
-	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:489) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:428) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:265) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at com.comphenix.protocol.injector.netty.ChannelInjector$2.channelRead(ChannelInjector.java:259) ~[?:?]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:284) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1434) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:965) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:163) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:647) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:582) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:499) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:461) ~[patched_1.15.2.jar:git-Paper-301]
-	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884) ~[patched_1.15.2.jar:git-Paper-301]
-	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
-[09:48:19] [Netty Server IO #0/ERROR]: Parameters: 
-  net.minecraft.server.v1_15_R1.PacketPlayInFlying$PacketPlayInPosition@5c83b5d7[
-    x=-261.3048702063534
-    y=63.0
-    z=282.00010472418376
-    yaw=0.0
-    pitch=0.0
-    f=true
-    hasPos=true
-    hasLook=false
-  ]
-
-[09:48:21] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:48:21] [Server thread/INFO]: DraconiumMusic left the game
-[09:48:22] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5066ms or 101 ticks behind
-[09:48:32] [User Authenticator #5/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:48:33] [Server thread/INFO]: DraconiumMusic joined the game
-[09:48:33] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:60237] logged in with entity id 2440 at ([world]-261.3048702063534, 63.0, 282.00010472418376)
-[09:49:38] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:49:38] [Server thread/INFO]: DraconiumMusic left the game
-[09:49:48] [User Authenticator #6/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:49:48] [Server thread/INFO]: DraconiumMusic joined the game
-[09:49:48] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:60404] logged in with entity id 2825 at ([world]-261.83369815658904, 63.0, 281.57372673745726)
-[09:51:04] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:51:04] [Server thread/INFO]: DraconiumMusic left the game
-[09:52:51] [User Authenticator #7/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:52:53] [Server thread/INFO]: DraconiumMusic joined the game
-[09:52:53] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:60906] logged in with entity id 3183 at ([world]-270.47829995248924, 63.0, 272.13103495663063)
-[09:52:58] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5048ms or 100 ticks behind
-[09:53:33] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5044ms or 100 ticks behind
-[09:53:45] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:53:45] [Server thread/INFO]: DraconiumMusic left the game
-[09:54:01] [User Authenticator #8/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:54:03] [Server thread/INFO]: DraconiumMusic joined the game
-[09:54:03] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:61072] logged in with entity id 3401 at ([world]-260.6187573562155, 63.0, 281.9721108793228)
-[09:55:17] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5165ms or 103 ticks behind
-[09:55:54] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 7478ms or 149 ticks behind
-[09:56:02] [Server thread/INFO]: DraconiumMusic issued server command: /plugman reload all
-[09:56:16] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:56:16] [Paper Watchdog Thread/ERROR]: The server has not responded for 13 seconds! Creating thread dump
-[09:56:16] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:16] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:56:16] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:16] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:56:16] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: false | State: RUNNABLE
-[09:56:16] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.open(Native Method)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:225)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		java.util.zip.ZipFile.<init>(ZipFile.java:155)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:166)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		java.util.jar.JarFile.<init>(JarFile.java:130)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		org.bukkit.plugin.java.JavaPluginLoader.getPluginDescription(JavaPluginLoader.java:158)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:343)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:318)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reload(PluginUtil.java:380)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reloadAll(PluginUtil.java:390)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.command.ReloadCommand.execute(ReloadCommand.java:101)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.PlugManCommandHandler.onCommand(PlugManCommandHandler.java:95)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.PluginCommand.execute(PluginCommand.java:45)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchCommand(CraftServer.java:761)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.handleCommand(PlayerConnection.java:1860)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.a(PlayerConnection.java:1668)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:47)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:5)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils.lambda$ensureMainThread$0(PlayerConnectionUtils.java:23)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils$$Lambda$2985/679101252.run(Unknown Source)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.TickTask.run(SourceFile:18)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeTask(IAsyncTaskHandler.java:136)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandlerReentrant.executeTask(SourceFile:23)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeNext(IAsyncTaskHandler.java:109)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.ba(MinecraftServer.java:1097)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.executeNext(MinecraftServer.java:1090)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeAll(IAsyncTaskHandler.java:95)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.a(MinecraftServer.java:1224)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:962)
-[09:56:16] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:56:16] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:16] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:56:16] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:16] [Server thread/WARN]: Legacy plugin PlayerCameraEffect v1.1 does not specify an api-version.
-[09:56:16] [Server thread/INFO]: [PlayerCameraEffect] Enabling PlayerCameraEffect v1.1*
-[09:56:16] [Server thread/WARN]: [MBedwars] IMPORTANT: Failed to work with your version. (v1_15_R1)! Maybe it's unsupported?
-[09:56:16] [Server thread/WARN]: [MBedwars] Stopping the plugin...
-[09:56:16] [Server thread/INFO]: [PlayerCameraEffect] Disabling PlayerCameraEffect v1.1
-[09:56:16] [Server thread/INFO]: [ProtocolLib] Disabling ProtocolLib v4.5.0
-[09:56:21] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-301 (MC: 1.15.2) ---
-[09:56:21] [Paper Watchdog Thread/ERROR]: The server has not responded for 18 seconds! Creating thread dump
-[09:56:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:21] [Paper Watchdog Thread/ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):
-[09:56:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:21] [Paper Watchdog Thread/ERROR]: Current Thread: Server thread
-[09:56:21] [Paper Watchdog Thread/ERROR]: 	PID: 19 | Suspended: false | Native: false | State: RUNNABLE
-[09:56:21] [Paper Watchdog Thread/ERROR]: 	Stack:
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		java.io.UnixFileSystem.getBooleanAttributes0(Native Method)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		java.io.UnixFileSystem.getBooleanAttributes(UnixFileSystem.java:242)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		java.io.File.isDirectory(File.java:849)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:333)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.load(PluginUtil.java:318)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reload(PluginUtil.java:380)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.util.PluginUtil.reloadAll(PluginUtil.java:390)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.command.ReloadCommand.execute(ReloadCommand.java:101)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		com.rylinaux.plugman.PlugManCommandHandler.onCommand(PlugManCommandHandler.java:95)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.PluginCommand.execute(PluginCommand.java:45)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		org.bukkit.craftbukkit.v1_15_R1.CraftServer.dispatchCommand(CraftServer.java:761)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.handleCommand(PlayerConnection.java:1860)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnection.a(PlayerConnection.java:1668)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:47)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PacketPlayInChat.a(PacketPlayInChat.java:5)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils.lambda$ensureMainThread$0(PlayerConnectionUtils.java:23)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.PlayerConnectionUtils$$Lambda$2985/679101252.run(Unknown Source)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.TickTask.run(SourceFile:18)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeTask(IAsyncTaskHandler.java:136)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandlerReentrant.executeTask(SourceFile:23)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeNext(IAsyncTaskHandler.java:109)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.ba(MinecraftServer.java:1097)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.executeNext(MinecraftServer.java:1090)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.IAsyncTaskHandler.executeAll(IAsyncTaskHandler.java:95)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.a(MinecraftServer.java:1224)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:962)
-[09:56:21] [Paper Watchdog Thread/ERROR]: 		java.lang.Thread.run(Thread.java:748)
-[09:56:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:21] [Paper Watchdog Thread/ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---
-[09:56:21] [Paper Watchdog Thread/ERROR]: ------------------------------
-[09:56:21] [Server thread/WARN]: [ProtocolLib] Version (MC: 1.15.2) has not yet been tested! Proceed with caution.
-[09:56:22] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.5.0
-[09:56:22] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
-[09:56:22] [Server thread/INFO]: [EyeCandy] Disabling EyeCandy v1.0-SNAPSHOT
-[09:56:25] [Server thread/INFO]: [EyeCandy] Enabling EyeCandy v1.0-SNAPSHOT
-[09:56:25] [Server thread/WARN]: DraconiumMusic moved too quickly! 7.621252737949078,3.352492651562926,-6.396173996246034
-[09:56:34] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:56:34] [Server thread/INFO]: DraconiumMusic left the game
-[09:56:35] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 10945ms or 218 ticks behind
-[09:56:49] [User Authenticator #9/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:56:49] [Server thread/INFO]: DraconiumMusic joined the game
-[09:56:50] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:61452] logged in with entity id 3761 at ([world]-260.9192253579334, 63.0, 282.53339491939835)
-[09:57:14] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 9334ms or 186 ticks behind
-[09:57:45] [Server thread/INFO]: DraconiumMusic lost connection: Timed out
-[09:57:46] [Server thread/INFO]: DraconiumMusic left the game
-[09:58:02] [User Authenticator #10/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
-[09:58:02] [Server thread/INFO]: DraconiumMusic joined the game
-[09:58:02] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:61659] logged in with entity id 3967 at ([world]-260.9192253579334, 63.0, 282.53339491939835)
-[09:58:31] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
-[09:58:31] [Server thread/INFO]: DraconiumMusic left the game
-[09:58:46] [Server thread/INFO]: Stopping the server
-[09:58:46] [Server thread/INFO]: Stopping server
-[09:58:46] [Server thread/INFO]: [EyeCandy] Disabling EyeCandy v1.0-SNAPSHOT
-[09:58:46] [Server thread/INFO]: [ProtocolLib] Disabling ProtocolLib v4.5.0
-[09:58:46] [Server thread/INFO]: [PlugMan] Disabling PlugMan v2.1.7
-[09:58:46] [Server thread/INFO]: Saving players
-[09:58:46] [Server thread/INFO]: Saving worlds
-[09:58:46] [Server thread/INFO]: Saving chunks for level 'world'/minecraft:overworld
-[09:58:49] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
-[09:58:49] [Server thread/INFO]: Saving chunks for level 'world_nether'/minecraft:the_nether
-[09:58:49] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
-[09:58:49] [Server thread/INFO]: Saving chunks for level 'world_the_end'/minecraft:the_end
-[09:58:49] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
-[09:58:49] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
-[09:58:49] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
-[09:58:49] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
-[09:58:49] [Server thread/INFO]: Flushing Chunk IO
-[09:58:49] [Server thread/INFO]: Closing Thread Pool
-[09:58:49] [Server thread/INFO]: Closing Server
+[18:58:35] [Server thread/INFO]: Starting minecraft server version 1.15.2
+[18:58:35] [Server thread/INFO]: Loading properties
+[18:58:35] [Server thread/INFO]: This server is running Paper version git-Paper-301 (MC: 1.15.2) (Implementing API version 1.15.2-R0.1-SNAPSHOT)
+[18:58:35] [Server thread/INFO]: Debug logging is disabled
+[18:58:35] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[18:58:35] [Server thread/INFO]: Using 4 threads for Netty based IO
+[18:58:36] [Server thread/INFO]: Default game type: SURVIVAL
+[18:58:36] [Server thread/INFO]: Generating keypair
+[18:58:36] [Server thread/INFO]: Starting Minecraft server on *:25565
+[18:58:36] [Server thread/INFO]: Using default channel type
+[18:58:36] [Server thread/INFO]: [PlugMan] Loading PlugMan v2.1.7
+[18:58:36] [Server thread/INFO]: [ProtocolLib] Loading ProtocolLib v4.5.0
+[18:58:36] [Server thread/WARN]: [ProtocolLib] Version (MC: 1.15.2) has not yet been tested! Proceed with caution.
+[18:58:37] [Server thread/INFO]: [EyeCandy] Loading EyeCandy v1.0-SNAPSHOT
+[18:58:37] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[18:58:37] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.5.0
+[18:58:37] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
+[18:58:37] [Server thread/INFO]: Preparing level "world"
+[18:58:37] [Server thread/INFO]: Reloading ResourceManager: Default, bukkit
+[18:58:38] [Server thread/INFO]: Loaded 6 recipes
+[18:58:38] [Server thread/INFO]: -------- World Settings For [world] --------
+[18:58:38] [Server thread/INFO]: View Distance: 10
+[18:58:38] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[18:58:38] [Server thread/INFO]: Item Despawn Rate: 6000
+[18:58:38] [Server thread/INFO]: Item Merge Radius: 2.5
+[18:58:38] [Server thread/INFO]: Arrow Despawn Rate: 1200 Trident Respawn Rate:1200
+[18:58:38] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[18:58:38] [Server thread/INFO]: Mob Spawn Range: 8
+[18:58:38] [Server thread/INFO]: Experience Merge Radius: 3.0
+[18:58:38] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Cane Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Melon Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Beetroot Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Carrot Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Potato Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Vine Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Cocoa Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Bamboo Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: SweetBerry Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Kelp Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[18:58:38] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Ra 48 / Mi 16 / Tiv true
+[18:58:38] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 1 Hopper Amount: 1
+[18:58:38] [Server thread/INFO]: Max TNT Explosions: 100
+[18:58:38] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[18:58:38] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[18:58:38] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Desert: 14357617 Igloo: 14357618 Jungle: 14357619 Swamp: 14357620 Monument: 10387313 Ocean: 14357621 Shipwreck: 165745295 End City: 10387313 Slime: 987234911
+[18:58:38] [Server thread/INFO]: -------- World Settings For [world_nether] --------
+[18:58:38] [Server thread/INFO]: View Distance: 10
+[18:58:38] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[18:58:38] [Server thread/INFO]: Item Despawn Rate: 6000
+[18:58:38] [Server thread/INFO]: Item Merge Radius: 2.5
+[18:58:38] [Server thread/INFO]: Arrow Despawn Rate: 1200 Trident Respawn Rate:1200
+[18:58:38] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[18:58:38] [Server thread/INFO]: Mob Spawn Range: 8
+[18:58:38] [Server thread/INFO]: Experience Merge Radius: 3.0
+[18:58:38] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Cane Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Melon Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Beetroot Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Carrot Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Potato Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Vine Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Cocoa Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Bamboo Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: SweetBerry Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Kelp Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[18:58:38] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Ra 48 / Mi 16 / Tiv true
+[18:58:38] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 1 Hopper Amount: 1
+[18:58:38] [Server thread/INFO]: Max TNT Explosions: 100
+[18:58:38] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[18:58:38] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[18:58:38] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Desert: 14357617 Igloo: 14357618 Jungle: 14357619 Swamp: 14357620 Monument: 10387313 Ocean: 14357621 Shipwreck: 165745295 End City: 10387313 Slime: 987234911
+[18:58:38] [Server thread/INFO]: -------- World Settings For [world_the_end] --------
+[18:58:38] [Server thread/INFO]: View Distance: 10
+[18:58:38] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[18:58:38] [Server thread/INFO]: Item Despawn Rate: 6000
+[18:58:38] [Server thread/INFO]: Item Merge Radius: 2.5
+[18:58:38] [Server thread/INFO]: Arrow Despawn Rate: 1200 Trident Respawn Rate:1200
+[18:58:38] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[18:58:38] [Server thread/INFO]: Mob Spawn Range: 8
+[18:58:38] [Server thread/INFO]: Experience Merge Radius: 3.0
+[18:58:38] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Cane Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Melon Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Beetroot Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Carrot Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Potato Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Vine Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Cocoa Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Bamboo Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: SweetBerry Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Kelp Growth Modifier: 100%
+[18:58:38] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[18:58:38] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Ra 48 / Mi 16 / Tiv true
+[18:58:38] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 1 Hopper Amount: 1
+[18:58:38] [Server thread/INFO]: Max TNT Explosions: 100
+[18:58:38] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[18:58:38] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[18:58:38] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Desert: 14357617 Igloo: 14357618 Jungle: 14357619 Swamp: 14357620 Monument: 10387313 Ocean: 14357621 Shipwreck: 165745295 End City: 10387313 Slime: 987234911
+[18:58:38] [Server thread/INFO]: Preparing start region for dimension 'world'/minecraft:overworld
+[18:58:38] [Paper RegionFile IO Thread/INFO]: [RegionFile] Using Java 8 DirectByteBuffer cleanup method
+[18:58:39] [Server thread/INFO]: Loaded 0 spawn chunks for world world
+[18:58:39] [Server thread/INFO]: Time elapsed: 161 ms
+[18:58:39] [Server thread/INFO]: Preparing start region for dimension 'world_nether'/minecraft:the_nether
+[18:58:39] [Server thread/INFO]: Loaded 0 spawn chunks for world world_nether
+[18:58:39] [Server thread/INFO]: Time elapsed: 32 ms
+[18:58:39] [Server thread/INFO]: Preparing start region for dimension 'world_the_end'/minecraft:the_end
+[18:58:39] [Server thread/INFO]: Loaded 0 spawn chunks for world world_the_end
+[18:58:39] [Server thread/INFO]: Time elapsed: 320 ms
+[18:58:39] [Server thread/INFO]: [PlugMan] Enabling PlugMan v2.1.7
+[18:58:39] [Server thread/INFO]: [EyeCandy] Enabling EyeCandy v1.0-SNAPSHOT
+[18:58:39] [Server thread/INFO]: Starting HTTP Server at 192.168.86.66...
+[18:58:39] [Server thread/INFO]: Running delayed init tasks
+[18:58:39] [Server thread/INFO]: Done (3.775s)! For help, type "help"
+[18:58:39] [Server thread/INFO]: Timings Reset
+[18:58:40] [User Authenticator #1/INFO]: UUID of player DraconiumMusic is 70ed3fe0-1b74-4353-816f-fc8d2e69a85d
+[18:58:40] [Server thread/INFO]: DraconiumMusic joined the game
+[18:58:41] [Server thread/INFO]: DraconiumMusic[/127.0.0.1:49398] logged in with entity id 54 at ([world]-257.1424880727186, 67.40831541027993, 283.0323522063899)
+[19:04:24] [Server thread/INFO]: DraconiumMusic lost connection: Disconnected
+[19:04:24] [Server thread/INFO]: DraconiumMusic left the game

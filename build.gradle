@@ -25,6 +25,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot:1.15.2-R0.1-SNAPSHOT'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0"
     compileOnly group: 'io.netty', name: 'netty-all', version: '4.1.29.Final'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens

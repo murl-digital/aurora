@@ -9,3 +9,6 @@ commands:
   dragon:
     description: Your description
     usage: /<command>
+  point:
+    description: point
+    usage: /<command>
