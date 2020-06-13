@@ -1,3 +1,6 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+}
 apply plugin: 'java'
 
 group = pluginGroup
@@ -25,7 +28,9 @@ dependencies {
     compileOnly 'org.spigotmc:spigot:1.15.2-R0.1-SNAPSHOT'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0"
     compileOnly group: 'io.netty', name: 'netty-all', version: '4.1.29.Final'
+    compileOnly 'org.jetbrains:annotations:19.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.github.mervick:aes-everywhere-java:1.2.7'
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens
@@ -34,4 +39,8 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         filter ReplaceTokens, tokens: [version: version]
     }
+}
+
+shadowJar {
+    classifier = null
 }

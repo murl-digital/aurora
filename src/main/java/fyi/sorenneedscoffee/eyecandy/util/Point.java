@@ -3,8 +3,8 @@ package fyi.sorenneedscoffee.eyecandy.util;
 import org.bukkit.Location;
 
 public class Point {
-    public int id;
-    public Location location;
+    public final int id;
+    private final Location location;
 
     public Point(int id, Location location) {
         this.id = id;
@@ -18,5 +18,9 @@ public class Point {
         }
 
         return false;
+    }
+
+    public Location getLocation() {
+        return location.clone();
     }
 }
