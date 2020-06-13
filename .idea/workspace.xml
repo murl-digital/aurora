@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="72809433-2548-4821-b637-9c6ab9e03468" name="Default Changelist" comment=".gitignore update 2">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/eyecandy.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/2020-05-30-1.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/latest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/banned-ips.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/banned-players.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/bukkit.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/cache/mojang_1.15.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/cache/mojang_1.15.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/cache/patched_1.15.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/cache/patched_1.15.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/commands.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/eula.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/help.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-21-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-21-2.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-21-3.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-21-4.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-2.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-3.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-4.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-5.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-6.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-7.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-22-8.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/2020-05-24-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/logs/latest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/ops.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/paper.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/permissions.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/plugins/PlugMan.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/plugins/PlugMan/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/plugins/ProtocolLib.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/plugins/ProtocolLib/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/plugins/ProtocolLib/lastupdate" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/plugins/bStats/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/plugins/eyecandy-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/server.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/server.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/spigot.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/usercache.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/version_history.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/whitelist.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/advancements/70ed3fe0-1b74-4353-816f-fc8d2e69a85d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/data/raids.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/datapacks/bukkit/pack.mcmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/level.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/level.dat_old" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/playerdata/70ed3fe0-1b74-4353-816f-fc8d2e69a85d.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/poi/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/poi/r.-1.1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/poi/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.-1.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.-1.1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.-2.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.-2.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.-2.1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.0.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/region/r.0.1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/session.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/stats/70ed3fe0-1b74-4353-816f-fc8d2e69a85d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world/uid.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/DIM-1/data/raids_nether.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/DIM-1/region/r.-1.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/DIM-1/region/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/DIM-1/region/r.0.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/DIM-1/region/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/level.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/level.dat_old" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/session.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_nether/uid.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/DIM1/data/raids_end.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/DIM1/region/r.-1.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/DIM1/region/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/DIM1/region/r.0.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/DIM1/region/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/level.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/level.dat_old" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/session.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devserver/world_the_end/uid.dat" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="eyecandy" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="shadow" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1cdEoYukulM0r5ifXBt8GLXCqch" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="protected" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/devserver/plugins" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.statistic.project.settings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="fyi.sorenneedscoffee.eyecandy.wrapper.util" />
+      <recent name="fyi.sorenneedscoffee.eyecandy.wrapper" />
+      <recent name="fyi.sorenneedscoffee.eyecandy.wrappers" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="fyi.sorenneedscoffee.eyecandy.util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\josep\IdeaProjects\eyecandy\devserver\plugins" />
+      <recent name="C:\Users\josep\IdeaProjects\eyecandy\devserver" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JAR Application.server.jar">
+    <configuration name="eyecandy [idea]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="idea" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="eyecandy [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="eyecandy [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="eyecandy [startDevServer]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="startDevServer" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="server.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/devserver/server.jar" />
+      <option name="VM_PARAMETERS" value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\josep\IdeaProjects\eyecandy\devserver" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Spigot" type="Remote">
+      <module name="eyecandy" />
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="5005" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.eyecandy [jar]" />
+      <item itemvalue="Gradle.eyecandy [idea]" />
+      <item itemvalue="Gradle.eyecandy [startDevServer]" />
+      <item itemvalue="Gradle.eyecandy [shadowJar]" />
+      <item itemvalue="JAR Application.server.jar" />
+      <item itemvalue="Remote.Spigot" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JAR Application.server.jar" />
+        <item itemvalue="Gradle.eyecandy [shadowJar]" />
+        <item itemvalue="Gradle.eyecandy [jar]" />
+        <item itemvalue="Gradle.eyecandy [startDevServer]" />
+        <item itemvalue="Gradle.eyecandy [idea]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="72809433-2548-4821-b637-9c6ab9e03468" name="Default Changelist" comment="" />
+      <created>1590850245675</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590850245675</updated>
+      <workItem from="1590850247026" duration="4662000" />
+      <workItem from="1590932510008" duration="599000" />
+      <workItem from="1591030857920" duration="1212000" />
+      <workItem from="1591112162591" duration="6041000" />
+      <workItem from="1591471924587" duration="6487000" />
+      <workItem from="1591628931100" duration="39694000" />
+      <workItem from="1591888142200" duration="9551000" />
+      <workItem from="1591975235089" duration="11983000" />
+    </task>
+    <task id="LOCAL-00001" summary="added a crap ton of packet wrappers">
+      <created>1590851619693</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1590851619693</updated>
+    </task>
+    <task id="LOCAL-00002" summary="- refactored effect system somewhat&#10;- added HTTP support (yay!)">
+      <created>1591664746313</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591664746313</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update .gitignore">
+      <created>1592080216044</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1592080216044</updated>
+    </task>
+    <task id="LOCAL-00004" summary="- fully implemented REST api&#10;- minor optimizations/refactors">
+      <created>1592080407303</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1592080407303</updated>
+    </task>
+    <task id="LOCAL-00005" summary=".gitignore update 2">
+      <created>1592080683644</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1592080683644</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added a crap ton of packet wrappers" />
+    <MESSAGE value="- refactored effect system somewhat&#10;- added HTTP support (yay!)" />
+    <MESSAGE value="update .gitignore" />
+    <MESSAGE value="- fully implemented REST api&#10;- minor optimizations/refactors" />
+    <MESSAGE value=".gitignore update 2" />
+    <option name="LAST_COMMIT_MESSAGE" value=".gitignore update 2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591472627638">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591472627638" />
+    <state x="740" y="225" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1591472409052">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="225" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591472409052" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1592079055767">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1592079055767" />
+    <state x="690" y="296" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1590850494108">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="296" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590850494108" />
+    <state x="725" y="405" width="755" height="230" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590850530000">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="725" y="405" width="755" height="230" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1590850530000" />
+    <state x="653" y="355" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1591814446039">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="653" y="355" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1591814446039" />
+    <state x="170" y="115" width="1720" height="840" key="DiffContextDialog" timestamp="1591803167694">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="170" y="115" width="1720" height="840" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591803167694" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1590859782433">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590859782433" />
+    <state width="937" height="268" key="GridCell.Tab.0.bottom" timestamp="1592080732905">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="268" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592080732905" />
+    <state width="937" height="268" key="GridCell.Tab.0.center" timestamp="1592080732905">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="268" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592080732905" />
+    <state width="937" height="268" key="GridCell.Tab.0.left" timestamp="1592080732905">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="268" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592080732905" />
+    <state width="937" height="268" key="GridCell.Tab.0.right" timestamp="1592080732905">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="268" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592080732905" />
+    <state width="937" height="339" key="GridCell.Tab.1.bottom" timestamp="1591903222985">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="339" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591903222985" />
+    <state width="937" height="339" key="GridCell.Tab.1.center" timestamp="1591903222985">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="339" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591903222985" />
+    <state width="937" height="339" key="GridCell.Tab.1.left" timestamp="1591903222985">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="339" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591903222985" />
+    <state width="937" height="339" key="GridCell.Tab.1.right" timestamp="1591903222985">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="937" height="339" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591903222985" />
+    <state x="775" y="454" key="ReplaceDuplicatesPrompt" timestamp="1592059399360">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="775" y="454" key="ReplaceDuplicatesPrompt/0.0.1920.1040@0.0.1920.1040" timestamp="1592059399360" />
+    <state x="700" y="139" key="RollbackChangesDialog" timestamp="1591635145001">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="700" y="139" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591635145001" />
+    <state x="440" y="94" key="SettingsEditor" timestamp="1591814419003">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1591814419003" />
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2" timestamp="1592080700572">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592080700572" />
+    <state x="511" y="167" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1591803812859">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="511" y="167" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1591803812859" />
+    <state x="92" y="92" width="1736" height="856" key="dock-window-1" timestamp="1591896021779">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1591896021779" />
+    <state x="690" y="205" key="extract.method.dialog" timestamp="1592059387952">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="205" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592059387952" />
+    <state x="342" y="84" key="new project wizard" timestamp="1591896313584">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="342" y="84" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1591896313584" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1592000108656">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592000108656" />
+  </component>
+</project>
