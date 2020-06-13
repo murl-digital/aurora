@@ -14,6 +14,10 @@ public class PointUtil {
         return this;
     }
 
+    public void refresh() {
+        points = EyeCandy.dataManager.loadPoints();
+    }
+
     public Point getPoint(int id) {
         return points.get(points.indexOf(new Point(id, null)));
     }

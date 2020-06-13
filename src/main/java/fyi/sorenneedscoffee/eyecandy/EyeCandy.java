@@ -2,59 +2,102 @@ package fyi.sorenneedscoffee.eyecandy;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.eyecandy.commands.PointCmd;
-import fyi.sorenneedscoffee.eyecandy.effects.implementations.DragonEffect;
-import fyi.sorenneedscoffee.eyecandy.http.DragonHandler;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.DragonEndpoint;
+import fyi.sorenneedscoffee.eyecandy.http.RestHandler;
 import fyi.sorenneedscoffee.eyecandy.http.TestHandler;
 import fyi.sorenneedscoffee.eyecandy.util.DataManager;
 import fyi.sorenneedscoffee.eyecandy.util.EntityHider;
 import fyi.sorenneedscoffee.eyecandy.util.PointUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.Logger;
 
 public final class EyeCandy extends JavaPlugin {
-    public static EntityHider hider;
     public static EyeCandy plugin;
+    public static Logger logger;
+    public static FileConfiguration config;
+
     public static ProtocolManager protocolManager;
     public static PointUtil pointUtil;
     public static DataManager dataManager;
+    public static EntityHider hider;
+    public static Gson gson;
+
     public static HttpServer httpServer;
-    public static Logger logger;
+    public static ExecutorService httpExecutor;
 
     @Override
     public void onEnable() {
         plugin = this;
         logger = this.getLogger();
+        gson = new Gson();
+
+        if(plugin.getDataFolder().mkdirs()) {
+            if(!new File(plugin.getDataFolder(), "config.yml").exists()) {
+                plugin.saveDefaultConfig();
+            }
+        }
+
+        config = plugin.getConfig();
+
         hider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
         protocolManager = ProtocolLibrary.getProtocolManager();
         dataManager = new DataManager(plugin);
-        pointUtil = new PointUtil().load();
 
-        try {
-            logger.info("Starting HTTP Server at " + InetAddress.getLocalHost().getHostAddress() +"...");
-            httpServer = HttpServer.create(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(), 8001), 0);
-            httpServer.createContext("/test", new TestHandler());
-            httpServer.createContext("/effects/dragon", new DragonHandler());
-            httpServer.start();
-        } catch (IOException e) {
-            logger.severe(ExceptionUtils.getMessage(e));
-            logger.severe(ExceptionUtils.getStackTrace(e));
+        if(config.getBoolean("remote.enabled")) {
+            String hostname = config.getString("remote.httpHostname");
+            int port = config.getInt("remote.httpPort");
+
+            try {
+                logger.info("Starting HTTP Server...");
+                RestHandler handler = new RestHandler();
+                httpServer = HttpServer.create(new InetSocketAddress(Objects.requireNonNull(hostname), port), 0);
+
+                httpExecutor = Executors.newCachedThreadPool();
+                httpServer.setExecutor(httpExecutor);
+
+                handler.register("/test", new TestHandler());
+                handler.register("/effects/dragon", new DragonEndpoint());
+
+                httpServer.createContext("/", handler);
+
+                /*httpServer.createContext("/test", new TestHandler());
+                httpServer.createContext("/effects/dragon", new DragonEndpoint());*/
+
+                httpServer.start();
+            } catch (IOException | NullPointerException e) {
+                logger.severe(ExceptionUtils.getMessage(e));
+                logger.severe(ExceptionUtils.getStackTrace(e));
+            }
         }
 
         this.getCommand("point").setExecutor(new PointCmd());
+        Bukkit.getLogger().info("\n" +
+                "__________               _________                _________         \n" +
+                "___  ____/_____  _______ __  ____/______ ________ ______  /_____  __\n" +
+                "__  __/   __  / / /_  _ \\_  /     _  __ `/__  __ \\_  __  / __  / / /\n" +
+                "_  /___   _  /_/ / /  __// /___   / /_/ / _  / / // /_/ /  _  /_/ / \n" +
+                "/_____/   _\\__, /  \\___/ \\____/   \\__,_/  /_/ /_/ \\__,_/   _\\__, /  \n" +
+                "          /____/                                           /____/   \n"
+        );
+        Bukkit.getLogger().info("Made fresh every day for your eyeholes.");
     }
 
     @Override
     public void onDisable() {
         httpServer.stop(0);
+        httpExecutor.shutdown();
     }
 }

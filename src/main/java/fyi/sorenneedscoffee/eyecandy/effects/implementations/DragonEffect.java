@@ -53,9 +53,9 @@ public class DragonEffect implements Toggleable {
 
     @Override
     public void execute(EffectAction action) {
-        Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {
-            if(action == EffectAction.START) {
-                Location loc = point.location;
+        if(action == EffectAction.START) {
+            Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {
+                Location loc = point.getLocation();
                 active = true;
                 dragon = (EnderDragon) loc.getWorld().spawnEntity(loc, EntityType.ENDER_DRAGON);
                 dragon.setSilent(true);
@@ -71,18 +71,22 @@ public class DragonEffect implements Toggleable {
                 packet.setEntityID(dragon.getEntityId());
                 packet.setEntityStatus((byte) 3);
                 EyeCandy.protocolManager.broadcastServerPacket(packet.getHandle());
-            } else if(action == EffectAction.STOP) {
+            });
+        } else if(action == EffectAction.STOP) {
+            Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {
                 active = false;
                 dragon.remove();
                 stand.remove();
                 dragonListener.clear();
-            } else if(action == EffectAction.RESTART) {
+            });
+        } else if(action == EffectAction.RESTART) {
+            Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {
                 WrapperPlayServerEntityStatus packet = new WrapperPlayServerEntityStatus();
                 packet.setEntityID(dragon.getEntityId());
                 packet.setEntityStatus((byte) 3);
                 EyeCandy.protocolManager.broadcastServerPacket(packet.getHandle());
-            }
-        });
+            });
+        }
     }
 
     @Override

@@ -26,6 +26,16 @@ public class DataManager {
         initPointsFile();
     }
 
+    public void initConfigFile() {
+        File configFile = new File(plugin.getDataFolder(), "config.yml");
+        if(!configFile.exists()) {
+            if (configFile.getParentFile().exists()) {
+                configFile.getParentFile().mkdirs();
+            }
+            plugin.saveResource("config.yml", false);
+        }
+    }
+
     private void initPointsFile() {
         pointsFile = new File(plugin.getDataFolder(), "points.yml");
         if(!pointsFile.exists()) {
@@ -48,17 +58,29 @@ public class DataManager {
         if(section == null) {
             section = points.createSection("points");
         }
-        section.set(point.id+".world", point.location.getWorld().getName());
-        section.set(point.id+".vector", point.location.toVector());
+        Location loc = point.getLocation();
+        section.set(point.id+".world", loc.getWorld().getName());
+        section.set(point.id+".vector", loc.toVector());
         try {
             points.save(pointsFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        EyeCandy.pointUtil.refresh();
     }
 
-    public void removePointFromFile(Point point) {
+    public int getAvailableId() {
+        int result = 0;
+        for(String key : points.getConfigurationSection("points").getKeys(false)) {
+            if(key.equals(Integer.toString(result)))
+                result++;
+        }
+        return result;
+    }
 
+    public void removePointFromFile(int id) {
+        points.set("points."+id, null);
+        EyeCandy.pointUtil.refresh();
     }
 
     public List<Point> loadPoints() {
