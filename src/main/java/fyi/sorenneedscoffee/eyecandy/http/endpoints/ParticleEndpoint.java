@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ParticleStartEndpoint extends Endpoint {
+public class ParticleEndpoint extends Endpoint {
 
-    public ParticleStartEndpoint() {
+    public ParticleEndpoint() {
         super("POST");
     }
 
@@ -28,7 +28,13 @@ public class ParticleStartEndpoint extends Endpoint {
             return;
         }
 
-        UUID id = UUID.fromString(queryToMap(httpExchange.getRequestURI().getQuery()).get("id"));
+        String sId = queryToMap(httpExchange.getRequestURI().getQuery()).get("id");
+        UUID id;
+        if (sId == null)
+            id = null;
+        else
+            id = UUID.fromString(sId);
+
         ParticleModel[] request = EyeCandy.gson.fromJson(body, ParticleModel[].class);
         EffectGroup group = new EffectGroup(id);
         for(ParticleModel model : request) {
@@ -47,7 +53,17 @@ public class ParticleStartEndpoint extends Endpoint {
             ParticleEffect effect = new ParticleEffect(region, particle);
             group.add(effect);
         }
-        EffectManager.startEffect(group);
+
+        if(httpExchange.getRequestURI().getPath().contains("start"))
+            EffectManager.startEffect(group);
+        else if(httpExchange.getRequestURI().getPath().contains("trigger"))
+            EffectManager.triggerEffect(group);
+
         respond(httpExchange, 200);
+    }
+
+    @Override
+    protected boolean checkPath(String path) {
+        return path.contains("start") || path.contains("trigger");
     }
 }

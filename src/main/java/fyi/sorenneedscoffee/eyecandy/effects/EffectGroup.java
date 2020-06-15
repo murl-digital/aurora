@@ -40,6 +40,10 @@ public class EffectGroup {
         });
     }
 
+    public void restartAll() {
+        effects.forEach(e -> e.execute(EffectAction.RESTART));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

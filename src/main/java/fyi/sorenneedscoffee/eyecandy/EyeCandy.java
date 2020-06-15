@@ -7,11 +7,11 @@ import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.eyecandy.commands.PointCmd;
 import fyi.sorenneedscoffee.eyecandy.http.RestHandler;
 import fyi.sorenneedscoffee.eyecandy.http.TestHandler;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.DragonStartEndpoint;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.ParticleStartEndpoint;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.ParticleTriggerEndpoint;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.DragonEndpoint;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.ParticleEndpoint;
 import fyi.sorenneedscoffee.eyecandy.http.endpoints.StopEndpoint;
 import fyi.sorenneedscoffee.eyecandy.util.DataManager;
+import fyi.sorenneedscoffee.eyecandy.util.EffectManager;
 import fyi.sorenneedscoffee.eyecandy.util.EntityHider;
 import fyi.sorenneedscoffee.eyecandy.util.PointUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -74,14 +74,13 @@ public final class EyeCandy extends JavaPlugin {
 
                 handler.register("/test", new TestHandler());
                 handler.register("/effects/stop", new StopEndpoint());
-                handler.register("/effects/dragon/start", new DragonStartEndpoint());
-                handler.register("/effects/particle/start", new ParticleStartEndpoint());
-                handler.register("/effects/particle/trigger", new ParticleTriggerEndpoint());
+                handler.register("/effects/dragon", new DragonEndpoint());
+                handler.register("/effects/particle", new ParticleEndpoint());
 
                 httpServer.createContext("/", handler);
 
                 /*httpServer.createContext("/test", new TestHandler());
-                httpServer.createContext("/effects/dragon", new DragonStartEndpoint());*/
+                httpServer.createContext("/effects/dragon", new DragonEndpoint());*/
 
                 httpServer.start();
             } catch (IOException | NullPointerException e) {
@@ -99,12 +98,15 @@ public final class EyeCandy extends JavaPlugin {
                 "/_____/   _\\__, /  \\___/ \\____/   \\__,_/  /_/ /_/ \\__,_/   _\\__, /  \n" +
                 "          /____/                                           /____/   \n"
         );
-        Bukkit.getLogger().info("Made fresh every day for your eyeholes.");
+        Bukkit.getLogger().info("Made fresh every day for your eyeholes");
     }
 
     @Override
     public void onDisable() {
+        EyeCandy.logger.info("Shutting down HTTP server...");
         httpServer.stop(0);
         httpExecutor.shutdown();
+        EyeCandy.logger.info("Stopping currently active effects...");
+        EffectManager.stopAll();
     }
 }

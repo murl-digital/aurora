@@ -24,4 +24,9 @@ public class StopEndpoint extends Endpoint {
 
         respond(httpExchange, 200);
     }
+
+    @Override
+    protected boolean checkPath(String path) {
+        return path.equals("/effects/stop");
+    }
 }
