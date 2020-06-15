@@ -84,7 +84,8 @@ public class DragonEffect extends Effect {
                 active = false;
 
                 dragon.remove();
-                stand.remove();
+                if(stand != null)
+                    stand.remove();
                 dragonListener.clear();
             });
         } else if (action == EffectAction.RESTART) {
