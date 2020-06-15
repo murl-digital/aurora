@@ -11,9 +11,9 @@ import fyi.sorenneedscoffee.eyecandy.util.Point;
 
 import java.util.UUID;
 
-public class DragonStartEndpoint extends Endpoint {
+public class DragonEndpoint extends Endpoint {
 
-    public DragonStartEndpoint() {
+    public DragonEndpoint() {
         super("POST");
     }
 
@@ -25,17 +25,27 @@ public class DragonStartEndpoint extends Endpoint {
         }
 
         UUID id = UUID.fromString(queryToMap(httpExchange.getRequestURI().getQuery()).get("id"));
-        DragonModel[] request = EyeCandy.gson.fromJson(body, DragonModel[].class);
+        if(httpExchange.getRequestURI().getPath().contains("restart")) {
+            EffectManager.restartEffect(id);
+        } else {
+            DragonModel[] request = EyeCandy.gson.fromJson(body, DragonModel[].class);
 
-        EffectGroup effectGroup = new EffectGroup(id);
-        for (DragonModel model : request) {
-            Point point = EyeCandy.pointUtil.getPoint(model.pointId);
-            DragonEffect effect = new DragonEffect(point, model.isStatic);
-            effectGroup.add(effect);
+            EffectGroup group = new EffectGroup(id);
+            for (DragonModel model : request) {
+                Point point = EyeCandy.pointUtil.getPoint(model.pointId);
+                DragonEffect effect = new DragonEffect(point, model.isStatic);
+                group.add(effect);
+            }
+
+            if (httpExchange.getRequestURI().getPath().contains("start"))
+                EffectManager.startEffect(group);
         }
 
-        EffectManager.startEffect(effectGroup);
-
         respond(httpExchange, 200);
+    }
+
+    @Override
+    protected boolean checkPath(String path) {
+        return path.contains("start") || path.contains("restart");
     }
 }

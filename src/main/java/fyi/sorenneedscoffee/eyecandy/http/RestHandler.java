@@ -20,11 +20,13 @@ public class RestHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String path = httpExchange.getRequestURI().getPath();
-        if (endpoints.containsKey(path)) {
-            endpoints.get(path).handle(httpExchange);
-        } else {
-            httpExchange.sendResponseHeaders(404, 0);
-            httpExchange.getResponseBody().close();
+        for(String key : endpoints.keySet()) {
+            if(path.contains(key)) {
+                endpoints.get(key).handle(httpExchange);
+                return;
+            }
         }
+        httpExchange.sendResponseHeaders(404, 0);
+        httpExchange.getResponseBody().close();
     }
 }

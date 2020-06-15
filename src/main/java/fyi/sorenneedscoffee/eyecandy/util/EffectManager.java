@@ -21,6 +21,11 @@ public class EffectManager {
         activeEffects.remove(effectGroup);
     }
 
+    public static void restartEffect(UUID uuid) {
+        EffectGroup effectGroup = findEffect(uuid);
+        effectGroup.restartAll();
+    }
+
     public static void stopAll() {
         activeEffects.forEach(EffectGroup::stopAll);
         activeEffects.clear();

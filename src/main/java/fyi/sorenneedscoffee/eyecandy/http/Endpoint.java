@@ -20,6 +20,11 @@ public abstract class Endpoint implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+        if (!checkPath(httpExchange.getRequestURI().getPath())) {
+            respond(httpExchange, 404);
+            return;
+        }
+
         if (!method.equals(httpExchange.getRequestMethod())) {
             respond(httpExchange, 400);
             return;
@@ -43,6 +48,7 @@ public abstract class Endpoint implements HttpHandler {
     }
 
     protected abstract void process(HttpExchange httpExchange, String body) throws Exception;
+    protected abstract boolean checkPath(String path);
 
     protected boolean isInvalid(String jsonInString) {
         try {
