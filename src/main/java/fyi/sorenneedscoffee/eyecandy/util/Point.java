@@ -13,7 +13,7 @@ public class Point {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Point) {
+        if (obj instanceof Point) {
             return id == ((Point) obj).id;
         }
 

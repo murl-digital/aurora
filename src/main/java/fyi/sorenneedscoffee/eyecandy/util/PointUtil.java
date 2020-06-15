@@ -1,9 +1,7 @@
 package fyi.sorenneedscoffee.eyecandy.util;
 
 import fyi.sorenneedscoffee.eyecandy.EyeCandy;
-import org.bukkit.Location;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PointUtil {
