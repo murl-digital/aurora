@@ -69,6 +69,7 @@ public class WrapperPlayServerAdvancements extends AbstractPacket {
      * Retrieve Reset/Clear.
      * <p>
      * Notes: whether to reset/clear the current advancements
+     *
      * @return The current Reset/Clear
      */
     public boolean isReset() {
@@ -77,6 +78,7 @@ public class WrapperPlayServerAdvancements extends AbstractPacket {
 
     /**
      * Set Reset/Clear.
+     *
      * @param value - new value.
      */
     public void setReset(boolean value) {

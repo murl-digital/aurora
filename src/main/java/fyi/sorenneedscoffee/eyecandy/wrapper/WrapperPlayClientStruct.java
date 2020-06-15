@@ -39,6 +39,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Location.
      * <p>
      * Notes: block entity location
+     *
      * @return The current Location
      */
     public BlockPosition getLocation() {
@@ -47,6 +48,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Location.
+     *
      * @param value - new value.
      */
     public void setLocation(BlockPosition value) {
@@ -57,6 +59,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Action.
      * <p>
      * Notes: an additional action to perform beyond simply saving the given data; see below
+     *
      * @return The current Action
      */
     public UpdateType getAction() {
@@ -65,6 +68,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Action.
+     *
      * @param value - new value.
      */
     public void setAction(UpdateType value) {
@@ -75,6 +79,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Mode.
      * <p>
      * Notes: one of SAVE (0), LOAD (1), CORNER (2), DATA (3).
+     *
      * @return The current Mode
      */
     public BlockPropertyStructureMode getMode() {
@@ -83,6 +88,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Mode.
+     *
      * @param value - new value.
      */
     public void setMode(BlockPropertyStructureMode value) {
@@ -91,6 +97,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Retrieve Name.
+     *
      * @return The current Name
      */
     public String getName() {
@@ -99,6 +106,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Name.
+     *
      * @param value - new value.
      */
     public void setName(String value) {
@@ -109,6 +117,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Offset X, Y, and Z
      * <p>
      * Notes: between -32 and 32
+     *
      * @return The current Offset X, Y, Z
      */
     public BlockPosition getOffsets() {
@@ -117,6 +126,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Offset X, Y, and Z
+     *
      * @param value - new value.
      */
     public void setOffsets(BlockPosition value) {
@@ -127,6 +137,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Size X, Y, and Z
      * <p>
      * Notes: between -32 and 32
+     *
      * @return The current Size X, Y, and Z
      */
     public BlockPosition getSizes() {
@@ -135,6 +146,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Size X, Y, and Z
+     *
      * @param value - new value.
      */
     public void setSizes(BlockPosition value) {
@@ -145,6 +157,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Mirror.
      * <p>
      * Notes: one of NONE (0), LEFT_RIGHT (1), FRONT_BACK (2).
+     *
      * @return The current Mirror
      */
     public BlockMirror getMirror() {
@@ -153,6 +166,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Mirror.
+     *
      * @param value - new value.
      */
     public void setMirror(BlockMirror value) {
@@ -163,6 +177,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Rotation.
      * <p>
      * Notes: one of NONE (0), CLOCKWISE_90 (1), CLOCKWISE_180 (2), COUNTERCLOCKWISE_90 (3).
+     *
      * @return The current Rotation
      */
     public BlockRotation getRotation() {
@@ -171,6 +186,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Rotation.
+     *
      * @param value - new value.
      */
     public void setRotation(BlockRotation value) {
@@ -179,6 +195,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Retrieve Metadata.
+     *
      * @return The current Metadata
      */
     public String getMetadata() {
@@ -187,6 +204,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Metadata.
+     *
      * @param value - new value.
      */
     public void setMetadata(String value) {
@@ -197,6 +215,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * Retrieve Integrity.
      * <p>
      * Notes: between 0 and 1
+     *
      * @return The current Integrity
      */
     public float getIntegrity() {
@@ -205,6 +224,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Integrity.
+     *
      * @param value - new value.
      */
     public void setIntegrity(float value) {
@@ -213,6 +233,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Retrieve Seed.
+     *
      * @return The current Seed
      */
     public long getSeed() {
@@ -221,6 +242,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
     /**
      * Set Seed.
+     *
      * @param value - new value.
      */
     public void setSeed(long value) {

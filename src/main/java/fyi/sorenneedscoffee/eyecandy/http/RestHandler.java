@@ -19,8 +19,8 @@ public class RestHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        String path = httpExchange.getRequestURI().toString();
-        if(endpoints.containsKey(path)) {
+        String path = httpExchange.getRequestURI().getPath();
+        if (endpoints.containsKey(path)) {
             endpoints.get(path).handle(httpExchange);
         } else {
             httpExchange.sendResponseHeaders(404, 0);

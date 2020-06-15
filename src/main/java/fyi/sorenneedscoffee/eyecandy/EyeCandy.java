@@ -5,9 +5,12 @@ import com.comphenix.protocol.ProtocolManager;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.eyecandy.commands.PointCmd;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.DragonEndpoint;
 import fyi.sorenneedscoffee.eyecandy.http.RestHandler;
 import fyi.sorenneedscoffee.eyecandy.http.TestHandler;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.DragonStartEndpoint;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.ParticleStartEndpoint;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.ParticleTriggerEndpoint;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.StopEndpoint;
 import fyi.sorenneedscoffee.eyecandy.util.DataManager;
 import fyi.sorenneedscoffee.eyecandy.util.EntityHider;
 import fyi.sorenneedscoffee.eyecandy.util.PointUtil;
@@ -44,8 +47,8 @@ public final class EyeCandy extends JavaPlugin {
         logger = this.getLogger();
         gson = new Gson();
 
-        if(plugin.getDataFolder().mkdirs()) {
-            if(!new File(plugin.getDataFolder(), "config.yml").exists()) {
+        if (plugin.getDataFolder().mkdirs()) {
+            if (!new File(plugin.getDataFolder(), "config.yml").exists()) {
                 plugin.saveDefaultConfig();
             }
         }
@@ -55,8 +58,9 @@ public final class EyeCandy extends JavaPlugin {
         hider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
         protocolManager = ProtocolLibrary.getProtocolManager();
         dataManager = new DataManager(plugin);
+        pointUtil = new PointUtil().load();
 
-        if(config.getBoolean("remote.enabled")) {
+        if (config.getBoolean("remote.enabled")) {
             String hostname = config.getString("remote.httpHostname");
             int port = config.getInt("remote.httpPort");
 
@@ -69,12 +73,15 @@ public final class EyeCandy extends JavaPlugin {
                 httpServer.setExecutor(httpExecutor);
 
                 handler.register("/test", new TestHandler());
-                handler.register("/effects/dragon", new DragonEndpoint());
+                handler.register("/effects/stop", new StopEndpoint());
+                handler.register("/effects/dragon/start", new DragonStartEndpoint());
+                handler.register("/effects/particle/start", new ParticleStartEndpoint());
+                handler.register("/effects/particle/trigger", new ParticleTriggerEndpoint());
 
                 httpServer.createContext("/", handler);
 
                 /*httpServer.createContext("/test", new TestHandler());
-                httpServer.createContext("/effects/dragon", new DragonEndpoint());*/
+                httpServer.createContext("/effects/dragon", new DragonStartEndpoint());*/
 
                 httpServer.start();
             } catch (IOException | NullPointerException e) {

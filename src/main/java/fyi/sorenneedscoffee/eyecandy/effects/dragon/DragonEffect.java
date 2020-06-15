@@ -1,12 +1,12 @@
-package fyi.sorenneedscoffee.eyecandy.effects.implementations;
+package fyi.sorenneedscoffee.eyecandy.effects.dragon;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import fyi.sorenneedscoffee.eyecandy.EyeCandy;
+import fyi.sorenneedscoffee.eyecandy.effects.Effect;
 import fyi.sorenneedscoffee.eyecandy.effects.EffectAction;
-import fyi.sorenneedscoffee.eyecandy.effects.Toggleable;
 import fyi.sorenneedscoffee.eyecandy.util.Point;
 import fyi.sorenneedscoffee.eyecandy.wrapper.WrapperPlayServerEntityStatus;
 import fyi.sorenneedscoffee.eyecandy.wrapper.WrapperPlayServerNamedSoundEffect;
@@ -29,20 +29,24 @@ import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class DragonEffect implements Toggleable {
+public class DragonEffect extends Effect {
     protected static boolean active = false;
-    protected static EnderDragon dragon;
-    protected static ArmorStand stand;
-    private DragonEffect.DragonListener dragonListener;
-    public Point point;
-    public boolean isStatic = true;
+    public final Point point;
+    public final boolean isStatic;
+    protected ArmorStand stand;
+    protected EnderDragon dragon;
+    private DragonListener dragonListener;
+
+    public DragonEffect(Point point, boolean isStatic) {
+        this.point = point;
+        this.isStatic = isStatic;
+    }
 
     @Override
-    public void init(Point point) {
-        dragonListener = new DragonEffect.DragonListener(EyeCandy.plugin);
+    public void init() {
+        dragonListener = new DragonListener(EyeCandy.plugin, this);
         EyeCandy.protocolManager.addPacketListener(dragonListener);
         getServer().getPluginManager().registerEvents(dragonListener, EyeCandy.plugin);
-        this.point = point;
     }
 
     @Override
@@ -53,13 +57,15 @@ public class DragonEffect implements Toggleable {
 
     @Override
     public void execute(EffectAction action) {
-        if(action == EffectAction.START) {
+        if (action == EffectAction.START) {
             Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {
                 Location loc = point.getLocation();
                 active = true;
                 dragon = (EnderDragon) loc.getWorld().spawnEntity(loc, EntityType.ENDER_DRAGON);
                 dragon.setSilent(true);
-                if(isStatic) {
+
+                stand = null;
+                if (isStatic) {
                     stand = loc.getWorld().spawn(loc.subtract(0, 2.0, 0), ArmorStand.class);
                     stand.setGravity(false);
                     stand.setMarker(true);
@@ -67,19 +73,21 @@ public class DragonEffect implements Toggleable {
                     stand.addPassenger(dragon);
                 }
 
+
                 WrapperPlayServerEntityStatus packet = new WrapperPlayServerEntityStatus();
                 packet.setEntityID(dragon.getEntityId());
                 packet.setEntityStatus((byte) 3);
                 EyeCandy.protocolManager.broadcastServerPacket(packet.getHandle());
             });
-        } else if(action == EffectAction.STOP) {
+        } else if (action == EffectAction.STOP) {
             Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {
                 active = false;
+
                 dragon.remove();
                 stand.remove();
                 dragonListener.clear();
             });
-        } else if(action == EffectAction.RESTART) {
+        } else if (action == EffectAction.RESTART) {
             Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {
                 WrapperPlayServerEntityStatus packet = new WrapperPlayServerEntityStatus();
                 packet.setEntityID(dragon.getEntityId());
@@ -89,24 +97,17 @@ public class DragonEffect implements Toggleable {
         }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof DragonEffect) {
-            return ((DragonEffect) obj).point.equals(point);
-        }
+    private static class DragonListener extends PacketAdapter implements Listener {
+        private final List<UUID> watchList = new ArrayList<>();
+        private final DragonEffect effect;
 
-        return false;
-    }
-
-    public static class DragonListener extends PacketAdapter implements Listener {
-        private static final List<UUID> watchList = new ArrayList<>();
-
-        public DragonListener(Plugin plugin) {
+        public DragonListener(Plugin plugin, DragonEffect effect) {
             super(plugin,
                     ListenerPriority.NORMAL,
                     PacketType.Play.Server.NAMED_SOUND_EFFECT,
                     PacketType.Play.Client.POSITION
             );
+            this.effect = effect;
         }
 
         protected void watch(UUID uuid) {
@@ -134,8 +135,9 @@ public class DragonEffect implements Toggleable {
             if (!watchList.isEmpty() && event.getPacketType() == PacketType.Play.Client.POSITION) {
                 if (watchList.contains(event.getPlayer().getUniqueId())) {
                     WrapperPlayServerEntityStatus packet = new WrapperPlayServerEntityStatus();
-                    packet.setEntityID(dragon.getEntityId());
+                    packet.setEntityID(effect.dragon.getEntityId());
                     packet.setEntityStatus((byte) 3);
+
                     try {
                         EyeCandy.protocolManager.sendServerPacket(event.getPlayer(), packet.getHandle());
                     } catch (InvocationTargetException e) {

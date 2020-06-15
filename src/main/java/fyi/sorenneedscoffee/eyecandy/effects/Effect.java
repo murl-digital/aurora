@@ -1,8 +1,10 @@
 package fyi.sorenneedscoffee.eyecandy.effects;
 
-import fyi.sorenneedscoffee.eyecandy.util.Point;
+public abstract class Effect {
 
-public interface Effect {
-    public void init(Point point);
-    public void cleanup();
+    public abstract void init();
+
+    public abstract void execute(EffectAction action);
+
+    public abstract void cleanup();
 }
