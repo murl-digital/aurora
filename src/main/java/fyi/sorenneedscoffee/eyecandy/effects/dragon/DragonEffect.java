@@ -53,6 +53,7 @@ public class DragonEffect extends Effect {
     public void cleanup() {
         EyeCandy.protocolManager.removePacketListener(dragonListener);
         HandlerList.unregisterAll(dragonListener);
+        dragonListener.clear();
     }
 
     @Override
@@ -86,7 +87,6 @@ public class DragonEffect extends Effect {
                 dragon.remove();
                 if(stand != null)
                     stand.remove();
-                dragonListener.clear();
             });
         } else if (action == EffectAction.RESTART) {
             Bukkit.getScheduler().runTask(EyeCandy.plugin, () -> {

@@ -2,6 +2,7 @@ package fyi.sorenneedscoffee.eyecandy.http.requests;
 
 import com.google.common.base.MoreObjects;
 import com.google.gson.annotations.SerializedName;
+import fyi.sorenneedscoffee.eyecandy.effects.particle.RegionType;
 
 public class RegionModel {
     @SerializedName("pointIDs")
