@@ -1,7 +1,5 @@
 package fyi.sorenneedscoffee.eyecandy.effects.particle;
 
-import fyi.sorenneedscoffee.eyecandy.EyeCandy;
-import fyi.sorenneedscoffee.eyecandy.http.requests.RegionType;
 import fyi.sorenneedscoffee.eyecandy.util.Point;
 import org.bukkit.Location;
 import org.mariuszgromada.math.mxparser.Function;
@@ -9,9 +7,6 @@ import org.mariuszgromada.math.mxparser.Function;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Consumer;
-
-import static java.lang.Double.NaN;
 
 public class Region {
     private final Point[] points;

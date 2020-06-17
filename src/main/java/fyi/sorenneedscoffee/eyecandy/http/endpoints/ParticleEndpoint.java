@@ -42,7 +42,13 @@ public class ParticleEndpoint extends Endpoint {
             for(int i : model.region.pointIds) {
                 points.add(EyeCandy.pointUtil.getPoint(i));
             }
-            Region region = new Region(points.toArray(new Point[0]), model.region.type, model.region.density, model.region.randomized, model.region.equation);
+            Region region = new Region(
+                    points.toArray(new Point[0]),
+                    model.region.type,
+                    model.region.density,
+                    !httpExchange.getRequestURI().getPath().contains("trigger") && model.region.randomized,
+                    model.region.equation
+            );
             Particle particle;
             try {
                 particle = Particle.valueOf(model.name);

@@ -7,10 +7,7 @@ import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.eyecandy.commands.PointCmd;
 import fyi.sorenneedscoffee.eyecandy.http.RestHandler;
 import fyi.sorenneedscoffee.eyecandy.http.TestHandler;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.DragonEndpoint;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.ParticleEndpoint;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.StopEndpoint;
-import fyi.sorenneedscoffee.eyecandy.http.endpoints.TimeShiftEndpoint;
+import fyi.sorenneedscoffee.eyecandy.http.endpoints.*;
 import fyi.sorenneedscoffee.eyecandy.util.DataManager;
 import fyi.sorenneedscoffee.eyecandy.util.EffectManager;
 import fyi.sorenneedscoffee.eyecandy.util.EntityHider;
@@ -78,6 +75,7 @@ public final class EyeCandy extends JavaPlugin {
                 handler.register("/effects/dragon", new DragonEndpoint());
                 handler.register("/effects/particle", new ParticleEndpoint());
                 handler.register("/effects/time", new TimeShiftEndpoint());
+                handler.register("/effects/potion", new GlobalPotionEndpoint());
 
                 httpServer.createContext("/", handler);
 
