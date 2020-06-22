@@ -1,34 +1,37 @@
 package fyi.sorenneedscoffee.eyecandy.http.endpoints;
 
-import com.sun.net.httpserver.HttpExchange;
 import fyi.sorenneedscoffee.eyecandy.EyeCandy;
-import fyi.sorenneedscoffee.eyecandy.effects.dragon.DragonEffect;
 import fyi.sorenneedscoffee.eyecandy.effects.EffectGroup;
+import fyi.sorenneedscoffee.eyecandy.effects.dragon.DragonEffect;
 import fyi.sorenneedscoffee.eyecandy.http.Endpoint;
 import fyi.sorenneedscoffee.eyecandy.http.requests.DragonModel;
 import fyi.sorenneedscoffee.eyecandy.util.EffectManager;
 import fyi.sorenneedscoffee.eyecandy.util.Point;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.util.UUID;
 
 public class DragonEndpoint extends Endpoint {
 
-    public DragonEndpoint() {
-        super("POST");
-    }
+    @Path("/effects/{id}/start/dragon")
+    @POST
+    @Consumes("application/json")
+    public Response process(@PathParam("id") UUID id, InputStream stream) {
+        try {
+            byte[] target = new byte[stream.available()];
+            stream.read(target);
+            String in = new String(target);
 
-    @Override
-    protected void process(HttpExchange httpExchange, String body) throws Exception {
-        if (isInvalid(body)) {
-            respond(httpExchange, 400);
-            return;
-        }
+            if (isInvalid(in)) {
+                return Response.status(400).build();
+            }
 
-        UUID id = UUID.fromString(queryToMap(httpExchange.getRequestURI().getQuery()).get("id"));
-        if(httpExchange.getRequestURI().getPath().contains("restart")) {
-            EffectManager.restartEffect(id);
-        } else {
-            DragonModel[] request = EyeCandy.gson.fromJson(body, DragonModel[].class);
+            DragonModel[] request = EyeCandy.gson.fromJson(in, DragonModel[].class);
 
             EffectGroup group = new EffectGroup(id);
             for (DragonModel model : request) {
@@ -37,15 +40,26 @@ public class DragonEndpoint extends Endpoint {
                 group.add(effect);
             }
 
-            if (httpExchange.getRequestURI().getPath().contains("start"))
-                EffectManager.startEffect(group);
+            EffectManager.startEffect(group);
+        } catch (Exception e) {
+            return Response.serverError().build();
         }
 
-        respond(httpExchange, 200);
+        return Response.ok().build();
     }
 
-    @Override
-    protected boolean checkPath(String path) {
-        return path.contains("start") || path.contains("restart");
+    @POST
+    @Path("/effects/{id}/restart/dragon")
+    public Response stop(@PathParam("id") UUID id) {
+        if (!EffectManager.exists(id))
+            return Response.status(404).build();
+
+        try {
+            EffectManager.restartEffect(id);
+        } catch (Exception e) {
+            return Response.serverError().build();
+        }
+
+        return Response.ok().build();
     }
 }

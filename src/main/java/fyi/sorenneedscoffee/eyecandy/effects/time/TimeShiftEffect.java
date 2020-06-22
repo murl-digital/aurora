@@ -11,13 +11,11 @@ import org.bukkit.scheduler.BukkitTask;
 public class TimeShiftEffect extends Effect {
     private final World world;
     private final long amount;
-    private final long period;
     private BukkitTask task;
 
-    public TimeShiftEffect(Point point, long amount, long period) {
+    public TimeShiftEffect(Point point, long amount) {
         world = point.getLocation().getWorld();
         this.amount = amount;
-        this.period = period;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class TimeShiftEffect extends Effect {
     @Override
     public void execute(EffectAction action) {
         if (action == EffectAction.START) {
-            task = Bukkit.getScheduler().runTaskTimer(EyeCandy.plugin, () -> world.setTime(world.getTime() + this.amount), 0, period);
+            task = Bukkit.getScheduler().runTaskTimer(EyeCandy.plugin, () -> world.setTime(world.getTime() + this.amount), 0, 1);
         } else if (action == EffectAction.STOP) {
             task.cancel();
         }

@@ -5,8 +5,6 @@ import com.comphenix.protocol.ProtocolManager;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.eyecandy.commands.PointCmd;
-import fyi.sorenneedscoffee.eyecandy.http.RestHandler;
-import fyi.sorenneedscoffee.eyecandy.http.TestHandler;
 import fyi.sorenneedscoffee.eyecandy.http.endpoints.*;
 import fyi.sorenneedscoffee.eyecandy.util.DataManager;
 import fyi.sorenneedscoffee.eyecandy.util.EffectManager;
@@ -16,10 +14,12 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 
+import javax.ws.rs.core.UriBuilder;
 import java.io.File;
-import java.io.IOException;
-import java.net.InetSocketAddress;
+import java.net.URI;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -64,26 +64,15 @@ public final class EyeCandy extends JavaPlugin {
 
             try {
                 logger.info("Starting HTTP Server...");
-                RestHandler handler = new RestHandler();
-                httpServer = HttpServer.create(new InetSocketAddress(Objects.requireNonNull(hostname), port), 0);
+                URI base = UriBuilder.fromUri("http://"+Objects.requireNonNull(hostname)+"/").port(port).build();
+                ResourceConfig resourceConfig = new ResourceConfig().packages("fyi.sorenneedscoffee.eyecandy.http.endpoints");
+                httpServer = JdkHttpServerFactory.createHttpServer(base, resourceConfig, false);
 
                 httpExecutor = Executors.newCachedThreadPool();
                 httpServer.setExecutor(httpExecutor);
 
-                handler.register("/test", new TestHandler());
-                handler.register("/effects/stop", new StopEndpoint());
-                handler.register("/effects/dragon", new DragonEndpoint());
-                handler.register("/effects/particle", new ParticleEndpoint());
-                handler.register("/effects/time", new TimeShiftEndpoint());
-                handler.register("/effects/potion", new GlobalPotionEndpoint());
-
-                httpServer.createContext("/", handler);
-
-                /*httpServer.createContext("/test", new TestHandler());
-                httpServer.createContext("/effects/dragon", new DragonEndpoint());*/
-
                 httpServer.start();
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 logger.severe(ExceptionUtils.getMessage(e));
                 logger.severe(ExceptionUtils.getStackTrace(e));
             }

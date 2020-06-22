@@ -1,32 +1,27 @@
 package fyi.sorenneedscoffee.eyecandy.http.endpoints;
 
-import com.sun.net.httpserver.HttpExchange;
-import fyi.sorenneedscoffee.eyecandy.http.Endpoint;
 import fyi.sorenneedscoffee.eyecandy.util.EffectManager;
 
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-public class StopEndpoint extends Endpoint {
+@Path("effects/{id}/stop")
+public class StopEndpoint {
 
-    public StopEndpoint() {
-        super("POST");
-    }
+    @POST
+    public Response stop(@PathParam("id") UUID id) {
+        if (!EffectManager.exists(id))
+            return Response.status(404).build();
 
-    @Override
-    protected void process(HttpExchange httpExchange, String body) throws Exception {
-        String sId = queryToMap(httpExchange.getRequestURI().getQuery()).get("id");
-        if("all".equals(sId)) {
-            EffectManager.stopAll();
-        } else {
-            UUID id = UUID.fromString(sId);
+        try {
             EffectManager.stopEffect(id);
+        } catch (Exception e) {
+            return Response.serverError().build();
         }
 
-        respond(httpExchange, 200);
-    }
-
-    @Override
-    protected boolean checkPath(String path) {
-        return path.equals("/effects/stop");
+        return Response.ok().build();
     }
 }

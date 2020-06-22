@@ -35,6 +35,10 @@ public class EffectManager {
         group.triggerAll();
     }
 
+    public static boolean exists(UUID id) {
+        return findEffect(id) != null;
+    }
+
     private static EffectGroup findEffect(UUID id) {
         Optional<EffectGroup> effect = activeEffects.stream().filter(e -> e.id.equals(id)).findAny();
 

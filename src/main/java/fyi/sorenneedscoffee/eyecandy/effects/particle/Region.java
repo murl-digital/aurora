@@ -98,8 +98,8 @@ public class Region {
     }
 
     private void generateCuboid(LogicalFunction function) {
-        Location pos1 = points[0].getLocation();
-        Location pos2 = points[1].getLocation();
+        Location pos1 = points[0].getLocation().getY() < points[1].getLocation().getY() ? points[0].getLocation() : points[1].getLocation();
+        Location pos2 = points[1].getLocation().getY() > points[0].getLocation().getY() ? points[1].getLocation() : points[0].getLocation();
         int xMult = pos1.getX() < pos2.getX() ? 1 : -1;
         int yMult = pos1.getY() < pos2.getY() ? 1 : -1;
         int zMult = pos1.getZ() < pos2.getZ() ? 1 : -1;
