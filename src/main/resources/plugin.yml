@@ -1,6 +1,6 @@
-name: EyeCandy
+name: Aurora
 version: @version@
-main: fyi.sorenneedscoffee.eyecandy.EyeCandy
+main: fyi.sorenneedscoffee.aurora.Aurora
 api-version: 1.13
 depend: [ProtocolLib]
 authors: [SorenNeedsCoffee]
