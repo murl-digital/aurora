@@ -55,11 +55,16 @@ public class GlobalPotionEffect extends Effect {
             });
         } else if(action == EffectAction.STOP) {
             active = false;
-            Bukkit.getScheduler().runTask(Aurora.plugin, () -> {
-                for(Player player : world.getPlayers()) {
+            Runnable run = () -> {
+                for (Player player : world.getPlayers()) {
                     player.removePotionEffect(potionEffect.getType());
                 }
-            });
+            };
+            try {
+                Bukkit.getScheduler().runTask(Aurora.plugin, run);
+            } catch (Exception e) {
+                run.run();
+            }
         }
     }
 

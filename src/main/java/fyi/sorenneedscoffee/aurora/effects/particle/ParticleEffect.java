@@ -1,8 +1,10 @@
 package fyi.sorenneedscoffee.aurora.effects.particle;
 
+import com.comphenix.protocol.wrappers.WrappedParticle;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
+import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerWorldParticles;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -32,19 +34,32 @@ public class ParticleEffect extends Effect {
     @Override
     public void execute(EffectAction action) {
         runnable = () -> {
+            WrapperPlayServerWorldParticles packet = new WrapperPlayServerWorldParticles();
+            packet.setParticleType(WrappedParticle.create(particle, null));
+            packet.setLongDistance(true);
+            packet.setNumberOfParticles(1);
             for (Location location : particleLocations) {
                 if (region.type == RegionType.CUBOID || region.type == RegionType.EQUATION) {
                     if (region.randomized && action != EffectAction.TRIGGER) {
                         if (random.nextDouble() <= region.density) {
-                            location.getWorld().spawnParticle(particle, location, 1);
+                            packet.setX(location.getX());
+                            packet.setY(location.getY());
+                            packet.setZ(location.getZ());
+                            Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
                         }
                     } else {
                         if (random.nextDouble() <= 0.75) {
-                            location.getWorld().spawnParticle(particle, location, 1);
+                            packet.setX(location.getX());
+                            packet.setY(location.getY());
+                            packet.setZ(location.getZ());
+                            Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
                         }
                     }
                 } else {
-                    location.getWorld().spawnParticle(particle, location, 1);
+                    packet.setX(location.getX());
+                    packet.setY(location.getY());
+                    packet.setZ(location.getZ());
+                    Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
                 }
             }
         };

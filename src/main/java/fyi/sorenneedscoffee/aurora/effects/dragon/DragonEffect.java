@@ -81,13 +81,18 @@ public class DragonEffect extends Effect {
                 Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
             });
         } else if (action == EffectAction.STOP) {
-            Bukkit.getScheduler().runTask(Aurora.plugin, () -> {
+            Runnable run = () -> {
                 active = false;
 
                 dragon.remove();
                 if(stand != null)
                     stand.remove();
-            });
+            };
+            try {
+                Bukkit.getScheduler().runTask(Aurora.plugin, run);
+            } catch (Exception e) {
+                run.run();
+            }
         } else if (action == EffectAction.RESTART) {
             Bukkit.getScheduler().runTask(Aurora.plugin, () -> {
                 WrapperPlayServerEntityStatus packet = new WrapperPlayServerEntityStatus();

@@ -12,8 +12,7 @@ import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DataManager {
     private final Aurora plugin;
@@ -23,16 +22,6 @@ public class DataManager {
     public DataManager(Aurora plugin) {
         this.plugin = plugin;
         initPointsFile();
-    }
-
-    public void initConfigFile() {
-        File configFile = new File(plugin.getDataFolder(), "config.yml");
-        if (!configFile.exists()) {
-            if (configFile.getParentFile().exists()) {
-                configFile.getParentFile().mkdirs();
-            }
-            plugin.saveResource("config.yml", false);
-        }
     }
 
     private void initPointsFile() {
@@ -65,16 +54,13 @@ public class DataManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Aurora.pointUtil.refresh();
     }
 
-    public int getAvailableId() {
-        int result = 0;
-        for (String key : points.getConfigurationSection("points").getKeys(false)) {
-            if (key.equals(Integer.toString(result)))
-                result++;
+    public void savePoints(Set<Point> set) {
+        points.set("points", null);
+        for (Point point : set) {
+            addPointToFile(point);
         }
-        return result;
     }
 
     public void removePointFromFile(int id) {
@@ -82,12 +68,17 @@ public class DataManager {
         Aurora.pointUtil.refresh();
     }
 
-    public List<Point> loadPoints() {
+    public TreeSet<Point> loadPoints() {
+        try {
+            points.load(pointsFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
         ConfigurationSection section = points.getConfigurationSection("points");
         if (section == null) {
             section = points.createSection("points");
         }
-        List<Point> points = new ArrayList<>();
+        TreeSet<Point> points = new TreeSet<>();
         for (String key : section.getKeys(false)) {
             World world = Bukkit.getWorld(section.getConfigurationSection(key).getString("world"));
             Vector vector = section.getConfigurationSection(key).getVector("vector");

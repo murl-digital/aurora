@@ -16,13 +16,17 @@ public class PointCmd implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if(args[0].equals("reload") || args[0].equals("refresh")) {
+            Aurora.pointUtil.refresh();
+            return true;
+        }
+
         if (sender instanceof Player) {
             if (args[0].equals("add")) {
                 return AddPoint.execute(sender, args.length > 1 ? Arrays.copyOfRange(args, 1, args.length) : null);
             } else if (args[0].equals("remove")) {
                 return RemovePoint.execute(sender, args.length > 1 ? Arrays.copyOfRange(args, 1, args.length) : null);
             } else {
-                sender.sendMessage(ChatColor.RED + "Invalid argument. Usage: /point <add, remove>");
                 return false;
             }
         }
@@ -32,9 +36,9 @@ public class PointCmd implements CommandExecutor {
 
     private static class AddPoint {
         protected static boolean execute(CommandSender sender, String[] args) {
-            int id = Aurora.dataManager.getAvailableId();
+            int id = Aurora.pointUtil.getAvailableId();
             if (args == null)
-                Aurora.dataManager.addPointToFile(new Point(id, ((Player) sender).getLocation()));
+                Aurora.pointUtil.savePoint(new Point(id, ((Player) sender).getLocation()));
             else {
                 if (args.length != 3) {
                     sender.sendMessage(ChatColor.RED + "Invalid arguments. Expected: /point add <x> <y> <z> (XYZ should be absolute)");

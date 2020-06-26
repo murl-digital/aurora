@@ -17,12 +17,15 @@ import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.util.UUID;
 
-@Path("/effects/{id}/start/potion")
+@Path("/effects/potion/{id}")
 public class GlobalPotionEndpoint extends Endpoint {
 
+    @Path("/start")
     @POST
     @Consumes("application/json")
     public Response start(@PathParam("id") UUID id, InputStream stream) {
+        if (EffectManager.exists(id))
+            return Response.status(400).build();
         try {
             byte[] target = new byte[stream.available()];
             stream.read(target);
@@ -34,6 +37,8 @@ public class GlobalPotionEndpoint extends Endpoint {
 
             GlobalPotionModel[] request = Aurora.gson.fromJson(in, GlobalPotionModel[].class);
             Point point = Aurora.pointUtil.getPoint(0);
+            if (point == null)
+                return Response.status(400).build();
 
             EffectGroup group = new EffectGroup(id);
             for (GlobalPotionModel model : request) {

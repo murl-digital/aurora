@@ -1,7 +1,37 @@
-# EyeCandy
-_Made fresh every day for your eyeholes_
+```
+  ` : | | | |:  ||  :     `  :  |  |+|: | : : :|   .        `              .
+      ` : | :|  ||  |:  :    `  |  | :| : | : |:   |  .                    :
+         .' ':  ||  |:  |  '       ` || | : | |: : |   .  `           .   :.
+                `'  ||  |  ' |   *    ` : | | :| |*|  :   :               :|
+        *    *       `  |  : :  |  .      ` ' :| | :| . : :         *   :.||
+             .`            | |  |  : .:|       ` | || | : |: |          | ||
+      '          .         + `  |  :  .: .         '| | : :| :    .   |:| ||
+         .                 .    ` *|  || :       `    | | :| | :      |:| |
+ .                .          .        || |.: *          | || : :     :|||
+        .            ._______                                   
+                      ___    |___  ___________________________ _
+                      __  /| |  / / /_  ___/  __ \_  ___/  __ `/
+                      _  ___ / /_/ /_  /   / /_/ /  /   / /_/ / 
+                      /_/  |_\__,_/ /_/    \____//_/    \__,_/  
+                                                                
+                         . *    .   .  ` |||.  +        + '| |||  .  ||`
+     .             *              .     +:`|!             . ||||  :.||`
+ +                      .                ..!|*          . | :`||+ |||`
+     .                         +      : |||`        .| :| | | |.| ||`     .
+       *     +   '               +  :|| |`     :.+. || || | |:`|| `
+                            .      .||` .    ..|| | |: '` `| | |`  +
+  .       +++                      ||        !|!: `       :| |
+              +         .      .    | .      `|||.:      .||    .      .    `
+          '                           `|.   .  `:|||   + ||'     `
+  __    +      *                         `'       `'|.    `:
+"'  `---"""----....____,..^---`^``----.,.___          `.    `.  .    ____,.,-
+    ___,--'""`---"'   ^  ^ ^        ^       """'---,..___ __,..---""'
+--"'      &nnbsp;                    ^                         ``--..,__
+D. Rice                                          
+```
+_Ooooo, pretty lights_
 
-EyeCandy is a java plugin designed to run on minecraft servers with the spigot or paper architecture.
+Aurora is part of Project Stardust, alongside [SolarWind](https://github.com/eynorey/solarwind), and is a java plugin designed to run on minecraft servers with the spigot or paper architecture.
 
 ## Installation
 **This plugin requires ProtocolLib to work!**

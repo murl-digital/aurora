@@ -20,12 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Path("effects/particle/{id}")
 public class ParticleEndpoint extends Endpoint {
 
-    @Path("/effects/{id}/start/particle")
+    @Path("/start")
     @POST
     @Consumes("application/json")
     public Response start(@PathParam("id") UUID id, InputStream stream) {
+        if (EffectManager.exists(id))
+            return Response.status(400).build();
         try {
             byte[] target = new byte[stream.available()];
             stream.read(target);
@@ -39,7 +42,7 @@ public class ParticleEndpoint extends Endpoint {
             try {
                 group = constructGroup(id, in, false);
             } catch (IllegalArgumentException e) {
-                return Response.status(244).build();
+                return Response.status(422).build();
             }
 
             EffectManager.startEffect(group);
@@ -50,7 +53,7 @@ public class ParticleEndpoint extends Endpoint {
         return Response.ok().build();
     }
 
-    @Path("/effects/{id}/trigger/particle")
+    @Path("/trigger")
     @POST
     @Consumes("application/json")
     public Response trigger(@PathParam("id") UUID id, InputStream stream) {
@@ -67,7 +70,9 @@ public class ParticleEndpoint extends Endpoint {
             try {
                 group = constructGroup(id, in, true);
             } catch (IllegalArgumentException e) {
-                return Response.status(244).build();
+                return Response.status(422).build();
+            } catch (NullPointerException e) {
+                return Response.status(400).build();
             }
 
             EffectManager.triggerEffect(group);
@@ -78,12 +83,15 @@ public class ParticleEndpoint extends Endpoint {
         return Response.ok().build();
     }
 
-    private EffectGroup constructGroup(UUID id, String jsonString, boolean ignoreRandomized) throws IllegalArgumentException {
+    private EffectGroup constructGroup(UUID id, String jsonString, boolean ignoreRandomized) throws IllegalArgumentException, NullPointerException {
         ParticleModel[] request = Aurora.gson.fromJson(jsonString, ParticleModel[].class);
         EffectGroup group = new EffectGroup(id);
         for (ParticleModel model : request) {
             List<Point> points = new ArrayList<>();
             for (int i : model.region.pointIds) {
+                Point point = Aurora.pointUtil.getPoint(i);
+                if (point == null)
+                    throw new NullPointerException();
                 points.add(Aurora.pointUtil.getPoint(i));
             }
             Region region = new Region(

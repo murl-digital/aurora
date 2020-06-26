@@ -16,12 +16,15 @@ import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.util.UUID;
 
+@Path("/effects/dragon/{id}")
 public class DragonEndpoint extends Endpoint {
 
-    @Path("/effects/{id}/start/dragon")
+    @Path("/start")
     @POST
     @Consumes("application/json")
     public Response process(@PathParam("id") UUID id, InputStream stream) {
+        if (EffectManager.exists(id))
+            return Response.status(400).build();
         try {
             byte[] target = new byte[stream.available()];
             stream.read(target);
@@ -36,6 +39,9 @@ public class DragonEndpoint extends Endpoint {
             EffectGroup group = new EffectGroup(id);
             for (DragonModel model : request) {
                 Point point = Aurora.pointUtil.getPoint(model.pointId);
+                if (point == null) {
+                    return Response.status(400).build();
+                }
                 DragonEffect effect = new DragonEffect(point, model.isStatic);
                 group.add(effect);
             }
@@ -49,7 +55,7 @@ public class DragonEndpoint extends Endpoint {
     }
 
     @POST
-    @Path("/effects/{id}/restart/dragon")
+    @Path("/restart")
     public Response stop(@PathParam("id") UUID id) {
         if (!EffectManager.exists(id))
             return Response.status(404).build();

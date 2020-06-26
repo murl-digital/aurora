@@ -1,8 +1,9 @@
 package fyi.sorenneedscoffee.aurora.util;
 
 import org.bukkit.Location;
+import org.jetbrains.annotations.NotNull;
 
-public class Point {
+public class Point implements Comparable<Point> {
     public final int id;
     private final Location location;
 
@@ -22,5 +23,11 @@ public class Point {
 
     public Location getLocation() {
         return location.clone();
+    }
+
+
+    @Override
+    public int compareTo(@NotNull Point o) {
+        return Integer.compare(id, o.id);
     }
 }

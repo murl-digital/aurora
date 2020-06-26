@@ -5,21 +5,30 @@ import com.comphenix.protocol.ProtocolManager;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
+import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.endpoints.DragonEndpoint;
+import fyi.sorenneedscoffee.aurora.http.endpoints.GlobalPotionEndpoint;
+import fyi.sorenneedscoffee.aurora.http.endpoints.ParticleEndpoint;
+import fyi.sorenneedscoffee.aurora.http.endpoints.StopEndpoint;
 import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.EntityHider;
 import fyi.sorenneedscoffee.aurora.util.PointUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.reflections.Reflections;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
-import java.util.Objects;
+import java.net.URL;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -64,7 +73,12 @@ public final class Aurora extends JavaPlugin {
             try {
                 logger.info("Starting HTTP Server...");
                 URI base = UriBuilder.fromUri("http://"+Objects.requireNonNull(hostname)+"/").port(port).build();
-                ResourceConfig resourceConfig = new ResourceConfig().packages("fyi.sorenneedscoffee.aurora.http.endpoints");
+                Reflections reflections = new Reflections("fyi.sorenneedscoffee.aurora.http.endpoints");
+                Set<Class<? extends Endpoint>> subTypes = reflections.getSubTypesOf(Endpoint.class);
+                ResourceConfig resourceConfig = new ResourceConfig();
+                for (Class<? extends Endpoint> e : subTypes) {
+                    resourceConfig.register(e);
+                }
                 httpServer = JdkHttpServerFactory.createHttpServer(base, resourceConfig, false);
 
                 httpExecutor = Executors.newCachedThreadPool();
@@ -79,14 +93,14 @@ public final class Aurora extends JavaPlugin {
 
         this.getCommand("point").setExecutor(new PointCmd());
         Bukkit.getLogger().info("\n" +
-                "__________               _________                _________         \n" +
-                "___  ____/_____  _______ __  ____/______ ________ ______  /_____  __\n" +
-                "__  __/   __  / / /_  _ \\_  /     _  __ `/__  __ \\_  __  / __  / / /\n" +
-                "_  /___   _  /_/ / /  __// /___   / /_/ / _  / / // /_/ /  _  /_/ / \n" +
-                "/_____/   _\\__, /  \\___/ \\____/   \\__,_/  /_/ /_/ \\__,_/   _\\__, /  \n" +
-                "          /____/                                           /____/   \n"
+                "_______                                   \n" +
+                "___    |___  ___________________________ _\n" +
+                "__  /| |  / / /_  ___/  __ \\_  ___/  __ `/\n" +
+                "_  ___ / /_/ /_  /   / /_/ /  /   / /_/ / \n" +
+                "/_/  |_\\__,_/ /_/    \\____//_/    \\__,_/  \n" +
+                "                                          \n"
         );
-        Bukkit.getLogger().info("Made fresh every day for your eyeholes");
+        Bukkit.getLogger().info("Oooo, pretty lights");
     }
 
     @Override
