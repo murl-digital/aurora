@@ -31,7 +31,7 @@ D. Rice
 ```
 _Ooooo, pretty lights_
 
-Aurora is part of Project Stardust, alongside [SolarWind](https://github.com/eynorey/solarwind), and is a java plugin designed to run on minecraft servers with the spigot or paper architecture.
+Aurora is part of Project Stardust, alongside [Solarflare](https://github.com/eynorey/solarflare), and is a java plugin designed to run on minecraft servers with the spigot or paper architecture.
 
 ## Installation
 **This plugin requires ProtocolLib to work!**
