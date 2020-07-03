@@ -4,7 +4,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.time.TimeShiftEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.requests.TimeShiftModel;
+import fyi.sorenneedscoffee.aurora.http.models.TimeShiftModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
 
@@ -31,7 +31,7 @@ public class TimeShiftEndpoint extends Endpoint {
             stream.read(target);
             String in = new String(target);
 
-            if (isInvalid(in)) {
+            if (isInvalid(in, TimeShiftModel[].class)) {
                 return Response.status(400).build();
             }
 

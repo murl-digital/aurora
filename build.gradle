@@ -36,6 +36,7 @@ dependencies {
     implementation 'org.glassfish.jersey.core:jersey-server:2.31'
     implementation 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.31'
     implementation 'org.glassfish.jersey.inject:jersey-hk2:2.31'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens

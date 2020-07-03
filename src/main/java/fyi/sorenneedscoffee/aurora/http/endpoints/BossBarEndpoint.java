@@ -2,12 +2,12 @@ package fyi.sorenneedscoffee.aurora.http.endpoints;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.potion.GlobalPotionEffect;
+import fyi.sorenneedscoffee.aurora.effects.bossbar.BossBarEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.models.GlobalPotionModel;
+import fyi.sorenneedscoffee.aurora.http.models.BossBarModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.boss.BarColor;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.util.UUID;
 
-@Path("/effects/potion/{id}")
-public class GlobalPotionEndpoint extends Endpoint {
+@Path("/effects/{id}/bar")
+public class BossBarEndpoint extends Endpoint {
 
     @Path("/start")
     @POST
@@ -26,34 +26,34 @@ public class GlobalPotionEndpoint extends Endpoint {
     public Response start(@PathParam("id") UUID id, InputStream stream) {
         if (EffectManager.exists(id))
             return Response.status(400).build();
+
         try {
             byte[] target = new byte[stream.available()];
             stream.read(target);
             String in = new String(target);
 
-            if (isInvalid(in, GlobalPotionModel[].class)) {
+            if(isInvalid(in, BossBarModel.class))
                 return Response.status(400).build();
-            }
 
-            GlobalPotionModel[] request = Aurora.gson.fromJson(in, GlobalPotionModel[].class);
+            BossBarModel model = Aurora.gson.fromJson(in, BossBarModel.class);
             Point point = Aurora.pointUtil.getPoint(0);
             if (point == null)
                 return Response.status(400).build();
 
-            EffectGroup group = new EffectGroup(id);
-            for (GlobalPotionModel model : request) {
-                PotionEffectType type = PotionEffectType.getByName(model.potionType);
-                if (type == null) {
-                    return Response.status(422).build();
-                }
-                group.add(new GlobalPotionEffect(point, type, model.amplifier));
+            BarColor color;
+            try {
+                color = BarColor.valueOf(model.color);
+            } catch (IllegalArgumentException e) {
+                return Response.status(422).build();
             }
 
+            EffectGroup group = new EffectGroup(id);
+            group.add(new BossBarEffect(id, color, model.title));
+
             EffectManager.startEffect(group);
+            return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().build();
         }
-
-        return Response.ok().build();
     }
 }

@@ -5,7 +5,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.particle.ParticleEffect;
 import fyi.sorenneedscoffee.aurora.effects.particle.Region;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.requests.ParticleModel;
+import fyi.sorenneedscoffee.aurora.http.models.ParticleModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
 import org.bukkit.Particle;
@@ -34,7 +34,7 @@ public class ParticleEndpoint extends Endpoint {
             stream.read(target);
             String in = new String(target);
 
-            if (isInvalid(in)) {
+            if (isInvalid(in, ParticleModel[].class)) {
                 return Response.status(400).build();
             }
 
@@ -62,7 +62,7 @@ public class ParticleEndpoint extends Endpoint {
             stream.read(target);
             String in = new String(target);
 
-            if (isInvalid(in)) {
+            if (isInvalid(in, ParticleModel[].class)) {
                 return Response.status(400).build();
             }
 

@@ -4,7 +4,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.dragon.DragonEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.requests.DragonModel;
+import fyi.sorenneedscoffee.aurora.http.models.DragonModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
 
@@ -30,7 +30,7 @@ public class DragonEndpoint extends Endpoint {
             stream.read(target);
             String in = new String(target);
 
-            if (isInvalid(in)) {
+            if (isInvalid(in, DragonModel[].class)) {
                 return Response.status(400).build();
             }
 

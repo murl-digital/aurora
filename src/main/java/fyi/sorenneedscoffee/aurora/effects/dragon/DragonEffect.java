@@ -45,15 +45,11 @@ public class DragonEffect extends Effect {
     @Override
     public void init() {
         dragonListener = new DragonListener(Aurora.plugin, this);
-        Aurora.protocolManager.addPacketListener(dragonListener);
-        getServer().getPluginManager().registerEvents(dragonListener, Aurora.plugin);
     }
 
     @Override
     public void cleanup() {
-        Aurora.protocolManager.removePacketListener(dragonListener);
-        HandlerList.unregisterAll(dragonListener);
-        dragonListener.clear();
+
     }
 
     @Override
@@ -74,6 +70,8 @@ public class DragonEffect extends Effect {
                     stand.addPassenger(dragon);
                 }
 
+                Aurora.protocolManager.addPacketListener(dragonListener);
+                getServer().getPluginManager().registerEvents(dragonListener, Aurora.plugin);
 
                 WrapperPlayServerEntityStatus packet = new WrapperPlayServerEntityStatus();
                 packet.setEntityID(dragon.getEntityId());
@@ -87,6 +85,10 @@ public class DragonEffect extends Effect {
                 dragon.remove();
                 if(stand != null)
                     stand.remove();
+
+                Aurora.protocolManager.removePacketListener(dragonListener);
+                HandlerList.unregisterAll(dragonListener);
+                dragonListener.clear();
             };
             try {
                 Bukkit.getScheduler().runTask(Aurora.plugin, run);
