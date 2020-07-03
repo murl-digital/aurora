@@ -1,1 +1,13 @@
+#   !!IMPORTANT!!
+#
+#   When adding points manually, follow this format:
+#   '0':
+#    world: <world that the point resides in, world is the default.>
+#    vector:
+#      ==: Vector
+#      x: -236.5
+#      y: 69.0
+#      z: 64.5
+#
+#   THE XYZ COORDS MUST BE IN DECIMAL FORMAT
 points:

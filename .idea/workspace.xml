@@ -20,8 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72809433-2548-4821-b637-9c6ab9e03468" name="Default Changelist" comment=".gitignore update 2">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/BossBarEndpoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/BossBarModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/Aurora.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/Aurora.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/bossbar/BossBarEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/bossbar/BossBarEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/dragon/DragonEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/dragon/DragonEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/DragonEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/DragonEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/GlobalPotionEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/GlobalPotionEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/ParticleEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/ParticleEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/TimeShiftEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/TimeShiftEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/DragonModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/DragonModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/GlobalPotionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/GlobalPotionModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/ParticleModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/ParticleModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/RegionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/RegionModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/TimeShiftModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/TimeShiftModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,28 +64,22 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="aurora" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="aurora" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="aurora" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="eyecandy" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="eyecandy" type="f1a62948:ProjectNode" />
+                <item name="aurora" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="shadow" type="c8890929:TasksNode$1" />
               </path>
@@ -98,6 +107,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
   <component name="ProjectId" id="1cdEoYukulM0r5ifXBt8GLXCqch" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -118,9 +130,9 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.34673914" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.statistic.project.settings" />
   </component>
@@ -131,6 +143,7 @@
       <recent name="fyi.sorenneedscoffee.eyecandy.wrappers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\josep\IdeaProjects\aurora\devserver\plugins" />
       <recent name="C:\Users\josep\IdeaProjects\eyecandy\devserver\plugins" />
       <recent name="C:\Users\josep\IdeaProjects\eyecandy\devserver" />
     </key>
@@ -141,8 +154,8 @@
       <recent name="fyi.sorenneedscoffee.eyecandy.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.eyecandy [shadowJar]">
-    <configuration name="eyecandy [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.aurora [shadowJar]">
+    <configuration name="aurora [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -161,26 +174,7 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="eyecandy [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="eyecandy [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="aurora [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -199,30 +193,12 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="eyecandy [startDevServer]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="startDevServer" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="server.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/devserver/server.jar" />
       <option name="VM_PARAMETERS" value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\josep\IdeaProjects\eyecandy\devserver" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\josep\IdeaProjects\aurora\devserver" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <method v="2" />
     </configuration>
     <configuration name="Spigot" type="Remote">
@@ -240,20 +216,16 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.eyecandy [jar]" />
-      <item itemvalue="Gradle.eyecandy [startDevServer]" />
-      <item itemvalue="Gradle.eyecandy [shadowJar]" />
+      <item itemvalue="Gradle.aurora [shadowJar]" />
+      <item itemvalue="Gradle.aurora [clean]" />
       <item itemvalue="JAR Application.server.jar" />
       <item itemvalue="Remote.Spigot" />
-      <item itemvalue="Gradle.eyecandy [clean]" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JAR Application.server.jar" />
-        <item itemvalue="Gradle.eyecandy [shadowJar]" />
-        <item itemvalue="Gradle.eyecandy [clean]" />
-        <item itemvalue="Gradle.eyecandy [jar]" />
-        <item itemvalue="Gradle.eyecandy [startDevServer]" />
+        <item itemvalue="Gradle.aurora [clean]" />
+        <item itemvalue="Gradle.aurora [shadowJar]" />
       </list>
     </recent_temporary>
   </component>
@@ -263,7 +235,6 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="72809433-2548-4821-b637-9c6ab9e03468" name="Default Changelist" comment="" />
-      <changelist id="" name="added additional project files" comment="" />
       <created>1590850245675</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -277,6 +248,9 @@
       <workItem from="1591888142200" duration="9551000" />
       <workItem from="1591975235089" duration="11983000" />
       <workItem from="1592080737492" duration="45299000" />
+      <workItem from="1593203188750" duration="1656000" />
+      <workItem from="1593441890917" duration="3543000" />
+      <workItem from="1593461870519" duration="7774000" />
     </task>
     <task id="LOCAL-00001" summary="added a crap ton of packet wrappers">
       <created>1590851619693</created>
@@ -341,7 +315,21 @@
       <option name="project" value="LOCAL" />
       <updated>1592241795167</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="renamed eyecandy to aurora">
+      <created>1592788682343</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1592788682343</updated>
+    </task>
+    <task id="LOCAL-00011" summary="lotsa bug fixes">
+      <created>1593203886734</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1593203886734</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,20 +356,28 @@
     <MESSAGE value="added additional project files" />
     <MESSAGE value="removed local testing server" />
     <MESSAGE value="added particle effects (yay) among other little refactors" />
-    <option name="LAST_COMMIT_MESSAGE" value="added particle effects (yay) among other little refactors" />
+    <MESSAGE value="renamed eyecandy to aurora" />
+    <MESSAGE value="lotsa bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="lotsa bug fixes" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592145971395">
+    <state x="440" y="94" key="#Project_Structure" timestamp="1593623010195">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="440" y="94" key="#Project_Structure/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593623010195" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592834853442">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592834853442" />
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592145971395" />
     <state x="740" y="225" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1591472409052">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="225" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591472409052" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1592163447127">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1593461977587">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593461977587" />
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1592163447127" />
     <state x="690" y="296" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1590850494108">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -407,41 +403,50 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="170" y="115" width="1720" height="840" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591803167694" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1590859782433">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1593622976288">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593622976288" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590859782433" />
-    <state width="928" height="265" key="GridCell.Tab.0.bottom" timestamp="1592236542835">
+    <state width="1877" height="261" key="GridCell.Tab.0.bottom" timestamp="1593457802879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802879" />
     <state width="928" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542835" />
-    <state width="928" height="265" key="GridCell.Tab.0.center" timestamp="1592236542834">
+    <state width="1877" height="261" key="GridCell.Tab.0.center" timestamp="1593457802879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802879" />
     <state width="928" height="265" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542834" />
-    <state width="928" height="265" key="GridCell.Tab.0.left" timestamp="1592236542834">
+    <state width="1877" height="261" key="GridCell.Tab.0.left" timestamp="1593457802878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802878" />
     <state width="928" height="265" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542834" />
-    <state width="928" height="265" key="GridCell.Tab.0.right" timestamp="1592236542835">
+    <state width="1877" height="261" key="GridCell.Tab.0.right" timestamp="1593457802879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802879" />
     <state width="928" height="265" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542835" />
-    <state width="928" height="335" key="GridCell.Tab.1.bottom" timestamp="1592174410261">
+    <state width="1877" height="338" key="GridCell.Tab.1.bottom" timestamp="1593101649246">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
-    <state width="928" height="335" key="GridCell.Tab.1.center" timestamp="1592174410261">
+    <state width="1877" height="338" key="GridCell.Tab.1.center" timestamp="1593101649246">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
-    <state width="928" height="335" key="GridCell.Tab.1.left" timestamp="1592174410261">
+    <state width="1877" height="338" key="GridCell.Tab.1.left" timestamp="1593101649246">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
-    <state width="928" height="335" key="GridCell.Tab.1.right" timestamp="1592174410261">
+    <state width="1877" height="338" key="GridCell.Tab.1.right" timestamp="1593101649246">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
     <state x="775" y="454" key="ReplaceDuplicatesPrompt" timestamp="1592059399360">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -451,17 +456,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="700" y="139" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591635145001" />
-    <state x="440" y="94" key="SettingsEditor" timestamp="1591814419003">
+    <state x="440" y="94" key="SettingsEditor" timestamp="1593622933435">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593622933435" />
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1591814419003" />
     <state x="807" y="427" key="VCS.ChangelistChooser" timestamp="1592080925947">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="807" y="427" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1592080925947" />
-    <state x="552" y="234" key="Vcs.Push.Dialog.v2" timestamp="1592241797935">
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2" timestamp="1593203934169">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593203934169" />
     <state x="552" y="234" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1592241797935" />
     <state x="511" y="167" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1591803812859">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -475,13 +482,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="205" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592059387952" />
-    <state x="649" y="240" width="583" height="566" key="find.popup" timestamp="1592236246001">
+    <state x="649" y="240" width="583" height="624" key="find.popup" timestamp="1592788474432">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="649" y="240" width="583" height="624" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592788474432" />
     <state x="649" y="240" width="583" height="566" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592236246001" />
-    <state x="342" y="84" key="new project wizard" timestamp="1591896313584">
+    <state x="740" y="416" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1592788712989">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="740" y="416" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592788712989" />
+    <state x="342" y="84" key="new project wizard" timestamp="1593445574922">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="342" y="84" key="new project wizard/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593445574922" />
     <state x="342" y="84" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1591896313584" />
     <state x="746" y="257" key="refactoring.ChangeSignatureDialog" timestamp="1592163452323">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -493,15 +506,6 @@
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592000108656" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/eyecandy/util/DataManager.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Remote">
         <watch expression="EyeCandy.pointUtil" language="JAVA" custom="fyi.sorenneedscoffee.eyecandy.EyeCandy" />

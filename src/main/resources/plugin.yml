@@ -1,14 +1,11 @@
-name: EyeCandy
+name: Aurora
 version: @version@
-main: fyi.sorenneedscoffee.eyecandy.EyeCandy
+main: fyi.sorenneedscoffee.aurora.Aurora
 api-version: 1.13
 depend: [ProtocolLib]
 authors: [SorenNeedsCoffee]
-description: A collection of events and utilities for use in events
+description: oooo, pretty lights
 commands:
-  dragon:
-    description: Your description
-    usage: /<command>
   point:
     description: point
-    usage: /<command>
+    usage: "§cUsage: /<command> [add (x, y, z) | remove <id> | reload]"
