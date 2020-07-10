@@ -48,23 +48,18 @@ public class GlobalPotionEffect extends Effect {
     public void execute(EffectAction action) {
         if(action == EffectAction.START) {
             active = true;
-            Bukkit.getScheduler().runTask(Aurora.plugin, () -> {
+            runTask(() -> {
                 for(Player player : world.getPlayers()) {
                     player.addPotionEffect(potionEffect);
                 }
             });
         } else if(action == EffectAction.STOP) {
             active = false;
-            Runnable run = () -> {
+            runTask(() -> {
                 for (Player player : world.getPlayers()) {
                     player.removePotionEffect(potionEffect.getType());
                 }
-            };
-            try {
-                Bukkit.getScheduler().runTask(Aurora.plugin, run);
-            } catch (Exception e) {
-                run.run();
-            }
+            });
         }
     }
 

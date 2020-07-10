@@ -53,15 +53,19 @@ public class BossBarEffect extends Effect {
     @Override
     public void execute(EffectAction action) {
         if (action == EffectAction.START) {
-            Bukkit.getScheduler().runTask(Aurora.plugin, () -> Aurora.protocolManager.broadcastServerPacket(packet.getHandle()));
-            Aurora.protocolManager.addPacketListener(bossBarListener);
-            getServer().getPluginManager().registerEvents(bossBarListener, Aurora.plugin);
+            runTask(() -> {
+                Bukkit.getScheduler().runTask(Aurora.plugin, () -> Aurora.protocolManager.broadcastServerPacket(packet.getHandle()));
+                Aurora.protocolManager.addPacketListener(bossBarListener);
+                getServer().getPluginManager().registerEvents(bossBarListener, Aurora.plugin);
+            });
         } else if (action == EffectAction.STOP) {
-            packet.setAction(WrapperPlayServerBoss.Action.REMOVE);
-            Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
-            Aurora.protocolManager.removePacketListener(bossBarListener);
-            HandlerList.unregisterAll(bossBarListener);
-            bossBarListener.clear();
+            runTask(() -> {
+                packet.setAction(WrapperPlayServerBoss.Action.REMOVE);
+                Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
+                Aurora.protocolManager.removePacketListener(bossBarListener);
+                HandlerList.unregisterAll(bossBarListener);
+                bossBarListener.clear();
+            });
         }
     }
 

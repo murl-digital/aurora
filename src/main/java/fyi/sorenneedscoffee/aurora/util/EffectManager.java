@@ -10,7 +10,7 @@ import java.util.UUID;
 public class EffectManager {
     private static final List<EffectGroup> activeEffects = new ArrayList<>();
 
-    public static void startEffect(EffectGroup group) {
+    public static void startEffect(EffectGroup group) throws Exception {
         group.startAll();
         activeEffects.add(group);
     }
@@ -31,7 +31,7 @@ public class EffectManager {
         activeEffects.clear();
     }
 
-    public static void triggerEffect(EffectGroup group) {
+    public static void triggerEffect(EffectGroup group) throws Exception {
         group.triggerAll();
     }
 

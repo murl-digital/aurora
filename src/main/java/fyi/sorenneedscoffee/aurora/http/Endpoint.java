@@ -8,9 +8,9 @@ import java.util.Map;
 
 public abstract class Endpoint {
 
-    protected boolean isInvalid(String jsonInString, Object target) {
+    protected <T> boolean isInvalid(String jsonInString, Class<T> target) {
         try {
-            Aurora.gson.fromJson(jsonInString, target.getClass());
+            Aurora.gson.fromJson(jsonInString, target);
             return false;
         } catch (JsonSyntaxException e) {
             return true;
