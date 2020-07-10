@@ -55,7 +55,7 @@ public class DragonEffect extends Effect {
     @Override
     public void execute(EffectAction action) {
         if (action == EffectAction.START) {
-            Bukkit.getScheduler().runTask(Aurora.plugin, () -> {
+            runTask(() -> {
                 Location loc = point.getLocation();
                 active = true;
                 dragon = (EnderDragon) loc.getWorld().spawnEntity(loc, EntityType.ENDER_DRAGON);
@@ -79,24 +79,18 @@ public class DragonEffect extends Effect {
                 Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
             });
         } else if (action == EffectAction.STOP) {
-            Runnable run = () -> {
+            runTask(() -> {
                 active = false;
 
                 dragon.remove();
                 if(stand != null)
                     stand.remove();
-
                 Aurora.protocolManager.removePacketListener(dragonListener);
                 HandlerList.unregisterAll(dragonListener);
                 dragonListener.clear();
-            };
-            try {
-                Bukkit.getScheduler().runTask(Aurora.plugin, run);
-            } catch (Exception e) {
-                run.run();
-            }
+            });
         } else if (action == EffectAction.RESTART) {
-            Bukkit.getScheduler().runTask(Aurora.plugin, () -> {
+            runTask(() -> {
                 WrapperPlayServerEntityStatus packet = new WrapperPlayServerEntityStatus();
                 packet.setEntityID(dragon.getEntityId());
                 packet.setEntityStatus((byte) 3);

@@ -64,7 +64,7 @@ public class ParticleEffect extends Effect {
             }
         };
         if (action == EffectAction.TRIGGER) {
-            Bukkit.getScheduler().runTask(Aurora.plugin, runnable);
+            runTask(runnable);
         } else if (action == EffectAction.START) {
             task = Bukkit.getScheduler().runTaskTimer(Aurora.plugin, runnable, 0, 5);
         } else if (action == EffectAction.STOP) {

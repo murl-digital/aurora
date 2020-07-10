@@ -80,7 +80,7 @@ public final class Aurora extends JavaPlugin {
             URI base = null;
             try {
                 base = UriBuilder.fromUri("http://" +
-                        Objects.requireNonNull(hostname.equals("auto") ? InetAddress.getLocalHost().getHostName() : hostname)
+                        Objects.requireNonNull(hostname.equals("auto") ? InetAddress.getLocalHost().getHostAddress() : hostname)
                     + "/").port(port).build();
             } catch (UnknownHostException e) {
                 logger.severe(e.getMessage());
@@ -101,15 +101,18 @@ public final class Aurora extends JavaPlugin {
 
                 httpServer.start();
 
-                logger.info("Registering with SolarWind...");
+                if (config.getBoolean("remote.solarwind.enabled")) {
+                    logger.info("Registering with SolarWind...");
+                    String providedHostname = config.getString("remote.solarwind.providedHostname");
 
-                OkHttpClient client = new OkHttpClient();
-                RequestBody body = RequestBody.create(base.getHost() + ":" + base.getPort(), MediaType.parse(base.getHost() + ":" + base.getPort()));
-                Request request = new Request.Builder()
-                        .url("http://visuals.madzoo.events/register")
-                        .post(body)
-                        .build();
-                client.newCall(request).execute();
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody body = RequestBody.create((providedHostname.equals("auto") ? base.getHost() : providedHostname) + ":" + base.getPort(), MediaType.parse(base.getHost() + ":" + base.getPort()));
+                    Request request = new Request.Builder()
+                            .url(Objects.requireNonNull(config.getString("remote.solarwind.url")))
+                            .post(body)
+                            .build();
+                    client.newCall(request).execute();
+                }
             } catch (Exception e) {
                 logger.severe(ExceptionUtils.getMessage(e));
                 logger.severe(ExceptionUtils.getStackTrace(e));

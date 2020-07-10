@@ -20,23 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72809433-2548-4821-b637-9c6ab9e03468" name="Default Changelist" comment=".gitignore update 2">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/BossBarEndpoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/BossBarModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/laser/LaserEffect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/LaserEndpoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/LaserModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/Aurora.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/Aurora.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/Effect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/Effect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/EffectGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/EffectGroup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/bossbar/BossBarEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/bossbar/BossBarEffect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/dragon/DragonEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/dragon/DragonEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/laser/GuardianLaserEffect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/particle/ParticleEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/particle/ParticleEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/potion/GlobalPotionEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/potion/GlobalPotionEffect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/Endpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/DragonEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/DragonEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/GlobalPotionEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/GlobalPotionEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/ParticleEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/ParticleEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/TimeShiftEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/TimeShiftEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/DragonModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/DragonModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/GlobalPotionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/GlobalPotionModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/ParticleModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/ParticleModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/RegionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/RegionModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/requests/TimeShiftModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/TimeShiftModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/EffectManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/EffectManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,21 +135,21 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.project.statistic.project.settings" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="fyi.sorenneedscoffee.eyecandy.util" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="fyi.sorenneedscoffee.eyecandy.wrapper.util" />
       <recent name="fyi.sorenneedscoffee.eyecandy.wrapper" />
       <recent name="fyi.sorenneedscoffee.eyecandy.wrappers" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fyi.sorenneedscoffee.eyecandy.http.endpoints" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\josep\IdeaProjects\aurora\devserver\plugins" />
       <recent name="C:\Users\josep\IdeaProjects\eyecandy\devserver\plugins" />
       <recent name="C:\Users\josep\IdeaProjects\eyecandy\devserver" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="fyi.sorenneedscoffee.eyecandy.http.endpoints" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="fyi.sorenneedscoffee.eyecandy.util" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.aurora [shadowJar]">
@@ -223,9 +221,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.aurora [shadowJar]" />
         <item itemvalue="JAR Application.server.jar" />
         <item itemvalue="Gradle.aurora [clean]" />
-        <item itemvalue="Gradle.aurora [shadowJar]" />
       </list>
     </recent_temporary>
   </component>
@@ -251,6 +249,12 @@
       <workItem from="1593203188750" duration="1656000" />
       <workItem from="1593441890917" duration="3543000" />
       <workItem from="1593461870519" duration="7774000" />
+      <workItem from="1593913921880" duration="8000" />
+      <workItem from="1594134184538" duration="973000" />
+      <workItem from="1594301727087" duration="1023000" />
+      <workItem from="1594303129098" duration="819000" />
+      <workItem from="1594326603894" duration="1231000" />
+      <workItem from="1594409492877" duration="5456000" />
     </task>
     <task id="LOCAL-00001" summary="added a crap ton of packet wrappers">
       <created>1590851619693</created>
@@ -374,9 +378,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="225" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591472409052" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1593461977587">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1155" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1594413437087">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1155" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594413437087" />
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593461977587" />
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1592163447127" />
     <state x="690" y="296" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1590850494108">
@@ -408,44 +413,52 @@
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593622976288" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590859782433" />
-    <state width="1877" height="261" key="GridCell.Tab.0.bottom" timestamp="1593457802879">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="261" key="GridCell.Tab.0.bottom" timestamp="1594414652969">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594414652969" />
     <state width="1877" height="261" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802879" />
     <state width="928" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542835" />
-    <state width="1877" height="261" key="GridCell.Tab.0.center" timestamp="1593457802879">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="261" key="GridCell.Tab.0.center" timestamp="1594414652969">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594414652969" />
     <state width="1877" height="261" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802879" />
     <state width="928" height="265" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542834" />
-    <state width="1877" height="261" key="GridCell.Tab.0.left" timestamp="1593457802878">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="261" key="GridCell.Tab.0.left" timestamp="1594414652969">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594414652969" />
     <state width="1877" height="261" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802878" />
     <state width="928" height="265" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542834" />
-    <state width="1877" height="261" key="GridCell.Tab.0.right" timestamp="1593457802879">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="261" key="GridCell.Tab.0.right" timestamp="1594414652969">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="261" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594414652969" />
     <state width="1877" height="261" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593457802879" />
     <state width="928" height="265" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592236542835" />
-    <state width="1877" height="338" key="GridCell.Tab.1.bottom" timestamp="1593101649246">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="338" key="GridCell.Tab.1.bottom" timestamp="1594413521906">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594413521906" />
     <state width="1877" height="338" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
-    <state width="1877" height="338" key="GridCell.Tab.1.center" timestamp="1593101649246">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="338" key="GridCell.Tab.1.center" timestamp="1594413521906">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594413521906" />
     <state width="1877" height="338" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
-    <state width="1877" height="338" key="GridCell.Tab.1.left" timestamp="1593101649246">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="338" key="GridCell.Tab.1.left" timestamp="1594413521906">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594413521906" />
     <state width="1877" height="338" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
-    <state width="1877" height="338" key="GridCell.Tab.1.right" timestamp="1593101649246">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="338" key="GridCell.Tab.1.right" timestamp="1594413521906">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="338" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594413521906" />
     <state width="1877" height="338" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593101649246" />
     <state width="928" height="335" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592174410261" />
     <state x="775" y="454" key="ReplaceDuplicatesPrompt" timestamp="1592059399360">
@@ -496,9 +509,10 @@
     </state>
     <state x="342" y="84" key="new project wizard/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1593445574922" />
     <state x="342" y="84" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1591896313584" />
-    <state x="746" y="257" key="refactoring.ChangeSignatureDialog" timestamp="1592163452323">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1174" y="257" key="refactoring.ChangeSignatureDialog" timestamp="1594410609570">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1174" y="257" key="refactoring.ChangeSignatureDialog/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1594410609570" />
     <state x="746" y="257" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592163452323" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1592000108656">
       <screen x="0" y="0" width="1920" height="1040" />

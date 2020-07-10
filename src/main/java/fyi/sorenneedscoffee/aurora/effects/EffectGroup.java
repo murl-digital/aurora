@@ -18,11 +18,11 @@ public class EffectGroup {
         effects.add(effect);
     }
 
-    public void startAll() {
-        effects.forEach(e -> {
+    public void startAll() throws Exception {
+        for (Effect e : effects) {
             e.init();
             e.execute(EffectAction.START);
-        });
+        }
     }
 
     public void stopAll() {
@@ -32,12 +32,12 @@ public class EffectGroup {
         });
     }
 
-    public void triggerAll() {
-        effects.forEach(e -> {
+    public void triggerAll() throws Exception {
+        for (Effect e : effects) {
             e.init();
             e.execute(EffectAction.TRIGGER);
             e.cleanup();
-        });
+        }
     }
 
     public void restartAll() {
