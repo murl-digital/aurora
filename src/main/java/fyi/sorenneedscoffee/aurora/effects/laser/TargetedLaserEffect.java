@@ -11,34 +11,34 @@ import fyi.sorenneedscoffee.aurora.util.Point;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class LaserEffect extends Effect {
+public class TargetedLaserEffect extends Effect {
     private final Point start;
-    private final Point end;
-    private LaserEffect.LaserListener laserListener;
-    protected Laser laser;
+    protected TargetedLaser targetedLaser;
+    private Random random = new Random();
+    private TargetedLaserEffect.LaserListener laserListener;
 
-    public LaserEffect(Point start, Point end) {
+    public TargetedLaserEffect(Point start) {
         this.start = start;
-        this.end = end;
     }
 
     @Override
-    public void init() throws ReflectiveOperationException {
-        laser = new Laser(
+    public void init() throws Exception {
+        List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
+        targetedLaser = new TargetedLaser(
                 start.getLocation(),
-                end.getLocation(),
+                onlinePlayers.get(random.nextInt(onlinePlayers.size())),
                 -1,
                 256
         );
-        laserListener = new LaserListener(Aurora.plugin, this);
+        laserListener = new TargetedLaserEffect.LaserListener(Aurora.plugin, this);
         Aurora.protocolManager.addPacketListener(laserListener);
         Bukkit.getPluginManager().registerEvents(laserListener, Aurora.plugin);
     }
@@ -46,39 +46,43 @@ public class LaserEffect extends Effect {
     @Override
     public void execute(EffectAction action) {
         if (action == EffectAction.START) {
-            runTask(() -> laser.start(Aurora.plugin));
+            runTask(() -> targetedLaser.start(Aurora.plugin));
+        } else if (action == EffectAction.RESTART) {
+            runTask(() -> {
+                List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
+                try {
+                    targetedLaser.moveEnd(onlinePlayers.get(random.nextInt(onlinePlayers.size())));
+                } catch (ReflectiveOperationException ignored) {}
+            });
         } else if (action == EffectAction.STOP) {
-            runTask(() -> laser.stop());
+            runTask(() -> targetedLaser.stop());
         }
     }
 
     @Override
     public void cleanup() {
-        runTask(() -> {
-            Aurora.protocolManager.removePacketListener(laserListener);
-            HandlerList.unregisterAll(laserListener);
-        });
+
     }
 
     private static class LaserListener extends PacketAdapter implements Listener {
         private final List<Player> activePlayers;
-        private final LaserEffect effect;
+        private final TargetedLaserEffect effect;
 
-        protected LaserListener(Plugin plugin, LaserEffect effect) {
+        protected LaserListener(Plugin plugin, TargetedLaserEffect effect) {
             super(plugin,
                     ListenerPriority.NORMAL,
                     PacketType.Play.Client.POSITION
-                );
+            );
             this.effect = effect;
             activePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
         }
 
         @Override
         public void onPacketReceiving(PacketEvent event) {
-            if(effect.laser.isStarted() && !activePlayers.contains(event.getPlayer())) {
+            if(effect.targetedLaser.isStarted() && !activePlayers.contains(event.getPlayer())) {
                 try {
                     activePlayers.add(event.getPlayer());
-                    effect.laser.sendStartPackets(event.getPlayer());
+                    effect.targetedLaser.sendStartPackets(event.getPlayer());
                 } catch (ReflectiveOperationException ignored) {}
             }
         }

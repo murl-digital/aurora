@@ -15,6 +15,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.UUID;
 
 @Path("/effects/{id}/bar")
@@ -28,14 +30,12 @@ public class BossBarEndpoint extends Endpoint {
             return Response.status(400).build();
 
         try {
-            byte[] target = new byte[stream.available()];
-            stream.read(target);
-            String in = new String(target);
+            Reader reader = new InputStreamReader(stream);
 
-            if(isInvalid(in, BossBarModel.class))
+            if(isInvalid(reader, BossBarModel.class))
                 return Response.status(400).build();
 
-            BossBarModel model = Aurora.gson.fromJson(in, BossBarModel.class);
+            BossBarModel model = Aurora.gson.fromJson(reader, BossBarModel.class);
             Point point = Aurora.pointUtil.getPoint(0);
             if (point == null)
                 return Response.status(400).build();

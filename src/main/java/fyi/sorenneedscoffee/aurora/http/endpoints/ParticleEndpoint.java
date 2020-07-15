@@ -16,6 +16,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,17 +32,15 @@ public class ParticleEndpoint extends Endpoint {
         if (EffectManager.exists(id))
             return Response.status(400).build();
         try {
-            byte[] target = new byte[stream.available()];
-            stream.read(target);
-            String in = new String(target);
+            Reader reader = new InputStreamReader(stream);
 
-            if (isInvalid(in, ParticleModel[].class)) {
+            if (isInvalid(reader, ParticleModel[].class)) {
                 return Response.status(400).build();
             }
 
             EffectGroup group;
             try {
-                group = constructGroup(id, in, false);
+                group = constructGroup(id, reader, false);
             } catch (IllegalArgumentException e) {
                 return Response.status(422).build();
             }
@@ -58,17 +58,15 @@ public class ParticleEndpoint extends Endpoint {
     @Consumes("application/json")
     public Response trigger(@PathParam("id") UUID id, InputStream stream) {
         try {
-            byte[] target = new byte[stream.available()];
-            stream.read(target);
-            String in = new String(target);
+            Reader reader = new InputStreamReader(stream);
 
-            if (isInvalid(in, ParticleModel[].class)) {
+            if (isInvalid(reader, ParticleModel[].class)) {
                 return Response.status(400).build();
             }
 
             EffectGroup group;
             try {
-                group = constructGroup(id, in, true);
+                group = constructGroup(id, reader, true);
             } catch (IllegalArgumentException e) {
                 return Response.status(422).build();
             } catch (NullPointerException e) {
@@ -83,8 +81,8 @@ public class ParticleEndpoint extends Endpoint {
         return Response.ok().build();
     }
 
-    private EffectGroup constructGroup(UUID id, String jsonString, boolean ignoreRandomized) throws IllegalArgumentException, NullPointerException {
-        ParticleModel[] request = Aurora.gson.fromJson(jsonString, ParticleModel[].class);
+    private EffectGroup constructGroup(UUID id, Reader reader, boolean ignoreRandomized) throws IllegalArgumentException, NullPointerException {
+        ParticleModel[] request = Aurora.gson.fromJson(reader, ParticleModel[].class);
         EffectGroup group = new EffectGroup(id);
         for (ParticleModel model : request) {
             List<Point> points = new ArrayList<>();
