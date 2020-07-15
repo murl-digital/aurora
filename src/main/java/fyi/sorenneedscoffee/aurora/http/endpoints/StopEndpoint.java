@@ -1,7 +1,9 @@
 package fyi.sorenneedscoffee.aurora.http.endpoints;
 
+import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,11 +22,12 @@ public class StopEndpoint extends Endpoint {
 
         try {
             EffectManager.stopEffect(id);
+            return OK;
         } catch (Exception e) {
-            return Response.serverError().build();
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR;
         }
-
-        return Response.ok().build();
     }
 
     @Path("/all/stop")
@@ -32,10 +35,11 @@ public class StopEndpoint extends Endpoint {
     public Response stopAll() {
         try {
             EffectManager.stopAll();
+            return OK;
         } catch (Exception e) {
-            return Response.serverError().build();
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR;
         }
-
-        return Response.ok().build();
     }
 }

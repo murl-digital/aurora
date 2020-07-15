@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.http.models;
+package fyi.sorenneedscoffee.aurora.http.models.particle;
 
 import com.google.common.base.MoreObjects;
 import com.google.gson.annotations.SerializedName;

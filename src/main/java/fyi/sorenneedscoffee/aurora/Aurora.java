@@ -6,9 +6,10 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.providers.GsonExceptionMapper;
 import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
-import fyi.sorenneedscoffee.aurora.util.EntityHider;
+import fyi.sorenneedscoffee.aurora.http.providers.GsonProvider;
 import fyi.sorenneedscoffee.aurora.util.PointUtil;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -41,7 +42,6 @@ public final class Aurora extends JavaPlugin {
     public static ProtocolManager protocolManager;
     public static PointUtil pointUtil;
     public static DataManager dataManager;
-    public static EntityHider hider;
     public static Gson gson;
 
     public static HttpServer httpServer;
@@ -61,7 +61,6 @@ public final class Aurora extends JavaPlugin {
 
         config = plugin.getConfig();
 
-        hider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
         protocolManager = ProtocolLibrary.getProtocolManager();
         dataManager = new DataManager(plugin);
         pointUtil = new PointUtil().load();
@@ -81,17 +80,21 @@ public final class Aurora extends JavaPlugin {
 
             try {
                 logger.info("Starting HTTP Server at " + base + "...");
+
                 Reflections reflections = new Reflections("fyi.sorenneedscoffee.aurora.http.endpoints");
-                Set<Class<? extends Endpoint>> subTypes = reflections.getSubTypesOf(Endpoint.class);
+                Set<Class<? extends Endpoint>> endpoints = reflections.getSubTypesOf(Endpoint.class);
+
                 ResourceConfig resourceConfig = new ResourceConfig();
-                for (Class<? extends Endpoint> e : subTypes) {
+
+                resourceConfig.register(GsonProvider.class);
+                resourceConfig.register(GsonExceptionMapper.class);
+                for (Class<? extends Endpoint> e : endpoints) {
                     resourceConfig.register(e);
                 }
-                httpServer = JdkHttpServerFactory.createHttpServer(base, resourceConfig, false);
 
+                httpServer = JdkHttpServerFactory.createHttpServer(base, resourceConfig, false);
                 httpExecutor = Executors.newCachedThreadPool();
                 httpServer.setExecutor(httpExecutor);
-
                 httpServer.start();
 
                 if (config.getBoolean("remote.solarwind.enabled")) {

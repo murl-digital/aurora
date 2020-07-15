@@ -1,13 +1,14 @@
-package fyi.sorenneedscoffee.aurora.http.endpoints;
+package fyi.sorenneedscoffee.aurora.http.endpoints.particle;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.particle.ParticleEffect;
 import fyi.sorenneedscoffee.aurora.effects.particle.Region;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.models.ParticleModel;
+import fyi.sorenneedscoffee.aurora.http.models.particle.ParticleModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Particle;
 
 import javax.ws.rs.Consumes;
@@ -15,9 +16,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,61 +26,52 @@ public class ParticleEndpoint extends Endpoint {
     @Path("/start")
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id") UUID id, InputStream stream) {
+    public Response start(@PathParam("id") UUID id, ParticleModel[] request) {
         if (EffectManager.exists(id))
             return Response.status(400).build();
         try {
-            Reader reader = new InputStreamReader(stream);
-
-            if (isInvalid(reader, ParticleModel[].class)) {
-                return Response.status(400).build();
-            }
-
             EffectGroup group;
             try {
-                group = constructGroup(id, reader, false);
+                group = constructGroup(id, request, false);
             } catch (IllegalArgumentException e) {
-                return Response.status(422).build();
+                return UNPROCESSABLE_ENTITY;
             }
 
             EffectManager.startEffect(group);
         } catch (Exception e) {
-            return Response.serverError().build();
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR;
         }
 
-        return Response.ok().build();
+        return OK;
     }
 
     @Path("/trigger")
     @POST
     @Consumes("application/json")
-    public Response trigger(@PathParam("id") UUID id, InputStream stream) {
+    public Response trigger(@PathParam("id") UUID id, ParticleModel[] request) {
         try {
-            Reader reader = new InputStreamReader(stream);
-
-            if (isInvalid(reader, ParticleModel[].class)) {
-                return Response.status(400).build();
-            }
-
             EffectGroup group;
             try {
-                group = constructGroup(id, reader, true);
+                group = constructGroup(id, request, true);
             } catch (IllegalArgumentException e) {
-                return Response.status(422).build();
+                return UNPROCESSABLE_ENTITY;
             } catch (NullPointerException e) {
-                return Response.status(400).build();
+                return BAD_REQUEST;
             }
 
             EffectManager.triggerEffect(group);
         } catch (Exception e) {
-            return Response.serverError().build();
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR;
         }
 
-        return Response.ok().build();
+        return OK;
     }
 
-    private EffectGroup constructGroup(UUID id, Reader reader, boolean ignoreRandomized) throws IllegalArgumentException, NullPointerException {
-        ParticleModel[] request = Aurora.gson.fromJson(reader, ParticleModel[].class);
+    private EffectGroup constructGroup(UUID id, ParticleModel[] request, boolean ignoreRandomized) throws IllegalArgumentException, NullPointerException {
         EffectGroup group = new EffectGroup(id);
         for (ParticleModel model : request) {
             List<Point> points = new ArrayList<>();

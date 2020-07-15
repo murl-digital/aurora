@@ -1,12 +1,13 @@
-package fyi.sorenneedscoffee.aurora.http.endpoints;
+package fyi.sorenneedscoffee.aurora.http.endpoints.dragon;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.dragon.DragonEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.models.DragonModel;
+import fyi.sorenneedscoffee.aurora.http.models.dragon.DragonModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -24,18 +25,11 @@ public class DragonEndpoint extends Endpoint {
     @Path("/start")
     @POST
     @Consumes("application/json")
-    public Response process(@PathParam("id") UUID id, InputStream stream) {
+    public Response process(@PathParam("id") UUID id, DragonModel[] request) {
         if (EffectManager.exists(id))
             return Response.status(400).build();
+
         try {
-            Reader reader = new InputStreamReader(stream);
-
-            if (isInvalid(reader, DragonModel[].class)) {
-                return Response.status(400).build();
-            }
-
-            DragonModel[] request = Aurora.gson.fromJson(reader, DragonModel[].class);
-
             EffectGroup group = new EffectGroup(id);
             for (DragonModel model : request) {
                 Point point = Aurora.pointUtil.getPoint(model.pointId);
@@ -47,25 +41,27 @@ public class DragonEndpoint extends Endpoint {
             }
 
             EffectManager.startEffect(group);
+            return OK;
         } catch (Exception e) {
-            return Response.serverError().build();
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR;
         }
-
-        return Response.ok().build();
     }
 
     @POST
     @Path("/restart")
     public Response stop(@PathParam("id") UUID id) {
         if (!EffectManager.exists(id))
-            return Response.status(404).build();
+            return NOT_FOUND;
 
         try {
             EffectManager.restartEffect(id);
+            return OK;
         } catch (Exception e) {
-            return Response.serverError().build();
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR;
         }
-
-        return Response.ok().build();
     }
 }

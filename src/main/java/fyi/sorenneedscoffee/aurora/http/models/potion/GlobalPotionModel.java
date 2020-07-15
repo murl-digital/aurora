@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.http.models;
+package fyi.sorenneedscoffee.aurora.http.models.potion;
 
 import com.google.gson.annotations.SerializedName;
 
