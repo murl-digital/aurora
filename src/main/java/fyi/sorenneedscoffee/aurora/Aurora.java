@@ -5,12 +5,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
-import fyi.sorenneedscoffee.aurora.effects.bossbar.BossBarEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.endpoints.DragonEndpoint;
-import fyi.sorenneedscoffee.aurora.http.endpoints.GlobalPotionEndpoint;
-import fyi.sorenneedscoffee.aurora.http.endpoints.ParticleEndpoint;
-import fyi.sorenneedscoffee.aurora.http.endpoints.StopEndpoint;
 import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.EntityHider;
@@ -21,7 +16,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
@@ -30,12 +24,11 @@ import org.reflections.Reflections;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.File;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URI;
-import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -81,13 +74,13 @@ public final class Aurora extends JavaPlugin {
             try {
                 base = UriBuilder.fromUri("http://" +
                         Objects.requireNonNull(hostname.equals("auto") ? InetAddress.getLocalHost().getHostAddress() : hostname)
-                    + "/").port(port).build();
+                        + "/").port(port).build();
             } catch (UnknownHostException e) {
                 logger.severe(e.getMessage());
             }
 
             try {
-                logger.info("Starting HTTP Server at "+base+"...");
+                logger.info("Starting HTTP Server at " + base + "...");
                 Reflections reflections = new Reflections("fyi.sorenneedscoffee.aurora.http.endpoints");
                 Set<Class<? extends Endpoint>> subTypes = reflections.getSubTypesOf(Endpoint.class);
                 ResourceConfig resourceConfig = new ResourceConfig();

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Region {
-    private final Point[] points;
     public final RegionType type;
     public final double density;
     public final boolean randomized;
+    private final Point[] points;
     private final String equation;
 
     //The lower the value, the more particles per block. DO NOT PUT THIS BELOW 1.0!!!!
@@ -28,7 +28,7 @@ public class Region {
 
     public List<Location> calculateLocations() {
         List<Location> result = new ArrayList<>();
-        if(type == RegionType.POINTS) {
+        if (type == RegionType.POINTS) {
             for (Point point : points) {
                 result.add(point.getLocation());
             }
@@ -36,21 +36,21 @@ public class Region {
             Random random = new Random();
             generateCuboid((pos1, pos2, x, y, z, xMult, yMult, zMult, a, b) -> {
                 if (randomized)
-                    result.add(pos1.clone().add((x*xMult), (y*yMult), (z*zMult)));
+                    result.add(pos1.clone().add((x * xMult), (y * yMult), (z * zMult)));
                 else if (random.nextDouble() <= density)
-                    result.add(pos1.clone().add((x*xMult), (y*yMult), (z*zMult)));
+                    result.add(pos1.clone().add((x * xMult), (y * yMult), (z * zMult)));
             });
         } else if (type == RegionType.EQUATION) {
-            Function function = new Function("f(x,y)="+equation);
+            Function function = new Function("f(x,y)=" + equation);
             Random random = new Random();
             generateCuboid((pos1, pos2, x, y, z, xMult, yMult, zMult, xDistance, zDistance) -> {
                 if (randomized) {
                     double yCalc = function.calculate(x - (xDistance / 2), z - (zDistance / 2));
-                    if(!Double.isNaN(yCalc))
+                    if (!Double.isNaN(yCalc))
                         result.add(pos1.clone().add((x * xMult), (yCalc * yMult), (z * zMult)));
                 } else if (random.nextDouble() <= density) {
                     double yCalc = function.calculate(x - (xDistance / 2), z - (zDistance / 2));
-                    if(!Double.isNaN(yCalc))
+                    if (!Double.isNaN(yCalc))
                         result.add(pos1.clone().add((x * xMult), (yCalc * yMult), (z * zMult)));
                 }
             });
@@ -66,7 +66,7 @@ public class Region {
         int zMult = pos1.getZ() < pos2.getZ() ? 1 : -1;
         double zDistance = Math.abs(pos1.getZ() - pos2.getZ());
         double xDistance = Math.abs(pos1.getX() - pos2.getX());
-        for(double y = 0; pos1.getY() + y < pos2.getY(); y += resolution) {
+        for (double y = 0; pos1.getY() + y < pos2.getY(); y += resolution) {
             for (double z = 0; z <= zDistance; z += resolution) {
                 for (double x = 0; x <= xDistance; x += resolution) {
                     function.execute(

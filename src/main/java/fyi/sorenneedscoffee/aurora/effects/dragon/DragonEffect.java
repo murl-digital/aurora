@@ -83,7 +83,7 @@ public class DragonEffect extends Effect {
                 active = false;
 
                 dragon.remove();
-                if(stand != null)
+                if (stand != null)
                     stand.remove();
                 Aurora.protocolManager.removePacketListener(dragonListener);
                 HandlerList.unregisterAll(dragonListener);

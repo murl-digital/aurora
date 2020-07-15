@@ -32,7 +32,7 @@ public class BossBarEndpoint extends Endpoint {
         try {
             Reader reader = new InputStreamReader(stream);
 
-            if(isInvalid(reader, BossBarModel.class))
+            if (isInvalid(reader, BossBarModel.class))
                 return Response.status(400).build();
 
             BossBarModel model = Aurora.gson.fromJson(reader, BossBarModel.class);

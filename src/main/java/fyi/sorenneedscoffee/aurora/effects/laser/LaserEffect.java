@@ -22,8 +22,8 @@ import java.util.List;
 public class LaserEffect extends Effect {
     private final Point start;
     private final Point end;
-    private LaserEffect.LaserListener laserListener;
     protected Laser laser;
+    private LaserEffect.LaserListener laserListener;
 
     public LaserEffect(Point start, Point end) {
         this.start = start;
@@ -68,18 +68,19 @@ public class LaserEffect extends Effect {
             super(plugin,
                     ListenerPriority.NORMAL,
                     PacketType.Play.Client.POSITION
-                );
+            );
             this.effect = effect;
             activePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
         }
 
         @Override
         public void onPacketReceiving(PacketEvent event) {
-            if(effect.laser.isStarted() && !activePlayers.contains(event.getPlayer())) {
+            if (effect.laser.isStarted() && !activePlayers.contains(event.getPlayer())) {
                 try {
                     activePlayers.add(event.getPlayer());
                     effect.laser.sendStartPackets(event.getPlayer());
-                } catch (ReflectiveOperationException ignored) {}
+                } catch (ReflectiveOperationException ignored) {
+                }
             }
         }
 

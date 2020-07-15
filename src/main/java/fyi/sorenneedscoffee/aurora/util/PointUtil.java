@@ -2,7 +2,6 @@ package fyi.sorenneedscoffee.aurora.util;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 
-import java.util.List;
 import java.util.TreeSet;
 
 public class PointUtil {

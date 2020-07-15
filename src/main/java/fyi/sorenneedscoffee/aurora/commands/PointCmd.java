@@ -16,7 +16,7 @@ public class PointCmd implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(args[0].equals("reload") || args[0].equals("refresh")) {
+        if (args[0].equals("reload") || args[0].equals("refresh")) {
             Aurora.pointUtil.refresh();
             return true;
         }

@@ -8,7 +8,6 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
 import fyi.sorenneedscoffee.aurora.util.Point;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,14 +45,14 @@ public class GlobalPotionEffect extends Effect {
 
     @Override
     public void execute(EffectAction action) {
-        if(action == EffectAction.START) {
+        if (action == EffectAction.START) {
             active = true;
             runTask(() -> {
-                for(Player player : world.getPlayers()) {
+                for (Player player : world.getPlayers()) {
                     player.addPotionEffect(potionEffect);
                 }
             });
-        } else if(action == EffectAction.STOP) {
+        } else if (action == EffectAction.STOP) {
             active = false;
             runTask(() -> {
                 for (Player player : world.getPlayers()) {
@@ -110,7 +109,7 @@ public class GlobalPotionEffect extends Effect {
 
         @EventHandler
         public void onPlayerLeave(PlayerQuitEvent event) {
-            if(effect.active) {
+            if (effect.active) {
                 event.getPlayer().removePotionEffect(effect.potionEffect.getType());
             }
         }

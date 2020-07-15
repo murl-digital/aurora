@@ -16,10 +16,10 @@ import java.util.Random;
 public class ParticleEffect extends Effect {
     private final Region region;
     private final Particle particle;
+    private final Random random = new Random();
     private List<Location> particleLocations;
     private Runnable runnable;
     private BukkitTask task;
-    private final Random random = new Random();
 
     public ParticleEffect(Region region, Particle particle) {
         this.region = region;

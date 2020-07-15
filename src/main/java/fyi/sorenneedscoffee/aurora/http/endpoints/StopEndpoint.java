@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("effects")
-public class StopEndpoint  extends Endpoint {
+public class StopEndpoint extends Endpoint {
 
     @Path("/{id}/stop")
     @POST

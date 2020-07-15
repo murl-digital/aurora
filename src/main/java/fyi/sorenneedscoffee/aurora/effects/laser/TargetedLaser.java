@@ -20,8 +20,8 @@ import java.util.UUID;
  * Inspired by the API <a href="https://www.spigotmc.org/resources/guardianbeamapi.18329">GuardianBeamAPI</a></br>
  * <b>1.9 -> 1.15</b>
  *
- * @see <a href="https://github.com/SkytAsul/GuardianBeam">GitHub page</a>
  * @author SkytAsul
+ * @see <a href="https://github.com/SkytAsul/GuardianBeam">GitHub page</a>
  */
 class TargetedLaser {
     private final int duration;
@@ -29,24 +29,25 @@ class TargetedLaser {
     private Location start;
 
     private Object createGuardianPacket;
-    private  Object teamAddPacket;
-    private  Object destroyPacket;
-    private  Object metadataPacketGuardian;
-    private  Object fakeGuardianDataWatcher;
+    private Object teamAddPacket;
+    private Object destroyPacket;
+    private Object metadataPacketGuardian;
+    private Object fakeGuardianDataWatcher;
 
     private int guardian;
     private Player target;
     private UUID guardianUUID;
 
     private BukkitRunnable run;
-    private HashSet<Player> show = new HashSet<>();
+    private final HashSet<Player> show = new HashSet<>();
 
     /**
      * Create a Laser instance
-     * @param start Location where laser will starts
+     *
+     * @param start        Location where laser will starts
      * @param initalTarget Location where laser will ends
-     * @param duration Duration of laser in seconds (<i>-1 if infinite</i>)
-     * @param distance Distance where laser will be visible
+     * @param duration     Duration of laser in seconds (<i>-1 if infinite</i>)
+     * @param distance     Distance where laser will be visible
      */
     public TargetedLaser(Location start, Player initalTarget, int duration, int distance) throws ReflectiveOperationException {
         this.start = start;
@@ -83,13 +84,13 @@ class TargetedLaser {
                                 sendStartPackets(p);
                                 show.add(p);
                             }
-                        }else if (show.contains(p)) {
+                        } else if (show.contains(p)) {
                             Packets.sendPacket(p, destroyPacket);
                             show.remove(p);
                         }
                     }
                     if (time != -1) time--;
-                }catch (ReflectiveOperationException e) {
+                } catch (ReflectiveOperationException e) {
                     e.printStackTrace();
                 }
             }
@@ -101,7 +102,7 @@ class TargetedLaser {
                     for (Player p : show) {
                         Packets.sendPacket(p, destroyPacket);
                     }
-                }catch (ReflectiveOperationException e) {
+                } catch (ReflectiveOperationException e) {
                     e.printStackTrace();
                 }
                 run = null;
@@ -150,7 +151,7 @@ class TargetedLaser {
         return this.target;
     }
 
-    public void callColorChange() throws ReflectiveOperationException{
+    public void callColorChange() throws ReflectiveOperationException {
         for (Player p : show) {
             Packets.sendPacket(p, metadataPacketGuardian);
         }
@@ -175,17 +176,11 @@ class TargetedLaser {
     }
 
 
-
     private static class Packets {
         private static int lastIssuedEID = 2000000000;
-
-        static int generateEID() {
-            return lastIssuedEID++;
-        }
-
-        private static int version = Integer.parseInt(Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3].substring(1).split("_")[1]);
-        private static String npack = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
-        private static String cpack = Bukkit.getServer().getClass().getPackage().getName() + ".";
+        private static final int version = Integer.parseInt(Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3].substring(1).split("_")[1]);
+        private static final String npack = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
+        private static final String cpack = Bukkit.getServer().getClass().getPackage().getName() + ".";
         private static Object packetTeamCreate;
         private static Constructor<?> watcherConstructor;
         private static Method watcherSet;
@@ -201,7 +196,6 @@ class TargetedLaser {
         private static Object watcherObject3; // attack id
         private static int squidID;
         private static int guardianID;
-
         private static Object fakeSquid;
         private static Object fakeSquidWatcher;
 
@@ -214,19 +208,19 @@ class TargetedLaser {
                     watcherName3 = "bB";
                     squidID = 94;
                     guardianID = 68;
-                }else if (version == 13) {
+                } else if (version == 13) {
                     watcherName1 = "ac";
                     watcherName2 = "bF";
                     watcherName3 = "bG";
                     squidID = 70;
                     guardianID = 28;
-                }else if (version == 14) {
+                } else if (version == 14) {
                     watcherName1 = "W";
                     watcherName2 = "b";
                     watcherName3 = "bD";
                     squidID = 73;
                     guardianID = 30;
-                }else if (version > 14) {
+                } else if (version > 14) {
                     watcherName1 = "T";
                     watcherName2 = "b";
                     watcherName3 = "bA";
@@ -247,21 +241,25 @@ class TargetedLaser {
                 packetTeam = Class.forName(npack + "PacketPlayOutScoreboardTeam");
                 packetMetadata = Class.forName(npack + "PacketPlayOutEntityMetadata");
 
-                packetTeamCreate = packetTeam.newInstance();
+                packetTeamCreate = packetTeam.getDeclaredConstructor().newInstance();
                 setField(packetTeamCreate, "a", "noclip");
                 setField(packetTeamCreate, "i", 0);
                 setField(packetTeamCreate, "f", "never");
 
                 Object world = Class.forName(cpack + "CraftWorld").getDeclaredMethod("getHandle").invoke(Bukkit.getWorlds().get(0));
-                Object[] entityConstructorParams = version < 14 ? new Object[] { world } : new Object[] { Class.forName(npack + "EntityTypes").getDeclaredField("SQUID").get(null), world };
+                Object[] entityConstructorParams = version < 14 ? new Object[]{world} : new Object[]{Class.forName(npack + "EntityTypes").getDeclaredField("SQUID").get(null), world};
                 fakeSquid = getMethod(Class.forName(cpack + "entity.CraftSquid"), "getHandle").invoke(Class.forName(cpack + "entity.CraftSquid").getDeclaredConstructors()[0].newInstance(
                         null, Class.forName(npack + "EntitySquid").getDeclaredConstructors()[0].newInstance(
                                 entityConstructorParams)));
                 fakeSquidWatcher = createFakeDataWatcher();
                 tryWatcherSet(fakeSquidWatcher, watcherObject1, (byte) 32);
-            }catch (ReflectiveOperationException e) {
+            } catch (ReflectiveOperationException e) {
                 e.printStackTrace();
             }
+        }
+
+        static int generateEID() {
+            return lastIssuedEID++;
         }
 
         public static void sendPacket(Player p, Object packet) throws ReflectiveOperationException {
@@ -295,7 +293,7 @@ class TargetedLaser {
 
         public static Object createPacketRemoveEntities(int guardianId) throws ReflectiveOperationException {
             Object packet = packetRemove.getDeclaredConstructor().newInstance();
-            setField(packet, "a", new int[] { guardianId });
+            setField(packet, "a", new int[]{guardianId});
             return packet;
         }
 
@@ -327,7 +325,7 @@ class TargetedLaser {
         private static void tryWatcherSet(Object watcher, Object watcherObject, Object watcherData) throws ReflectiveOperationException {
             try {
                 watcherSet.invoke(watcher, watcherObject, watcherData);
-            }catch (InvocationTargetException ex) {
+            } catch (InvocationTargetException ex) {
                 watcherRegister.invoke(watcher, watcherObject, watcherData);
                 if (version >= 15) watcherDirty.invoke(watcher, watcherObject);
             }

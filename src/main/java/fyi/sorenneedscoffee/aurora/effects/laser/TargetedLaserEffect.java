@@ -22,7 +22,7 @@ import java.util.Random;
 public class TargetedLaserEffect extends Effect {
     private final Point start;
     protected TargetedLaser targetedLaser;
-    private Random random = new Random();
+    private final Random random = new Random();
     private TargetedLaserEffect.LaserListener laserListener;
 
     public TargetedLaserEffect(Point start) {
@@ -31,7 +31,7 @@ public class TargetedLaserEffect extends Effect {
 
     @Override
     public void init() throws Exception {
-        List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
+        List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
         targetedLaser = new TargetedLaser(
                 start.getLocation(),
                 onlinePlayers.get(random.nextInt(onlinePlayers.size())),
@@ -49,10 +49,11 @@ public class TargetedLaserEffect extends Effect {
             runTask(() -> targetedLaser.start(Aurora.plugin));
         } else if (action == EffectAction.RESTART) {
             runTask(() -> {
-                List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
+                List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
                 try {
                     targetedLaser.moveEnd(onlinePlayers.get(random.nextInt(onlinePlayers.size())));
-                } catch (ReflectiveOperationException ignored) {}
+                } catch (ReflectiveOperationException ignored) {
+                }
             });
         } else if (action == EffectAction.STOP) {
             runTask(() -> targetedLaser.stop());
@@ -79,11 +80,12 @@ public class TargetedLaserEffect extends Effect {
 
         @Override
         public void onPacketReceiving(PacketEvent event) {
-            if(effect.targetedLaser.isStarted() && !activePlayers.contains(event.getPlayer())) {
+            if (effect.targetedLaser.isStarted() && !activePlayers.contains(event.getPlayer())) {
                 try {
                     activePlayers.add(event.getPlayer());
                     effect.targetedLaser.sendStartPackets(event.getPlayer());
-                } catch (ReflectiveOperationException ignored) {}
+                } catch (ReflectiveOperationException ignored) {
+                }
             }
         }
 

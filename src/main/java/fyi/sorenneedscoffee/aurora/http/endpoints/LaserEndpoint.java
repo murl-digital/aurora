@@ -23,7 +23,7 @@ public class LaserEndpoint extends Endpoint {
     @Path("/start")
     @POST
     public Response start(@PathParam("id") UUID id, InputStream stream) {
-        if(EffectManager.exists(id))
+        if (EffectManager.exists(id))
             return Response.status(400).build();
         try {
             Reader reader = new InputStreamReader(stream);
@@ -35,7 +35,7 @@ public class LaserEndpoint extends Endpoint {
             LaserModel[] request = Aurora.gson.fromJson(reader, LaserModel[].class);
 
             EffectGroup group = new EffectGroup(id);
-            for(LaserModel model : request) {
+            for (LaserModel model : request) {
                 Point start = Aurora.pointUtil.getPoint(model.startId);
                 Point end = Aurora.pointUtil.getPoint(model.endId);
                 if (start == null || end == null)
