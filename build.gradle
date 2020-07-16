@@ -32,10 +32,14 @@ dependencies {
     implementation 'org.mariuszgromada.math:MathParser.org-mXparser:4.4.2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.reflections:reflections:0.9.12'
+    implementation 'com.google.guava:guava:29.0-jre'
 
     implementation 'org.glassfish.jersey.core:jersey-server:2.31'
     implementation 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.31'
     implementation 'org.glassfish.jersey.inject:jersey-hk2:2.31'
+    implementation 'io.swagger.core.v3:swagger-jaxrs2:2.1.2'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 }
 
@@ -51,5 +55,6 @@ shadowJar {
     classifier = null
     minimize {
         exclude(dependency('org.glassfish.jersey.*:.*:.*'))
+        exclude(dependency('io.swagger.core.v3:swagger-jaxrs2:2.1.2'))
     }
 }

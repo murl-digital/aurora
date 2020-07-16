@@ -1,11 +1,20 @@
 package fyi.sorenneedscoffee.aurora.http;
 
-import com.google.gson.JsonSyntaxException;
 import fyi.sorenneedscoffee.aurora.Aurora;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
 
 import javax.ws.rs.core.Response;
-import java.io.Reader;
 
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Aurora",
+                version = "1.0.1",
+                description = "Ooo, pretty lights | Spigot visuals system",
+                contact = @Contact(name = "Joe/Soren", email = "joseph.md.sorensen@icloud.com")
+        )
+)
 public abstract class Endpoint {
     protected static final Response BAD_REQUEST;
     protected static final Response NOT_FOUND;

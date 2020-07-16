@@ -11,6 +11,7 @@ import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.http.providers.GsonProvider;
 import fyi.sorenneedscoffee.aurora.util.PointUtil;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -88,6 +89,7 @@ public final class Aurora extends JavaPlugin {
 
                 resourceConfig.register(GsonProvider.class);
                 resourceConfig.register(GsonExceptionMapper.class);
+                resourceConfig.register(OpenApiResource.class);
                 for (Class<? extends Endpoint> e : endpoints) {
                     resourceConfig.register(e);
                 }
