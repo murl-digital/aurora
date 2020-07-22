@@ -45,10 +45,13 @@ public class LaserEffect extends Effect {
 
     @Override
     public void execute(EffectAction action) {
-        if (action == EffectAction.START) {
-            runTask(() -> laser.start(Aurora.plugin));
-        } else if (action == EffectAction.STOP) {
-            runTask(() -> laser.stop());
+        switch (action) {
+            case START:
+                runTask(() -> laser.start(Aurora.plugin));
+                break;
+            case STOP:
+                runTask(() -> laser.stop());
+                break;
         }
     }
 

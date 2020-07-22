@@ -21,8 +21,8 @@ import java.util.Random;
 
 public class TargetedLaserEffect extends Effect {
     private final Point start;
-    protected TargetedLaser targetedLaser;
     private final Random random = new Random();
+    protected TargetedLaser targetedLaser;
     private TargetedLaserEffect.LaserListener laserListener;
 
     public TargetedLaserEffect(Point start) {
@@ -45,18 +45,22 @@ public class TargetedLaserEffect extends Effect {
 
     @Override
     public void execute(EffectAction action) {
-        if (action == EffectAction.START) {
-            runTask(() -> targetedLaser.start(Aurora.plugin));
-        } else if (action == EffectAction.RESTART) {
-            runTask(() -> {
-                List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
-                try {
-                    targetedLaser.moveEnd(onlinePlayers.get(random.nextInt(onlinePlayers.size())));
-                } catch (ReflectiveOperationException ignored) {
-                }
-            });
-        } else if (action == EffectAction.STOP) {
-            runTask(() -> targetedLaser.stop());
+        switch (action) {
+            case START:
+                runTask(() -> targetedLaser.start(Aurora.plugin));
+                break;
+            case RESTART:
+                runTask(() -> {
+                    List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
+                    try {
+                        targetedLaser.moveEnd(onlinePlayers.get(random.nextInt(onlinePlayers.size())));
+                    } catch (ReflectiveOperationException ignored) {
+                    }
+                });
+                break;
+            case STOP:
+                runTask(() -> targetedLaser.stop());
+                break;
         }
     }
 

@@ -2,6 +2,7 @@ package fyi.sorenneedscoffee.aurora.http.providers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;

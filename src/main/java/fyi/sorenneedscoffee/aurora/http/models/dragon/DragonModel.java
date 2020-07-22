@@ -1,19 +1,14 @@
 package fyi.sorenneedscoffee.aurora.http.models.dragon;
 
-import com.google.common.base.MoreObjects;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DragonModel {
     @SerializedName("pointId")
+    @Schema(name = "pointId", description = "Id of the point that the effect will originate from")
     public int pointId;
-    @SerializedName("static")
-    public boolean isStatic;
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("pointId", pointId)
-                .add("isStatic", isStatic)
-                .toString();
-    }
+    @SerializedName("static")
+    @Schema(name = "static", description = "Whether or not the dragon will rise into the air")
+    public boolean isStatic;
 }

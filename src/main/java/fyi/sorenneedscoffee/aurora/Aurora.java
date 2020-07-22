@@ -6,10 +6,11 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.providers.CORSFilter;
 import fyi.sorenneedscoffee.aurora.http.providers.GsonExceptionMapper;
+import fyi.sorenneedscoffee.aurora.http.providers.GsonProvider;
 import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
-import fyi.sorenneedscoffee.aurora.http.providers.GsonProvider;
 import fyi.sorenneedscoffee.aurora.util.PointUtil;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import okhttp3.MediaType;
@@ -28,11 +29,12 @@ import javax.ws.rs.core.UriBuilder;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.URI;
-import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public final class Aurora extends JavaPlugin {
@@ -70,43 +72,42 @@ public final class Aurora extends JavaPlugin {
             String hostname = config.getString("remote.httpHostname");
             int port = config.getInt("remote.httpPort");
 
-            URI base = null;
             try {
-                base = UriBuilder.fromUri("http://" +
+                URI base = UriBuilder.fromUri("http://" +
                         Objects.requireNonNull(hostname.equals("auto") ? InetAddress.getLocalHost().getHostAddress() : hostname)
                         + "/").port(port).build();
-            } catch (UnknownHostException e) {
-                logger.severe(e.getMessage());
-            }
 
-            try {
                 logger.info("Starting HTTP Server at " + base + "...");
 
                 Reflections reflections = new Reflections("fyi.sorenneedscoffee.aurora.http.endpoints");
                 Set<Class<? extends Endpoint>> endpoints = reflections.getSubTypesOf(Endpoint.class);
 
                 ResourceConfig resourceConfig = new ResourceConfig();
-
                 resourceConfig.register(GsonProvider.class);
                 resourceConfig.register(GsonExceptionMapper.class);
+                resourceConfig.register(CORSFilter.class);
                 resourceConfig.register(OpenApiResource.class);
                 for (Class<? extends Endpoint> e : endpoints) {
                     resourceConfig.register(e);
                 }
 
                 httpServer = JdkHttpServerFactory.createHttpServer(base, resourceConfig, false);
-                httpExecutor = Executors.newCachedThreadPool();
+                httpExecutor = new ThreadPoolExecutor(2, Integer.MAX_VALUE,
+                        60L, TimeUnit.SECONDS,
+                        new SynchronousQueue<>());
                 httpServer.setExecutor(httpExecutor);
                 httpServer.start();
 
-                if (config.getBoolean("remote.solarwind.enabled")) {
-                    logger.info("Registering with SolarWind...");
-                    String providedHostname = config.getString("remote.solarwind.providedHostname");
+                if (config.getBoolean("remote.solarflare.enabled")) {
+                    logger.info("Registering with SolarFlare...");
+                    String host = Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base.getHost() : config.getString("remote.solarflare.providedHostname");
 
                     OkHttpClient client = new OkHttpClient();
-                    RequestBody body = RequestBody.create((providedHostname.equals("auto") ? base.getHost() : providedHostname) + ":" + base.getPort(), MediaType.parse(base.getHost() + ":" + base.getPort()));
+                    RequestBody body = RequestBody.create(
+                            host + ":" + base.getPort(),
+                            MediaType.parse(host + ":" + base.getPort()));
                     Request request = new Request.Builder()
-                            .url(Objects.requireNonNull(config.getString("remote.solarwind.url")))
+                            .url(Objects.requireNonNull(config.getString("remote.solarflare.url")))
                             .post(body)
                             .build();
                     client.newCall(request).execute();
@@ -131,10 +132,12 @@ public final class Aurora extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Aurora.logger.info("Shutting down HTTP server...");
-        httpServer.stop(0);
-        httpExecutor.shutdown();
         Aurora.logger.info("Stopping currently active effects...");
         EffectManager.stopAll();
+        if (httpServer != null) {
+            Aurora.logger.info("Shutting down HTTP server...");
+            httpServer.stop(0);
+            httpExecutor.shutdown();
+        }
     }
 }

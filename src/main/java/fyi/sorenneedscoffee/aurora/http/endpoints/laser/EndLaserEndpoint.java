@@ -2,7 +2,7 @@ package fyi.sorenneedscoffee.aurora.http.endpoints.laser;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.laser.LaserEffect;
+import fyi.sorenneedscoffee.aurora.effects.laser.EndLaserEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.models.laser.LaserModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
@@ -20,13 +20,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-@Path("effects/laser/{id}")
-public class LaserEndpoint extends Endpoint {
+@Path("effects/endlaser/{id}")
+public class EndLaserEndpoint extends Endpoint {
 
     @Path("/start")
     @Operation(
-            summary = "pew pew",
-            description = "This effect takes advantage of the guardian laser, which shoots between the defined start and end points.",
+            summary = "*ominous humming*",
+            description = "This effect takes advantage of the ender crystal beam most prominently seen in the Ender Dragon bossfight. " +
+                    "Please note that while the effect is active, the originating crystal will be visible but without the bedrock base.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "The effect group started successfully"),
                     @ApiResponse(responseCode = "400", description = "There's a problem with the request body, or an effect group with the given uuid exists and is already active"),
@@ -39,18 +40,20 @@ public class LaserEndpoint extends Endpoint {
                           @Parameter(description = "UUID that will be assigned to the effect group", required = true)
                                   UUID id,
                           @RequestBody(description = "Array of Laser models", required = true)
-                                  LaserModel[] request) {
+                                  LaserModel[] models) {
         if (EffectManager.exists(id))
             return BAD_REQUEST;
 
         try {
             EffectGroup group = new EffectGroup(id);
-            for (LaserModel model : request) {
+
+            for (LaserModel model : models) {
                 Point start = Aurora.pointUtil.getPoint(model.startId);
                 Point end = Aurora.pointUtil.getPoint(model.endId);
                 if (start == null || end == null)
                     return POINT_DOESNT_EXIST;
-                group.add(new LaserEffect(start, end));
+
+                group.add(new EndLaserEffect(start.getLocation(), end.getLocation()));
             }
 
             EffectManager.startEffect(group);

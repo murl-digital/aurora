@@ -39,6 +39,14 @@ public class EffectManager {
         return findEffect(id) != null;
     }
 
+    public static <T> boolean instanceOf(UUID id, Class<T> clazz) {
+        EffectGroup group = findEffect(id);
+        if (group == null)
+            return false;
+
+        return group.instanceOf(clazz);
+    }
+
     private static EffectGroup findEffect(UUID id) {
         Optional<EffectGroup> effect = activeEffects.stream().filter(e -> e.id.equals(id)).findAny();
 

@@ -15,7 +15,7 @@ public class Region {
     private final Point[] points;
     private final String equation;
 
-    //The lower the value, the more particles per block. DO NOT PUT THIS BELOW 1.0!!!!
+    //The lower the value, the more particles per block.
     private final double resolution = 0.5;
 
     public Region(Point[] points, RegionType type, double density, boolean randomized, String equation) {
@@ -64,9 +64,10 @@ public class Region {
         int xMult = pos1.getX() < pos2.getX() ? 1 : -1;
         int yMult = pos1.getY() < pos2.getY() ? 1 : -1;
         int zMult = pos1.getZ() < pos2.getZ() ? 1 : -1;
-        double zDistance = Math.abs(pos1.getZ() - pos2.getZ());
         double xDistance = Math.abs(pos1.getX() - pos2.getX());
-        for (double y = 0; pos1.getY() + y < pos2.getY(); y += resolution) {
+        double yDistance = Math.abs(pos1.getY() - pos2.getY());
+        double zDistance = Math.abs(pos1.getZ() - pos2.getZ());
+        for (double y = 0; y <= yDistance; y += resolution) {
             for (double z = 0; z <= zDistance; z += resolution) {
                 for (double x = 0; x <= xDistance; x += resolution) {
                     function.execute(

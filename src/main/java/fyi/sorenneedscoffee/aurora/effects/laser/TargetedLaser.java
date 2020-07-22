@@ -26,20 +26,17 @@ import java.util.UUID;
 class TargetedLaser {
     private final int duration;
     private final int distanceSquared;
+    private final HashSet<Player> show = new HashSet<>();
     private Location start;
-
     private Object createGuardianPacket;
     private Object teamAddPacket;
     private Object destroyPacket;
     private Object metadataPacketGuardian;
     private Object fakeGuardianDataWatcher;
-
     private int guardian;
     private Player target;
     private UUID guardianUUID;
-
     private BukkitRunnable run;
-    private final HashSet<Player> show = new HashSet<>();
 
     /**
      * Create a Laser instance
@@ -177,10 +174,10 @@ class TargetedLaser {
 
 
     private static class Packets {
-        private static int lastIssuedEID = 2000000000;
         private static final int version = Integer.parseInt(Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3].substring(1).split("_")[1]);
         private static final String npack = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
         private static final String cpack = Bukkit.getServer().getClass().getPackage().getName() + ".";
+        private static int lastIssuedEID = 2000000000;
         private static Object packetTeamCreate;
         private static Constructor<?> watcherConstructor;
         private static Method watcherSet;
@@ -194,7 +191,6 @@ class TargetedLaser {
         private static Object watcherObject1; // invisilibity
         private static Object watcherObject2; // spikes
         private static Object watcherObject3; // attack id
-        private static int squidID;
         private static int guardianID;
         private static Object fakeSquid;
         private static Object fakeSquidWatcher;
@@ -206,25 +202,21 @@ class TargetedLaser {
                     watcherName1 = "Z";
                     watcherName2 = "bA";
                     watcherName3 = "bB";
-                    squidID = 94;
                     guardianID = 68;
                 } else if (version == 13) {
                     watcherName1 = "ac";
                     watcherName2 = "bF";
                     watcherName3 = "bG";
-                    squidID = 70;
                     guardianID = 28;
                 } else if (version == 14) {
                     watcherName1 = "W";
                     watcherName2 = "b";
                     watcherName3 = "bD";
-                    squidID = 73;
                     guardianID = 30;
                 } else if (version > 14) {
                     watcherName1 = "T";
                     watcherName2 = "b";
                     watcherName3 = "bA";
-                    squidID = 74;
                     guardianID = 31;
                 }
                 watcherObject1 = getField(Class.forName(npack + "Entity"), watcherName1, null);

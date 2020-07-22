@@ -44,6 +44,15 @@ public class EffectGroup {
         effects.forEach(e -> e.execute(EffectAction.RESTART));
     }
 
+    public <T> boolean instanceOf(Class<T> clazz) {
+        for (Effect e : effects) {
+            if (!e.getClass().isInstance(clazz))
+                return false;
+        }
+
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

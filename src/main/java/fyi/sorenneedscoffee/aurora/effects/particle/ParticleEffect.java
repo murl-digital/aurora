@@ -27,7 +27,7 @@ public class ParticleEffect extends Effect {
     }
 
     @Override
-    public void init() {
+    public void init() throws InterruptedException {
         particleLocations = region.calculateLocations();
     }
 
