@@ -22,8 +22,7 @@ public class EffectManager {
     }
 
     public static void restartEffect(UUID uuid) {
-        EffectGroup effectGroup = findEffect(uuid);
-        effectGroup.restartAll();
+        findEffect(uuid).restartAll();
     }
 
     public static void stopAll() {
@@ -33,6 +32,10 @@ public class EffectManager {
 
     public static void triggerEffect(EffectGroup group) throws Exception {
         group.triggerAll();
+    }
+
+    public static void hotTriggerEffect(UUID uuid) {
+        findEffect(uuid).hotTriggerAll();
     }
 
     public static boolean exists(UUID id) {

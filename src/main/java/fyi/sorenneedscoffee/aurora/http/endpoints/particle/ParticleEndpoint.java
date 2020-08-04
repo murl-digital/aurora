@@ -13,7 +13,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.inventory.ItemStack;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -66,7 +68,7 @@ public class ParticleEndpoint extends Endpoint {
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR;
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
 
@@ -104,7 +106,7 @@ public class ParticleEndpoint extends Endpoint {
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR;
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
 
@@ -127,7 +129,25 @@ public class ParticleEndpoint extends Endpoint {
             );
             Particle particle;
             particle = Particle.valueOf(model.name);
-            ParticleEffect effect = new ParticleEffect(region, particle);
+            Object options = null;
+            switch (particle) {
+                case REDSTONE:
+                    options = new Particle.DustOptions(model.options.dustColor, model.options.dustSize);
+                    break;
+                case ITEM_CRACK:
+                    Material material = Material.valueOf(model.options.materialName);
+                    if (!material.isItem())
+                        throw new IllegalArgumentException();
+                    options = new ItemStack(material);
+                    break;
+                case BLOCK_CRACK:
+                case BLOCK_DUST:
+                case FALLING_DUST:
+                    Material material1 = Material.valueOf(model.options.materialName);
+                    options = material1.createBlockData();
+                    break;
+            }
+            ParticleEffect effect = new ParticleEffect(region, particle, options);
             group.add(effect);
         }
 

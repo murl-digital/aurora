@@ -69,6 +69,10 @@ public class GlobalPotionEffect extends Effect {
         listener.clear();
     }
 
+    protected void addEffect(Player player) {
+        runTask(() -> player.addPotionEffect(potionEffect));
+    }
+
     private static class GlobalEffectListener extends PacketAdapter implements Listener {
         private final List<UUID> watchList = new ArrayList<>();
         private final GlobalPotionEffect effect;
@@ -93,7 +97,7 @@ public class GlobalPotionEffect extends Effect {
         public void onPacketReceiving(PacketEvent event) {
             if (!watchList.isEmpty() && event.getPacketType() == PacketType.Play.Client.POSITION) {
                 if (watchList.contains(event.getPlayer().getUniqueId())) {
-                    event.getPlayer().addPotionEffect(effect.potionEffect);
+                    effect.addEffect(event.getPlayer());
 
                     watchList.remove(event.getPlayer().getUniqueId());
                 }

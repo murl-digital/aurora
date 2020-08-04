@@ -58,7 +58,29 @@ public class LaserEndpoint extends Endpoint {
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR;
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Path("/trigger")
+    @Operation(
+            summary = "more pew pew",
+            description = "Changes an active laser's color. Good for rhythmic stuff"
+    )
+    @POST
+    public Response trigger(@PathParam("id")
+                            @Parameter(description = "UUID of active laser group that will be colorchanged", required = true)
+                            UUID id) {
+        if(!EffectManager.instanceOf(id, LaserEffect.class))
+            return BAD_REQUEST;
+
+        try {
+            EffectManager.hotTriggerEffect(id);
+            return OK;
+        } catch (Exception e) {
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
 }

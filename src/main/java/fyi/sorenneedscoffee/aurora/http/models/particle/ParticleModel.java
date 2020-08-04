@@ -8,6 +8,10 @@ public class ParticleModel {
     @Schema(name = "name", description = "Name of the particle that will be used")
     public String name;
 
+    @SerializedName("additionalOptions")
+    @Schema(name = "additionalOptions", description = "Some particles require additional options, they are defined here.")
+    public AdditionalOptionsModel options;
+
     @SerializedName("region")
     public RegionModel region;
 }

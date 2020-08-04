@@ -59,7 +59,7 @@ public class DragonEndpoint extends Endpoint {
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR;
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
 
@@ -85,7 +85,7 @@ public class DragonEndpoint extends Endpoint {
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR;
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
 }

@@ -3,11 +3,12 @@ package fyi.sorenneedscoffee.aurora;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.providers.CORSFilter;
-import fyi.sorenneedscoffee.aurora.http.providers.GsonExceptionMapper;
+import fyi.sorenneedscoffee.aurora.http.providers.GeneralExceptionMapper;
 import fyi.sorenneedscoffee.aurora.http.providers.GsonProvider;
 import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
@@ -54,7 +55,9 @@ public final class Aurora extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         logger = this.getLogger();
-        gson = new Gson();
+        gson = new GsonBuilder()
+                .serializeNulls()
+                .create();
 
         if (plugin.getDataFolder().mkdirs()) {
             if (!new File(plugin.getDataFolder(), "config.yml").exists()) {
@@ -84,7 +87,7 @@ public final class Aurora extends JavaPlugin {
 
                 ResourceConfig resourceConfig = new ResourceConfig();
                 resourceConfig.register(GsonProvider.class);
-                resourceConfig.register(GsonExceptionMapper.class);
+                resourceConfig.register(GeneralExceptionMapper.class);
                 resourceConfig.register(CORSFilter.class);
                 resourceConfig.register(OpenApiResource.class);
                 for (Class<? extends Endpoint> e : endpoints) {

@@ -16,14 +16,16 @@ import java.util.Random;
 public class ParticleEffect extends Effect {
     private final Region region;
     private final Particle particle;
+    private final Object options;
     private final Random random = new Random();
     private List<Location> particleLocations;
     private Runnable runnable;
     private BukkitTask task;
 
-    public ParticleEffect(Region region, Particle particle) {
+    public ParticleEffect(Region region, Particle particle, Object options) {
         this.region = region;
         this.particle = particle;
+        this.options = options;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class ParticleEffect extends Effect {
     public void execute(EffectAction action) {
         runnable = () -> {
             WrapperPlayServerWorldParticles packet = new WrapperPlayServerWorldParticles();
-            packet.setParticleType(WrappedParticle.create(particle, null));
+            packet.setParticleType(WrappedParticle.create(particle, options));
             packet.setLongDistance(true);
             packet.setNumberOfParticles(1);
             for (Location location : particleLocations) {

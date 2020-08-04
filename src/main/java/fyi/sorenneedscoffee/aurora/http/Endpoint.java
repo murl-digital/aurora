@@ -19,7 +19,7 @@ public abstract class Endpoint {
     protected static final Response NOT_FOUND;
     protected static final Response POINT_DOESNT_EXIST;
     protected static final Response UNPROCESSABLE_ENTITY;
-    protected static final Response SERVER_ERROR;
+    protected static final Response.ResponseBuilder SERVER_ERROR;
     protected static final Response OK;
 
     static {
@@ -29,7 +29,7 @@ public abstract class Endpoint {
                 .entity("Point 0 is not present. Please add it ingame.")
                 .build();
         UNPROCESSABLE_ENTITY = Response.status(422).build();
-        SERVER_ERROR = Response.serverError().build();
+        SERVER_ERROR = Response.serverError();
         OK = Response.ok().build();
     }
 }

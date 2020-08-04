@@ -5,6 +5,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.bossbar.BossBarEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.models.bossbar.BossBarModel;
+import fyi.sorenneedscoffee.aurora.util.BarManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,13 +22,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-@Path("effects/{id}/bar")
+@Path("bar/")
 public class BossBarEndpoint extends Endpoint {
 
-    @Path("/start")
+    @Path("/set")
     @Operation(
             summary = "why do i hear boss music?",
-            description = "Displays a boss bar on players' screens that can contain certain information",
+            description = "Displays a boss bar on players' screens that can contain certain information. This is seperate from all other effects and will not be affected by the stop endpoint.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "The effect group started successfully"),
                     @ApiResponse(responseCode = "400", description = "There is either a problem with the request body or an effect with the given UUID is already active."),
@@ -37,13 +38,9 @@ public class BossBarEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id")
-                          @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                  UUID id,
-                          @RequestBody(description = "BossBar model", required = true)
+    public Response start(
+            @RequestBody(description = "BossBar model", required = true)
                                   BossBarModel model) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
 
         try {
             Point point = Aurora.pointUtil.getPoint(0);
@@ -57,15 +54,39 @@ public class BossBarEndpoint extends Endpoint {
                 return UNPROCESSABLE_ENTITY;
             }
 
-            EffectGroup group = new EffectGroup(id);
-            group.add(new BossBarEffect(id, color, model.title));
+            EffectGroup group = new EffectGroup(UUID.randomUUID());
+            group.add(new BossBarEffect(UUID.randomUUID(), color, model.title));
 
-            EffectManager.startEffect(group);
+            if(BarManager.isActive()) {
+                BarManager.clearBars();
+                BarManager.showBar(group);
+            }
             return OK;
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR;
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Path("/clear")
+    @Operation(
+            summary = "oh wait the music's gone now",
+            description =  "If there are boss bars currently being displayed, they will be cleared. If not, nothing will happen.",
+            responses = @ApiResponse(responseCode = "200", description = "Any bars that were being displayed are cleared.")
+    )
+    @POST
+    public Response clear() {
+        try {
+            if(!BarManager.isActive())
+                return OK;
+
+            BarManager.clearBars();
+            return OK;
+        } catch (Exception e) {
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
 }

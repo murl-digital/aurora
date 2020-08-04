@@ -40,6 +40,10 @@ public class EffectGroup {
         }
     }
 
+    public void hotTriggerAll() {
+        effects.forEach(e -> e.execute(EffectAction.TRIGGER));
+    }
+
     public void restartAll() {
         effects.forEach(e -> e.execute(EffectAction.RESTART));
     }
