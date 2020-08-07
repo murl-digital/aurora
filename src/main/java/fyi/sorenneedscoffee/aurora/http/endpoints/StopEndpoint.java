@@ -31,10 +31,10 @@ public class StopEndpoint extends Endpoint {
             @PathParam("id")
             @Parameter(description = "UUID of the effect group that will be stopped", required = true)
                     UUID id) {
-        if (!EffectManager.exists(id))
-            return NOT_FOUND;
-
         try {
+            if (!EffectManager.exists(id))
+                return NOT_FOUND;
+
             EffectManager.stopEffect(id);
             return OK;
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class StopEndpoint extends Endpoint {
     @POST
     public Response stopAll() {
         try {
-            EffectManager.stopAll();
+            EffectManager.stopAll(false);
             return OK;
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());

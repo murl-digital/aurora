@@ -28,6 +28,10 @@ public class PointUtil {
         return points.stream().filter(p -> p.id == id).findAny().orElse(null);
     }
 
+    public TreeSet<Point> getPoints() {
+        return (TreeSet<Point>) points.clone();
+    }
+
     public void savePoint(Point point) {
         points.add(point);
         Aurora.dataManager.savePoints(points);

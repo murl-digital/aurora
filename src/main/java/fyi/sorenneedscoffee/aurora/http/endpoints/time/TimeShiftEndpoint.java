@@ -40,10 +40,10 @@ public class TimeShiftEndpoint extends Endpoint {
                                         UUID id,
                                 @RequestBody(description = "Array of TimeShift models", required = true)
                                         TimeShiftModel[] models) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.exists(id))
+                return BAD_REQUEST;
+
             Point point = Aurora.pointUtil.getPoint(0);
             if (point == null)
                 return POINT_DOESNT_EXIST;

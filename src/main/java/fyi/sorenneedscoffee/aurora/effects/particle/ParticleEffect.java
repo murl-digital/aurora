@@ -11,14 +11,16 @@ import org.bukkit.Particle;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class ParticleEffect extends Effect {
     private final Region region;
     private final Particle particle;
     private final Object options;
     private final Random random = new Random();
-    private List<Location> particleLocations;
+    private Set<Location> particleLocations;
     private Runnable runnable;
     private BukkitTask task;
 
@@ -36,32 +38,49 @@ public class ParticleEffect extends Effect {
     @Override
     public void execute(EffectAction action) {
         runnable = () -> {
-            WrapperPlayServerWorldParticles packet = new WrapperPlayServerWorldParticles();
-            packet.setParticleType(WrappedParticle.create(particle, options));
-            packet.setLongDistance(true);
-            packet.setNumberOfParticles(1);
             for (Location location : particleLocations) {
                 if (region.type == RegionType.CUBOID || region.type == RegionType.EQUATION) {
                     if (region.randomized && action != EffectAction.TRIGGER) {
                         if (random.nextDouble() <= region.density) {
-                            packet.setX(location.getX());
-                            packet.setY(location.getY());
-                            packet.setZ(location.getZ());
-                            Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
+                            location.getWorld().spawnParticle(
+                                    particle,
+                                    location,
+                                    1,
+                                    0.5,
+                                    0.5,
+                                    0.5,
+                                    0.1,
+                                    options,
+                                    true
+                            );
                         }
                     } else {
                         if (random.nextDouble() <= 0.75) {
-                            packet.setX(location.getX());
-                            packet.setY(location.getY());
-                            packet.setZ(location.getZ());
-                            Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
+                            location.getWorld().spawnParticle(
+                                    particle,
+                                    location,
+                                    1,
+                                    0.5,
+                                    0.5,
+                                    0.5,
+                                    0.1,
+                                    options,
+                                    true
+                            );
                         }
                     }
                 } else {
-                    packet.setX(location.getX());
-                    packet.setY(location.getY());
-                    packet.setZ(location.getZ());
-                    Aurora.protocolManager.broadcastServerPacket(packet.getHandle());
+                    location.getWorld().spawnParticle(
+                            particle,
+                            location,
+                            1,
+                            0.5,
+                            0.5,
+                            0.5,
+                            0.1,
+                            options,
+                            true
+                    );
                 }
             }
         };

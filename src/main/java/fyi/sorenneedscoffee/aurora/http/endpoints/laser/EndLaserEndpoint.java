@@ -41,10 +41,10 @@ public class EndLaserEndpoint extends Endpoint {
                                   UUID id,
                           @RequestBody(description = "Array of Laser models", required = true)
                                   LaserModel[] models) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.exists(id))
+                return BAD_REQUEST;
+
             EffectGroup group = new EffectGroup(id);
 
             for (LaserModel model : models) {

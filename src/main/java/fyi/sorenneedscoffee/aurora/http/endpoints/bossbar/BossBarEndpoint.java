@@ -40,27 +40,30 @@ public class BossBarEndpoint extends Endpoint {
     @Consumes("application/json")
     public Response start(
             @RequestBody(description = "BossBar model", required = true)
-                                  BossBarModel model) {
-
+                                  BossBarModel[] models) {
         try {
             Point point = Aurora.pointUtil.getPoint(0);
             if (point == null)
                 return POINT_DOESNT_EXIST;
 
-            BarColor color;
-            try {
-                color = BarColor.valueOf(model.color);
-            } catch (IllegalArgumentException e) {
-                return UNPROCESSABLE_ENTITY;
-            }
-
             EffectGroup group = new EffectGroup(UUID.randomUUID());
-            group.add(new BossBarEffect(UUID.randomUUID(), color, model.title));
+
+            for (BossBarModel model : models) {
+                BarColor color;
+                try {
+                    color = BarColor.valueOf(model.color);
+                } catch (IllegalArgumentException e) {
+                    return UNPROCESSABLE_ENTITY;
+                }
+
+                group.add(new BossBarEffect(UUID.randomUUID(), color, model.title));
+            }
 
             if(BarManager.isActive()) {
                 BarManager.clearBars();
-                BarManager.showBar(group);
             }
+            BarManager.showBar(group);
+
             return OK;
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());

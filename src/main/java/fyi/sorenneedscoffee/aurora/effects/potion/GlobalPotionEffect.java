@@ -18,104 +18,49 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static org.bukkit.Bukkit.getScheduler;
 import static org.bukkit.Bukkit.getServer;
 
 public class GlobalPotionEffect extends Effect {
     private final World world;
     private final PotionEffect potionEffect;
-    private GlobalEffectListener listener;
-    private boolean active = false;
+    private BukkitTask task;
 
     public GlobalPotionEffect(Point point, PotionEffectType type, int amplifier) {
         world = point.getLocation().getWorld();
-        this.potionEffect = new PotionEffect(type, Integer.MAX_VALUE, amplifier, false, false, false);
+        this.potionEffect = new PotionEffect(type, 225, amplifier, false, false, false);
     }
 
     @Override
     public void init() {
-        listener = new GlobalPotionEffect.GlobalEffectListener(Aurora.plugin, this);
-        Aurora.protocolManager.addPacketListener(listener);
-        getServer().getPluginManager().registerEvents(listener, Aurora.plugin);
     }
 
     @Override
     public void execute(EffectAction action) {
         if (action == EffectAction.START) {
-            active = true;
-            runTask(() -> {
-                for (Player player : world.getPlayers()) {
-                    player.addPotionEffect(potionEffect);
-                }
-            });
-        } else if (action == EffectAction.STOP) {
-            active = false;
-            runTask(() -> {
+            task = getScheduler().runTaskTimer(Aurora.plugin, () -> {
                 for (Player player : world.getPlayers()) {
                     player.removePotionEffect(potionEffect.getType());
+                    player.addPotionEffect(potionEffect);
                 }
-            });
+            }, 0, 20);
+        } else if (action == EffectAction.STOP) {
+            task.cancel();
         }
     }
 
     @Override
     public void cleanup() {
-        Aurora.protocolManager.removePacketListener(listener);
-        HandlerList.unregisterAll(listener);
-        listener.clear();
-    }
-
-    protected void addEffect(Player player) {
-        runTask(() -> player.addPotionEffect(potionEffect));
-    }
-
-    private static class GlobalEffectListener extends PacketAdapter implements Listener {
-        private final List<UUID> watchList = new ArrayList<>();
-        private final GlobalPotionEffect effect;
-
-        public GlobalEffectListener(Plugin plugin, GlobalPotionEffect effect) {
-            super(plugin,
-                    ListenerPriority.NORMAL,
-                    PacketType.Play.Client.POSITION
-            );
-            this.effect = effect;
-        }
-
-        protected void watch(UUID uuid) {
-            watchList.add(uuid);
-        }
-
-        protected void clear() {
-            watchList.clear();
-        }
-
-        @Override
-        public void onPacketReceiving(PacketEvent event) {
-            if (!watchList.isEmpty() && event.getPacketType() == PacketType.Play.Client.POSITION) {
-                if (watchList.contains(event.getPlayer().getUniqueId())) {
-                    effect.addEffect(event.getPlayer());
-
-                    watchList.remove(event.getPlayer().getUniqueId());
-                }
+        runTask(() -> {
+            for (Player player : world.getPlayers()) {
+                player.removePotionEffect(potionEffect.getType());
             }
-        }
-
-        @EventHandler
-        public void onPlayerJoin(PlayerJoinEvent event) {
-            if (effect.active) {
-                watch(event.getPlayer().getUniqueId());
-            }
-        }
-
-        @EventHandler
-        public void onPlayerLeave(PlayerQuitEvent event) {
-            if (effect.active) {
-                event.getPlayer().removePotionEffect(effect.potionEffect.getType());
-            }
-        }
+        });
     }
 }

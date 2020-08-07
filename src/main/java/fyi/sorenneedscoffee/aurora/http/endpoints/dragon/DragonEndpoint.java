@@ -40,10 +40,10 @@ public class DragonEndpoint extends Endpoint {
                                   UUID id,
                           @RequestBody(description = "Array of Dragon models", required = true)
                                   DragonModel[] models) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.exists(id))
+                return BAD_REQUEST;
+
             EffectGroup group = new EffectGroup(id);
             for (DragonModel model : models) {
                 Point point = Aurora.pointUtil.getPoint(model.pointId);
@@ -76,10 +76,10 @@ public class DragonEndpoint extends Endpoint {
     public Response restart(@PathParam("id")
                             @Parameter(description = "UUID that the group that will be restarted", required = true)
                                     UUID id) {
-        if (EffectManager.instanceOf(id, DragonEffect.class))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.instanceOf(id, DragonEffect.class))
+                return BAD_REQUEST;
+
             EffectManager.restartEffect(id);
             return OK;
         } catch (Exception e) {

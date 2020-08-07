@@ -16,7 +16,7 @@ public class BarManager {
     }
 
     public static void clearBars() {
-        activeEffect.stopAll();
+        activeEffect.stopAll(false);
         activeEffect = null;
     }
 

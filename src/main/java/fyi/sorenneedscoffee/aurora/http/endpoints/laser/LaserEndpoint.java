@@ -40,10 +40,10 @@ public class LaserEndpoint extends Endpoint {
                                   UUID id,
                           @RequestBody(description = "Array of Laser models", required = true)
                                   LaserModel[] request) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.exists(id))
+                return BAD_REQUEST;
+
             EffectGroup group = new EffectGroup(id);
             for (LaserModel model : request) {
                 Point start = Aurora.pointUtil.getPoint(model.startId);
@@ -71,10 +71,10 @@ public class LaserEndpoint extends Endpoint {
     public Response trigger(@PathParam("id")
                             @Parameter(description = "UUID of active laser group that will be colorchanged", required = true)
                             UUID id) {
-        if(!EffectManager.instanceOf(id, LaserEffect.class))
-            return BAD_REQUEST;
-
         try {
+            if(!EffectManager.instanceOf(id, LaserEffect.class))
+                return BAD_REQUEST;
+
             EffectManager.hotTriggerEffect(id);
             return OK;
         } catch (Exception e) {

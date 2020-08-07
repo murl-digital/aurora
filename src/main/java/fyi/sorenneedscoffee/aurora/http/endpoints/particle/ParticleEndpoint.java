@@ -49,10 +49,10 @@ public class ParticleEndpoint extends Endpoint {
                                   UUID id,
                           @RequestBody(description = "Array of Particle models", required = true)
                                   ParticleModel[] models) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.exists(id))
+                return BAD_REQUEST;
+
             EffectGroup group;
 
             try {

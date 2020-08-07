@@ -41,10 +41,10 @@ public class TargetedLaserEndpoint extends Endpoint {
                                   UUID id,
                           @RequestBody(description = "Array of TargetedLaser models", required = true)
                                   TargetedLaserModel[] models) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.exists(id))
+                return BAD_REQUEST;
+
             EffectGroup group = new EffectGroup(id);
             for (TargetedLaserModel model : models) {
                 Point start = Aurora.pointUtil.getPoint(model.startId);
@@ -67,10 +67,10 @@ public class TargetedLaserEndpoint extends Endpoint {
     public Response restart(@PathParam("id")
                             @Parameter(description = "UUID of the group that will be restarted", required = true)
                                     UUID id) {
-        if (!EffectManager.instanceOf(id, TargetedLaserEffect.class))
-            return BAD_REQUEST;
-
         try {
+            if (!EffectManager.instanceOf(id, TargetedLaserEffect.class))
+                return BAD_REQUEST;
+
             EffectManager.restartEffect(id);
             return OK;
         } catch (Exception e) {

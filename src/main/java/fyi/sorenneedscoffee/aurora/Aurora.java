@@ -2,17 +2,24 @@ package fyi.sorenneedscoffee.aurora;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.sun.net.httpserver.HttpServer;
+import fyi.sorenneedscoffee.aurora.commands.EffectCmd;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
+import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
+import fyi.sorenneedscoffee.aurora.effects.potion.GlobalPotionEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.endpoints.potion.GlobalPotionEndpoint;
+import fyi.sorenneedscoffee.aurora.http.models.potion.GlobalPotionModel;
 import fyi.sorenneedscoffee.aurora.http.providers.CORSFilter;
 import fyi.sorenneedscoffee.aurora.http.providers.GeneralExceptionMapper;
 import fyi.sorenneedscoffee.aurora.http.providers.GsonProvider;
 import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.PointUtil;
+import fyi.sorenneedscoffee.aurora.util.annotation.StaticAction;
+import fyi.sorenneedscoffee.aurora.util.annotation.StaticEffect;
+import fyi.sorenneedscoffee.aurora.util.annotation.StaticModel;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -25,13 +32,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.reflections.Reflections;
+import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.scanners.TypeAnnotationsScanner;
 
+import javax.ws.rs.Path;
 import javax.ws.rs.core.UriBuilder;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -57,6 +73,7 @@ public final class Aurora extends JavaPlugin {
         logger = this.getLogger();
         gson = new GsonBuilder()
                 .serializeNulls()
+                .setPrettyPrinting()
                 .create();
 
         if (plugin.getDataFolder().mkdirs()) {
@@ -71,6 +88,13 @@ public final class Aurora extends JavaPlugin {
         dataManager = new DataManager(plugin);
         pointUtil = new PointUtil().load();
 
+        Reflections reflections = new Reflections("fyi.sorenneedscoffee.aurora.http",
+                new TypeAnnotationsScanner(),
+                new MethodAnnotationsScanner(),
+                new SubTypesScanner()
+        );
+        Set<Class<? extends Endpoint>> endpoints = reflections.getSubTypesOf(Endpoint.class);
+
         if (config.getBoolean("remote.enabled")) {
             String hostname = config.getString("remote.httpHostname");
             int port = config.getInt("remote.httpPort");
@@ -81,9 +105,6 @@ public final class Aurora extends JavaPlugin {
                         + "/").port(port).build();
 
                 logger.info("Starting HTTP Server at " + base + "...");
-
-                Reflections reflections = new Reflections("fyi.sorenneedscoffee.aurora.http.endpoints");
-                Set<Class<? extends Endpoint>> endpoints = reflections.getSubTypesOf(Endpoint.class);
 
                 ResourceConfig resourceConfig = new ResourceConfig();
                 resourceConfig.register(GsonProvider.class);
@@ -122,6 +143,48 @@ public final class Aurora extends JavaPlugin {
         }
 
         this.getCommand("point").setExecutor(new PointCmd());
+        this.getCommand("effects").setExecutor(new EffectCmd());
+
+        try {
+            logger.info("Starting static effects..");
+            File staticEffectsFile = new File(plugin.getDataFolder(), "staicEffects.json");
+            if (!staticEffectsFile.exists()) {
+                gson.toJson(new JsonArray(), new FileWriter(staticEffectsFile));
+            }
+
+            JsonArray effectArray = (JsonArray) new JsonParser().parse(new FileReader(staticEffectsFile));
+
+            for (JsonElement el : effectArray) {
+                if (!(el instanceof JsonObject))
+                    continue;
+
+                JsonObject obj = (JsonObject) el;
+
+                for (Class<? extends Endpoint> e : endpoints) {
+                    StaticEffect[] a = e.getAnnotationsByType(StaticEffect.class);
+                    if (a.length != 0 && a[0].value().equals(obj.get("effect").getAsString())) {
+                        Object model = null;
+                        for (Class<?> cl : reflections.getTypesAnnotatedWith(StaticModel.class)) {
+                            if (cl.getAnnotation(StaticModel.class).value().equals(obj.get("effect").getAsString()))
+                                model = gson.fromJson(obj.get("model"), Array.newInstance(cl, 1).getClass());
+                        }
+                        Object finalModel = model;
+                        reflections.getMethodsAnnotatedWith(StaticAction.class).forEach(m -> {
+                            try {
+                                m.invoke(e.getDeclaredConstructor().newInstance(), finalModel);
+                            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException ex) {
+                                logger.warning("The plugin tried to initialize the static");
+                            }
+                        });
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.warning("An error occurred while starting a static effect. It will not be active.");
+            logger.warning(ExceptionUtils.getMessage(e));
+            logger.warning(ExceptionUtils.getStackTrace(e));
+        }
+
         Bukkit.getLogger().info("\n" +
                 "_______                                   \n" +
                 "___    |___  ___________________________ _\n" +
@@ -136,7 +199,7 @@ public final class Aurora extends JavaPlugin {
     @Override
     public void onDisable() {
         Aurora.logger.info("Stopping currently active effects...");
-        EffectManager.stopAll();
+        EffectManager.stopAll(true);
         if (httpServer != null) {
             Aurora.logger.info("Shutting down HTTP server...");
             httpServer.stop(0);

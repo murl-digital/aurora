@@ -7,6 +7,8 @@ import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.models.potion.GlobalPotionModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.util.annotation.StaticAction;
+import fyi.sorenneedscoffee.aurora.util.annotation.StaticEffect;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,6 +25,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("effects/potion/{id}")
+@StaticEffect("potion")
 public class GlobalPotionEndpoint extends Endpoint {
 
     @Path("/start")
@@ -47,29 +50,49 @@ public class GlobalPotionEndpoint extends Endpoint {
                                   UUID id,
                           @RequestBody(description = "Array of GlobalPotion models", required = true)
                                   GlobalPotionModel[] models) {
-        if (EffectManager.exists(id))
-            return BAD_REQUEST;
-
         try {
+            if (EffectManager.exists(id))
+                return BAD_REQUEST;
+
             Point point = Aurora.pointUtil.getPoint(0);
             if (point == null)
                 return POINT_DOESNT_EXIST;
 
             EffectGroup group = new EffectGroup(id);
-            for (GlobalPotionModel model : models) {
-                PotionEffectType type = PotionEffectType.getByName(model.potionType);
-                if (type == null) {
-                    return UNPROCESSABLE_ENTITY;
-                }
-                group.add(new GlobalPotionEffect(point, type, model.amplifier));
-            }
-
-            EffectManager.startEffect(group);
-            return OK;
+            return constructGroup(models, point, group);
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
+    }
+
+    @StaticAction
+    public Response startStatic(GlobalPotionModel[] models) {
+        try {
+            Point point = Aurora.pointUtil.getPoint(0);
+            if (point == null)
+                return POINT_DOESNT_EXIST;
+
+            EffectGroup group = new EffectGroup(UUID.randomUUID(), true);
+            return constructGroup(models, point, group);
+        } catch (Exception e) {
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    private Response constructGroup(GlobalPotionModel[] models, Point point, EffectGroup group) throws Exception {
+        for (GlobalPotionModel model : models) {
+            PotionEffectType type = PotionEffectType.getByName(model.potionType);
+            if (type == null) {
+                return UNPROCESSABLE_ENTITY;
+            }
+            group.add(new GlobalPotionEffect(point, type, model.amplifier));
+        }
+
+        EffectManager.startEffect(group);
+        return OK;
     }
 }

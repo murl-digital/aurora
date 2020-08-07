@@ -21,6 +21,19 @@ public class PointCmd implements CommandExecutor {
             return true;
         }
 
+        if(args[0].equals("list")) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("Available points: ").append("\n\n");
+
+            for (Point point : Aurora.pointUtil.getPoints()) {
+                builder.append("ID: ").append(point.id).append("\n");
+                builder.append("Location: ").append(point.getLocation().toString()).append("\n\n");
+            }
+
+            sender.sendMessage(builder.toString());
+            return true;
+        }
+
         if (sender instanceof Player) {
             if (args[0].equals("add")) {
                 return AddPoint.execute(sender, args.length > 1 ? Arrays.copyOfRange(args, 1, args.length) : null);
@@ -30,6 +43,7 @@ public class PointCmd implements CommandExecutor {
                 return false;
             }
         }
+
         sender.sendMessage("You can only use this command as a player");
         return false;
     }

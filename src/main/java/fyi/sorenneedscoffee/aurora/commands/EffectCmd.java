@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 public class EffectCmd implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        switch (args[1]) {
+        switch (args[0]) {
             case "stopall":
-                EffectManager.stopAll();
+                EffectManager.stopAll(false);
                 sender.sendMessage("All current effects have been stopped.");
                 return true;
         }
