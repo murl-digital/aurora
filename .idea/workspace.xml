@@ -20,33 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49cbbd53-77f3-49fc-86e9-9123e514c867" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/annotation/StaticAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/annotation/StaticEffect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/annotation/StaticModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/Aurora.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/Aurora.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/commands/EffectCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/commands/EffectCmd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/commands/PointCmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/commands/PointCmd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/EffectGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/EffectGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/particle/ParticleEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/particle/ParticleEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/particle/Region.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/particle/Region.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/potion/GlobalPotionEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/effects/potion/GlobalPotionEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/StopEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/StopEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/bossbar/BossBarEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/bossbar/BossBarEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/dragon/DragonEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/dragon/DragonEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/laser/EndLaserEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/laser/EndLaserEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/laser/LaserEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/laser/LaserEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/laser/TargetedLaserEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/laser/TargetedLaserEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/particle/ParticleEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/particle/ParticleEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/potion/GlobalPotionEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/potion/GlobalPotionEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/time/TimeShiftEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/endpoints/time/TimeShiftEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/potion/GlobalPotionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/http/models/potion/GlobalPotionModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/BarManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/BarManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/EffectManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/EffectManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/PointUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fyi/sorenneedscoffee/aurora/util/PointUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +242,7 @@
       <workItem from="1596505208310" duration="6000" />
       <workItem from="1596554247197" duration="9666000" />
       <workItem from="1596632301215" duration="7024000" />
-      <workItem from="1596719173179" duration="21304000" />
+      <workItem from="1596719173179" duration="21778000" />
     </task>
     <task id="LOCAL-00001" summary="fixed broken idea project (man past me is so dumb)">
       <created>1594472358819</created>
@@ -318,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596555589306</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1.1.0 woo!&#10;&#10;- lots of bug fixes&#10;- static effect support (only on potions for now)&#10;- some tlc given to ingame commands (they need more tho)&#10;- changed the behavior of the potion effect&#10;- you can now have multiple bossbars">
+      <created>1596812604815</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1596812604815</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +326,8 @@
     <MESSAGE value="in your face, adrian&#10;&#10;- added openapi support, will begin documentation soon" />
     <MESSAGE value="the documentation update&#10;&#10;- cleaned up build.gradle&#10;- made sure solarflare wasnt referenced as solarwind&#10;- added and implemented swagger documentation (may need to be revised overtime)&#10;- other little refactors" />
     <MESSAGE value="- made bossbar seperate from other effects&#10;- bug fixes and better error handling&#10;- added additional options for particles" />
-    <option name="LAST_COMMIT_MESSAGE" value="- made bossbar seperate from other effects&#10;- bug fixes and better error handling&#10;- added additional options for particles" />
+    <MESSAGE value="1.1.0 woo!&#10;&#10;- lots of bug fixes&#10;- static effect support (only on potions for now)&#10;- some tlc given to ingame commands (they need more tho)&#10;- changed the behavior of the potion effect&#10;- you can now have multiple bossbars" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.1.0 woo!&#10;&#10;- lots of bug fixes&#10;- static effect support (only on potions for now)&#10;- some tlc given to ingame commands (they need more tho)&#10;- changed the behavior of the potion effect&#10;- you can now have multiple bossbars" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594658461849">
@@ -370,35 +353,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1594658132114" />
-    <state width="1860" height="299" key="GridCell.Tab.0.bottom" timestamp="1596756672941">
+    <state width="1860" height="299" key="GridCell.Tab.0.bottom" timestamp="1596812197977">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="299" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1596250271429" />
-    <state width="1860" height="299" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596756672941" />
+    <state width="1860" height="299" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596812197977" />
     <state width="1877" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595560667588" />
     <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594842679253" />
     <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594673620865" />
-    <state width="1860" height="299" key="GridCell.Tab.0.center" timestamp="1596756672941">
+    <state width="1860" height="299" key="GridCell.Tab.0.center" timestamp="1596812197977">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="299" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1596250271429" />
-    <state width="1860" height="299" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596756672941" />
+    <state width="1860" height="299" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596812197977" />
     <state width="1877" height="296" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595560667588" />
     <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594842679253" />
     <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594673620865" />
-    <state width="1860" height="299" key="GridCell.Tab.0.left" timestamp="1596756672941">
+    <state width="1860" height="299" key="GridCell.Tab.0.left" timestamp="1596812197977">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="299" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1596250271429" />
-    <state width="1860" height="299" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596756672941" />
+    <state width="1860" height="299" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596812197977" />
     <state width="1877" height="296" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595560667588" />
     <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594842679253" />
     <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594673620865" />
-    <state width="1860" height="299" key="GridCell.Tab.0.right" timestamp="1596756672941">
+    <state width="1860" height="299" key="GridCell.Tab.0.right" timestamp="1596812197977">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="299" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1596250271429" />
-    <state width="1860" height="299" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596756672941" />
+    <state width="1860" height="299" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596812197977" />
     <state width="1877" height="296" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595560667588" />
     <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594842679253" />
     <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594673620865" />
@@ -425,6 +408,10 @@
     </state>
     <state x="-1195" y="204" width="819" height="624" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1595284756666" />
     <state x="1099" y="168" width="670" height="624" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1594838171618" />
+    <state x="756" y="299" key="git4idea.merge.GitMergeDialog" timestamp="1596812616854">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="756" y="299" key="git4idea.merge.GitMergeDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1596812616854" />
     <state x="-1174" y="257" key="refactoring.ChangeSignatureDialog" timestamp="1595456317499">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
