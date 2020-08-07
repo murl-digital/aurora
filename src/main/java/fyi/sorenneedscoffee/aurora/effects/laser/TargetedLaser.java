@@ -208,15 +208,20 @@ class TargetedLaser {
                     watcherName2 = "bF";
                     watcherName3 = "bG";
                     guardianID = 28;
-                } else if (version == 14) {
+                }else if (version == 14) {
                     watcherName1 = "W";
                     watcherName2 = "b";
                     watcherName3 = "bD";
                     guardianID = 30;
-                } else if (version > 14) {
+                }else if (version == 15) {
                     watcherName1 = "T";
                     watcherName2 = "b";
                     watcherName3 = "bA";
+                    guardianID = 31;
+                }else if (version >= 16) {
+                    watcherName1 = "T";
+                    watcherName2 = "b";
+                    watcherName3 = "d";
                     guardianID = 31;
                 }
                 watcherObject1 = getField(Class.forName(npack + "Entity"), watcherName1, null);
