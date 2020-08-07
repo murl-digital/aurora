@@ -4,19 +4,18 @@ import fyi.sorenneedscoffee.aurora.util.Point;
 import org.bukkit.Location;
 import org.mariuszgromada.math.mxparser.Function;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Region {
-    private final Point[] points;
     public final RegionType type;
     public final double density;
     public final boolean randomized;
+
+    private final Point[] points;
     private final String equation;
 
-    //The lower the value, the more particles per block. DO NOT PUT THIS BELOW 1.0!!!!
-    private final double resolution = 0.5;
+    //The lower the value, the more particles per block.
+    private final double RESOLUTION = 0.8;
 
     public Region(Point[] points, RegionType type, double density, boolean randomized, String equation) {
         this.points = points;
@@ -26,32 +25,35 @@ public class Region {
         this.equation = equation;
     }
 
-    public List<Location> calculateLocations() {
-        List<Location> result = new ArrayList<>();
-        if(type == RegionType.POINTS) {
+    public Set<Location> calculateLocations() {
+        Set<Location> result = new HashSet<>();
+        if (type == RegionType.POINTS) {
             for (Point point : points) {
                 result.add(point.getLocation());
             }
         } else if (type == RegionType.CUBOID) {
             Random random = new Random();
             generateCuboid((pos1, pos2, x, y, z, xMult, yMult, zMult, a, b) -> {
-                if (randomized)
-                    result.add(pos1.clone().add((x*xMult), (y*yMult), (z*zMult)));
-                else if (random.nextDouble() <= density)
-                    result.add(pos1.clone().add((x*xMult), (y*yMult), (z*zMult)));
+                if (randomized) {
+                    result.add(pos1.clone().add((x * xMult), (y * yMult), (z * zMult)));
+                } else if (random.nextDouble() <= density) {
+                    result.add(pos1.clone().add((x * xMult), (y * yMult), (z * zMult)));
+                }
             });
         } else if (type == RegionType.EQUATION) {
-            Function function = new Function("f(x,y)="+equation);
+            Function function = new Function("f(x,y)=" + equation);
             Random random = new Random();
             generateCuboid((pos1, pos2, x, y, z, xMult, yMult, zMult, xDistance, zDistance) -> {
                 if (randomized) {
                     double yCalc = function.calculate(x - (xDistance / 2), z - (zDistance / 2));
-                    if(!Double.isNaN(yCalc))
+                    if (!Double.isNaN(yCalc)) {
                         result.add(pos1.clone().add((x * xMult), (yCalc * yMult), (z * zMult)));
+                    }
                 } else if (random.nextDouble() <= density) {
                     double yCalc = function.calculate(x - (xDistance / 2), z - (zDistance / 2));
-                    if(!Double.isNaN(yCalc))
+                    if (!Double.isNaN(yCalc)) {
                         result.add(pos1.clone().add((x * xMult), (yCalc * yMult), (z * zMult)));
+                    }
                 }
             });
         }
@@ -64,11 +66,12 @@ public class Region {
         int xMult = pos1.getX() < pos2.getX() ? 1 : -1;
         int yMult = pos1.getY() < pos2.getY() ? 1 : -1;
         int zMult = pos1.getZ() < pos2.getZ() ? 1 : -1;
-        double zDistance = Math.abs(pos1.getZ() - pos2.getZ());
         double xDistance = Math.abs(pos1.getX() - pos2.getX());
-        for(double y = 0; pos1.getY() + y < pos2.getY(); y += resolution) {
-            for (double z = 0; z <= zDistance; z += resolution) {
-                for (double x = 0; x <= xDistance; x += resolution) {
+        double yDistance = Math.abs(pos1.getY() - pos2.getY());
+        double zDistance = Math.abs(pos1.getZ() - pos2.getZ());
+        for (double y = 0; y <= yDistance; y += RESOLUTION) {
+            for (double z = 0; z <= zDistance; z += RESOLUTION) {
+                for (double x = 0; x <= xDistance; x += RESOLUTION) {
                     function.execute(
                             pos1,
                             pos2,

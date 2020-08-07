@@ -17,17 +17,16 @@ public class EffectManager {
 
     public static void stopEffect(UUID uuid) {
         EffectGroup effectGroup = findEffect(uuid);
-        effectGroup.stopAll();
+        effectGroup.stopAll(false);
         activeEffects.remove(effectGroup);
     }
 
     public static void restartEffect(UUID uuid) {
-        EffectGroup effectGroup = findEffect(uuid);
-        effectGroup.restartAll();
+        findEffect(uuid).restartAll();
     }
 
-    public static void stopAll() {
-        activeEffects.forEach(EffectGroup::stopAll);
+    public static void stopAll(boolean shuttingDown) {
+        activeEffects.forEach(g -> g.stopAll(shuttingDown));
         activeEffects.clear();
     }
 
@@ -35,13 +34,23 @@ public class EffectManager {
         group.triggerAll();
     }
 
+    public static void hotTriggerEffect(UUID uuid) {
+        findEffect(uuid).hotTriggerAll();
+    }
+
     public static boolean exists(UUID id) {
         return findEffect(id) != null;
     }
 
-    private static EffectGroup findEffect(UUID id) {
-        Optional<EffectGroup> effect = activeEffects.stream().filter(e -> e.id.equals(id)).findAny();
+    public static <T> boolean instanceOf(UUID id, Class<T> clazz) {
+        EffectGroup group = findEffect(id);
+        if (group == null)
+            return false;
 
-        return effect.orElse(null);
+        return group.instanceOf(clazz);
+    }
+
+    private static EffectGroup findEffect(UUID id) {
+        return activeEffects.contains(new EffectGroup(id)) ? activeEffects.get(activeEffects.indexOf(new EffectGroup(id))) : null;
     }
 }

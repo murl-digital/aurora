@@ -2,7 +2,6 @@ package fyi.sorenneedscoffee.aurora.util;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 
-import java.util.List;
 import java.util.TreeSet;
 
 public class PointUtil {
@@ -27,6 +26,10 @@ public class PointUtil {
 
     public Point getPoint(int id) {
         return points.stream().filter(p -> p.id == id).findAny().orElse(null);
+    }
+
+    public TreeSet<Point> getPoints() {
+        return (TreeSet<Point>) points.clone();
     }
 
     public void savePoint(Point point) {

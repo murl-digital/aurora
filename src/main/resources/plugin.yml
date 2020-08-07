@@ -7,5 +7,7 @@ authors: [SorenNeedsCoffee]
 description: oooo, pretty lights
 commands:
   point:
-    description: point
-    usage: "§cUsage: /<command> [add (x, y, z) | remove <id> | reload]"
+    description: Points control
+    usage: "§cUsage: /<command> [add (x, y, z) | remove <id> | reload | list]"
+  effects:
+    description: Effects control

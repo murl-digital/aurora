@@ -9,9 +9,16 @@ import java.util.UUID;
 public class EffectGroup {
     public final UUID id;
     private final List<Effect> effects = new ArrayList<>();
+    private final boolean isStatic;
 
     public EffectGroup(UUID id) {
         this.id = id;
+        this.isStatic = false;
+    }
+
+    public EffectGroup(UUID id, boolean isStatic) {
+        this.id = id;
+        this.isStatic = isStatic;
     }
 
     public void add(Effect effect) {
@@ -25,10 +32,12 @@ public class EffectGroup {
         }
     }
 
-    public void stopAll() {
+    public void stopAll(boolean shuttingDown) {
         effects.forEach(e -> {
-            e.execute(EffectAction.STOP);
-            e.cleanup();
+            if (!isStatic || shuttingDown) {
+                e.execute(EffectAction.STOP);
+                e.cleanup();
+            }
         });
     }
 
@@ -40,8 +49,25 @@ public class EffectGroup {
         }
     }
 
+    public void hotTriggerAll() {
+        effects.forEach(e -> e.execute(EffectAction.TRIGGER));
+    }
+
     public void restartAll() {
         effects.forEach(e -> e.execute(EffectAction.RESTART));
+    }
+
+    public <T> boolean instanceOf(Class<T> clazz) {
+        for (Effect e : effects) {
+            if (!e.getClass().isInstance(clazz))
+                return false;
+        }
+
+        return true;
+    }
+
+    public boolean isStatic() {
+        return isStatic;
     }
 
     @Override

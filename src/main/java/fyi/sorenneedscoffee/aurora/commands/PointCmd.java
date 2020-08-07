@@ -16,8 +16,21 @@ public class PointCmd implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(args[0].equals("reload") || args[0].equals("refresh")) {
+        if (args[0].equals("reload") || args[0].equals("refresh")) {
             Aurora.pointUtil.refresh();
+            return true;
+        }
+
+        if(args[0].equals("list")) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("Available points: ").append("\n\n");
+
+            for (Point point : Aurora.pointUtil.getPoints()) {
+                builder.append("ID: ").append(point.id).append("\n");
+                builder.append("Location: ").append(point.getLocation().toString()).append("\n\n");
+            }
+
+            sender.sendMessage(builder.toString());
             return true;
         }
 
@@ -30,6 +43,7 @@ public class PointCmd implements CommandExecutor {
                 return false;
             }
         }
+
         sender.sendMessage("You can only use this command as a player");
         return false;
     }
