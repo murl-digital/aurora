@@ -44,7 +44,7 @@ public class ParticleEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id")
+    public static Response start(@PathParam("id")
                           @Parameter(description = "UUID that will be assigned to the effect group", required = true)
                                   UUID id,
                           @RequestBody(description = "Array of Particle models", required = true)
@@ -87,7 +87,7 @@ public class ParticleEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response trigger(@PathParam("id")
+    public static Response trigger(@PathParam("id")
                             @Parameter(description = "UUID that will be assigned to the effect group", required = true)
                                     UUID id,
                             ParticleModel[] models) {
@@ -110,7 +110,7 @@ public class ParticleEndpoint extends Endpoint {
         }
     }
 
-    private EffectGroup constructGroup(UUID id, ParticleModel[] models, boolean ignoreRandomized) throws IllegalArgumentException, NullPointerException {
+    private static EffectGroup constructGroup(UUID id, ParticleModel[] models, boolean ignoreRandomized) throws IllegalArgumentException, NullPointerException {
         EffectGroup group = new EffectGroup(id);
         for (ParticleModel model : models) {
             List<Point> points = new ArrayList<>();

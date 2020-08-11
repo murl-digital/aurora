@@ -36,11 +36,11 @@ public class EndLaserEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id")
-                          @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                  UUID id,
-                          @RequestBody(description = "Array of Laser models", required = true)
-                                  LaserModel[] models) {
+    public static Response start(@PathParam("id")
+                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                                         UUID id,
+                                 @RequestBody(description = "Array of Laser models", required = true)
+                                         LaserModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;

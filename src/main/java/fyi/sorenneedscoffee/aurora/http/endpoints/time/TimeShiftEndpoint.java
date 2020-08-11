@@ -35,7 +35,7 @@ public class TimeShiftEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response startEffect(@PathParam("id")
+    public static Response startEffect(@PathParam("id")
                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
                                         UUID id,
                                 @RequestBody(description = "Array of TimeShift models", required = true)

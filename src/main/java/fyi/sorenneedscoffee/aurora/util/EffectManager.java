@@ -4,28 +4,51 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class EffectManager {
     private static final List<EffectGroup> activeEffects = new ArrayList<>();
+    private static final ExecutorService service = Executors.newFixedThreadPool(1);
 
     public static void startEffect(EffectGroup group) throws Exception {
-        group.startAll();
-        activeEffects.add(group);
+        try {
+            service.submit((Callable<Void>) () -> {
+                group.startAll();
+                activeEffects.add(group);
+                return null;
+            }).get();
+        } catch (ExecutionException e) {
+            throw (Exception) e.getCause();
+        }
     }
 
     public static void stopEffect(UUID uuid) {
-        EffectGroup effectGroup = findEffect(uuid);
-        effectGroup.stopAll(false);
-        activeEffects.remove(effectGroup);
+        service.submit(() -> {
+            EffectGroup effectGroup = findEffect(uuid);
+            if (effectGroup != null) {
+                effectGroup.stopAll(false);
+                activeEffects.remove(effectGroup);
+            }
+        });
     }
 
     public static void restartEffect(UUID uuid) {
-        findEffect(uuid).restartAll();
+        service.submit(() -> {
+            EffectGroup effectGroup = findEffect(uuid);
+            if (effectGroup != null) {
+                effectGroup.restartAll();
+            }
+        });
     }
 
     public static void stopAll(boolean shuttingDown) {
+        if (shuttingDown)
+            service.shutdownNow();
+
         activeEffects.forEach(g -> g.stopAll(shuttingDown));
         activeEffects.clear();
     }
@@ -35,7 +58,12 @@ public class EffectManager {
     }
 
     public static void hotTriggerEffect(UUID uuid) {
-        findEffect(uuid).hotTriggerAll();
+        service.submit(() -> {
+            EffectGroup effectGroup = findEffect(uuid);
+            if(effectGroup != null) {
+                effectGroup.hotTriggerAll();
+            }
+        });
     }
 
     public static boolean exists(UUID id) {

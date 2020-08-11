@@ -38,9 +38,9 @@ public class BossBarEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(
+    public static Response start(
             @RequestBody(description = "BossBar model", required = true)
-                                  BossBarModel[] models) {
+                    BossBarModel[] models) {
         try {
             Point point = Aurora.pointUtil.getPoint(0);
             if (point == null)
@@ -79,7 +79,7 @@ public class BossBarEndpoint extends Endpoint {
             responses = @ApiResponse(responseCode = "200", description = "Any bars that were being displayed are cleared.")
     )
     @POST
-    public Response clear() {
+    public static Response clear() {
         try {
             if(!BarManager.isActive())
                 return OK;

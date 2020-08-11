@@ -6,7 +6,7 @@ import org.bukkit.plugin.IllegalPluginAccessException;
 
 public abstract class Effect {
 
-    public abstract void init() throws Exception;
+    public abstract void init() throws ReflectiveOperationException, Exception;
 
     public abstract void execute(EffectAction action);
 

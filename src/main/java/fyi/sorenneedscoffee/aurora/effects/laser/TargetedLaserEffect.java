@@ -8,6 +8,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
 import fyi.sorenneedscoffee.aurora.util.Point;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -55,6 +56,17 @@ public class TargetedLaserEffect extends Effect {
                     try {
                         targetedLaser.moveEnd(onlinePlayers.get(random.nextInt(onlinePlayers.size())));
                     } catch (ReflectiveOperationException ignored) {
+                    }
+                });
+                break;
+            case TRIGGER:
+                runTask(() -> {
+                    try {
+                        targetedLaser.callColorChange();
+                    } catch (ReflectiveOperationException e) {
+                        Aurora.logger.warning("An error occurred while attempting to change a laser's color.");
+                        Aurora.logger.warning(e.getMessage());
+                        Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
                     }
                 });
                 break;

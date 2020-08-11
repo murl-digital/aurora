@@ -38,7 +38,6 @@ dependencies {
     implementation 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.31'
     implementation 'org.glassfish.jersey.inject:jersey-hk2:2.31'
     implementation 'io.swagger.core.v3:swagger-jaxrs2:2.1.2'
-    implementation 'javax.servlet:javax.servlet-api:4.0.1'
 
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 }
