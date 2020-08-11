@@ -59,7 +59,7 @@ public class EffectGroup {
 
     public <T> boolean instanceOf(Class<T> clazz) {
         for (Effect e : effects) {
-            if (!e.getClass().isInstance(clazz))
+            if (!clazz.isInstance(e))
                 return false;
         }
 

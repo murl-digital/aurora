@@ -27,7 +27,7 @@ public class StopEndpoint extends Endpoint {
             }
     )
     @POST
-    public Response stop(
+    public static Response stop(
             @PathParam("id")
             @Parameter(description = "UUID of the effect group that will be stopped", required = true)
                     UUID id) {
@@ -53,7 +53,7 @@ public class StopEndpoint extends Endpoint {
             }
     )
     @POST
-    public Response stopAll() {
+    public static Response stopAll() {
         try {
             EffectManager.stopAll(false);
             return OK;

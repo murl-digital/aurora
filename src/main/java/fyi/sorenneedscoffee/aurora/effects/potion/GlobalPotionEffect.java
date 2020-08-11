@@ -34,7 +34,8 @@ public class GlobalPotionEffect extends Effect {
 
     public GlobalPotionEffect(Point point, PotionEffectType type, int amplifier) {
         world = point.getLocation().getWorld();
-        this.potionEffect = new PotionEffect(type, 225, amplifier, false, false, false);
+        //potion amplifiers are 0 based apparently, this is to accommodate that.
+        this.potionEffect = new PotionEffect(type, 225, amplifier-1, false, false, false);
     }
 
     @Override
@@ -46,8 +47,10 @@ public class GlobalPotionEffect extends Effect {
         if (action == EffectAction.START) {
             task = getScheduler().runTaskTimer(Aurora.plugin, () -> {
                 for (Player player : world.getPlayers()) {
-                    player.removePotionEffect(potionEffect.getType());
-                    player.addPotionEffect(potionEffect);
+                    if (player.getEyeLocation().getBlock().isLiquid()) {
+                        player.removePotionEffect(potionEffect.getType());
+                        player.addPotionEffect(potionEffect);
+                    }
                 }
             }, 0, 20);
         } else if (action == EffectAction.STOP) {

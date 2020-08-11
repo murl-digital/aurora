@@ -36,7 +36,7 @@ public class TargetedLaserEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id")
+    public static Response start(@PathParam("id")
                           @Parameter(description = "UUID that will be assigned to the effect group", required = true)
                                   UUID id,
                           @RequestBody(description = "Array of TargetedLaser models", required = true)
@@ -64,7 +64,7 @@ public class TargetedLaserEndpoint extends Endpoint {
 
     @Path("/restart")
     @POST
-    public Response restart(@PathParam("id")
+    public static Response restart(@PathParam("id")
                             @Parameter(description = "UUID of the group that will be restarted", required = true)
                                     UUID id) {
         try {

@@ -35,11 +35,11 @@ public class LaserEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id")
-                          @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                  UUID id,
-                          @RequestBody(description = "Array of Laser models", required = true)
-                                  LaserModel[] request) {
+    public static Response start(@PathParam("id")
+                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                                         UUID id,
+                                 @RequestBody(description = "Array of Laser models", required = true)
+                                         LaserModel[] request) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -68,9 +68,9 @@ public class LaserEndpoint extends Endpoint {
             description = "Changes an active laser's color. Good for rhythmic stuff"
     )
     @POST
-    public Response trigger(@PathParam("id")
-                            @Parameter(description = "UUID of active laser group that will be colorchanged", required = true)
-                            UUID id) {
+    public static Response trigger(@PathParam("id")
+                                   @Parameter(description = "UUID of active laser group that will be colorchanged", required = true)
+                                           UUID id) {
         try {
             if(!EffectManager.instanceOf(id, LaserEffect.class))
                 return BAD_REQUEST;

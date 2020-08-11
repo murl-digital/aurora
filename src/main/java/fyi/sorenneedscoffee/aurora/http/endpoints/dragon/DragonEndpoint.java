@@ -35,11 +35,11 @@ public class DragonEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id")
-                          @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                  UUID id,
-                          @RequestBody(description = "Array of Dragon models", required = true)
-                                  DragonModel[] models) {
+    public static Response start(@PathParam("id")
+                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                                         UUID id,
+                                 @RequestBody(description = "Array of Dragon models", required = true)
+                                         DragonModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -73,9 +73,9 @@ public class DragonEndpoint extends Endpoint {
             }
     )
     @POST
-    public Response restart(@PathParam("id")
-                            @Parameter(description = "UUID that the group that will be restarted", required = true)
-                                    UUID id) {
+    public static Response restart(@PathParam("id")
+                                   @Parameter(description = "UUID that the group that will be restarted", required = true)
+                                           UUID id) {
         try {
             if (EffectManager.instanceOf(id, DragonEffect.class))
                 return BAD_REQUEST;

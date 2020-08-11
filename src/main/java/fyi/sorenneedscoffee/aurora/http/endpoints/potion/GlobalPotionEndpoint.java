@@ -45,7 +45,7 @@ public class GlobalPotionEndpoint extends Endpoint {
     )
     @POST
     @Consumes("application/json")
-    public Response start(@PathParam("id")
+    public static Response start(@PathParam("id")
                           @Parameter(description = "UUID that will be assigned to the effect group", required = true)
                                   UUID id,
                           @RequestBody(description = "Array of GlobalPotion models", required = true)
@@ -83,7 +83,7 @@ public class GlobalPotionEndpoint extends Endpoint {
         }
     }
 
-    private Response constructGroup(GlobalPotionModel[] models, Point point, EffectGroup group) throws Exception {
+    private static Response constructGroup(GlobalPotionModel[] models, Point point, EffectGroup group) throws Exception {
         for (GlobalPotionModel model : models) {
             PotionEffectType type = PotionEffectType.getByName(model.potionType);
             if (type == null) {

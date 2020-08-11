@@ -6,21 +6,14 @@ import com.google.gson.*;
 import com.sun.net.httpserver.HttpServer;
 import fyi.sorenneedscoffee.aurora.commands.EffectCmd;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
-import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.potion.GlobalPotionEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
-import fyi.sorenneedscoffee.aurora.http.endpoints.potion.GlobalPotionEndpoint;
-import fyi.sorenneedscoffee.aurora.http.models.potion.GlobalPotionModel;
-import fyi.sorenneedscoffee.aurora.http.providers.CORSFilter;
-import fyi.sorenneedscoffee.aurora.http.providers.GeneralExceptionMapper;
-import fyi.sorenneedscoffee.aurora.http.providers.GsonProvider;
+import fyi.sorenneedscoffee.aurora.http.RestHandler;
 import fyi.sorenneedscoffee.aurora.util.DataManager;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.PointUtil;
 import fyi.sorenneedscoffee.aurora.util.annotation.StaticAction;
 import fyi.sorenneedscoffee.aurora.util.annotation.StaticEffect;
 import fyi.sorenneedscoffee.aurora.util.annotation.StaticModel;
-import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -29,21 +22,18 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.core.UriBuilder;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
@@ -96,29 +86,21 @@ public final class Aurora extends JavaPlugin {
         Set<Class<? extends Endpoint>> endpoints = reflections.getSubTypesOf(Endpoint.class);
 
         if (config.getBoolean("remote.enabled")) {
-            String hostname = config.getString("remote.httpHostname");
-            int port = config.getInt("remote.httpPort");
-
             try {
-                URI base = UriBuilder.fromUri("http://" +
-                        Objects.requireNonNull(hostname.equals("auto") ? InetAddress.getLocalHost().getHostAddress() : hostname)
-                        + "/").port(port).build();
+                String hostname = Objects.requireNonNull(
+                        Objects.equals(config.getString("remote.httpHostname"), "auto") ? InetAddress.getLocalHost().getHostAddress() :
+                                config.getString("remote.httpHostname"));
+                int port = config.getInt("remote.httpPort");
+
+                URI base = URI.create("http://" + hostname + ":" + port + "/");
 
                 logger.info("Starting HTTP Server at " + base + "...");
 
-                ResourceConfig resourceConfig = new ResourceConfig();
-                resourceConfig.register(GsonProvider.class);
-                resourceConfig.register(GeneralExceptionMapper.class);
-                resourceConfig.register(CORSFilter.class);
-                resourceConfig.register(OpenApiResource.class);
-                for (Class<? extends Endpoint> e : endpoints) {
-                    resourceConfig.register(e);
-                }
-
-                httpServer = JdkHttpServerFactory.createHttpServer(base, resourceConfig, false);
-                httpExecutor = new ThreadPoolExecutor(2, Integer.MAX_VALUE,
+                httpServer = HttpServer.create(new InetSocketAddress(hostname, port), 0);
+                httpServer.createContext("/", new RestHandler());
+                httpExecutor = new ThreadPoolExecutor(3, 3,
                         60L, TimeUnit.SECONDS,
-                        new SynchronousQueue<>());
+                        new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
                 httpServer.setExecutor(httpExecutor);
                 httpServer.start();
 
