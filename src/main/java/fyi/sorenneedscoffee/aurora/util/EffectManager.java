@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 public class EffectManager {
     private static final List<EffectGroup> activeEffects = new ArrayList<>();
-    private static final ExecutorService service = Executors.newFixedThreadPool(1);
+    private static final ExecutorService service = Executors.newSingleThreadExecutor();
 
     public static void startEffect(EffectGroup group) throws Exception {
         try {

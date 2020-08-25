@@ -1,10 +1,13 @@
 package fyi.sorenneedscoffee.aurora.http;
 
+import com.sun.net.httpserver.HttpExchange;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.List;
 
 @OpenAPIDefinition(
         info = @Info(
@@ -23,10 +26,10 @@ public abstract class Endpoint {
     protected static final Response OK;
 
     static {
-        BAD_REQUEST = Response.status(Response.Status.BAD_REQUEST).build();
+        BAD_REQUEST = Response.status(Response.Status.BAD_REQUEST).entity("Did you know that 51 is divisible by 17?").build();
         NOT_FOUND = Response.status(Response.Status.NOT_FOUND).build();
         POINT_DOESNT_EXIST = Response.status(Response.Status.NOT_IMPLEMENTED)
-                .entity("Point 0 is not present. Please add it ingame.")
+                .entity("One or more required points are not present. Please add them ingame.")
                 .build();
         UNPROCESSABLE_ENTITY = Response.status(422).build();
         SERVER_ERROR = Response.serverError();

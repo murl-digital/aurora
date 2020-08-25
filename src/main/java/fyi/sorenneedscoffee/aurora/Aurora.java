@@ -37,7 +37,6 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -56,6 +55,9 @@ public final class Aurora extends JavaPlugin {
 
     public static HttpServer httpServer;
     public static ExecutorService httpExecutor;
+    private static final OkHttpClient client = new OkHttpClient();
+
+    private static String host;
 
     @Override
     public void onEnable() {
@@ -63,7 +65,6 @@ public final class Aurora extends JavaPlugin {
         logger = this.getLogger();
         gson = new GsonBuilder()
                 .serializeNulls()
-                .setPrettyPrinting()
                 .create();
 
         if (plugin.getDataFolder().mkdirs()) {
@@ -106,12 +107,12 @@ public final class Aurora extends JavaPlugin {
 
                 if (config.getBoolean("remote.solarflare.enabled")) {
                     logger.info("Registering with SolarFlare...");
-                    String host = Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base.getHost() : config.getString("remote.solarflare.providedHostname");
+                    host = Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base.getHost() : config.getString("remote.solarflare.providedHostname") + ":" + base.getPort();
 
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody body = RequestBody.create(
-                            host + ":" + base.getPort(),
-                            MediaType.parse(host + ":" + base.getPort()));
+                    JsonObject object = new JsonObject();
+                    object.addProperty("privateAddress", host);
+
+                    RequestBody body = RequestBody.create(object.getAsString(), MediaType.parse(object.getAsString()));
                     Request request = new Request.Builder()
                             .url(Objects.requireNonNull(config.getString("remote.solarflare.url")))
                             .post(body)
@@ -124,8 +125,12 @@ public final class Aurora extends JavaPlugin {
             }
         }
 
-        this.getCommand("point").setExecutor(new PointCmd());
-        this.getCommand("effects").setExecutor(new EffectCmd());
+        try {
+            Objects.requireNonNull(this.getCommand("point")).setExecutor(new PointCmd());
+            Objects.requireNonNull(this.getCommand("effects")).setExecutor(new EffectCmd());
+        } catch (NullPointerException e) {
+            Aurora.logger.warning("One or more commands could not be registered.");
+        }
 
         try {
             logger.info("Starting static effects..");
@@ -155,7 +160,7 @@ public final class Aurora extends JavaPlugin {
                             try {
                                 m.invoke(e.getDeclaredConstructor().newInstance(), finalModel);
                             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException ex) {
-                                logger.warning("The plugin tried to initialize the static");
+                                logger.warning("The plugin tried to initialize a static effect and failed");
                             }
                         });
                     }
