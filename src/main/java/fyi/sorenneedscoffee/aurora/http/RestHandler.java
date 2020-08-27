@@ -34,18 +34,17 @@ public class RestHandler implements HttpHandler {
         }
 
         exchange.sendResponseHeaders(404, 0);
-        exchange.getResponseBody().close();
+        exchange.close();
     }
 
     private void writeResponse(HttpExchange exchange, Response response) throws IOException {
         if (response.hasEntity()) {
             exchange.sendResponseHeaders(response.getStatusCode(), response.getLength());
-            String entity = (String) response.getEntity();
+            String entity = response.getEntity();
             exchange.getResponseBody().write(entity.getBytes());
         } else {
             exchange.sendResponseHeaders(response.getStatusCode(), 0);
         }
-        exchange.getResponseBody();
         exchange.close();
     }
 }
