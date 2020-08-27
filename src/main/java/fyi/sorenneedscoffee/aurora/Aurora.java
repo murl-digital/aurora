@@ -37,10 +37,7 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.logging.Logger;
 
 public final class Aurora extends JavaPlugin {
@@ -97,11 +94,20 @@ public final class Aurora extends JavaPlugin {
 
                 logger.info("Starting HTTP Server at " + base + "...");
 
+                RestHandler handler = new RestHandler();
+                endpoints.forEach(e -> {
+                    try {
+                        handler.register(e.getDeclaredConstructor().newInstance());
+                    } catch (Exception ex) {
+                        logger.warning("There was an issue instantiating " + e.getSimpleName());
+                        logger.warning(ExceptionUtils.getMessage(ex));
+                        logger.warning(ExceptionUtils.getStackTrace(ex));
+                    }
+                });
+
                 httpServer = HttpServer.create(new InetSocketAddress(hostname, port), 0);
-                httpServer.createContext("/", new RestHandler());
-                httpExecutor = new ThreadPoolExecutor(3, 3,
-                        60L, TimeUnit.SECONDS,
-                        new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
+                httpServer.createContext("/", handler);
+                httpExecutor = Executors.newCachedThreadPool();
                 httpServer.setExecutor(httpExecutor);
                 httpServer.start();
 

@@ -17,19 +17,19 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("effects/particle/{id}")
 public class ParticleEndpoint extends Endpoint {
 
-    @Path("/start")
+    public ParticleEndpoint() {
+        this.path = Pattern.compile("/effects/particle/.+/(start|trigger)");
+    }
+
     @Operation(
             summary = "Allows for the spawning of particles in interesting ways",
             description = "The premise for how particle spawning works is the endpoint takes 2 points and creates a region with them. There are 3 different region types; POINTS, CUBOID, and EQUATION. " +
@@ -42,13 +42,11 @@ public class ParticleEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "422", description = "The endpoint did not recognize the given particle type")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response start(@PathParam("id")
-                          @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                  UUID id,
-                          @RequestBody(description = "Array of Particle models", required = true)
-                                  ParticleModel[] models) {
+    public static Response start(
+                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                                         UUID id,
+                                 @RequestBody(description = "Array of Particle models", required = true)
+                                         ParticleModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -72,7 +70,6 @@ public class ParticleEndpoint extends Endpoint {
         }
     }
 
-    @Path("/trigger")
     @Operation(
             summary = "Allows for the spawning of particles in interesting ways",
             description = "The premise for how particle spawning works is the endpoint takes 2 points and creates a region with them. There are 3 different region types; POINTS, CUBOID, and EQUATION. " +
@@ -85,12 +82,10 @@ public class ParticleEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "422", description = "The endpoint did not recognize the given particle type")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response trigger(@PathParam("id")
-                            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                    UUID id,
-                            ParticleModel[] models) {
+    public static Response trigger(
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            ParticleModel[] models) {
         try {
             EffectGroup group;
             try {
@@ -152,5 +147,23 @@ public class ParticleEndpoint extends Endpoint {
         }
 
         return group;
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        try {
+            UUID id = UUID.fromString(tokens[2]);
+            ParticleModel[] models = Aurora.gson.fromJson(bodyStream, ParticleModel[].class);
+            switch (tokens[3]) {
+                case "start":
+                    return start(id, models);
+                case "trigger":
+                    return trigger(id, models);
+                default:
+                    return NOT_FOUND;
+            }
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
+        }
     }
 }

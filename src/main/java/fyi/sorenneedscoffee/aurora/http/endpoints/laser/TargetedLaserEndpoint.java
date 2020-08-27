@@ -13,17 +13,17 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("/effects/targetedlaser/{id}")
 public class TargetedLaserEndpoint extends Endpoint {
 
-    @Path("/start")
+    public TargetedLaserEndpoint() {
+        this.path = Pattern.compile("/effects/targetedlaser/.+/(start|restart)");
+    }
+
     @Operation(
             summary = "zap",
             description = "This effect also takes advantage of the guardian laser. Unlike the standard laser effect, this one targets a random player on the server. " +
@@ -34,13 +34,11 @@ public class TargetedLaserEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "501", description = "The start point id in the request does not have a point ingame.")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response start(@PathParam("id")
-                          @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                  UUID id,
-                          @RequestBody(description = "Array of TargetedLaser models", required = true)
-                                  TargetedLaserModel[] models) {
+    public static Response start(
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            @RequestBody(description = "Array of TargetedLaser models", required = true)
+                    TargetedLaserModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -62,11 +60,9 @@ public class TargetedLaserEndpoint extends Endpoint {
         }
     }
 
-    @Path("/restart")
-    @POST
-    public static Response restart(@PathParam("id")
-                            @Parameter(description = "UUID of the group that will be restarted", required = true)
-                                    UUID id) {
+    public static Response restart(
+            @Parameter(description = "UUID of the group that will be restarted", required = true)
+                    UUID id) {
         try {
             if (!EffectManager.instanceOf(id, TargetedLaserEffect.class))
                 return BAD_REQUEST;
@@ -77,6 +73,24 @@ public class TargetedLaserEndpoint extends Endpoint {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        try {
+            UUID id = UUID.fromString(tokens[2]);
+            switch (tokens[3]) {
+                case "start":
+                    TargetedLaserModel[] models = Aurora.gson.fromJson(bodyStream, TargetedLaserModel[].class);
+                    return start(id, models);
+                case "restart":
+                    return restart(id);
+                default:
+                    return NOT_FOUND;
+            }
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
         }
     }
 }

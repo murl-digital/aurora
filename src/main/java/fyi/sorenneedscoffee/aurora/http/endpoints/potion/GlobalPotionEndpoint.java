@@ -17,18 +17,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.potion.PotionEffectType;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("effects/potion/{id}")
 @StaticEffect("potion")
 public class GlobalPotionEndpoint extends Endpoint {
 
-    @Path("/start")
+    public GlobalPotionEndpoint() {
+        this.path = Pattern.compile("/effects/potion/.+/start");
+    }
+
     @Operation(
             summary = "Global potion effect",
             description = "Applies given potion effect(s) to all players on the server",
@@ -43,13 +43,11 @@ public class GlobalPotionEndpoint extends Endpoint {
                     url = "https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html"
             )
     )
-    @POST
-    @Consumes("application/json")
-    public static Response start(@PathParam("id")
-                          @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                  UUID id,
-                          @RequestBody(description = "Array of GlobalPotion models", required = true)
-                                  GlobalPotionModel[] models) {
+    public static Response start(
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            @RequestBody(description = "Array of GlobalPotion models", required = true)
+                    GlobalPotionModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -59,22 +57,6 @@ public class GlobalPotionEndpoint extends Endpoint {
                 return POINT_DOESNT_EXIST;
 
             EffectGroup group = new EffectGroup(id);
-            return constructGroup(models, point, group);
-        } catch (Exception e) {
-            Aurora.logger.severe(e.getMessage());
-            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
-        }
-    }
-
-    @StaticAction
-    public Response startStatic(GlobalPotionModel[] models) {
-        try {
-            Point point = Aurora.pointUtil.getPoint(0);
-            if (point == null)
-                return POINT_DOESNT_EXIST;
-
-            EffectGroup group = new EffectGroup(UUID.randomUUID(), true);
             return constructGroup(models, point, group);
         } catch (Exception e) {
             Aurora.logger.severe(e.getMessage());
@@ -94,5 +76,32 @@ public class GlobalPotionEndpoint extends Endpoint {
 
         EffectManager.startEffect(group);
         return OK;
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        try {
+            UUID id = UUID.fromString(tokens[2]);
+            GlobalPotionModel[] models = Aurora.gson.fromJson(bodyStream, GlobalPotionModel[].class);
+            return start(id, models);
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
+        }
+    }
+
+    @StaticAction
+    public Response startStatic(GlobalPotionModel[] models) {
+        try {
+            Point point = Aurora.pointUtil.getPoint(0);
+            if (point == null)
+                return POINT_DOESNT_EXIST;
+
+            EffectGroup group = new EffectGroup(UUID.randomUUID(), true);
+            return constructGroup(models, point, group);
+        } catch (Exception e) {
+            Aurora.logger.severe(e.getMessage());
+            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
     }
 }

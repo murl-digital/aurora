@@ -8,16 +8,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("effects")
 public class StopEndpoint extends Endpoint {
 
-    @Path("/{id}/stop")
+    public StopEndpoint() {
+        this.path = Pattern.compile("/effects/(all|.+)/stop");
+    }
+
     @Operation(
             summary = "Stop effect",
             description = "Stops an effect group with the given UUID",
@@ -26,9 +27,7 @@ public class StopEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "404", description = "There is no active effect group with the given UUID")
             }
     )
-    @POST
     public static Response stop(
-            @PathParam("id")
             @Parameter(description = "UUID of the effect group that will be stopped", required = true)
                     UUID id) {
         try {
@@ -44,7 +43,6 @@ public class StopEndpoint extends Endpoint {
         }
     }
 
-    @Path("/all/stop")
     @Operation(
             summary = "Stop all effects",
             description = "Stops all active effect groups",
@@ -52,7 +50,6 @@ public class StopEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "200", description = "All effects stopped successfully")
             }
     )
-    @POST
     public static Response stopAll() {
         try {
             EffectManager.stopAll(false);
@@ -61,6 +58,19 @@ public class StopEndpoint extends Endpoint {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader ignore) {
+        if ("all".equals(tokens[1]))
+            return stopAll();
+
+        try {
+            UUID id = UUID.fromString(tokens[1]);
+            return stop(id);
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
         }
     }
 }

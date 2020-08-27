@@ -13,17 +13,17 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("effects/dragon/{id}")
 public class DragonEndpoint extends Endpoint {
 
-    @Path("/start")
+    public DragonEndpoint() {
+        this.path = Pattern.compile("/effects/dragon/.+/(start|restart)");
+    }
+
     @Operation(
             summary = "the moment you've been waiting for!",
             description = "The infamous dying dragon effect. The death animation will play at the specified point and flash with increasing intensity.",
@@ -33,13 +33,11 @@ public class DragonEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "501", description = "The start and/or point id in the request does not have a point ingame.")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response start(@PathParam("id")
-                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                         UUID id,
-                                 @RequestBody(description = "Array of Dragon models", required = true)
-                                         DragonModel[] models) {
+    public static Response start(
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            @RequestBody(description = "Array of Dragon models", required = true)
+                    DragonModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -63,7 +61,6 @@ public class DragonEndpoint extends Endpoint {
         }
     }
 
-    @Path("/restart")
     @Operation(
             summary = "that moment, again!",
             description = "Restarts the animation bound to the given UUID",
@@ -72,9 +69,7 @@ public class DragonEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "400", description = "There is either no group with the given UUID or it does not consist of Dragon Effects.")
             }
     )
-    @POST
-    public static Response restart(@PathParam("id")
-                                   @Parameter(description = "UUID that the group that will be restarted", required = true)
+    public static Response restart(@Parameter(description = "UUID that the group that will be restarted", required = true)
                                            UUID id) {
         try {
             if (EffectManager.instanceOf(id, DragonEffect.class))
@@ -86,6 +81,24 @@ public class DragonEndpoint extends Endpoint {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        try {
+            UUID id = UUID.fromString(tokens[2]);
+            switch (tokens[3]) {
+                case "start":
+                    DragonModel[] models = Aurora.gson.fromJson(bodyStream, DragonModel[].class);
+                    return start(id, models);
+                case "restart":
+                    return restart(id);
+                default:
+                    return NOT_FOUND;
+            }
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
         }
     }
 }

@@ -6,26 +6,24 @@ import fyi.sorenneedscoffee.aurora.effects.bossbar.BossBarEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.models.bossbar.BossBarModel;
 import fyi.sorenneedscoffee.aurora.util.BarManager;
-import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.boss.BarColor;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("bar/")
 public class BossBarEndpoint extends Endpoint {
 
-    @Path("/set")
+    public BossBarEndpoint() {
+        this.path = Pattern.compile("/bar/(set|clear)");
+    }
+
     @Operation(
             summary = "why do i hear boss music?",
             description = "Displays a boss bar on players' screens that can contain certain information. This is seperate from all other effects and will not be affected by the stop endpoint.",
@@ -36,9 +34,7 @@ public class BossBarEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "422", description = "The given BarColor is not valid.")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response start(
+    public static Response set(
             @RequestBody(description = "BossBar model", required = true)
                     BossBarModel[] models) {
         try {
@@ -59,7 +55,7 @@ public class BossBarEndpoint extends Endpoint {
                 group.add(new BossBarEffect(UUID.randomUUID(), color, model.title));
             }
 
-            if(BarManager.isActive()) {
+            if (BarManager.isActive()) {
                 BarManager.clearBars();
             }
             BarManager.showBar(group);
@@ -72,16 +68,14 @@ public class BossBarEndpoint extends Endpoint {
         }
     }
 
-    @Path("/clear")
     @Operation(
             summary = "oh wait the music's gone now",
-            description =  "If there are boss bars currently being displayed, they will be cleared. If not, nothing will happen.",
+            description = "If there are boss bars currently being displayed, they will be cleared. If not, nothing will happen.",
             responses = @ApiResponse(responseCode = "200", description = "Any bars that were being displayed are cleared.")
     )
-    @POST
     public static Response clear() {
         try {
-            if(!BarManager.isActive())
+            if (!BarManager.isActive())
                 return OK;
 
             BarManager.clearBars();
@@ -90,6 +84,19 @@ public class BossBarEndpoint extends Endpoint {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        switch (tokens[1]) {
+            case "clear":
+                return clear();
+            case "set":
+                BossBarModel[] models = Aurora.gson.fromJson(bodyStream, BossBarModel[].class);
+                return set(models);
+            default:
+                return NOT_FOUND;
         }
     }
 }

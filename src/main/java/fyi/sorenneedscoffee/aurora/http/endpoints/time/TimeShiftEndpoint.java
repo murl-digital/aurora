@@ -4,6 +4,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.time.TimeShiftEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.time.TimeShiftModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
@@ -13,17 +14,16 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("effects/time/{id}")
 public class TimeShiftEndpoint extends Endpoint {
 
-    @Path("/start")
+    public TimeShiftEndpoint() {
+        this.path = Pattern.compile("/effects/time/.+/start");
+    }
+
     @Operation(
             summary = "Start the TimeShift effect",
             description = "The TimeShift effect affects the ingame daylight cycle, incrementing it by the given amount every game tick. You can provide an array of request objects which will apply them al at the same time",
@@ -33,13 +33,11 @@ public class TimeShiftEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "501", description = "This effect requires that point 0 is already defined, the endpoint will respond with 501 if a point 0 is not found.")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response startEffect(@PathParam("id")
-                                @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                        UUID id,
-                                @RequestBody(description = "Array of TimeShift models", required = true)
-                                        TimeShiftModel[] models) {
+    public static Response start(
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            @RequestBody(description = "Array of TimeShift models", required = true)
+                    TimeShiftModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -59,6 +57,17 @@ public class TimeShiftEndpoint extends Endpoint {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        try {
+            UUID id = UUID.fromString(tokens[2]);
+            TimeShiftModel[] models = Aurora.gson.fromJson(bodyStream, TimeShiftModel[].class);
+            return start(id, models);
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
         }
     }
 }

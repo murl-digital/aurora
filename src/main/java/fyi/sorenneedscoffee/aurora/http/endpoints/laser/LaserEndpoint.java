@@ -13,17 +13,17 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("effects/laser/{id}")
 public class LaserEndpoint extends Endpoint {
 
-    @Path("/start")
+    public LaserEndpoint() {
+        this.path = Pattern.compile("/effects/laser/.+/(start|trigger)");
+    }
+
     @Operation(
             summary = "pew pew",
             description = "This effect takes advantage of the guardian laser, which shoots between the defined start and end points.",
@@ -33,13 +33,11 @@ public class LaserEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "501", description = "The start and/or point id in the request does not have a point ingame.")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response start(@PathParam("id")
-                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                         UUID id,
-                                 @RequestBody(description = "Array of Laser models", required = true)
-                                         LaserModel[] request) {
+    public static Response start(
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            @RequestBody(description = "Array of Laser models", required = true)
+                    LaserModel[] request) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -62,17 +60,15 @@ public class LaserEndpoint extends Endpoint {
         }
     }
 
-    @Path("/trigger")
     @Operation(
             summary = "more pew pew",
             description = "Changes an active laser's color. Good for rhythmic stuff"
     )
-    @POST
-    public static Response trigger(@PathParam("id")
-                                   @Parameter(description = "UUID of active laser group that will be colorchanged", required = true)
-                                           UUID id) {
+    public static Response trigger(
+            @Parameter(description = "UUID of active laser group that will be colorchanged", required = true)
+                    UUID id) {
         try {
-            if(!EffectManager.instanceOf(id, LaserEffect.class))
+            if (!EffectManager.instanceOf(id, LaserEffect.class))
                 return BAD_REQUEST;
 
             EffectManager.hotTriggerEffect(id);
@@ -81,6 +77,24 @@ public class LaserEndpoint extends Endpoint {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        try {
+            UUID id = UUID.fromString(tokens[2]);
+            switch (tokens[3]) {
+                case "start":
+                    LaserModel[] models = Aurora.gson.fromJson(bodyStream, LaserModel[].class);
+                    return start(id, models);
+                case "trigger":
+                    return trigger(id);
+                default:
+                    return NOT_FOUND;
+            }
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
         }
     }
 }

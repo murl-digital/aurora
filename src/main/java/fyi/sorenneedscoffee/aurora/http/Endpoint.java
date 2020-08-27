@@ -1,13 +1,11 @@
 package fyi.sorenneedscoffee.aurora.http;
 
-import com.sun.net.httpserver.HttpExchange;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 
-import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.List;
+import java.io.InputStreamReader;
+import java.util.regex.Pattern;
 
 @OpenAPIDefinition(
         info = @Info(
@@ -35,4 +33,8 @@ public abstract class Endpoint {
         SERVER_ERROR = Response.serverError();
         OK = Response.ok().build();
     }
+
+    public Pattern path = Pattern.compile("");
+
+    public abstract Response handle(String[] tokens, InputStreamReader bodyStream);
 }

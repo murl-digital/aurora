@@ -13,17 +13,17 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import fyi.sorenneedscoffee.aurora.http.Response;
+import java.io.InputStreamReader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-@Path("effects/endlaser/{id}")
 public class EndLaserEndpoint extends Endpoint {
 
-    @Path("/start")
+    public EndLaserEndpoint() {
+        this.path = Pattern.compile("/effects/endlaser/.+/start");
+    }
+
     @Operation(
             summary = "*ominous humming*",
             description = "This effect takes advantage of the ender crystal beam most prominently seen in the Ender Dragon bossfight. " +
@@ -34,13 +34,11 @@ public class EndLaserEndpoint extends Endpoint {
                     @ApiResponse(responseCode = "501", description = "The start and/or point id in the request does not have a point ingame.")
             }
     )
-    @POST
-    @Consumes("application/json")
-    public static Response start(@PathParam("id")
-                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                         UUID id,
-                                 @RequestBody(description = "Array of Laser models", required = true)
-                                         LaserModel[] models) {
+    public static Response start(
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            @RequestBody(description = "Array of Laser models", required = true)
+                    LaserModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -62,6 +60,17 @@ public class EndLaserEndpoint extends Endpoint {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @Override
+    public Response handle(String[] tokens, InputStreamReader bodyStream) {
+        try {
+            UUID id = UUID.fromString(tokens[2]);
+            LaserModel[] models = Aurora.gson.fromJson(bodyStream, LaserModel[].class);
+            return start(id, models);
+        } catch (IllegalArgumentException e) {
+            return BAD_REQUEST;
         }
     }
 }
