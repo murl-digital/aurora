@@ -37,23 +37,21 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public final class Aurora extends JavaPlugin {
+    private static final OkHttpClient client = new OkHttpClient();
     public static Aurora plugin;
     public static Logger logger;
     public static FileConfiguration config;
-
     public static ProtocolManager protocolManager;
     public static PointUtil pointUtil;
     public static DataManager dataManager;
     public static Gson gson;
-
     public static HttpServer httpServer;
     public static ExecutorService httpExecutor;
-    private static final OkHttpClient client = new OkHttpClient();
-
     private static String host;
 
     @Override

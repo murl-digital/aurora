@@ -4,6 +4,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.laser.TargetedLaserEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.laser.TargetedLaserModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
@@ -13,7 +14,6 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import fyi.sorenneedscoffee.aurora.http.Response;
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;

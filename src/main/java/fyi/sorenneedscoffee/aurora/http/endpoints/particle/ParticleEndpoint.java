@@ -5,6 +5,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.particle.ParticleEffect;
 import fyi.sorenneedscoffee.aurora.effects.particle.Region;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.particle.ParticleModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
@@ -17,7 +18,6 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 
-import fyi.sorenneedscoffee.aurora.http.Response;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +43,10 @@ public class ParticleEndpoint extends Endpoint {
             }
     )
     public static Response start(
-                                 @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                                         UUID id,
-                                 @RequestBody(description = "Array of Particle models", required = true)
-                                         ParticleModel[] models) {
+            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
+                    UUID id,
+            @RequestBody(description = "Array of Particle models", required = true)
+                    ParticleModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;

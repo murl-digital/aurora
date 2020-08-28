@@ -4,6 +4,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.bossbar.BossBarEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
+import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.bossbar.BossBarModel;
 import fyi.sorenneedscoffee.aurora.util.BarManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
@@ -13,7 +14,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.boss.BarColor;
 
-import fyi.sorenneedscoffee.aurora.http.Response;
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;

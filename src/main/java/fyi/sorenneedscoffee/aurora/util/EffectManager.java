@@ -60,7 +60,7 @@ public class EffectManager {
     public static void hotTriggerEffect(UUID uuid) {
         service.submit(() -> {
             EffectGroup effectGroup = findEffect(uuid);
-            if(effectGroup != null) {
+            if (effectGroup != null) {
                 effectGroup.hotTriggerAll();
             }
         });

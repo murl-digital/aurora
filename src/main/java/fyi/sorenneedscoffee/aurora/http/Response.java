@@ -13,14 +13,6 @@ public class Response {
         this.entity = entity;
     }
 
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public String getEntity() {
-        return entity;
-    }
-
     public static ResponseBuilder status(Status status) {
         return status(status.getStatusCode());
     }
@@ -37,6 +29,14 @@ public class Response {
         return new ResponseBuilder().status(500);
     }
 
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public String getEntity() {
+        return entity;
+    }
+
     public boolean hasEntity() {
         return entity != null;
     }
@@ -45,31 +45,8 @@ public class Response {
         return entity == null ? 0 : entity.length();
     }
 
-    public static class ResponseBuilder implements Serializable{
-        private int statusCode;
-        private String entity;
-
-        public ResponseBuilder status(int statusCode) {
-            this.statusCode = statusCode;
-            return this;
-        }
-
-        public ResponseBuilder entity(String entity) {
-            this.entity = entity;
-            return this;
-        }
-
-        public Response build() {
-            return new Response(statusCode, entity);
-        }
-
-        public ResponseBuilder clone() {
-            return (ResponseBuilder) SerializationUtils.clone(this);
-        }
-    }
-
     public enum Status {
-        
+
         OK(200),
 
         CREATED(201),
@@ -141,16 +118,39 @@ public class Response {
         GATEWAY_TIMEOUT(504),
 
         HTTP_VERSION_NOT_SUPPORTED(505);
-        
+
         private final int code;
 
 
         Status(final int statusCode) {
             this.code = statusCode;
         }
-        
+
         public int getStatusCode() {
             return code;
+        }
+    }
+
+    public static class ResponseBuilder implements Serializable {
+        private int statusCode;
+        private String entity;
+
+        public ResponseBuilder status(int statusCode) {
+            this.statusCode = statusCode;
+            return this;
+        }
+
+        public ResponseBuilder entity(String entity) {
+            this.entity = entity;
+            return this;
+        }
+
+        public Response build() {
+            return new Response(statusCode, entity);
+        }
+
+        public ResponseBuilder clone() {
+            return (ResponseBuilder) SerializationUtils.clone(this);
         }
     }
 }

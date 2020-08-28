@@ -4,7 +4,9 @@ import fyi.sorenneedscoffee.aurora.util.Point;
 import org.bukkit.Location;
 import org.mariuszgromada.math.mxparser.Function;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class Region {
     public final RegionType type;

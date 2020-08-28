@@ -26,9 +26,6 @@ import java.util.UUID;
 public class Laser {
     private final int duration;
     private final int distanceSquared;
-    private Location start;
-    private Location end;
-
     private final Object createGuardianPacket;
     private final Object createSquidPacket;
     private final Object teamAddPacket;
@@ -36,19 +33,20 @@ public class Laser {
     private final Object metadataPacketGuardian;
     private final Object metadataPacketSquid;
     private final Object fakeGuardianDataWatcher;
-
     private final int squid;
     private final UUID squidUUID;
     private final int guardian;
     private final UUID guardianUUID;
-
+    private Location start;
+    private Location end;
     private BukkitRunnable run;
-    private HashSet<Player> show = new HashSet<>();
+    private final HashSet<Player> show = new HashSet<>();
 
     /**
      * Create a Laser instance
-     * @param start Location where laser will starts
-     * @param end Location where laser will ends
+     *
+     * @param start    Location where laser will starts
+     * @param end      Location where laser will ends
      * @param duration Duration of laser in seconds (<i>-1 if infinite</i>)
      * @param distance Distance where laser will be visible
      */
@@ -92,13 +90,13 @@ public class Laser {
                                 sendStartPackets(p);
                                 show.add(p);
                             }
-                        }else if (show.contains(p)) {
+                        } else if (show.contains(p)) {
                             Packets.sendPacket(p, destroyPacket);
                             show.remove(p);
                         }
                     }
                     if (time != -1) time--;
-                }catch (ReflectiveOperationException e) {
+                } catch (ReflectiveOperationException e) {
                     e.printStackTrace();
                 }
             }
@@ -110,7 +108,7 @@ public class Laser {
                     for (Player p : show) {
                         Packets.sendPacket(p, destroyPacket);
                     }
-                }catch (ReflectiveOperationException e) {
+                } catch (ReflectiveOperationException e) {
                     e.printStackTrace();
                 }
                 run = null;
@@ -148,7 +146,7 @@ public class Laser {
         return end;
     }
 
-    public void callColorChange() throws ReflectiveOperationException{
+    public void callColorChange() throws ReflectiveOperationException {
         for (Player p : show) {
             Packets.sendPacket(p, metadataPacketGuardian);
         }
@@ -175,17 +173,11 @@ public class Laser {
     }
 
 
-
     private static class Packets {
         private static int lastIssuedEID = 2000000000;
-
-        static int generateEID() {
-            return lastIssuedEID++;
-        }
-
-        private static int version = Integer.parseInt(Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3].substring(1).split("_")[1]);
-        private static String npack = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
-        private static String cpack = Bukkit.getServer().getClass().getPackage().getName() + ".";
+        private static final int version = Integer.parseInt(Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3].substring(1).split("_")[1]);
+        private static final String npack = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
+        private static final String cpack = Bukkit.getServer().getClass().getPackage().getName() + ".";
         private static Object packetTeamCreate;
         private static Constructor<?> watcherConstructor;
         private static Method watcherSet;
@@ -201,7 +193,6 @@ public class Laser {
         private static Object watcherObject3; // attack id
         private static int squidID;
         private static int guardianID;
-
         private static Object fakeSquid;
         private static Object fakeSquidWatcher;
 
@@ -214,25 +205,25 @@ public class Laser {
                     watcherName3 = "bB";
                     squidID = 94;
                     guardianID = 68;
-                }else if (version == 13) {
+                } else if (version == 13) {
                     watcherName1 = "ac";
                     watcherName2 = "bF";
                     watcherName3 = "bG";
                     squidID = 70;
                     guardianID = 28;
-                }else if (version == 14) {
+                } else if (version == 14) {
                     watcherName1 = "W";
                     watcherName2 = "b";
                     watcherName3 = "bD";
                     squidID = 73;
                     guardianID = 30;
-                }else if (version == 15) {
+                } else if (version == 15) {
                     watcherName1 = "T";
                     watcherName2 = "b";
                     watcherName3 = "bA";
                     squidID = 74;
                     guardianID = 31;
-                }else if (version >= 16) {
+                } else if (version >= 16) {
                     watcherName1 = "T";
                     watcherName2 = "b";
                     watcherName3 = "d";
@@ -259,15 +250,19 @@ public class Laser {
                 setField(packetTeamCreate, "f", "never");
 
                 Object world = Class.forName(cpack + "CraftWorld").getDeclaredMethod("getHandle").invoke(Bukkit.getWorlds().get(0));
-                Object[] entityConstructorParams = version < 14 ? new Object[] { world } : new Object[] { Class.forName(npack + "EntityTypes").getDeclaredField("SQUID").get(null), world };
+                Object[] entityConstructorParams = version < 14 ? new Object[]{world} : new Object[]{Class.forName(npack + "EntityTypes").getDeclaredField("SQUID").get(null), world};
                 fakeSquid = getMethod(Class.forName(cpack + "entity.CraftSquid"), "getHandle").invoke(Class.forName(cpack + "entity.CraftSquid").getDeclaredConstructors()[0].newInstance(
                         null, Class.forName(npack + "EntitySquid").getDeclaredConstructors()[0].newInstance(
                                 entityConstructorParams)));
                 fakeSquidWatcher = createFakeDataWatcher();
                 tryWatcherSet(fakeSquidWatcher, watcherObject1, (byte) 32);
-            }catch (ReflectiveOperationException e) {
+            } catch (ReflectiveOperationException e) {
                 e.printStackTrace();
             }
+        }
+
+        static int generateEID() {
+            return lastIssuedEID++;
         }
 
         public static void sendPacket(Player p, Object packet) throws ReflectiveOperationException {
@@ -319,7 +314,7 @@ public class Laser {
 
         public static Object createPacketRemoveEntities(int squidId, int guardianId) throws ReflectiveOperationException {
             Object packet = packetRemove.newInstance();
-            setField(packet, "a", new int[] { squidId, guardianId });
+            setField(packet, "a", new int[]{squidId, guardianId});
             return packet;
         }
 
@@ -352,7 +347,7 @@ public class Laser {
         private static void tryWatcherSet(Object watcher, Object watcherObject, Object watcherData) throws ReflectiveOperationException {
             try {
                 watcherSet.invoke(watcher, watcherObject, watcherData);
-            }catch (InvocationTargetException ex) {
+            } catch (InvocationTargetException ex) {
                 watcherRegister.invoke(watcher, watcherObject, watcherData);
                 if (version >= 15) watcherDirty.invoke(watcher, watcherObject);
             }
