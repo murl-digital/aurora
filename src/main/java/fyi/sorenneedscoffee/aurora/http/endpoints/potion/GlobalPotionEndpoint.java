@@ -58,14 +58,14 @@ public class GlobalPotionEndpoint extends Endpoint {
 
             EffectGroup group = new EffectGroup(id);
             return constructGroup(models, point, group);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
 
-    private static Response constructGroup(GlobalPotionModel[] models, Point point, EffectGroup group) throws Exception {
+    private static Response constructGroup(GlobalPotionModel[] models, Point point, EffectGroup group) throws Throwable {
         for (GlobalPotionModel model : models) {
             PotionEffectType type = PotionEffectType.getByName(model.potionType);
             if (type == null) {
@@ -98,7 +98,7 @@ public class GlobalPotionEndpoint extends Endpoint {
 
             EffectGroup group = new EffectGroup(UUID.randomUUID(), true);
             return constructGroup(models, point, group);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();

@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.effects.laser;
+package fyi.sorenneedscoffee.aurora.effects.laser.legacy;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -23,53 +23,44 @@ import java.util.UUID;
  * @author SkytAsul
  * @see <a href="https://github.com/SkytAsul/GuardianBeam">GitHub page</a>
  */
-public class Laser {
+class TargetedLaser {
     private final int duration;
     private final int distanceSquared;
-    private final Object createGuardianPacket;
-    private final Object createSquidPacket;
-    private final Object teamAddPacket;
-    private final Object destroyPacket;
-    private final Object metadataPacketGuardian;
-    private final Object metadataPacketSquid;
-    private final Object fakeGuardianDataWatcher;
-    private final int squid;
-    private final UUID squidUUID;
-    private final int guardian;
-    private final UUID guardianUUID;
-    private Location start;
-    private Location end;
-    private BukkitRunnable run;
     private final HashSet<Player> show = new HashSet<>();
+    private Location start;
+    private Object createGuardianPacket;
+    private Object teamAddPacket;
+    private Object destroyPacket;
+    private Object metadataPacketGuardian;
+    private Object fakeGuardianDataWatcher;
+    private int guardian;
+    private Player target;
+    private UUID guardianUUID;
+    private BukkitRunnable run;
 
     /**
      * Create a Laser instance
      *
-     * @param start    Location where laser will starts
-     * @param end      Location where laser will ends
-     * @param duration Duration of laser in seconds (<i>-1 if infinite</i>)
-     * @param distance Distance where laser will be visible
+     * @param start        Location where laser will starts
+     * @param initalTarget Location where laser will ends
+     * @param duration     Duration of laser in seconds (<i>-1 if infinite</i>)
+     * @param distance     Distance where laser will be visible
      */
-    public Laser(Location start, Location end, int duration, int distance) throws ReflectiveOperationException {
+    public TargetedLaser(Location start, Player initalTarget, int duration, int distance) throws ReflectiveOperationException {
         this.start = start;
-        this.end = end;
         this.duration = duration;
         distanceSquared = distance * distance;
 
-        createSquidPacket = Packets.createPacketSquidSpawn(end);
-        squid = (int) Packets.getField(Packets.packetSpawn, "a", createSquidPacket);
-        squidUUID = (UUID) Packets.getField(Packets.packetSpawn, "b", createSquidPacket);
-        metadataPacketSquid = Packets.createPacketMetadata(squid, Packets.fakeSquidWatcher);
-        Packets.setDirtyWatcher(Packets.fakeSquidWatcher);
+        this.target = initalTarget;
 
         fakeGuardianDataWatcher = Packets.createFakeDataWatcher();
-        createGuardianPacket = Packets.createPacketGuardianSpawn(start, fakeGuardianDataWatcher, squid);
+        createGuardianPacket = Packets.createPacketGuardianSpawn(start, fakeGuardianDataWatcher, target.getEntityId());
         guardian = (int) Packets.getField(Packets.packetSpawn, "a", createGuardianPacket);
         guardianUUID = (UUID) Packets.getField(Packets.packetSpawn, "b", createGuardianPacket);
         metadataPacketGuardian = Packets.createPacketMetadata(guardian, fakeGuardianDataWatcher);
 
-        teamAddPacket = Packets.createPacketTeamAddEntities(squidUUID, guardianUUID);
-        destroyPacket = Packets.createPacketRemoveEntities(squid, guardian);
+        teamAddPacket = Packets.createPacketTeamAddEntities(guardianUUID);
+        destroyPacket = Packets.createPacketRemoveEntities(guardian);
     }
 
     public void start(Plugin plugin) {
@@ -134,16 +125,27 @@ public class Laser {
         return start;
     }
 
-    public void moveEnd(Location location) throws ReflectiveOperationException {
-        this.end = location;
-        Object packet = Packets.createPacketMoveEntity(end, squid);
+    public void moveEnd(Player target) throws ReflectiveOperationException {
         for (Player p : show) {
-            Packets.sendPacket(p, packet);
+            Packets.sendPacket(p, destroyPacket);
+        }
+        this.target = target;
+        fakeGuardianDataWatcher = Packets.createFakeDataWatcher();
+        createGuardianPacket = Packets.createPacketGuardianSpawn(start, fakeGuardianDataWatcher, target.getEntityId());
+        guardian = (int) Packets.getField(Packets.packetSpawn, "a", createGuardianPacket);
+        guardianUUID = (UUID) Packets.getField(Packets.packetSpawn, "b", createGuardianPacket);
+        metadataPacketGuardian = Packets.createPacketMetadata(guardian, fakeGuardianDataWatcher);
+
+        teamAddPacket = Packets.createPacketTeamAddEntities(guardianUUID);
+        destroyPacket = Packets.createPacketRemoveEntities(guardian);
+
+        for (Player p : show) {
+            sendStartPackets(p);
         }
     }
 
-    public Location getEnd() {
-        return end;
+    public Player getTarget() {
+        return this.target;
     }
 
     public void callColorChange() throws ReflectiveOperationException {
@@ -156,11 +158,9 @@ public class Laser {
         return run != null;
     }
 
-    void sendStartPackets(Player p) throws ReflectiveOperationException {
-        Packets.sendPacket(p, createSquidPacket);
+    public void sendStartPackets(Player p) throws ReflectiveOperationException {
         Packets.sendPacket(p, createGuardianPacket);
         if (Packets.version > 14) {
-            Packets.sendPacket(p, metadataPacketSquid);
             Packets.sendPacket(p, metadataPacketGuardian);
         }
         Packets.sendPacket(p, Packets.packetTeamCreate);
@@ -169,15 +169,15 @@ public class Laser {
 
     private boolean isCloseEnough(Location location) {
         return start.distanceSquared(location) <= distanceSquared ||
-                end.distanceSquared(location) <= distanceSquared;
+                target.getLocation().distanceSquared(location) <= distanceSquared;
     }
 
 
     private static class Packets {
-        private static int lastIssuedEID = 2000000000;
         private static final int version = Integer.parseInt(Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3].substring(1).split("_")[1]);
         private static final String npack = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
         private static final String cpack = Bukkit.getServer().getClass().getPackage().getName() + ".";
+        private static int lastIssuedEID = 2000000000;
         private static Object packetTeamCreate;
         private static Constructor<?> watcherConstructor;
         private static Method watcherSet;
@@ -191,7 +191,6 @@ public class Laser {
         private static Object watcherObject1; // invisilibity
         private static Object watcherObject2; // spikes
         private static Object watcherObject3; // attack id
-        private static int squidID;
         private static int guardianID;
         private static Object fakeSquid;
         private static Object fakeSquidWatcher;
@@ -203,31 +202,26 @@ public class Laser {
                     watcherName1 = "Z";
                     watcherName2 = "bA";
                     watcherName3 = "bB";
-                    squidID = 94;
                     guardianID = 68;
                 } else if (version == 13) {
                     watcherName1 = "ac";
                     watcherName2 = "bF";
                     watcherName3 = "bG";
-                    squidID = 70;
                     guardianID = 28;
                 } else if (version == 14) {
                     watcherName1 = "W";
                     watcherName2 = "b";
                     watcherName3 = "bD";
-                    squidID = 73;
                     guardianID = 30;
                 } else if (version == 15) {
                     watcherName1 = "T";
                     watcherName2 = "b";
                     watcherName3 = "bA";
-                    squidID = 74;
                     guardianID = 31;
                 } else if (version >= 16) {
                     watcherName1 = "T";
                     watcherName2 = "b";
                     watcherName3 = "d";
-                    squidID = 74;
                     guardianID = 31;
                 }
                 watcherObject1 = getField(Class.forName(npack + "Entity"), watcherName1, null);
@@ -244,7 +238,7 @@ public class Laser {
                 packetTeam = Class.forName(npack + "PacketPlayOutScoreboardTeam");
                 packetMetadata = Class.forName(npack + "PacketPlayOutEntityMetadata");
 
-                packetTeamCreate = packetTeam.newInstance();
+                packetTeamCreate = packetTeam.getDeclaredConstructor().newInstance();
                 setField(packetTeamCreate, "a", "noclip");
                 setField(packetTeamCreate, "i", 0);
                 setField(packetTeamCreate, "f", "never");
@@ -277,26 +271,8 @@ public class Laser {
             return watcher;
         }
 
-        public static void setDirtyWatcher(Object watcher) throws ReflectiveOperationException {
-            if (version >= 15) watcherDirty.invoke(watcher, watcherObject1);
-        }
-
-        public static Object createPacketSquidSpawn(Location location) throws ReflectiveOperationException {
-            Object packet = packetSpawn.newInstance();
-            setField(packet, "a", generateEID());
-            setField(packet, "b", UUID.randomUUID());
-            setField(packet, "c", squidID);
-            setField(packet, "d", location.getX());
-            setField(packet, "e", location.getY());
-            setField(packet, "f", location.getZ());
-            setField(packet, "j", (byte) (location.getYaw() * 256.0F / 360.0F));
-            setField(packet, "k", (byte) (location.getPitch() * 256.0F / 360.0F));
-            if (version <= 14) setField(packet, "m", fakeSquidWatcher);
-            return packet;
-        }
-
         public static Object createPacketGuardianSpawn(Location location, Object watcher, int squidId) throws ReflectiveOperationException {
-            Object packet = packetSpawn.newInstance();
+            Object packet = packetSpawn.getDeclaredConstructor().newInstance();
             setField(packet, "a", generateEID());
             setField(packet, "b", UUID.randomUUID());
             setField(packet, "c", guardianID);
@@ -312,14 +288,14 @@ public class Laser {
             return packet;
         }
 
-        public static Object createPacketRemoveEntities(int squidId, int guardianId) throws ReflectiveOperationException {
-            Object packet = packetRemove.newInstance();
-            setField(packet, "a", new int[]{squidId, guardianId});
+        public static Object createPacketRemoveEntities(int guardianId) throws ReflectiveOperationException {
+            Object packet = packetRemove.getDeclaredConstructor().newInstance();
+            setField(packet, "a", new int[]{guardianId});
             return packet;
         }
 
         public static Object createPacketMoveEntity(Location location, int entityId) throws ReflectiveOperationException {
-            Object packet = packetTeleport.newInstance();
+            Object packet = packetTeleport.getDeclaredConstructor().newInstance();
             setField(packet, "a", entityId);
             setField(packet, "b", location.getX());
             setField(packet, "c", location.getY());
@@ -330,12 +306,11 @@ public class Laser {
             return packet;
         }
 
-        public static Object createPacketTeamAddEntities(UUID squidUUID, UUID guardianUUID) throws ReflectiveOperationException {
-            Object packet = packetTeam.newInstance();
+        public static Object createPacketTeamAddEntities(UUID guardianUUID) throws ReflectiveOperationException {
+            Object packet = packetTeam.getDeclaredConstructor().newInstance();
             setField(packet, "a", "noclip");
             setField(packet, "i", 3);
             Collection<String> players = (Collection<String>) getField(packetTeam, "h", packet);
-            players.add(squidUUID.toString());
             players.add(guardianUUID.toString());
             return packet;
         }

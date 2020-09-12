@@ -53,7 +53,9 @@ public class TargetedLaserEndpoint extends Endpoint {
 
             EffectManager.startEffect(group);
             return OK;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
+            return Response.status(400).entity("There are no players online.").build();
+        } catch (Throwable e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();

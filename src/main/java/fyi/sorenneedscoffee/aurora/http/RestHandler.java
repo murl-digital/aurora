@@ -4,6 +4,8 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Iterators;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import fyi.sorenneedscoffee.aurora.Aurora;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,17 +22,27 @@ public class RestHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        Aurora.logger.info("req received");
         String path = exchange.getRequestURI().getPath();
-        for (Endpoint endpoint : endpoints) {
-            if (endpoint.path.matcher(path).matches()) {
-                writeResponse(exchange,
-                        endpoint.handle(
-                                Iterators.toArray(splitter.split(path).iterator(), String.class),
-                                new InputStreamReader(exchange.getRequestBody())
-                        )
-                );
-                break;
+        try {
+            for (Endpoint endpoint : endpoints) {
+                if (endpoint.path.matcher(path).matches()) {
+                    writeResponse(exchange,
+                            endpoint.handle(
+                                    Iterators.toArray(splitter.split(path).iterator(), String.class),
+                                    new InputStreamReader(exchange.getRequestBody())
+                            )
+                    );
+                    return;
+                }
             }
+        } catch (Exception e) {
+            Aurora.logger.warning("An effect failed to execute. Please report the following information to Soren:");
+            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
+            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
+
+            writeResponse(exchange, Response.serverError().build());
+            return;
         }
 
         exchange.sendResponseHeaders(404, 0);

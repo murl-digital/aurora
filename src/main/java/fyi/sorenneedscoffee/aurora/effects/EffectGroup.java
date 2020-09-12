@@ -25,20 +25,29 @@ public class EffectGroup {
         effects.add(effect);
     }
 
-    public void startAll() throws Exception {
+    public void initAll() throws Exception {
         for (Effect e : effects) {
             e.init();
-            e.execute(EffectAction.START);
         }
+    }
+
+    public void startAll() {
+        effects.forEach(e -> e.execute(EffectAction.START));
     }
 
     public void stopAll(boolean shuttingDown) {
         effects.forEach(e -> {
             if (!isStatic || shuttingDown) {
                 e.execute(EffectAction.STOP);
-                e.cleanup();
+                if (shuttingDown) {
+                    e.cleanup();
+                }
             }
         });
+    }
+
+    public void cleanup() {
+        effects.forEach(Effect::cleanup);
     }
 
     public void triggerAll() throws Exception {

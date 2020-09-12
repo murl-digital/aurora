@@ -23,7 +23,7 @@ import java.util.List;
 public class LaserEffect extends Effect {
     private final Point start;
     private final Point end;
-    protected Laser laser;
+    protected ProtocolLaser laser;
     private LaserEffect.LaserListener laserListener;
 
     public LaserEffect(Point start, Point end) {
@@ -33,11 +33,9 @@ public class LaserEffect extends Effect {
 
     @Override
     public void init() throws ReflectiveOperationException {
-        laser = new Laser(
+        laser = new ProtocolLaser(
                 start.getLocation(),
-                end.getLocation(),
-                -1,
-                256
+                end.getLocation()
         );
         laserListener = new LaserListener(Aurora.plugin, this);
         Aurora.protocolManager.addPacketListener(laserListener);
@@ -48,13 +46,13 @@ public class LaserEffect extends Effect {
     public void execute(EffectAction action) {
         switch (action) {
             case START:
-                runTask(() -> laser.start(Aurora.plugin));
+                runTask(() -> laser.start());
                 break;
             case TRIGGER:
                 runTask(() -> {
                     try {
                         laser.callColorChange();
-                    } catch (ReflectiveOperationException e) {
+                    } catch (Exception e) {
                         Aurora.logger.warning("An error occurred while attempting to change a laser's color.");
                         Aurora.logger.warning(e.getMessage());
                         Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
@@ -94,7 +92,7 @@ public class LaserEffect extends Effect {
                 try {
                     activePlayers.add(event.getPlayer());
                     effect.laser.sendStartPackets(event.getPlayer());
-                } catch (ReflectiveOperationException ignored) {
+                } catch (Exception ignored) {
                 }
             }
         }

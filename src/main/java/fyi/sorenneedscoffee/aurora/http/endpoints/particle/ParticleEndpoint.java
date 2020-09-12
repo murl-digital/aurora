@@ -63,7 +63,7 @@ public class ParticleEndpoint extends Endpoint {
 
             EffectManager.startEffect(group);
             return OK;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Aurora.logger.severe(e.getMessage());
             Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();

@@ -149,8 +149,9 @@ public class Response {
             return new Response(statusCode, entity);
         }
 
+        @Override
         public ResponseBuilder clone() {
-            return (ResponseBuilder) SerializationUtils.clone(this);
+            return new ResponseBuilder().status(statusCode).entity(entity);
         }
     }
 }
