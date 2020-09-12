@@ -22,7 +22,6 @@ public class RestHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Aurora.logger.info("req received");
         String path = exchange.getRequestURI().getPath();
         try {
             for (Endpoint endpoint : endpoints) {
