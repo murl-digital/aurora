@@ -21,6 +21,7 @@ import java.util.UUID;
 
 public class LaserPacketFactory {
     public static final Entity fakeSquid, fakeGuardian;
+    private static int lastIssuedEID = 2000000000;
 
     static {
         fakeSquid = new CraftSquid((CraftServer) Bukkit.getServer(), new EntitySquid(
@@ -36,7 +37,7 @@ public class LaserPacketFactory {
 
     public static WrapperPlayServerSpawnEntityLiving createSquidPacket(Location loc) {
         WrapperPlayServerSpawnEntityLiving spawnSquidPacket = new WrapperPlayServerSpawnEntityLiving();
-        spawnSquidPacket.setEntityID(676767);
+        spawnSquidPacket.setEntityID(generateEID());
         spawnSquidPacket.setUniqueId(UUID.randomUUID());
         spawnSquidPacket.setType(81);
         spawnSquidPacket.setX(loc.getX());
@@ -50,7 +51,7 @@ public class LaserPacketFactory {
 
     public static WrapperPlayServerSpawnEntityLiving createGuardianPacket(Location loc) {
         WrapperPlayServerSpawnEntityLiving spawnGuardianPacket = new WrapperPlayServerSpawnEntityLiving();
-        spawnGuardianPacket.setEntityID(676766);
+        spawnGuardianPacket.setEntityID(generateEID());
         spawnGuardianPacket.setUniqueId(UUID.randomUUID());
         spawnGuardianPacket.setType(31);
         spawnGuardianPacket.setX(loc.getX());
@@ -91,5 +92,9 @@ public class LaserPacketFactory {
         metadataPacket.setMetadata(guardianWatcher.getWatchableObjects());
 
         return metadataPacket;
+    }
+
+    private static int generateEID() {
+        return lastIssuedEID++;
     }
 }
