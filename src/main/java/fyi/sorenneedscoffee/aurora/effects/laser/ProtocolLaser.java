@@ -1,28 +1,15 @@
 package fyi.sorenneedscoffee.aurora.effects.laser;
 
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityDestroy;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityMetadata;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerSpawnEntityLiving;
-import net.minecraft.server.v1_16_R2.EntityGuardian;
-import net.minecraft.server.v1_16_R2.EntitySquid;
-import net.minecraft.server.v1_16_R2.EntityTypes;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftGuardian;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftSquid;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.UUID;
-
 public class ProtocolLaser {
     private final Location start, end;
-    private final BukkitRunnable runnable;
     private boolean isActive = false;
 
     private final WrapperPlayServerSpawnEntityLiving spawnSquidPacket, spawnGuardianPacket;
@@ -40,31 +27,19 @@ public class ProtocolLaser {
         this.spawnGuardianPacket = LaserPacketFactory.createGuardianPacket(start);
         this.guardianMetadataPacket = LaserPacketFactory.createGuardianMetaPacket(spawnGuardianPacket.getEntityID(), spawnSquidPacket.getEntityID());
         this.theEndIsNigh = LaserPacketFactory.createDestroyPacket(new int[]{spawnSquidPacket.getEntityID(), spawnGuardianPacket.getEntityID()});
-
-        this.runnable = new BukkitRunnable() {
-            @Override
-            public void run() {
-                Aurora.protocolManager.broadcastServerPacket(spawnSquidPacket.getHandle());
-                Aurora.protocolManager.broadcastServerPacket(spawnGuardianPacket.getHandle());
-                Aurora.protocolManager.broadcastServerPacket(squidMetadataPacket.getHandle());
-                Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
-            }
-
-            @Override
-            public synchronized void cancel() throws IllegalStateException {
-                Aurora.protocolManager.broadcastServerPacket(theEndIsNigh.getHandle());
-            }
-        };
     }
 
     public void start() {
         this.isActive = true;
-        runnable.runTaskAsynchronously(Aurora.plugin);
+        Aurora.protocolManager.broadcastServerPacket(spawnSquidPacket.getHandle());
+        Aurora.protocolManager.broadcastServerPacket(spawnGuardianPacket.getHandle());
+        Aurora.protocolManager.broadcastServerPacket(squidMetadataPacket.getHandle());
+        Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
     }
 
     public void stop() {
         this.isActive = false;
-        runnable.cancel();
+        Aurora.protocolManager.broadcastServerPacket(theEndIsNigh.getHandle());
     }
 
     public boolean isStarted() {

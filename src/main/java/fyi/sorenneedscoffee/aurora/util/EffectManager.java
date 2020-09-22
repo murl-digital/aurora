@@ -50,14 +50,14 @@ public class EffectManager {
     }
 
     public static void stopEffect(UUID uuid) {
-        service.submit(() -> {
+        try {
             EffectGroup effectGroup = findEffect(uuid);
             if (effectGroup != null) {
-                effectGroup.stopAll(false);
+                service.submit(() -> effectGroup.stopAll(false)).get();
                 activeEffects.remove(effectGroup);
                 cachedEffects.add(effectGroup);
             }
-        });
+        } catch (ExecutionException | InterruptedException ignore) {}
     }
 
     public static void restartEffect(UUID uuid) {

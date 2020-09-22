@@ -1,20 +1,18 @@
 package fyi.sorenneedscoffee.aurora.effects.laser;
 
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityDestroy;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityMetadata;
-import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerSpawnEntity;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerSpawnEntityLiving;
-import net.minecraft.server.v1_16_R2.EntityGuardian;
-import net.minecraft.server.v1_16_R2.EntitySquid;
-import net.minecraft.server.v1_16_R2.EntityTypes;
+import net.minecraft.server.v1_16_R1.EntityGuardian;
+import net.minecraft.server.v1_16_R1.EntitySquid;
+import net.minecraft.server.v1_16_R1.EntityTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftGuardian;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftSquid;
+import org.bukkit.craftbukkit.v1_16_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftGuardian;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftSquid;
 import org.bukkit.entity.Entity;
 
 import java.util.UUID;
@@ -39,7 +37,7 @@ public class LaserPacketFactory {
         WrapperPlayServerSpawnEntityLiving spawnSquidPacket = new WrapperPlayServerSpawnEntityLiving();
         spawnSquidPacket.setEntityID(generateEID());
         spawnSquidPacket.setUniqueId(UUID.randomUUID());
-        spawnSquidPacket.setType(81);
+        spawnSquidPacket.setType(80);
         spawnSquidPacket.setX(loc.getX());
         spawnSquidPacket.setY(loc.getY());
         spawnSquidPacket.setZ(loc.getZ());

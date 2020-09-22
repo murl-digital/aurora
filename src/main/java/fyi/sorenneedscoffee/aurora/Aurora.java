@@ -36,6 +36,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -43,6 +44,7 @@ import java.util.logging.Logger;
 
 public final class Aurora extends JavaPlugin {
     private static final OkHttpClient client = new OkHttpClient();
+
     public static Aurora plugin;
     public static Logger logger;
     public static FileConfiguration config;
@@ -52,7 +54,14 @@ public final class Aurora extends JavaPlugin {
     public static Gson gson;
     public static HttpServer httpServer;
     public static ExecutorService httpExecutor;
-    private static String host;
+    public static Random random = new Random() {
+        @Override
+        public int nextInt(int bound) {
+            int result = super.nextInt(bound);
+            Aurora.logger.info(String.valueOf(result));
+            return result;
+        }
+    };
 
     @Override
     public void onEnable() {
@@ -111,7 +120,7 @@ public final class Aurora extends JavaPlugin {
 
                 if (config.getBoolean("remote.solarflare.enabled")) {
                     logger.info("Registering with SolarFlare...");
-                    host = Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base.getHost() : config.getString("remote.solarflare.providedHostname") + ":" + base.getPort();
+                    String host = Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base.getHost() : config.getString("remote.solarflare.providedHostname") + ":" + base.getPort();
 
                     JsonObject object = new JsonObject();
                     object.addProperty("privateAddress", host);

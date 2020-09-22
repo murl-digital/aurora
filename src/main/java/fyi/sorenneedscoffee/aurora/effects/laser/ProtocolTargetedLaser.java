@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ProtocolTargetedLaser {
-    private final BukkitRunnable runnable;
     private boolean isActive = false;
 
     private final WrapperPlayServerSpawnEntityLiving spawnGuardianPacket;
@@ -23,29 +22,17 @@ public class ProtocolTargetedLaser {
         this.spawnGuardianPacket = LaserPacketFactory.createGuardianPacket(start);
         this.guardianMetadataPacket = LaserPacketFactory.createGuardianMetaPacket(spawnGuardianPacket.getEntityID(), target.getEntityId());
         this.theEndIsNigh = LaserPacketFactory.createDestroyPacket(new int[]{spawnGuardianPacket.getEntityID()});
-
-        this.runnable = new BukkitRunnable() {
-            @Override
-            public void run() {
-                Aurora.protocolManager.broadcastServerPacket(spawnGuardianPacket.getHandle());
-                Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
-            }
-
-            @Override
-            public synchronized void cancel() throws IllegalStateException {
-                Aurora.protocolManager.broadcastServerPacket(theEndIsNigh.getHandle());
-            }
-        };
     }
 
     public void start() {
         this.isActive = true;
-        runnable.runTaskAsynchronously(Aurora.plugin);
+        Aurora.protocolManager.broadcastServerPacket(spawnGuardianPacket.getHandle());
+        Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
     }
 
     public void stop() {
         this.isActive = false;
-        runnable.cancel();
+        Aurora.protocolManager.broadcastServerPacket(theEndIsNigh.getHandle());
     }
 
     public void changeTarget(Player target) {

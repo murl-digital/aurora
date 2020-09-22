@@ -22,7 +22,6 @@ import java.util.Random;
 
 public class TargetedLaserEffect extends Effect {
     private final Point start;
-    private final Random random = new Random();
     protected ProtocolTargetedLaser targetedLaser;
     private TargetedLaserEffect.LaserListener laserListener;
 
@@ -37,7 +36,7 @@ public class TargetedLaserEffect extends Effect {
 
         targetedLaser = new ProtocolTargetedLaser(
                 start.getLocation(),
-                onlinePlayers.get(random.nextInt(onlinePlayers.size()))
+                onlinePlayers.get(Aurora.random.nextInt(onlinePlayers.size()))
         );
         laserListener = new TargetedLaserEffect.LaserListener(Aurora.plugin, this);
         Aurora.protocolManager.addPacketListener(laserListener);
@@ -54,7 +53,7 @@ public class TargetedLaserEffect extends Effect {
                 runTask(() -> {
                     List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
                     try {
-                        targetedLaser.changeTarget(onlinePlayers.get(random.nextInt(onlinePlayers.size())));
+                        targetedLaser.changeTarget(onlinePlayers.get(Aurora.random.nextInt(onlinePlayers.size())));
                     } catch (Exception ignored) {
                     }
                 });

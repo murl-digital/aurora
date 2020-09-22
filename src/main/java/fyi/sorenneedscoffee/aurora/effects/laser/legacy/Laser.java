@@ -1,6 +1,5 @@
 package fyi.sorenneedscoffee.aurora.effects.laser.legacy;
 
-import net.minecraft.server.v1_16_R2.*;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
