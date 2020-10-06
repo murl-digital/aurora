@@ -20,9 +20,10 @@ public class StopAllEndpoint extends Endpoint {
             EffectManager.stopAll(false);
             return OK;
         } catch (Exception e) {
-            Aurora.logger.severe(e.getMessage());
-            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
+            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
+            String message = e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e) : ExceptionUtils.getStackTrace(e);
+            return SERVER_ERROR.clone().entity(message).build();
         }
     }
 

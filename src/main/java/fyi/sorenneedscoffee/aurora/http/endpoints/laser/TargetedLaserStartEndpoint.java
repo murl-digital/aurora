@@ -38,9 +38,10 @@ public class TargetedLaserStartEndpoint extends Endpoint {
         } catch (IllegalArgumentException e) {
             return Response.status(400).entity("There are no players online.").build();
         } catch (Throwable e) {
-            Aurora.logger.severe(e.getMessage());
-            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
+            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
+            String message = e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e) : ExceptionUtils.getStackTrace(e);
+            return SERVER_ERROR.clone().entity(message).build();
         }
     }
 
@@ -52,9 +53,10 @@ public class TargetedLaserStartEndpoint extends Endpoint {
             EffectManager.restartEffect(id);
             return OK;
         } catch (Exception e) {
-            Aurora.logger.severe(e.getMessage());
-            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
+            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
+            String message = e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e) : ExceptionUtils.getStackTrace(e);
+            return SERVER_ERROR.clone().entity(message).build();
         }
     }
 

@@ -39,9 +39,10 @@ public class EndLaserEndpoint extends Endpoint {
             EffectManager.startEffect(group);
             return OK;
         } catch (Throwable e) {
-            Aurora.logger.severe(e.getMessage());
-            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
+            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
+            String message = e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e) : ExceptionUtils.getStackTrace(e);
+            return SERVER_ERROR.clone().entity(message).build();
         }
     }
 

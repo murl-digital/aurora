@@ -28,9 +28,10 @@ public class ConsoleCommandEndpoint extends Endpoint {
         } catch (JsonSyntaxException e) {
             return BAD_REQUEST;
         } catch (Exception e) {
-            Aurora.logger.warning(e.getMessage());
+            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
             Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
-            return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
+            String message = e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e) : ExceptionUtils.getStackTrace(e);
+            return SERVER_ERROR.clone().entity(message).build();
         }
     }
 }

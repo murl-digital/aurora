@@ -23,8 +23,8 @@ public class BossBarClearEndpoint extends Endpoint {
             BarManager.clearBars();
             return OK;
         } catch (Exception e) {
-            Aurora.logger.severe(e.getMessage());
-            Aurora.logger.severe(ExceptionUtils.getStackTrace(e));
+            Aurora.logger.warning(e.getMessage());
+            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
             return SERVER_ERROR.clone().entity(e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)).build();
         }
     }
