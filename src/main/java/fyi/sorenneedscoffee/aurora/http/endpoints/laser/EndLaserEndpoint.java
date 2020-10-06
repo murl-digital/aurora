@@ -8,8 +8,6 @@ import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.laser.LaserModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.InputStreamReader;
@@ -22,11 +20,7 @@ public class EndLaserEndpoint extends Endpoint {
         this.path = Pattern.compile("/effects/endlaser/.+/start");
     }
 
-    public static Response start(
-            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                    UUID id,
-            @RequestBody(description = "Array of Laser models", required = true)
-                    LaserModel[] models) {
+    public static Response start(UUID id, LaserModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
