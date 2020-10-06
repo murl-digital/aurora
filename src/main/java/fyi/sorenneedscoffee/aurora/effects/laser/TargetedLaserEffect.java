@@ -8,6 +8,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
 import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityMetadata;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,10 +34,11 @@ public class TargetedLaserEffect extends Effect {
     public void init() throws Exception {
         List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
         if (onlinePlayers.size() == 0) throw new IllegalArgumentException();
+        Player player = onlinePlayers.get(Aurora.random.nextInt(onlinePlayers.size()));
 
         targetedLaser = new ProtocolTargetedLaser(
                 start.getLocation(),
-                onlinePlayers.get(Aurora.random.nextInt(onlinePlayers.size()))
+                player
         );
         laserListener = new TargetedLaserEffect.LaserListener(Aurora.plugin, this);
         Aurora.protocolManager.addPacketListener(laserListener);

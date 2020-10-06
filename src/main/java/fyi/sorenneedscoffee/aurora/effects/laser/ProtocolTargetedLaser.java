@@ -4,6 +4,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityDestroy;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityMetadata;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerSpawnEntityLiving;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -26,8 +27,8 @@ public class ProtocolTargetedLaser {
 
     public void start() {
         this.isActive = true;
-        Aurora.protocolManager.broadcastServerPacket(spawnGuardianPacket.getHandle());
-        Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
+        Aurora.protocolManager.broadcastServerPacket(this.spawnGuardianPacket.getHandle());
+        Aurora.protocolManager.broadcastServerPacket(this.guardianMetadataPacket.getHandle());
     }
 
     public void stop() {
@@ -51,6 +52,7 @@ public class ProtocolTargetedLaser {
 
     public void sendStartPackets(Player p) {
         if (!p.isOnline()) return;
+        Aurora.logger.info("" + guardianMetadataPacket.getMetadata().get(16).getValue());
 
         try {
             Aurora.protocolManager.sendServerPacket(p, spawnGuardianPacket.getHandle());

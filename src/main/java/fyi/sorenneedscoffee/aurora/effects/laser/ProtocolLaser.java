@@ -5,35 +5,28 @@ import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityDestroy;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityMetadata;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerSpawnEntityLiving;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ProtocolLaser {
-    private final Location start, end;
     private boolean isActive = false;
 
-    private final WrapperPlayServerSpawnEntityLiving spawnSquidPacket, spawnGuardianPacket;
-    private final WrapperPlayServerEntityMetadata squidMetadataPacket, guardianMetadataPacket;
+    private final WrapperPlayServerSpawnEntityLiving spawnGuardianPacket;
+    private final WrapperPlayServerEntityMetadata guardianMetadataPacket;
     //dont ask.
     private final WrapperPlayServerEntityDestroy theEndIsNigh;
 
 
-    public ProtocolLaser(Location start, Location end) {
-        this.start = start;
-        this.end = end;
-
-        this.spawnSquidPacket = LaserPacketFactory.createSquidPacket(end);
-        this.squidMetadataPacket = LaserPacketFactory.createInvisibilityPacket(spawnSquidPacket.getEntityID(), LaserPacketFactory.fakeSquid);
+    public ProtocolLaser(Location start, Entity marker) {
         this.spawnGuardianPacket = LaserPacketFactory.createGuardianPacket(start);
-        this.guardianMetadataPacket = LaserPacketFactory.createGuardianMetaPacket(spawnGuardianPacket.getEntityID(), spawnSquidPacket.getEntityID());
-        this.theEndIsNigh = LaserPacketFactory.createDestroyPacket(new int[]{spawnSquidPacket.getEntityID(), spawnGuardianPacket.getEntityID()});
+        this.guardianMetadataPacket = LaserPacketFactory.createGuardianMetaPacket(spawnGuardianPacket.getEntityID(), marker.getEntityId());
+        this.theEndIsNigh = LaserPacketFactory.createDestroyPacket(new int[]{spawnGuardianPacket.getEntityID()});
     }
 
     public void start() {
         this.isActive = true;
-        Aurora.protocolManager.broadcastServerPacket(spawnSquidPacket.getHandle());
         Aurora.protocolManager.broadcastServerPacket(spawnGuardianPacket.getHandle());
-        Aurora.protocolManager.broadcastServerPacket(squidMetadataPacket.getHandle());
         Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
     }
 
@@ -50,9 +43,7 @@ public class ProtocolLaser {
         if (!p.isOnline()) return;
 
         try {
-            Aurora.protocolManager.sendServerPacket(p, spawnSquidPacket.getHandle());
             Aurora.protocolManager.sendServerPacket(p, spawnGuardianPacket.getHandle());
-            Aurora.protocolManager.sendServerPacket(p, squidMetadataPacket.getHandle());
             Aurora.protocolManager.sendServerPacket(p, guardianMetadataPacket.getHandle());
         } catch (Exception ignore) {}
     }

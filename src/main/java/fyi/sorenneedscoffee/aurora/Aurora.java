@@ -54,14 +54,7 @@ public final class Aurora extends JavaPlugin {
     public static Gson gson;
     public static HttpServer httpServer;
     public static ExecutorService httpExecutor;
-    public static Random random = new Random() {
-        @Override
-        public int nextInt(int bound) {
-            int result = super.nextInt(bound);
-            Aurora.logger.info(String.valueOf(result));
-            return result;
-        }
-    };
+    public static Random random = new Random();
 
     @Override
     public void onEnable() {

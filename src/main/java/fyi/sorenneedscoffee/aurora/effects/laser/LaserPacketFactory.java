@@ -18,17 +18,12 @@ import org.bukkit.entity.Entity;
 import java.util.UUID;
 
 public class LaserPacketFactory {
-    public static final Entity fakeSquid, fakeGuardian;
+    public static final Entity fakeSquid;
     private static int lastIssuedEID = 2000000000;
 
     static {
         fakeSquid = new CraftSquid((CraftServer) Bukkit.getServer(), new EntitySquid(
                 EntityTypes.SQUID,
-                ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle()
-        ));
-
-        fakeGuardian = new CraftGuardian((CraftServer) Bukkit.getServer(), new EntityGuardian(
-                EntityTypes.GUARDIAN,
                 ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle()
         ));
     }
@@ -80,7 +75,7 @@ public class LaserPacketFactory {
     }
 
     public static WrapperPlayServerEntityMetadata createGuardianMetaPacket(int eId, int targetEId) {
-        WrappedDataWatcher guardianWatcher = WrappedDataWatcher.getEntityWatcher(fakeGuardian);
+        WrappedDataWatcher guardianWatcher = WrappedDataWatcher.getEntityWatcher(fakeGuardian());
         guardianWatcher.setObject(0, (byte) 32);
         guardianWatcher.setObject(15, false);
         guardianWatcher.setObject(16, targetEId);
@@ -94,5 +89,12 @@ public class LaserPacketFactory {
 
     private static int generateEID() {
         return lastIssuedEID++;
+    }
+
+    private static Entity fakeGuardian() {
+        return new CraftGuardian((CraftServer) Bukkit.getServer(), new EntityGuardian(
+                EntityTypes.GUARDIAN,
+                ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle()
+        ));
     }
 }
