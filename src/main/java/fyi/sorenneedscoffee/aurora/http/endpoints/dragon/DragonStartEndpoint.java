@@ -1,45 +1,38 @@
-package fyi.sorenneedscoffee.aurora.http.endpoints.laser;
+package fyi.sorenneedscoffee.aurora.http.endpoints.dragon;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.laser.EndLaserEffect;
+import fyi.sorenneedscoffee.aurora.effects.dragon.DragonEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
-import fyi.sorenneedscoffee.aurora.http.models.laser.LaserModel;
+import fyi.sorenneedscoffee.aurora.http.models.dragon.DragonModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class EndLaserEndpoint extends Endpoint {
+public class DragonStartEndpoint extends Endpoint {
 
-    public EndLaserEndpoint() {
-        this.path = Pattern.compile("/effects/endlaser/.+/start");
+    public DragonStartEndpoint() {
+        this.path = Pattern.compile("/effects/dragon/.+/start");
     }
 
-    public static Response start(
-            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                    UUID id,
-            @RequestBody(description = "Array of Laser models", required = true)
-                    LaserModel[] models) {
+    public static Response start(UUID id, DragonModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
 
             EffectGroup group = new EffectGroup(id);
-
-            for (LaserModel model : models) {
-                Point start = Aurora.pointUtil.getPoint(model.startId);
-                Point end = Aurora.pointUtil.getPoint(model.endId);
-                if (start == null || end == null)
+            for (DragonModel model : models) {
+                Point point = Aurora.pointUtil.getPoint(model.pointId);
+                if (point == null)
                     return POINT_DOESNT_EXIST;
 
-                group.add(new EndLaserEffect(start.getLocation(), end.getLocation()));
+                DragonEffect effect = new DragonEffect(point, model.isStatic);
+                group.add(effect);
             }
 
             EffectManager.startEffect(group);
@@ -55,7 +48,7 @@ public class EndLaserEndpoint extends Endpoint {
     public Response handle(String[] tokens, InputStreamReader bodyStream) {
         try {
             UUID id = UUID.fromString(tokens[2]);
-            LaserModel[] models = Aurora.gson.fromJson(bodyStream, LaserModel[].class);
+            DragonModel[] models = Aurora.gson.fromJson(bodyStream, DragonModel[].class);
             return start(id, models);
         } catch (IllegalArgumentException e) {
             return BAD_REQUEST;

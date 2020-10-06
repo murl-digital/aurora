@@ -2,44 +2,36 @@ package fyi.sorenneedscoffee.aurora.http.endpoints.laser;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.laser.EndLaserEffect;
+import fyi.sorenneedscoffee.aurora.effects.laser.LaserEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.laser.LaserModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class EndLaserEndpoint extends Endpoint {
+public class LaserStartEndpoint extends Endpoint {
 
-    public EndLaserEndpoint() {
-        this.path = Pattern.compile("/effects/endlaser/.+/start");
+    public LaserStartEndpoint() {
+        this.path = Pattern.compile("/effects/laser/.+/start");
     }
 
-    public static Response start(
-            @Parameter(description = "UUID that will be assigned to the effect group", required = true)
-                    UUID id,
-            @RequestBody(description = "Array of Laser models", required = true)
-                    LaserModel[] models) {
+    public static Response start(UUID id, LaserModel[] request) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
 
             EffectGroup group = new EffectGroup(id);
-
-            for (LaserModel model : models) {
+            for (LaserModel model : request) {
                 Point start = Aurora.pointUtil.getPoint(model.startId);
                 Point end = Aurora.pointUtil.getPoint(model.endId);
                 if (start == null || end == null)
                     return POINT_DOESNT_EXIST;
-
-                group.add(new EndLaserEffect(start.getLocation(), end.getLocation()));
+                group.add(new LaserEffect(start, end));
             }
 
             EffectManager.startEffect(group);
