@@ -16,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
@@ -25,20 +24,20 @@ import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class GlobalPotionEffect extends Effect {
+public class PotionEffect extends Effect {
     private final World world;
-    private final PotionEffect potionEffect;
-    private GlobalEffectListener listener;
+    private final org.bukkit.potion.PotionEffect potionEffect;
+    private PotionListener listener;
     private boolean active = false;
 
-    public GlobalPotionEffect(Point point, PotionEffectType type, int amplifier) {
+    public PotionEffect(Point point, PotionEffectType type, int amplifier) {
         world = point.getLocation().getWorld();
-        this.potionEffect = new PotionEffect(type, Integer.MAX_VALUE, amplifier, false, false, false);
+        this.potionEffect = new org.bukkit.potion.PotionEffect(type, Integer.MAX_VALUE, amplifier, false, false, false);
     }
 
     @Override
     public void init() {
-        listener = new GlobalPotionEffect.GlobalEffectListener(Aurora.plugin, this);
+        listener = new PotionListener(Aurora.plugin, this);
         Aurora.protocolManager.addPacketListener(listener);
         getServer().getPluginManager().registerEvents(listener, Aurora.plugin);
     }
@@ -73,11 +72,11 @@ public class GlobalPotionEffect extends Effect {
         runTask(() -> player.addPotionEffect(potionEffect));
     }
 
-    private static class GlobalEffectListener extends PacketAdapter implements Listener {
+    private static class PotionListener extends PacketAdapter implements Listener {
         private final List<UUID> watchList = new ArrayList<>();
-        private final GlobalPotionEffect effect;
+        private final PotionEffect effect;
 
-        public GlobalEffectListener(Plugin plugin, GlobalPotionEffect effect) {
+        public PotionListener(Plugin plugin, PotionEffect effect) {
             super(plugin,
                     ListenerPriority.NORMAL,
                     PacketType.Play.Client.POSITION

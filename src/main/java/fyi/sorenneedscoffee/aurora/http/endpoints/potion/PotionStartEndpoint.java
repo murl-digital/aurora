@@ -2,7 +2,7 @@ package fyi.sorenneedscoffee.aurora.http.endpoints.potion;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.potion.GlobalPotionEffect;
+import fyi.sorenneedscoffee.aurora.effects.potion.PotionEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.potion.GlobalPotionModel;
@@ -30,7 +30,7 @@ public class PotionStartEndpoint extends Endpoint {
             if (type == null) {
                 return UNPROCESSABLE_ENTITY;
             }
-            group.add(new GlobalPotionEffect(point, type, model.amplifier));
+            group.add(new PotionEffect(point, type, model.amplifier));
         }
 
         EffectManager.startEffect(group);
