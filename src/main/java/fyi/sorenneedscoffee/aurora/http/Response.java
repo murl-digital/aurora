@@ -1,7 +1,5 @@
 package fyi.sorenneedscoffee.aurora.http;
 
-import org.apache.commons.lang.SerializationUtils;
-
 import java.io.Serializable;
 
 public class Response {

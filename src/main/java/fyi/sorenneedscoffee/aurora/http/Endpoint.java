@@ -1,20 +1,8 @@
 package fyi.sorenneedscoffee.aurora.http;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Contact;
-import io.swagger.v3.oas.annotations.info.Info;
-
 import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
-@OpenAPIDefinition(
-        info = @Info(
-                title = "Aurora",
-                version = "1.0.1",
-                description = "Ooo, pretty lights | Spigot visuals system",
-                contact = @Contact(name = "Joe/Soren", email = "joseph.md.sorensen@icloud.com")
-        )
-)
 public abstract class Endpoint {
     protected static final Response BAD_REQUEST;
     protected static final Response NOT_FOUND;
