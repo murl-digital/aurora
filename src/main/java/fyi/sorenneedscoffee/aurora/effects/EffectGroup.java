@@ -8,17 +8,26 @@ import java.util.UUID;
 
 public class EffectGroup {
     public final UUID id;
+    public final CacheBehavior behavior;
     private final List<Effect> effects = new ArrayList<>();
     private final boolean isStatic;
 
     public EffectGroup(UUID id) {
         this.id = id;
         this.isStatic = false;
+        this.behavior = CacheBehavior.DEFAULT;
+    }
+
+    public EffectGroup(UUID id, CacheBehavior behavior) {
+        this.id = id;
+        this.isStatic = false;
+        this.behavior = behavior;
     }
 
     public EffectGroup(UUID id, boolean isStatic) {
         this.id = id;
         this.isStatic = isStatic;
+        this.behavior = CacheBehavior.DEFAULT;
     }
 
     public void add(Effect effect) {

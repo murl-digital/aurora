@@ -90,7 +90,5 @@ public class ParticleEffect extends Effect {
     }
 
     @Override
-    public void cleanup() {
-
-    }
+    public void cleanup() {}
 }

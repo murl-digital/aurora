@@ -27,7 +27,7 @@ import static org.bukkit.Bukkit.getServer;
 
 public class BossBarEffect extends Effect {
     protected WrapperPlayServerBoss packet = new WrapperPlayServerBoss();
-    private BossBarListener bossBarListener;
+    private final BossBarListener bossBarListener = new BossBarListener(Aurora.plugin, this);
 
     public BossBarEffect(UUID id, BarColor color, String title) {
         packet.setUniqueId(id);
@@ -43,8 +43,6 @@ public class BossBarEffect extends Effect {
         packet.setCreateFog(false);
         packet.setDarkenSky(false);
         packet.setPlayMusic(false);
-
-        bossBarListener = new BossBarListener(Aurora.plugin, this);
     }
 
     @Override
