@@ -5,7 +5,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.potion.PotionEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
-import fyi.sorenneedscoffee.aurora.http.models.potion.GlobalPotionModel;
+import fyi.sorenneedscoffee.aurora.http.models.potion.PotionModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
 import fyi.sorenneedscoffee.aurora.util.annotation.StaticAction;
@@ -24,8 +24,8 @@ public class PotionStartEndpoint extends Endpoint {
         this.path = Pattern.compile("/effects/potion/.+/start");
     }
 
-    private static Response constructGroup(GlobalPotionModel[] models, Point point, EffectGroup group) throws Throwable {
-        for (GlobalPotionModel model : models) {
+    private static Response constructGroup(PotionModel[] models, Point point, EffectGroup group) throws Throwable {
+        for (PotionModel model : models) {
             PotionEffectType type = PotionEffectType.getByName(model.potionType);
             if (type == null) {
                 return UNPROCESSABLE_ENTITY;
@@ -37,7 +37,7 @@ public class PotionStartEndpoint extends Endpoint {
         return OK;
     }
 
-    private Response start(UUID id, GlobalPotionModel[] models) {
+    private Response start(UUID id, PotionModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
@@ -60,7 +60,7 @@ public class PotionStartEndpoint extends Endpoint {
     public Response handle(String[] tokens, InputStreamReader bodyStream) {
         try {
             UUID id = UUID.fromString(tokens[2]);
-            GlobalPotionModel[] models = Aurora.gson.fromJson(bodyStream, GlobalPotionModel[].class);
+            PotionModel[] models = Aurora.gson.fromJson(bodyStream, PotionModel[].class);
             return start(id, models);
         } catch (IllegalArgumentException e) {
             return BAD_REQUEST;
@@ -68,7 +68,7 @@ public class PotionStartEndpoint extends Endpoint {
     }
 
     @StaticAction
-    public Response startStatic(GlobalPotionModel[] models) {
+    public Response startStatic(PotionModel[] models) {
         try {
             Point point = Aurora.pointUtil.getPoint(0);
             if (point == null)
