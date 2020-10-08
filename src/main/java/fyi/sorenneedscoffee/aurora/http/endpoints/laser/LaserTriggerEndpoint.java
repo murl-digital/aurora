@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class LaserTriggerEndpoint extends Endpoint {
 
     public LaserTriggerEndpoint() {
-        this.path = Pattern.compile("/effects/(laser|targetedlaser)/.+/trigger");
+        this.path = Pattern.compile("/effects/(laser|targetedlaser)/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/trigger");
     }
 
     public static Response trigger(UUID id) {

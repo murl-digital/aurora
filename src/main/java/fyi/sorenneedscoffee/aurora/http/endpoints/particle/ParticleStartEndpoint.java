@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class ParticleStartEndpoint extends Endpoint {
 
     public ParticleStartEndpoint() {
-        this.path = Pattern.compile("/effects/particle/.+/trigger");
+        this.path = Pattern.compile("/effects/particle/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
     }
 
     private Response start(UUID id, ParticleModel[] models) {

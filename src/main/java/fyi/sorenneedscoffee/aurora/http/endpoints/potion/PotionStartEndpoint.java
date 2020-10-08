@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class PotionStartEndpoint extends Endpoint {
 
     public PotionStartEndpoint() {
-        this.path = Pattern.compile("/effects/potion/.+/start");
+        this.path = Pattern.compile("/effects/potion/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
     }
 
     private static Response constructGroup(PotionModel[] models, Point point, EffectGroup group) throws Throwable {

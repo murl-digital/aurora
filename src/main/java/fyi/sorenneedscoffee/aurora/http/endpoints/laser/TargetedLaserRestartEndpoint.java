@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class TargetedLaserRestartEndpoint extends Endpoint {
 
     public TargetedLaserRestartEndpoint() {
-        this.path = Pattern.compile("/effects/targetedlaser/.+/restart");
+        this.path = Pattern.compile("/effects/targetedlaser/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/restart");
     }
 
     public static Response restart(UUID id) {

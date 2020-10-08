@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class DragonRestartEndpoint extends Endpoint {
 
     public DragonRestartEndpoint() {
-        this.path = Pattern.compile("/effects/dragon/.+/(start|restart)");
+        this.path = Pattern.compile("/effects/dragon/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/(start|restart)");
     }
 
     public static Response restart(UUID id) {

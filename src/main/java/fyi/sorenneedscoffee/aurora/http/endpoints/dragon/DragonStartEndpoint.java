@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class DragonStartEndpoint extends Endpoint {
 
     public DragonStartEndpoint() {
-        this.path = Pattern.compile("/effects/dragon/.+/start");
+        this.path = Pattern.compile("/effects/dragon/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
     }
 
     public static Response start(UUID id, DragonModel[] models) {

@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class StopEndpoint extends Endpoint {
 
     public StopEndpoint() {
-        this.path = Pattern.compile("/effects/.+/stop");
+        this.path = Pattern.compile("/effects/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/stop");
     }
 
     private Response stop(UUID id) {

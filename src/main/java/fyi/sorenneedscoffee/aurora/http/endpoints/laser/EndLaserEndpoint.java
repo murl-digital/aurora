@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class EndLaserEndpoint extends Endpoint {
 
     public EndLaserEndpoint() {
-        this.path = Pattern.compile("/effects/endlaser/.+/start");
+        this.path = Pattern.compile("/effects/endlaser/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
     }
 
     public static Response start(UUID id, LaserModel[] models) {
