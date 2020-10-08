@@ -12,14 +12,15 @@ public class EffectManager {
     private static final Map<UUID ,EffectGroup> activeEffects = new ConcurrentHashMap<>();
     private static final Set<EffectGroup> staticEffects = new ConcurrentSet<>();
 
+    private static final RemovalListener<UUID, EffectGroup> listener = r -> r.getValue().cleanup();
     private static final Cache<UUID, EffectGroup> cache = CacheBuilder.newBuilder()
             .maximumSize(10000)
             .expireAfterWrite(30, TimeUnit.SECONDS)
-            .removalListener((RemovalListener<UUID, EffectGroup>) r -> r.getValue().cleanup())
+            .removalListener(listener)
             .build();
     private static final Cache<UUID, EffectGroup> persistentCache = CacheBuilder.newBuilder()
             .maximumSize(10000)
-            .removalListener((RemovalListener<UUID, EffectGroup>) r -> r.getValue().cleanup())
+            .removalListener(listener)
             .build();
 
     public static void startEffect(EffectGroup group) throws Throwable {
@@ -64,6 +65,8 @@ public class EffectManager {
         if (shuttingDown) {
             persistentCache.invalidateAll();
             cache.invalidateAll();
+            cache.cleanUp();
+            persistentCache.cleanUp();
 
             staticEffects.forEach(g -> g.stopAll(true));
             staticEffects.clear();
