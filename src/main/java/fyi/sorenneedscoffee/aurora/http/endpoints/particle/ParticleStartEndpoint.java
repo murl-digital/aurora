@@ -1,39 +1,36 @@
-package fyi.sorenneedscoffee.aurora.http.endpoints.laser;
+package fyi.sorenneedscoffee.aurora.http.endpoints.particle;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.laser.EndLaserEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
-import fyi.sorenneedscoffee.aurora.http.models.laser.LaserModel;
+import fyi.sorenneedscoffee.aurora.http.models.particle.ParticleModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
-import fyi.sorenneedscoffee.aurora.util.Point;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class EndLaserEndpoint extends Endpoint {
+public class ParticleStartEndpoint extends Endpoint {
 
-    public EndLaserEndpoint() {
-        this.path = Pattern.compile("/effects/endlaser/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
+    public ParticleStartEndpoint() {
+        this.path = Pattern.compile("/effects/particle/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
     }
 
-    public static Response start(UUID id, LaserModel[] models) {
+    private Response start(UUID id, ParticleModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
 
-            EffectGroup group = new EffectGroup(id);
+            EffectGroup group;
 
-            for (LaserModel model : models) {
-                Point start = Aurora.pointUtil.getPoint(model.startId);
-                Point end = Aurora.pointUtil.getPoint(model.endId);
-                if (start == null || end == null)
-                    return POINT_DOESNT_EXIST;
-
-                group.add(new EndLaserEffect(start.getLocation(), end.getLocation()));
+            try {
+                group = ParticleCommon.constructGroup(id, models, false);
+            } catch (IllegalArgumentException e) {
+                return UNPROCESSABLE_ENTITY;
+            } catch (NullPointerException e) {
+                return POINT_DOESNT_EXIST;
             }
 
             EffectManager.startEffect(group);
@@ -50,7 +47,7 @@ public class EndLaserEndpoint extends Endpoint {
     public Response handle(String[] tokens, InputStreamReader bodyStream) {
         try {
             UUID id = UUID.fromString(tokens[2]);
-            LaserModel[] models = Aurora.gson.fromJson(bodyStream, LaserModel[].class);
+            ParticleModel[] models = Aurora.gson.fromJson(bodyStream, ParticleModel[].class);
             return start(id, models);
         } catch (IllegalArgumentException e) {
             return BAD_REQUEST;

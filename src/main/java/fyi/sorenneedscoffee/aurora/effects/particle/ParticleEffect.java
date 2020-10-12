@@ -1,17 +1,13 @@
 package fyi.sorenneedscoffee.aurora.effects.particle;
 
-import com.comphenix.protocol.wrappers.WrappedParticle;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
-import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerWorldParticles;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -94,7 +90,5 @@ public class ParticleEffect extends Effect {
     }
 
     @Override
-    public void cleanup() {
-
-    }
+    public void cleanup() {}
 }

@@ -1,11 +1,11 @@
-package fyi.sorenneedscoffee.aurora.http.endpoints.laser;
+package fyi.sorenneedscoffee.aurora.http.endpoints.time;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
-import fyi.sorenneedscoffee.aurora.effects.laser.EndLaserEffect;
+import fyi.sorenneedscoffee.aurora.effects.time.TimeShiftEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
-import fyi.sorenneedscoffee.aurora.http.models.laser.LaserModel;
+import fyi.sorenneedscoffee.aurora.http.models.time.TimeShiftModel;
 import fyi.sorenneedscoffee.aurora.util.EffectManager;
 import fyi.sorenneedscoffee.aurora.util.Point;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -14,26 +14,24 @@ import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class EndLaserEndpoint extends Endpoint {
+public class TimeShiftStartEndpoint extends Endpoint {
 
-    public EndLaserEndpoint() {
-        this.path = Pattern.compile("/effects/endlaser/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
+    public TimeShiftStartEndpoint() {
+        this.path = Pattern.compile("/effects/time/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
     }
 
-    public static Response start(UUID id, LaserModel[] models) {
+    private Response start(UUID id, TimeShiftModel[] models) {
         try {
             if (EffectManager.exists(id))
                 return BAD_REQUEST;
 
+            Point point = Aurora.pointUtil.getPoint(0);
+            if (point == null)
+                return POINT_DOESNT_EXIST;
+
             EffectGroup group = new EffectGroup(id);
-
-            for (LaserModel model : models) {
-                Point start = Aurora.pointUtil.getPoint(model.startId);
-                Point end = Aurora.pointUtil.getPoint(model.endId);
-                if (start == null || end == null)
-                    return POINT_DOESNT_EXIST;
-
-                group.add(new EndLaserEffect(start.getLocation(), end.getLocation()));
+            for (TimeShiftModel model : models) {
+                group.add(new TimeShiftEffect(point, model.amount));
             }
 
             EffectManager.startEffect(group);
@@ -50,7 +48,7 @@ public class EndLaserEndpoint extends Endpoint {
     public Response handle(String[] tokens, InputStreamReader bodyStream) {
         try {
             UUID id = UUID.fromString(tokens[2]);
-            LaserModel[] models = Aurora.gson.fromJson(bodyStream, LaserModel[].class);
+            TimeShiftModel[] models = Aurora.gson.fromJson(bodyStream, TimeShiftModel[].class);
             return start(id, models);
         } catch (IllegalArgumentException e) {
             return BAD_REQUEST;

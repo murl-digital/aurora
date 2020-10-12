@@ -21,7 +21,7 @@ public class PointCmd implements CommandExecutor {
             return true;
         }
 
-        if(args[0].equals("list")) {
+        if (args[0].equals("list")) {
             StringBuilder builder = new StringBuilder();
             builder.append("Available points: ").append("\n\n");
 

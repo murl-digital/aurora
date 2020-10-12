@@ -10,6 +10,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectAction;
 import fyi.sorenneedscoffee.aurora.util.Point;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -21,9 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LaserEffect extends Effect {
-    private final Point start;
-    private final Point end;
-    protected Laser laser;
+    private final Point start, end;
+    private ArmorStand marker;
+    protected ProtocolLaser laser;
     private LaserEffect.LaserListener laserListener;
 
     public LaserEffect(Point start, Point end) {
@@ -33,12 +34,17 @@ public class LaserEffect extends Effect {
 
     @Override
     public void init() throws ReflectiveOperationException {
-        laser = new Laser(
-                start.getLocation(),
-                end.getLocation(),
-                -1,
-                256
-        );
+        runTask(() -> {
+            marker = end.getLocation().getWorld().spawn(end.getLocation(), ArmorStand.class);
+            marker.setVisible(false);
+            marker.setMarker(true);
+            marker.setGravity(false);
+
+            laser = new ProtocolLaser(
+                    start.getLocation(),
+                    marker
+            );
+        });
         laserListener = new LaserListener(Aurora.plugin, this);
         Aurora.protocolManager.addPacketListener(laserListener);
         Bukkit.getPluginManager().registerEvents(laserListener, Aurora.plugin);
@@ -48,13 +54,13 @@ public class LaserEffect extends Effect {
     public void execute(EffectAction action) {
         switch (action) {
             case START:
-                runTask(() -> laser.start(Aurora.plugin));
+                runTask(() -> laser.start());
                 break;
             case TRIGGER:
                 runTask(() -> {
                     try {
                         laser.callColorChange();
-                    } catch (ReflectiveOperationException e) {
+                    } catch (Exception e) {
                         Aurora.logger.warning("An error occurred while attempting to change a laser's color.");
                         Aurora.logger.warning(e.getMessage());
                         Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
@@ -70,6 +76,7 @@ public class LaserEffect extends Effect {
     @Override
     public void cleanup() {
         runTask(() -> {
+            marker.remove();
             Aurora.protocolManager.removePacketListener(laserListener);
             HandlerList.unregisterAll(laserListener);
         });
@@ -94,7 +101,7 @@ public class LaserEffect extends Effect {
                 try {
                     activePlayers.add(event.getPlayer());
                     effect.laser.sendStartPackets(event.getPlayer());
-                } catch (ReflectiveOperationException ignored) {
+                } catch (Exception ignored) {
                 }
             }
         }

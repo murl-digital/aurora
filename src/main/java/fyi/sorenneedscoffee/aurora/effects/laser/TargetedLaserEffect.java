@@ -8,6 +8,7 @@ import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
 import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityMetadata;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,8 +23,7 @@ import java.util.Random;
 
 public class TargetedLaserEffect extends Effect {
     private final Point start;
-    private final Random random = new Random();
-    protected TargetedLaser targetedLaser;
+    protected ProtocolTargetedLaser targetedLaser;
     private TargetedLaserEffect.LaserListener laserListener;
 
     public TargetedLaserEffect(Point start) {
@@ -33,11 +33,12 @@ public class TargetedLaserEffect extends Effect {
     @Override
     public void init() throws Exception {
         List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
-        targetedLaser = new TargetedLaser(
+        if (onlinePlayers.size() == 0) throw new IllegalArgumentException();
+        Player player = onlinePlayers.get(Aurora.random.nextInt(onlinePlayers.size()));
+
+        targetedLaser = new ProtocolTargetedLaser(
                 start.getLocation(),
-                onlinePlayers.get(random.nextInt(onlinePlayers.size())),
-                -1,
-                256
+                player
         );
         laserListener = new TargetedLaserEffect.LaserListener(Aurora.plugin, this);
         Aurora.protocolManager.addPacketListener(laserListener);
@@ -48,14 +49,14 @@ public class TargetedLaserEffect extends Effect {
     public void execute(EffectAction action) {
         switch (action) {
             case START:
-                runTask(() -> targetedLaser.start(Aurora.plugin));
+                runTask(() -> targetedLaser.start());
                 break;
             case RESTART:
                 runTask(() -> {
                     List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
                     try {
-                        targetedLaser.moveEnd(onlinePlayers.get(random.nextInt(onlinePlayers.size())));
-                    } catch (ReflectiveOperationException ignored) {
+                        targetedLaser.changeTarget(onlinePlayers.get(Aurora.random.nextInt(onlinePlayers.size())));
+                    } catch (Exception ignored) {
                     }
                 });
                 break;
@@ -63,7 +64,7 @@ public class TargetedLaserEffect extends Effect {
                 runTask(() -> {
                     try {
                         targetedLaser.callColorChange();
-                    } catch (ReflectiveOperationException e) {
+                    } catch (Exception e) {
                         Aurora.logger.warning("An error occurred while attempting to change a laser's color.");
                         Aurora.logger.warning(e.getMessage());
                         Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
@@ -100,7 +101,7 @@ public class TargetedLaserEffect extends Effect {
                 try {
                     activePlayers.add(event.getPlayer());
                     effect.targetedLaser.sendStartPackets(event.getPlayer());
-                } catch (ReflectiveOperationException ignored) {
+                } catch (Exception ignored) {
                 }
             }
         }

@@ -1,55 +1,78 @@
 package fyi.sorenneedscoffee.aurora.util;
 
+import com.google.common.cache.*;
+import fyi.sorenneedscoffee.aurora.effects.CacheBehavior;
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
+import io.netty.util.internal.ConcurrentSet;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class EffectManager {
-    private static final List<EffectGroup> activeEffects = new ArrayList<>();
-    private static final ExecutorService service = Executors.newFixedThreadPool(1);
+    private static final Map<UUID ,EffectGroup> activeEffects = new ConcurrentHashMap<>();
+    private static final Set<EffectGroup> staticEffects = new ConcurrentSet<>();
 
-    public static void startEffect(EffectGroup group) throws Exception {
+    private static final RemovalListener<UUID, EffectGroup> listener = r -> r.getValue().cleanup();
+    private static final Cache<UUID, EffectGroup> cache = CacheBuilder.newBuilder()
+            .maximumSize(10000)
+            .expireAfterWrite(30, TimeUnit.SECONDS)
+            .removalListener(listener)
+            .build();
+    private static final Cache<UUID, EffectGroup> persistentCache = CacheBuilder.newBuilder()
+            .maximumSize(10000)
+            .removalListener(listener)
+            .build();
+
+    public static void startEffect(EffectGroup group) throws Throwable {
+        if (group.isStatic()) {
+            group.initAll();
+            group.startAll();
+            staticEffects.add(group);
+        }
+
         try {
-            service.submit((Callable<Void>) () -> {
+            EffectGroup cachedEffect = getCachedEffect(group.id);
+            if (cachedEffect != null) {
+                cachedEffect.startAll();
+                activeEffects.put(cachedEffect.id, cachedEffect);
+            } else {
+                group.initAll();
                 group.startAll();
-                activeEffects.add(group);
-                return null;
-            }).get();
+                activeEffects.put(group.id, group);
+            }
         } catch (ExecutionException e) {
-            throw (Exception) e.getCause();
+            throw e.getCause();
         }
     }
 
     public static void stopEffect(UUID uuid) {
-        service.submit(() -> {
-            EffectGroup effectGroup = findEffect(uuid);
-            if (effectGroup != null) {
-                effectGroup.stopAll(false);
-                activeEffects.remove(effectGroup);
-            }
-        });
+        EffectGroup effectGroup = activeEffects.get(uuid);
+        if (effectGroup != null) {
+            effectGroup.stopAll(false);
+            activeEffects.remove(uuid);
+            cache(effectGroup);
+        }
     }
 
     public static void restartEffect(UUID uuid) {
-        service.submit(() -> {
-            EffectGroup effectGroup = findEffect(uuid);
-            if (effectGroup != null) {
-                effectGroup.restartAll();
-            }
-        });
+        EffectGroup effectGroup = activeEffects.get(uuid);
+        if (effectGroup != null) {
+            effectGroup.restartAll();
+        }
     }
 
     public static void stopAll(boolean shuttingDown) {
-        if (shuttingDown)
-            service.shutdownNow();
+        if (shuttingDown) {
+            persistentCache.invalidateAll();
+            cache.invalidateAll();
+            cache.cleanUp();
+            persistentCache.cleanUp();
 
-        activeEffects.forEach(g -> g.stopAll(shuttingDown));
+            staticEffects.forEach(g -> g.stopAll(true));
+            staticEffects.clear();
+        }
+
+        activeEffects.forEach((u, g) -> g.stopAll(shuttingDown));
         activeEffects.clear();
     }
 
@@ -58,27 +81,41 @@ public class EffectManager {
     }
 
     public static void hotTriggerEffect(UUID uuid) {
-        service.submit(() -> {
-            EffectGroup effectGroup = findEffect(uuid);
-            if(effectGroup != null) {
+            EffectGroup effectGroup = activeEffects.get(uuid);
+            if (effectGroup != null) {
                 effectGroup.hotTriggerAll();
             }
-        });
     }
 
     public static boolean exists(UUID id) {
-        return findEffect(id) != null;
+        return activeEffects.containsKey(id);
+    }
+
+    public static void cache(EffectGroup group) {
+        if (group.behavior == CacheBehavior.DISABLED)
+            return;
+
+        if (!isCached(group.id)) {
+            if (group.behavior == CacheBehavior.PERSIST)
+                persistentCache.put(group.id, group);
+            else
+                cache.put(group.id, group);
+        }
+    }
+
+    public static boolean isCached(UUID id) {
+        return persistentCache.asMap().containsKey(id) || persistentCache.asMap().containsKey(id);
+    }
+
+    public static EffectGroup getCachedEffect(UUID id) {
+        EffectGroup result;
+        result = persistentCache.getIfPresent(id);
+        if (result != null) return result;
+        result = cache.getIfPresent(id);
+        return result;
     }
 
     public static <T> boolean instanceOf(UUID id, Class<T> clazz) {
-        EffectGroup group = findEffect(id);
-        if (group == null)
-            return false;
-
-        return group.instanceOf(clazz);
-    }
-
-    private static EffectGroup findEffect(UUID id) {
-        return activeEffects.contains(new EffectGroup(id)) ? activeEffects.get(activeEffects.indexOf(new EffectGroup(id))) : null;
+        return activeEffects.containsKey(id) && activeEffects.get(id).instanceOf(clazz);
     }
 }

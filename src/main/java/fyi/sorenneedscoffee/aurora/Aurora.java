@@ -36,26 +36,25 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public final class Aurora extends JavaPlugin {
+    private static final OkHttpClient client = new OkHttpClient();
+
     public static Aurora plugin;
     public static Logger logger;
     public static FileConfiguration config;
-
     public static ProtocolManager protocolManager;
     public static PointUtil pointUtil;
     public static DataManager dataManager;
     public static Gson gson;
-
     public static HttpServer httpServer;
     public static ExecutorService httpExecutor;
+    public static Random random = new Random();
 
     @Override
     public void onEnable() {
@@ -63,7 +62,6 @@ public final class Aurora extends JavaPlugin {
         logger = this.getLogger();
         gson = new GsonBuilder()
                 .serializeNulls()
-                .setPrettyPrinting()
                 .create();
 
         if (plugin.getDataFolder().mkdirs()) {
@@ -96,22 +94,31 @@ public final class Aurora extends JavaPlugin {
 
                 logger.info("Starting HTTP Server at " + base + "...");
 
+                RestHandler handler = new RestHandler();
+                endpoints.forEach(e -> {
+                    try {
+                        handler.register(e.getDeclaredConstructor().newInstance());
+                    } catch (Exception ex) {
+                        logger.warning("There was an issue instantiating " + e.getSimpleName());
+                        logger.warning(ExceptionUtils.getMessage(ex));
+                        logger.warning(ExceptionUtils.getStackTrace(ex));
+                    }
+                });
+
                 httpServer = HttpServer.create(new InetSocketAddress(hostname, port), 0);
-                httpServer.createContext("/", new RestHandler());
-                httpExecutor = new ThreadPoolExecutor(3, 3,
-                        60L, TimeUnit.SECONDS,
-                        new SynchronousQueue<>(), new ThreadPoolExecutor.CallerRunsPolicy());
+                httpServer.createContext("/", handler);
+                httpExecutor = Executors.newCachedThreadPool();
                 httpServer.setExecutor(httpExecutor);
                 httpServer.start();
 
                 if (config.getBoolean("remote.solarflare.enabled")) {
                     logger.info("Registering with SolarFlare...");
-                    String host = Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base.getHost() : config.getString("remote.solarflare.providedHostname");
+                    String host = Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base.getHost() : config.getString("remote.solarflare.providedHostname") + ":" + base.getPort();
 
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody body = RequestBody.create(
-                            host + ":" + base.getPort(),
-                            MediaType.parse(host + ":" + base.getPort()));
+                    JsonObject object = new JsonObject();
+                    object.addProperty("privateAddress", host);
+
+                    RequestBody body = RequestBody.create(object.getAsString(), MediaType.parse(object.getAsString()));
                     Request request = new Request.Builder()
                             .url(Objects.requireNonNull(config.getString("remote.solarflare.url")))
                             .post(body)
@@ -124,8 +131,12 @@ public final class Aurora extends JavaPlugin {
             }
         }
 
-        this.getCommand("point").setExecutor(new PointCmd());
-        this.getCommand("effects").setExecutor(new EffectCmd());
+        try {
+            Objects.requireNonNull(this.getCommand("point")).setExecutor(new PointCmd());
+            Objects.requireNonNull(this.getCommand("effects")).setExecutor(new EffectCmd());
+        } catch (NullPointerException e) {
+            Aurora.logger.warning("One or more commands could not be registered.");
+        }
 
         try {
             logger.info("Starting static effects..");
@@ -155,7 +166,7 @@ public final class Aurora extends JavaPlugin {
                             try {
                                 m.invoke(e.getDeclaredConstructor().newInstance(), finalModel);
                             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException ex) {
-                                logger.warning("The plugin tried to initialize the static");
+                                logger.warning("The plugin tried to initialize a static effect and failed");
                             }
                         });
                     }

@@ -8,37 +8,55 @@ import java.util.UUID;
 
 public class EffectGroup {
     public final UUID id;
+    public final CacheBehavior behavior;
     private final List<Effect> effects = new ArrayList<>();
     private final boolean isStatic;
 
     public EffectGroup(UUID id) {
         this.id = id;
         this.isStatic = false;
+        this.behavior = CacheBehavior.DEFAULT;
+    }
+
+    public EffectGroup(UUID id, CacheBehavior behavior) {
+        this.id = id;
+        this.isStatic = false;
+        this.behavior = behavior;
     }
 
     public EffectGroup(UUID id, boolean isStatic) {
         this.id = id;
         this.isStatic = isStatic;
+        this.behavior = CacheBehavior.DEFAULT;
     }
 
     public void add(Effect effect) {
         effects.add(effect);
     }
 
-    public void startAll() throws Exception {
+    public void initAll() throws Exception {
         for (Effect e : effects) {
             e.init();
-            e.execute(EffectAction.START);
         }
+    }
+
+    public void startAll() {
+        effects.forEach(e -> e.execute(EffectAction.START));
     }
 
     public void stopAll(boolean shuttingDown) {
         effects.forEach(e -> {
             if (!isStatic || shuttingDown) {
                 e.execute(EffectAction.STOP);
-                e.cleanup();
+                if (shuttingDown) {
+                    e.cleanup();
+                }
             }
         });
+    }
+
+    public void cleanup() {
+        effects.forEach(Effect::cleanup);
     }
 
     public void triggerAll() throws Exception {
