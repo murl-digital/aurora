@@ -79,6 +79,16 @@ public class EffectManager {
         activeEffects.clear();
     }
 
+    public static <T> void stopType(Class<T> clazz) {
+        activeEffects.forEach((u, g) -> {
+            if (g.instanceOf(clazz)) {
+                g.stopAll(false);
+                activeEffects.remove(u);
+                cache(g);
+            }
+        });
+    }
+
     public static void triggerEffect(EffectGroup group) throws Exception {
         group.triggerAll();
     }
