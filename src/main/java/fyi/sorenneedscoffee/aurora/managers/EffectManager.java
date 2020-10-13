@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.util;
+package fyi.sorenneedscoffee.aurora.managers;
 
 import com.google.common.cache.*;
 import fyi.sorenneedscoffee.aurora.effects.CacheBehavior;

@@ -6,8 +6,8 @@ import fyi.sorenneedscoffee.aurora.effects.bossbar.BossBarEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.bossbar.BossBarModel;
-import fyi.sorenneedscoffee.aurora.util.BarManager;
-import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.managers.BarManager;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.boss.BarColor;
 

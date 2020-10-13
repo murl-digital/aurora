@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.util;
+package fyi.sorenneedscoffee.aurora.managers;
 
 import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 

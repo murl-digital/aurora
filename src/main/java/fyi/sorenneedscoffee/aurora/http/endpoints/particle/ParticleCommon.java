@@ -5,7 +5,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.particle.ParticleEffect;
 import fyi.sorenneedscoffee.aurora.effects.particle.Region;
 import fyi.sorenneedscoffee.aurora.http.models.particle.ParticleModel;
-import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;

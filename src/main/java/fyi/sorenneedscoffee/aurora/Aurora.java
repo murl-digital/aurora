@@ -8,12 +8,12 @@ import fyi.sorenneedscoffee.aurora.commands.EffectCmd;
 import fyi.sorenneedscoffee.aurora.commands.PointCmd;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.RestHandler;
-import fyi.sorenneedscoffee.aurora.util.DataManager;
-import fyi.sorenneedscoffee.aurora.util.EffectManager;
-import fyi.sorenneedscoffee.aurora.util.PointUtil;
-import fyi.sorenneedscoffee.aurora.util.annotation.StaticAction;
-import fyi.sorenneedscoffee.aurora.util.annotation.StaticEffect;
-import fyi.sorenneedscoffee.aurora.util.annotation.StaticModel;
+import fyi.sorenneedscoffee.aurora.points.DataContext;
+import fyi.sorenneedscoffee.aurora.managers.EffectManager;
+import fyi.sorenneedscoffee.aurora.points.PointUtil;
+import fyi.sorenneedscoffee.aurora.annotations.StaticAction;
+import fyi.sorenneedscoffee.aurora.annotations.StaticEffect;
+import fyi.sorenneedscoffee.aurora.annotations.StaticModel;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -50,7 +50,7 @@ public final class Aurora extends JavaPlugin {
     public static FileConfiguration config;
     public static ProtocolManager protocolManager;
     public static PointUtil pointUtil;
-    public static DataManager dataManager;
+    public static DataContext dataContext;
     public static Gson gson;
     public static HttpServer httpServer;
     public static ExecutorService httpExecutor;
@@ -73,7 +73,7 @@ public final class Aurora extends JavaPlugin {
         config = plugin.getConfig();
 
         protocolManager = ProtocolLibrary.getProtocolManager();
-        dataManager = new DataManager(plugin);
+        dataContext = new DataContext(plugin);
         pointUtil = new PointUtil().load();
 
         Reflections reflections = new Reflections("fyi.sorenneedscoffee.aurora.http",

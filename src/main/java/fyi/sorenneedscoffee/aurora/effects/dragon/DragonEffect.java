@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
-import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityStatus;
 import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerNamedSoundEffect;
 import org.apache.commons.lang.exception.ExceptionUtils;

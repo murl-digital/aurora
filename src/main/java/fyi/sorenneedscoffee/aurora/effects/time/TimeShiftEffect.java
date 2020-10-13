@@ -3,7 +3,7 @@ package fyi.sorenneedscoffee.aurora.effects.time;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
-import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitTask;

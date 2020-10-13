@@ -3,7 +3,7 @@ package fyi.sorenneedscoffee.aurora.http.endpoints.bossbar;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
-import fyi.sorenneedscoffee.aurora.util.BarManager;
+import fyi.sorenneedscoffee.aurora.managers.BarManager;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.InputStreamReader;

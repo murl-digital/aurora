@@ -7,8 +7,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
-import fyi.sorenneedscoffee.aurora.util.Point;
-import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerEntityMetadata;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,7 +18,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TargetedLaserEffect extends Effect {
     private final Point start;
