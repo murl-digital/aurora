@@ -1,20 +1,17 @@
 /**
- * PacketWrapper - ProtocolLib wrappers for Minecraft packets
- * Copyright (C) dmulloy2 <http://dmulloy2.net>
- * Copyright (C) Kristian S. Strangeland
+ * PacketWrapper - ProtocolLib wrappers for Minecraft packets Copyright (C) dmulloy2
+ * <http://dmulloy2.net> Copyright (C) Kristian S. Strangeland
  * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
  * <p>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with this program.  If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 package fyi.sorenneedscoffee.aurora.wrapper;
 
@@ -22,82 +19,83 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
 public class WrapperPlayClientAbilities extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Client.ABILITIES;
 
-    public WrapperPlayClientAbilities() {
-        super(new PacketContainer(TYPE), TYPE);
-        handle.getModifier().writeDefaults();
-    }
+  public static final PacketType TYPE = PacketType.Play.Client.ABILITIES;
 
-    public WrapperPlayClientAbilities(PacketContainer packet) {
-        super(packet, TYPE);
-    }
+  public WrapperPlayClientAbilities() {
+    super(new PacketContainer(TYPE), TYPE);
+    handle.getModifier().writeDefaults();
+  }
 
-    public boolean isInvulnerable() {
-        return handle.getBooleans().read(0);
-    }
+  public WrapperPlayClientAbilities(PacketContainer packet) {
+    super(packet, TYPE);
+  }
 
-    public void setInvulnerable(boolean value) {
-        handle.getBooleans().write(0, value);
-    }
+  public boolean isInvulnerable() {
+    return handle.getBooleans().read(0);
+  }
 
-    /**
-     * Misspelled.
-     *
-     * @see #isInvulnerable()
-     */
-    @Deprecated
-    public boolean isInvulnurable() {
-        return handle.getBooleans().read(0);
-    }
+  public void setInvulnerable(boolean value) {
+    handle.getBooleans().write(0, value);
+  }
 
-    /**
-     * Misspelled.
-     *
-     * @see #setInvulnerable(boolean)
-     */
-    @Deprecated
-    public void setInvulnurable(boolean value) {
-        handle.getBooleans().write(0, value);
-    }
+  /**
+   * Misspelled.
+   *
+   * @see #isInvulnerable()
+   */
+  @Deprecated
+  public boolean isInvulnurable() {
+    return handle.getBooleans().read(0);
+  }
 
-    public boolean isFlying() {
-        return handle.getBooleans().read(1);
-    }
+  /**
+   * Misspelled.
+   *
+   * @see #setInvulnerable(boolean)
+   */
+  @Deprecated
+  public void setInvulnurable(boolean value) {
+    handle.getBooleans().write(0, value);
+  }
 
-    public void setFlying(boolean value) {
-        handle.getBooleans().write(1, value);
-    }
+  public boolean isFlying() {
+    return handle.getBooleans().read(1);
+  }
 
-    public boolean canFly() {
-        return handle.getBooleans().read(2);
-    }
+  public void setFlying(boolean value) {
+    handle.getBooleans().write(1, value);
+  }
 
-    public void setCanFly(boolean value) {
-        handle.getBooleans().write(2, value);
-    }
+  public boolean canFly() {
+    return handle.getBooleans().read(2);
+  }
 
-    public boolean canInstantlyBuild() {
-        return handle.getBooleans().read(3);
-    }
+  public void setCanFly(boolean value) {
+    handle.getBooleans().write(2, value);
+  }
 
-    public void setCanInstantlyBuild(boolean value) {
-        handle.getBooleans().write(3, value);
-    }
+  public boolean canInstantlyBuild() {
+    return handle.getBooleans().read(3);
+  }
 
-    public float getFlyingSpeed() {
-        return handle.getFloat().read(0);
-    }
+  public void setCanInstantlyBuild(boolean value) {
+    handle.getBooleans().write(3, value);
+  }
 
-    public void setFlyingSpeed(float value) {
-        handle.getFloat().write(0, value);
-    }
+  public float getFlyingSpeed() {
+    return handle.getFloat().read(0);
+  }
 
-    public float getWalkingSpeed() {
-        return handle.getFloat().read(1);
-    }
+  public void setFlyingSpeed(float value) {
+    handle.getFloat().write(0, value);
+  }
 
-    public void setWalkingSpeed(float value) {
-        handle.getFloat().write(1, value);
-    }
+  public float getWalkingSpeed() {
+    return handle.getFloat().read(1);
+  }
+
+  public void setWalkingSpeed(float value) {
+    handle.getFloat().write(1, value);
+  }
 }

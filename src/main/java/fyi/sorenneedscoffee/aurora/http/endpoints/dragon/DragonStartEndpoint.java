@@ -8,51 +8,57 @@ import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.dragon.DragonModel;
 import fyi.sorenneedscoffee.aurora.managers.EffectManager;
 import fyi.sorenneedscoffee.aurora.points.Point;
-import org.apache.commons.lang.exception.ExceptionUtils;
-
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 public class DragonStartEndpoint extends Endpoint {
 
-    public DragonStartEndpoint() {
-        this.path = Pattern.compile("/effects/dragon/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
-    }
+  public DragonStartEndpoint() {
+    this.path = Pattern.compile(
+        "/effects/dragon/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
+  }
 
-    public static Response start(UUID id, DragonModel[] models) {
-        try {
-            if (EffectManager.exists(id))
-                return BAD_REQUEST;
+  public static Response start(UUID id, DragonModel[] models) {
+    try {
+      if (EffectManager.exists(id)) {
+        return BAD_REQUEST;
+      }
 
-            EffectGroup group = new EffectGroup(id);
-            for (DragonModel model : models) {
-                Point point = Aurora.pointUtil.getPoint(model.pointId);
-                if (point == null)
-                    return POINT_DOESNT_EXIST;
-
-                DragonEffect effect = new DragonEffect(point, model.isStatic);
-                group.add(effect);
-            }
-
-            EffectManager.startEffect(group);
-            return OK;
-        } catch (Throwable e) {
-            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
-            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
-            String message = e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e) : ExceptionUtils.getStackTrace(e);
-            return SERVER_ERROR.clone().entity(message).build();
+      EffectGroup group = new EffectGroup(id);
+      for (DragonModel model : models) {
+        Point point = Aurora.pointUtil.getPoint(model.pointId);
+        if (point == null) {
+          return POINT_DOESNT_EXIST;
         }
-    }
 
-    @Override
-    public Response handle(String[] tokens, InputStreamReader bodyStream) {
-        try {
-            UUID id = UUID.fromString(tokens[2]);
-            DragonModel[] models = Aurora.gson.fromJson(bodyStream, DragonModel[].class);
-            return start(id, models);
-        } catch (IllegalArgumentException e) {
-            return BAD_REQUEST;
-        }
+        DragonEffect effect = new DragonEffect(point, model.isStatic);
+        group.add(effect);
+      }
+
+      EffectManager.startEffect(group);
+      return OK;
+    } catch (Throwable e) {
+      if (e.getMessage() != null) {
+        Aurora.logger.warning(e.getMessage());
+      }
+      Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
+      String message =
+          e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)
+              : ExceptionUtils.getStackTrace(e);
+      return SERVER_ERROR.clone().entity(message).build();
     }
+  }
+
+  @Override
+  public Response handle(String[] tokens, InputStreamReader bodyStream) {
+    try {
+      UUID id = UUID.fromString(tokens[2]);
+      DragonModel[] models = Aurora.gson.fromJson(bodyStream, DragonModel[].class);
+      return start(id, models);
+    } catch (IllegalArgumentException e) {
+      return BAD_REQUEST;
+    }
+  }
 }

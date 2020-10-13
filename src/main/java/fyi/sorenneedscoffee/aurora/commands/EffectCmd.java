@@ -8,18 +8,20 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class EffectCmd implements CommandExecutor {
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        switch (args[0]) {
-            case "stopall":
-                if (sender.hasPermission("aurora.admin")) {
-                    EffectManager.stopAll(false);
-                    sender.sendMessage("All current effects have been stopped.");
-                    return true;
-                }
-                sender.sendMessage(ChatColor.RED + "nope");
-                return false;
+
+  @Override
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
+      @NotNull String label, @NotNull String[] args) {
+    switch (args[0]) {
+      case "stopall":
+        if (sender.hasPermission("aurora.admin")) {
+          EffectManager.stopAll(false);
+          sender.sendMessage("All current effects have been stopped.");
+          return true;
         }
+        sender.sendMessage(ChatColor.RED + "nope");
         return false;
     }
+    return false;
+  }
 }
