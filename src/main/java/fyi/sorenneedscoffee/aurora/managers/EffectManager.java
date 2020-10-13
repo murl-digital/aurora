@@ -72,7 +72,10 @@ public class EffectManager {
             staticEffects.clear();
         }
 
-        activeEffects.forEach((u, g) -> g.stopAll(shuttingDown));
+        activeEffects.forEach((u, g) -> {
+            g.stopAll(shuttingDown);
+            if (!shuttingDown) cache(g);
+        });
         activeEffects.clear();
     }
 
