@@ -13,9 +13,9 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-public class EndLaserEndpoint extends Endpoint {
+public class EndLaserStartEndpoint extends Endpoint {
 
-  public EndLaserEndpoint() {
+  public EndLaserStartEndpoint() {
     this.path = Pattern.compile(
         "/effects/endlaser/[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/start");
   }
