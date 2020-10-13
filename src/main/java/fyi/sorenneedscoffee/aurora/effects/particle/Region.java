@@ -1,6 +1,6 @@
 package fyi.sorenneedscoffee.aurora.effects.particle;
 
-import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.bukkit.Location;
 import org.mariuszgromada.math.mxparser.Function;
 

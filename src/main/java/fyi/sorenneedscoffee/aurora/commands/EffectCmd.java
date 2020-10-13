@@ -1,6 +1,6 @@
 package fyi.sorenneedscoffee.aurora.commands;
 
-import fyi.sorenneedscoffee.aurora.util.EffectManager;
+import fyi.sorenneedscoffee.aurora.managers.EffectManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

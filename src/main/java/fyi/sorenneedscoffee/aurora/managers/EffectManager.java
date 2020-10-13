@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.util;
+package fyi.sorenneedscoffee.aurora.managers;
 
 import com.google.common.cache.*;
 import fyi.sorenneedscoffee.aurora.effects.CacheBehavior;
@@ -72,8 +72,21 @@ public class EffectManager {
             staticEffects.clear();
         }
 
-        activeEffects.forEach((u, g) -> g.stopAll(shuttingDown));
+        activeEffects.forEach((u, g) -> {
+            g.stopAll(shuttingDown);
+            if (!shuttingDown) cache(g);
+        });
         activeEffects.clear();
+    }
+
+    public static <T> void stopType(Class<T> clazz) {
+        activeEffects.forEach((u, g) -> {
+            if (g.instanceOf(clazz)) {
+                g.stopAll(false);
+                activeEffects.remove(u);
+                cache(g);
+            }
+        });
     }
 
     public static void triggerEffect(EffectGroup group) throws Exception {

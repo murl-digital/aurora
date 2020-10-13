@@ -6,10 +6,10 @@ import fyi.sorenneedscoffee.aurora.effects.potion.PotionEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.potion.PotionModel;
-import fyi.sorenneedscoffee.aurora.util.EffectManager;
-import fyi.sorenneedscoffee.aurora.util.Point;
-import fyi.sorenneedscoffee.aurora.util.annotation.StaticAction;
-import fyi.sorenneedscoffee.aurora.util.annotation.StaticEffect;
+import fyi.sorenneedscoffee.aurora.managers.EffectManager;
+import fyi.sorenneedscoffee.aurora.points.Point;
+import fyi.sorenneedscoffee.aurora.annotations.StaticAction;
+import fyi.sorenneedscoffee.aurora.annotations.StaticEffect;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.potion.PotionEffectType;
 

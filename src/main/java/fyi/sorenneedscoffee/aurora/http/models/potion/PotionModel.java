@@ -1,7 +1,7 @@
 package fyi.sorenneedscoffee.aurora.http.models.potion;
 
 import com.google.gson.annotations.SerializedName;
-import fyi.sorenneedscoffee.aurora.util.annotation.StaticModel;
+import fyi.sorenneedscoffee.aurora.annotations.StaticModel;
 
 @StaticModel("potion")
 public class PotionModel {

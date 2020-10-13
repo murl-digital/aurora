@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.util;
+package fyi.sorenneedscoffee.aurora.points;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
 
@@ -8,8 +8,8 @@ public class PointUtil {
     private TreeSet<Point> points;
 
     public PointUtil load() {
-        points = Aurora.dataManager.loadPoints();
-        Aurora.dataManager.savePoints(points);
+        points = Aurora.dataContext.loadPoints();
+        Aurora.dataContext.savePoints(points);
         return this;
     }
 
@@ -21,7 +21,7 @@ public class PointUtil {
     }
 
     public void refresh() {
-        points = Aurora.dataManager.loadPoints();
+        points = Aurora.dataContext.loadPoints();
     }
 
     public Point getPoint(int id) {
@@ -34,6 +34,6 @@ public class PointUtil {
 
     public void savePoint(Point point) {
         points.add(point);
-        Aurora.dataManager.savePoints(points);
+        Aurora.dataContext.savePoints(points);
     }
 }

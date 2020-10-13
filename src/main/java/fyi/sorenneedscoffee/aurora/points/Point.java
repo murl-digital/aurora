@@ -1,4 +1,4 @@
-package fyi.sorenneedscoffee.aurora.util;
+package fyi.sorenneedscoffee.aurora.points;
 
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;

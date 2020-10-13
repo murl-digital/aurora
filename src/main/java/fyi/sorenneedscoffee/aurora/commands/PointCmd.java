@@ -1,7 +1,7 @@
 package fyi.sorenneedscoffee.aurora.commands;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
-import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -58,7 +58,7 @@ public class PointCmd implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Invalid arguments. Expected: /point add <x> <y> <z> (XYZ should be absolute)");
                     return false;
                 }
-                Aurora.dataManager.addPointToFile(new Point(id, new Location(
+                Aurora.dataContext.addPointToFile(new Point(id, new Location(
                         ((Player) sender).getWorld(),
                         Double.parseDouble(args[0]),
                         Double.parseDouble(args[1]),
@@ -79,7 +79,7 @@ public class PointCmd implements CommandExecutor {
 
             try {
                 int id = Integer.parseInt(args[0]);
-                Aurora.dataManager.removePointFromFile(id);
+                Aurora.dataContext.removePointFromFile(id);
                 sender.sendMessage("Point " + id + " removed.");
                 return true;
             } catch (NumberFormatException e) {

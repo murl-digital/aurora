@@ -5,7 +5,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.particle.ParticleModel;
-import fyi.sorenneedscoffee.aurora.util.EffectManager;
+import fyi.sorenneedscoffee.aurora.managers.EffectManager;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.InputStreamReader;

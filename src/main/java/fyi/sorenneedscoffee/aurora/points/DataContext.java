@@ -1,6 +1,7 @@
-package fyi.sorenneedscoffee.aurora.util;
+package fyi.sorenneedscoffee.aurora.points;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -15,12 +16,12 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class DataManager {
+public class DataContext {
     private final Aurora plugin;
     File pointsFile;
     private FileConfiguration points;
 
-    public DataManager(Aurora plugin) {
+    public DataContext(Aurora plugin) {
         this.plugin = plugin;
         initPointsFile();
     }

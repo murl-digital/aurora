@@ -6,8 +6,8 @@ import fyi.sorenneedscoffee.aurora.effects.time.TimeShiftEffect;
 import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.time.TimeShiftModel;
-import fyi.sorenneedscoffee.aurora.util.EffectManager;
-import fyi.sorenneedscoffee.aurora.util.Point;
+import fyi.sorenneedscoffee.aurora.managers.EffectManager;
+import fyi.sorenneedscoffee.aurora.points.Point;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.InputStreamReader;
