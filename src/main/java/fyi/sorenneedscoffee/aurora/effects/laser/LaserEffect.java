@@ -75,11 +75,9 @@ public class LaserEffect extends Effect {
 
   @Override
   public void cleanup() {
-    runTask(() -> {
-      marker.remove();
-      Aurora.protocolManager.removePacketListener(laserListener);
-      HandlerList.unregisterAll(laserListener);
-    });
+    runTask(() -> marker.remove());
+    Aurora.protocolManager.removePacketListener(laserListener);
+    HandlerList.unregisterAll(laserListener);
   }
 
   private static class LaserListener extends PacketAdapter implements Listener {

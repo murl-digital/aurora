@@ -40,12 +40,9 @@ public class ProtocolTargetedLaser {
   public void changeTarget(Player target) {
     guardianMetadataPacket = LaserPacketFactory
         .createGuardianMetaPacket(spawnGuardianPacket.getEntityID(), target.getEntityId());
-    new BukkitRunnable() {
-      @Override
-      public void run() {
-        Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
-      }
-    }.runTaskAsynchronously(Aurora.plugin);
+    if (isActive) {
+      Aurora.protocolManager.broadcastServerPacket(guardianMetadataPacket.getHandle());
+    }
   }
 
   public boolean isStarted() {
