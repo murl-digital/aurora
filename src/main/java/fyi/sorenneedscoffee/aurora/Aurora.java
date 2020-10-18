@@ -33,10 +33,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -47,8 +43,6 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 
 public final class Aurora extends JavaPlugin {
-
-  private static final OkHttpClient client = new OkHttpClient();
 
   public static Aurora plugin;
   public static Logger logger;
@@ -116,25 +110,6 @@ public final class Aurora extends JavaPlugin {
         httpExecutor = Executors.newCachedThreadPool();
         httpServer.setExecutor(httpExecutor);
         httpServer.start();
-
-        if (config.getBoolean("remote.solarflare.enabled")) {
-          logger.info("Registering with SolarFlare...");
-          String host =
-              Objects.equals(config.getString("remote.solarflare.providedHostname"), "auto") ? base
-                  .getHost()
-                  : config.getString("remote.solarflare.providedHostname") + ":" + base.getPort();
-
-          JsonObject object = new JsonObject();
-          object.addProperty("privateAddress", host);
-
-          RequestBody body = RequestBody
-              .create(object.getAsString(), MediaType.parse(object.getAsString()));
-          Request request = new Request.Builder()
-              .url(Objects.requireNonNull(config.getString("remote.solarflare.url")))
-              .post(body)
-              .build();
-          client.newCall(request).execute();
-        }
       } catch (Exception e) {
         logger.severe(ExceptionUtils.getMessage(e));
         logger.severe(ExceptionUtils.getStackTrace(e));
