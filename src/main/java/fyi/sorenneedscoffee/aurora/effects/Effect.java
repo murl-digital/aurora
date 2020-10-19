@@ -6,17 +6,17 @@ import org.bukkit.plugin.IllegalPluginAccessException;
 
 public abstract class Effect {
 
-    public abstract void init() throws Exception;
+  public abstract void init() throws Exception;
 
-    public abstract void execute(EffectAction action);
+  public abstract void execute(EffectAction action);
 
-    public abstract void cleanup();
+  public abstract void cleanup();
 
-    protected void runTask(Runnable runnable) {
-        try {
-            Bukkit.getScheduler().runTask(Aurora.plugin, runnable);
-        } catch (IllegalPluginAccessException e) {
-            runnable.run();
-        }
+  protected void runTask(Runnable runnable) {
+    try {
+      Bukkit.getScheduler().runTask(Aurora.plugin, runnable);
+    } catch (IllegalPluginAccessException e) {
+      runnable.run();
     }
+  }
 }

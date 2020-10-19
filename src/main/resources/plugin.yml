@@ -2,8 +2,8 @@ name: Aurora
 version: @version@
 main: fyi.sorenneedscoffee.aurora.Aurora
 api-version: 1.13
-depend: [ProtocolLib]
-authors: [SorenNeedsCoffee]
+depend: [ ProtocolLib ]
+authors: [ SorenNeedsCoffee ]
 description: oooo, pretty lights
 commands:
   point:

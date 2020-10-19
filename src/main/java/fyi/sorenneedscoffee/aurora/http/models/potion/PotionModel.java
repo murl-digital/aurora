@@ -5,9 +5,10 @@ import fyi.sorenneedscoffee.aurora.annotations.StaticModel;
 
 @StaticModel("potion")
 public class PotionModel {
-    @SerializedName("type")
-    public String potionType;
 
-    @SerializedName("amplifier")
-    public int amplifier;
+  @SerializedName("type")
+  public String potionType;
+
+  @SerializedName("amplifier")
+  public int amplifier;
 }

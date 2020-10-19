@@ -5,57 +5,60 @@ import com.google.common.collect.Iterators;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import fyi.sorenneedscoffee.aurora.Aurora;
-import org.apache.commons.lang.exception.ExceptionUtils;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 public class RestHandler implements HttpHandler {
-    private final Set<Endpoint> endpoints = new HashSet<>();
-    private final Splitter splitter = Splitter.on('/').omitEmptyStrings();
 
-    public void register(Endpoint endpoint) {
-        endpoints.add(endpoint);
-    }
+  private final Set<Endpoint> endpoints = new HashSet<>();
+  private final Splitter splitter = Splitter.on('/').omitEmptyStrings();
 
-    @Override
-    public void handle(HttpExchange exchange) throws IOException {
-        String path = exchange.getRequestURI().getPath();
-        try {
-            for (Endpoint endpoint : endpoints) {
-                if (endpoint.path.matcher(path).matches()) {
-                    writeResponse(exchange,
-                            endpoint.handle(
-                                    Iterators.toArray(splitter.split(path).iterator(), String.class),
-                                    new InputStreamReader(exchange.getRequestBody())
-                            )
-                    );
-                    return;
-                }
-            }
-        } catch (Exception e) {
-            Aurora.logger.warning("An effect failed to execute. Please report the following information to Soren:");
-            if (e.getMessage() != null) Aurora.logger.warning(e.getMessage());
-            Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
+  public void register(Endpoint endpoint) {
+    endpoints.add(endpoint);
+  }
 
-            writeResponse(exchange, Response.serverError().build());
-            return;
+  @Override
+  public void handle(HttpExchange exchange) throws IOException {
+    String path = exchange.getRequestURI().getPath();
+    try {
+      for (Endpoint endpoint : endpoints) {
+        if (endpoint.path.matcher(path).matches()) {
+          writeResponse(exchange,
+              endpoint.handle(
+                  Iterators.toArray(splitter.split(path).iterator(), String.class),
+                  new InputStreamReader(exchange.getRequestBody())
+              )
+          );
+          return;
         }
+      }
+    } catch (Exception e) {
+      Aurora.logger.warning(
+          "An effect failed to execute. Please report the following information to Soren:");
+      if (e.getMessage() != null) {
+        Aurora.logger.warning(e.getMessage());
+      }
+      Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
 
-        exchange.sendResponseHeaders(404, 0);
-        exchange.close();
+      writeResponse(exchange, Response.serverError().build());
+      return;
     }
 
-    private void writeResponse(HttpExchange exchange, Response response) throws IOException {
-        if (response.hasEntity()) {
-            exchange.sendResponseHeaders(response.getStatusCode(), response.getLength());
-            String entity = response.getEntity();
-            exchange.getResponseBody().write(entity.getBytes());
-        } else {
-            exchange.sendResponseHeaders(response.getStatusCode(), 0);
-        }
-        exchange.close();
+    exchange.sendResponseHeaders(404, 0);
+    exchange.close();
+  }
+
+  private void writeResponse(HttpExchange exchange, Response response) throws IOException {
+    if (response.hasEntity()) {
+      exchange.sendResponseHeaders(response.getStatusCode(), response.getLength());
+      String entity = response.getEntity();
+      exchange.getResponseBody().write(entity.getBytes());
+    } else {
+      exchange.sendResponseHeaders(response.getStatusCode(), 0);
     }
+    exchange.close();
+  }
 }

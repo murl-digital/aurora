@@ -1,39 +1,40 @@
 package fyi.sorenneedscoffee.aurora.points;
 
 import fyi.sorenneedscoffee.aurora.Aurora;
-
 import java.util.TreeSet;
 
 public class PointUtil {
-    private TreeSet<Point> points;
 
-    public PointUtil load() {
-        points = Aurora.dataContext.loadPoints();
-        Aurora.dataContext.savePoints(points);
-        return this;
-    }
+  private TreeSet<Point> points;
 
-    public int getAvailableId() {
-        int result = points.size();
-        while (points.contains(new Point(result, null)))
-            result++;
-        return result;
-    }
+  public PointUtil load() {
+    points = Aurora.dataContext.loadPoints();
+    Aurora.dataContext.savePoints(points);
+    return this;
+  }
 
-    public void refresh() {
-        points = Aurora.dataContext.loadPoints();
-    }
+  public int getAvailableId() {
+    int result = points.size();
+      while (points.contains(new Point(result, null))) {
+          result++;
+      }
+    return result;
+  }
 
-    public Point getPoint(int id) {
-        return points.stream().filter(p -> p.id == id).findAny().orElse(null);
-    }
+  public void refresh() {
+    points = Aurora.dataContext.loadPoints();
+  }
 
-    public TreeSet<Point> getPoints() {
-        return (TreeSet<Point>) points.clone();
-    }
+  public Point getPoint(int id) {
+    return points.stream().filter(p -> p.id == id).findAny().orElse(null);
+  }
 
-    public void savePoint(Point point) {
-        points.add(point);
-        Aurora.dataContext.savePoints(points);
-    }
+  public TreeSet<Point> getPoints() {
+    return (TreeSet<Point>) points.clone();
+  }
+
+  public void savePoint(Point point) {
+    points.add(point);
+    Aurora.dataContext.savePoints(points);
+  }
 }
