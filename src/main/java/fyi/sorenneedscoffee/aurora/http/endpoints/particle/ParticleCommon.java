@@ -6,12 +6,14 @@ import fyi.sorenneedscoffee.aurora.effects.particle.ParticleEffect;
 import fyi.sorenneedscoffee.aurora.effects.particle.Region;
 import fyi.sorenneedscoffee.aurora.http.models.particle.ParticleModel;
 import fyi.sorenneedscoffee.aurora.points.Point;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class ParticleCommon {
 
@@ -39,7 +41,8 @@ public class ParticleCommon {
       Object options = null;
       switch (particle) {
         case REDSTONE:
-          options = new Particle.DustOptions(model.options.dustColor, model.options.dustSize);
+          Color color = Color.fromRGB(model.options.dustColor[0], model.options.dustColor[1], model.options.dustColor[2]);
+          options = new Particle.DustOptions(color, model.options.dustSize);
           break;
         case ITEM_CRACK:
           Material material = Material.valueOf(model.options.materialName);
