@@ -55,7 +55,7 @@ public class WrapperPlayClientPositionLook extends AbstractPacket {
    * Retrieve Feet Y.
    * <p>
    * Notes: absolute feet position. Is normally HeadY - 1.62. Used to modify
-   * the players bounding box when going up stairs, crouching, etc…
+   * the players bounding box when going up stairs, crouching, etc...
    *
    * @return The current FeetY
    */

@@ -142,7 +142,7 @@ public class WrapperPlayServerLookAt extends AbstractPacket {
   /**
    * Retrieve Entity ID.
    * <p>
-   * Notes: only if is entity is true — the entity to face towards
+   * Notes: only if is entity is true - the entity to face towards
    *
    * @return The current Entity ID
    */

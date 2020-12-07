@@ -18,6 +18,7 @@ package fyi.sorenneedscoffee.aurora.wrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.nbt.NbtBase;
+
 import java.util.List;
 
 public class WrapperPlayServerMapChunk extends AbstractPacket {
@@ -96,7 +97,7 @@ public class WrapperPlayServerMapChunk extends AbstractPacket {
   }
 
   /**
-   * Bitmask with bits set to 1 for every 16×16×16 chunk section whose data is
+   * Bitmask with bits set to 1 for every 16*16*16 chunk section whose data is
    * included in Data. The least significant bit represents the chunk section at
    * the bottom of the chunk column (from y=0 to y=15).
    *
