@@ -5,11 +5,12 @@ import com.google.common.collect.Iterators;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import fyi.sorenneedscoffee.aurora.Aurora;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
-import org.apache.commons.lang.exception.ExceptionUtils;
 
 public class RestHandler implements HttpHandler {
 
@@ -37,7 +38,7 @@ public class RestHandler implements HttpHandler {
       }
     } catch (Exception e) {
       Aurora.logger.warning(
-          "An effect failed to execute. Please report the following information to Soren:");
+              "An effect failed to execute. Please report the following information to Joe:");
       if (e.getMessage() != null) {
         Aurora.logger.warning(e.getMessage());
       }

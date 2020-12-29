@@ -10,11 +10,11 @@ import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.potion.PotionModel;
 import fyi.sorenneedscoffee.aurora.managers.EffectManager;
 import fyi.sorenneedscoffee.aurora.points.Point;
+import org.bukkit.potion.PotionEffectType;
+
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.bukkit.potion.PotionEffectType;
 
 @StaticEffect("potion")
 public class PotionStartEndpoint extends Endpoint {
@@ -51,15 +51,8 @@ public class PotionStartEndpoint extends Endpoint {
 
       EffectGroup group = new EffectGroup(id);
       return constructGroup(models, point, group);
-    } catch (Throwable e) {
-      if (e.getMessage() != null) {
-        Aurora.logger.warning(e.getMessage());
-      }
-      Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
-      String message =
-          e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)
-              : ExceptionUtils.getStackTrace(e);
-      return SERVER_ERROR.clone().entity(message).build();
+    } catch (Throwable throwable) {
+      return getErrorResponse(throwable);
     }
   }
 
@@ -84,15 +77,8 @@ public class PotionStartEndpoint extends Endpoint {
 
       EffectGroup group = new EffectGroup(UUID.randomUUID(), true);
       return constructGroup(models, point, group);
-    } catch (Throwable e) {
-      if (e.getMessage() != null) {
-        Aurora.logger.warning(e.getMessage());
-      }
-      Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
-      String message =
-          e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)
-              : ExceptionUtils.getStackTrace(e);
-      return SERVER_ERROR.clone().entity(message).build();
+    } catch (Throwable throwable) {
+      return getErrorResponse(throwable);
     }
   }
 }

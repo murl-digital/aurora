@@ -6,10 +6,10 @@ import fyi.sorenneedscoffee.aurora.http.Endpoint;
 import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.lightning.LightningModel;
 import fyi.sorenneedscoffee.aurora.managers.EffectManager;
+
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
-import org.apache.commons.lang.exception.ExceptionUtils;
 
 public class LightningStartEndpoint extends Endpoint {
 
@@ -19,23 +19,13 @@ public class LightningStartEndpoint extends Endpoint {
   }
 
   private Response start(UUID id, LightningModel[] models) {
-    EffectGroup group = LightningCommon.constructGroup(id, models);
-
     try {
+      EffectGroup group = LightningCommon.constructGroup(id, models);
       EffectManager.startEffect(group);
+      return OK;
     } catch (Throwable throwable) {
-      if (throwable.getMessage() != null) {
-        Aurora.logger.warning(throwable.getMessage());
-      }
-      Aurora.logger.warning(ExceptionUtils.getStackTrace(throwable));
-      String message =
-          throwable.getMessage() != null ? throwable.getMessage() + "\n\n" + ExceptionUtils
-              .getStackTrace(throwable)
-              : ExceptionUtils.getStackTrace(throwable);
-      return SERVER_ERROR.clone().entity(message).build();
+      return getErrorResponse(throwable);
     }
-
-    return OK;
   }
 
   @Override

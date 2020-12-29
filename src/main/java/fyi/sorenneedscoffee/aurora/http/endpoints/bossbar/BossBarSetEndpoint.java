@@ -8,11 +8,11 @@ import fyi.sorenneedscoffee.aurora.http.Response;
 import fyi.sorenneedscoffee.aurora.http.models.bossbar.BossBarModel;
 import fyi.sorenneedscoffee.aurora.managers.BarManager;
 import fyi.sorenneedscoffee.aurora.points.Point;
+import org.bukkit.boss.BarColor;
+
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.regex.Pattern;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.bukkit.boss.BarColor;
 
 public class BossBarSetEndpoint extends Endpoint {
 
@@ -20,7 +20,7 @@ public class BossBarSetEndpoint extends Endpoint {
     this.path = Pattern.compile("/bar/set");
   }
 
-  public static Response set(BossBarModel[] models) {
+  public Response set(BossBarModel[] models) {
     try {
       Point point = Aurora.pointUtil.getPoint(0);
       if (point == null) {
@@ -47,14 +47,7 @@ public class BossBarSetEndpoint extends Endpoint {
 
       return OK;
     } catch (Exception e) {
-      if (e.getMessage() != null) {
-        Aurora.logger.warning(e.getMessage());
-      }
-      Aurora.logger.warning(ExceptionUtils.getStackTrace(e));
-      String message =
-          e.getMessage() != null ? e.getMessage() + "\n\n" + ExceptionUtils.getStackTrace(e)
-              : ExceptionUtils.getStackTrace(e);
-      return SERVER_ERROR.clone().entity(message).build();
+      return getErrorResponse(e);
     }
   }
 
