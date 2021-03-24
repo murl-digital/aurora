@@ -6,6 +6,7 @@ import fyi.sorenneedscoffee.aurora.effects.EffectGroup;
 import fyi.sorenneedscoffee.aurora.effects.lightning.LightningEffect;
 import fyi.sorenneedscoffee.aurora.http.models.lightning.LightningModel;
 import fyi.sorenneedscoffee.aurora.points.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public class LightningCommon {
       for (int pointId : model.pointIds) {
         points.add(Aurora.pointUtil.getPoint(pointId));
       }
-      group.add(new LightningEffect(points.toArray(new Point[0])));
+      group.add(new LightningEffect(points.toArray(new Point[0]), model.spigotStrike));
     }
     return group;
   }

@@ -6,4 +6,7 @@ public class LightningModel {
 
   @SerializedName("pointIds")
   public int[] pointIds;
+
+  @SerializedName("spigotStrike")
+  public boolean spigotStrike;
 }

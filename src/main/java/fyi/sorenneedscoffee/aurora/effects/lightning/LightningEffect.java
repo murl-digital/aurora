@@ -1,23 +1,53 @@
 package fyi.sorenneedscoffee.aurora.effects.lightning;
 
+import com.comphenix.protocol.events.PacketContainer;
 import fyi.sorenneedscoffee.aurora.Aurora;
 import fyi.sorenneedscoffee.aurora.effects.Effect;
 import fyi.sorenneedscoffee.aurora.effects.EffectAction;
 import fyi.sorenneedscoffee.aurora.points.Point;
+import fyi.sorenneedscoffee.aurora.wrapper.WrapperPlayServerSpawnEntity;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class LightningEffect extends Effect {
 
   private final Runnable runnable;
   private BukkitTask task;
 
-  public LightningEffect(Point[] points) {
-    runnable = () -> {
+  public LightningEffect(Point[] points, boolean spigotStrike) {
+    if (spigotStrike) {
+      runnable = () -> {
+        for (Point p : points) {
+          p.getLocation().getWorld().strikeLightningEffect(p.getLocation());
+        }
+      };
+    } else {
+      List<PacketContainer> packets = new ArrayList<>();
+
+      int entityId = 6969;
       for (Point p : points) {
-        p.getLocation().getWorld().strikeLightningEffect(p.getLocation());
+        WrapperPlayServerSpawnEntity packet = new WrapperPlayServerSpawnEntity();
+        packet.setEntityID(entityId++);
+        packet.setUniqueId(UUID.randomUUID());
+        packet.setType(EntityType.LIGHTNING);
+        packet.setX(p.getLocation().getX());
+        packet.setY(p.getLocation().getY());
+        packet.setZ(p.getLocation().getZ());
+
+        packets.add(packet.getHandle());
       }
-    };
+
+      runnable = () -> {
+        for (PacketContainer packet : packets) {
+          Aurora.protocolManager.broadcastServerPacket(packet);
+        }
+      };
+    }
   }
 
   @Override
@@ -29,10 +59,13 @@ public class LightningEffect extends Effect {
   public void execute(EffectAction action) {
     switch (action) {
       case START:
-        task = Bukkit.getScheduler().runTaskTimer(Aurora.plugin, runnable, 0, 1);
+        task = Bukkit.getScheduler().runTaskTimer(Aurora.plugin, runnable, 0, 3);
         break;
       case STOP:
         task.cancel();
+        break;
+      case TRIGGER:
+        Bukkit.getScheduler().runTask(Aurora.plugin, runnable);
     }
   }
 
