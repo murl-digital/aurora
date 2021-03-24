@@ -1,6 +1,6 @@
 name: Aurora
 version: @version@
-main: fyi.sorenneedscoffee.aurora.Aurora
+main: digital.murl.aurora.Aurora
 api-version: 1.13
 depend: [ ProtocolLib ]
 authors: [ SorenNeedsCoffee ]
