@@ -13,7 +13,3 @@ remote:
   # When left on auto, the plugin will try and figure the server's network ip.
   httpHostname: auto
   httpPort: 8001
-  solarflare:
-    enabled: false
-    providedHostname: auto
-    url: "http://visuals.madzoo.events/register"
