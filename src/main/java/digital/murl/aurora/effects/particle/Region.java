@@ -1,10 +1,12 @@
 package digital.murl.aurora.effects.particle;
 
+import digital.murl.aurora.Aurora;
 import digital.murl.aurora.points.Point;
 import org.bukkit.Location;
 import org.mariuszgromada.math.mxparser.Function;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -37,13 +39,33 @@ public class Region {
       }
     } else if (type == RegionType.CUBOID) {
       Random random = new Random();
-      generateCuboid((pos1, pos2, x, y, z, xMult, yMult, zMult, a, b) -> {
-        if (randomized) {
-          result.add(pos1.clone().add((x * xMult), (y * yMult), (z * zMult)));
-        } else if (random.nextDouble() <= density) {
-          result.add(pos1.clone().add((x * xMult), (y * yMult), (z * zMult)));
-        }
-      });
+
+      Location loc1 = points[0].getLocation();
+      Location loc2 = points[1].getLocation();
+
+      double xMin = Math.min(loc1.getX(), loc2.getX());
+      double xMax = Math.max(loc1.getX(), loc2.getX());
+      double yMin = Math.min(loc1.getY(), loc2.getY());
+      double yMax = Math.max(loc1.getY(), loc2.getY());
+      double zMin = Math.min(loc1.getZ(), loc2.getZ());
+      double zMax = Math.max(loc1.getZ(), loc2.getZ());
+
+      // no 0-size regions for you!
+      if (xMin == xMax) xMax++;
+      if (yMin == yMax) yMax++;
+      if (zMin == zMax) zMax++;
+
+      long particleCount = Math.round(Math.scalb((xMax - xMin) * (yMax - yMin) * (zMax - zMin), (int) density));
+      Aurora.logger.info(Long.toString(particleCount));
+
+      Iterator<Double> xRands = random.doubles(xMin, xMax).iterator();
+      Iterator<Double> yRands = random.doubles(yMin, yMax).iterator();
+      Iterator<Double> zRands = random.doubles(zMin, zMax).iterator();
+
+      for (long i = 0; i < particleCount; i++) {
+        result.add(new Location(loc1.getWorld(), xRands.next(), yRands.next(), zRands.next()));
+      }
+
     } else if (type == RegionType.EQUATION) {
       Function function = new Function("f(x,y)=" + equation);
       Random random = new Random();
