@@ -3,7 +3,7 @@ version: @version@
 main: digital.murl.aurora.Aurora
 api-version: 1.13
 depend: [ ProtocolLib ]
-authors: [ SorenNeedsCoffee ]
+authors: [ MurlDigital ]
 description: oooo, pretty lights
 commands:
   point:
