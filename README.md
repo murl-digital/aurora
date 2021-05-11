@@ -83,3 +83,433 @@ Every effect, either internally or externally, relies on at least 1 point being 
 only officially supports effects in 1 world, as some effects use the first point you define (point 0) to get the world.
 As mentioned in the points.yml section, you can define points ingame with `/point add [x] [y] [z]`. This command cannot
 be executed from the console. You can also define points manually in the points file, but it's not recommended doing so.
+
+### Actually Making These Effects Happen
+
+Aurora uses a custom REST API to manage effects. This API is hosted on port 8001 by default, but this can be changed in
+the config if necesarry. **It is strongly recommended to *not* expose the API to the open internet. There is no
+authorization or protection in place against attackers, and the API has full console access.** To trigger an effect
+action, simply send a POST request to the respective endpoint.
+
+## API Endpoints
+
+### Stop
+
+#### Stop all
+
+`POST /effects/all/stop`
+
+Stops all active effect groups
+
+#### Stop specific effect
+
+`POST /effects/{uuid}/stop`
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID) of an active effect group. regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``.
+
+### Boss Bar
+
+#### Clear
+
+`POST /bar/clear`
+
+Clears any active boss bars
+
+#### Set
+
+`POST /bar/set`
+
+Sets the specified boss bars
+
+**Request Body:**
+
+```json
+[
+  {
+    "color": "{color}",
+    "title": "{title}"
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+|  `color`  | `string` | the boss bar color. possible values are `PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE` |
+|  `title`  | `string` | the boss bar title
+
+### Console
+
+#### Commands
+
+`POST /commands`
+
+Run an array of console commands
+
+**Request Body:**
+
+```json
+[
+  "{command}", //...]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `command` | `string` | a spigot console command to run
+
+### Dragon
+
+#### Start
+
+`POST /effects/dragon/{uuid}/start`
+
+Starts a group of dying dragon effects
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "pointId": {
+      pointId
+    },
+    "static": {
+      isStatic
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `pointId` | `int` | an existing point id where the dragon will spawn
+| `static`  | `boolean` | whether or not the dragon should rise into the air
+
+#### Stop
+
+`POST /effects/dragon/stop`
+
+Stops all effect groups of the dragon type
+
+#### Restart
+
+`POST /effects/dragon/{uuid}/restart`
+
+Restarts the death animation of an existing group of dragon effects
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+### Lasers
+
+#### End Crystal Laser
+
+##### Start
+
+`POST /effects/endlaser/{uuid}/start`
+
+Starts a group of end crystal lasers
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "start": {
+      start
+    },
+    "end": {
+      end
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `start` | `int` | an existing point id where the laser will start
+| `end` | `int` | an existing point id which is the laser's target
+
+##### Stop
+
+`POST /effects/endlaser/stop`
+
+Stops all effect groups of the end crystal laser type
+
+#### Guardian Laser
+
+##### Start
+
+`POST /effects/laser/{uuid}/start`
+
+Starts a group of guardian lasers
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "start": {
+      start
+    },
+    "end": {
+      end
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `start` | `int` | an existing point id where the laser will start
+| `end` | `int` | an existing point id which is the laser's target
+
+##### Trigger
+
+`POST /effects/laser/{uuid}/trigger`
+
+Causes the guardian's beam to restart changing colors
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID) of an existing guardian laser effect group. regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``.
+
+##### Stop
+
+`POST /effects/laser/stop`
+
+Stops all effect groups of the guardian laser type
+
+#### Player Targeting Guardian Laser
+
+##### Start
+
+`POST /effects/targetedlaser/{uuid}/start`
+
+Starts a group of guardian lasers
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "start": {
+      start
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `start` | `int` | an existing point id where the laser will start
+
+##### Restart
+
+`POST /effects/targetedlaser/{uuid}/restart`
+
+Causes the guardian's beam to change its target to a new player
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID) of an existing guardian laser effect group. regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``.
+
+##### Trigger
+
+`POST /effects/targetedlaser/{uuid}/trigger`
+
+Causes the guardian's beam to restart changing colors
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID) of an existing guardian laser effect group. regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``.
+
+##### Stop
+
+`POST /effects/targetedlaser/stop`
+
+Stops all effect groups of the guardian laser type
+
+### Lightning
+
+#### Start
+
+`POST /effects/lightning/{uuid}/start`
+
+Starts a group of lightning strikes that occur every game tick
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "pointIds": {
+      pointIds
+    },
+    "spigotStrike": {
+      spigotStrike
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `pointId` | `int array` | an existing point id where the dragon will spawn
+| `spigotStrike`  | `boolean` | whether or not the plugin uses spigot's built-in API to strike lightning. in most cases this can just be set to false to use protocollib, but if that's not working try setting this to true.
+
+#### Trigger
+
+`POST /effects/lightning/{uuid}/trigger`
+
+Triggers a group of lightning strikes to occur once.
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "pointIds": {
+      pointIds
+    },
+    "spigotStrike": {
+      spigotStrike
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `pointId` | `int array` | an existing point id where the dragon will spawn
+| `spigotStrike`  | `boolean` | whether or not the plugin uses spigot's built-in API to strike lightning. in most cases this can just be set to false to use protocollib, but if that's not working try setting this to true.
+
+### Particles
+
+[WIP]
+
+### Potion
+
+#### Start
+
+`POST /effects/potion/{uuid}/start`
+
+Applies a potion effect to every player
+
+**NOTE: point 0 MUST be defined in order for this effect to work. The effect will be applied to all players in point 0's
+world**
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "type": {
+      type
+    },
+    "amplifier": {
+      amplifier
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `type` | `string` | the potion effect to be applied (for possible values, see [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html)
+| `amplifier`  | `int` | the potion effect's amplifier
+
+#### Stop
+
+`POST /effects/potion/stop`
+
+Stops all effect groups of the potion type
+
+### Time Shift
+
+#### Start
+
+`POST /effects/time/{uuid}/start`
+
+Shifts the ingame time of the world every other game tick
+
+**NOTE: point 0 MUST be defined in order for this effect to work. The effect will be applied to point 0's world**
+
+**Parameters:**
+
+| Parameter | Description |
+| --------- | ----------- |
+| `uuid`    | a type 4 unique identifier (UUID). regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``. this UUID should be unique to this group.
+
+**Request Body:**
+
+```json
+[
+  {
+    "amount": {
+      amount
+    }
+  }
+  //...
+]
+```
+
+| Parameter |   Type   | Description |
+| --------- | -------- | ----------- |
+| `amount` | `int` | the amount that the ingame time will be shifted by in ticks
