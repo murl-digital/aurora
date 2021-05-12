@@ -91,6 +91,14 @@ the config if necesarry. **It is strongly recommended to *not* expose the API to
 authorization or protection in place against attackers, and the API has full console access.** To trigger an effect
 action, simply send a POST request to the respective endpoint.
 
+#### Wait, what's a REST API?
+
+If this is your first time hearing about this, worry not for this section exists. A REST API is one way for computers to communicate with each other over the internet, based on the http protocol (the same one which you use to surf the web). Here's an [article](https://pusher.com/tutorials/understanding-rest-api#rest) if you want to read up on this a bit more.
+
+#### OK, how do I send this new fandangled http requests?
+
+There are a lot of tools for all sorts of programming languages to send these requests for you (e.g OkHttp for java, axios for javascript, simply google "send an http request with [insert your programming language here]" and you shall find). There's even tools like cURL and Insomnia (the latter is what I use to test the plugin!)
+
 ## API Endpoints
 
 ### Stop
@@ -111,7 +119,7 @@ Stops all active effect groups
 | --------- | ----------- |
 | `uuid`    | a type 4 unique identifier (UUID) of an active effect group. regex: ``[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}``.
 
-### Boss Bar
+### Bossbar
 
 #### Clear
 
@@ -153,8 +161,7 @@ Run an array of console commands
 **Request Body:**
 
 ```json
-[
-  "{command}", //...]
+["{command}", //...]
 ```
 
 | Parameter |   Type   | Description |
@@ -180,12 +187,8 @@ Starts a group of dying dragon effects
 ```json
 [
   {
-    "pointId": {
-      pointId
-    },
-    "static": {
-      isStatic
-    }
+    "pointId": {pointId},
+    "static": {isStatic}
   }
   //...
 ]
@@ -235,12 +238,8 @@ Starts a group of end crystal lasers
 ```json
 [
   {
-    "start": {
-      start
-    },
-    "end": {
-      end
-    }
+    "start": {start},
+    "end": {end}
   }
   //...
 ]
@@ -276,12 +275,8 @@ Starts a group of guardian lasers
 ```json
 [
   {
-    "start": {
-      start
-    },
-    "end": {
-      end
-    }
+    "start": {start},
+    "end": {end}
   }
   //...
 ]
@@ -327,9 +322,7 @@ Starts a group of guardian lasers
 ```json
 [
   {
-    "start": {
-      start
-    }
+    "start": {start}
   }
   //...
 ]
@@ -384,12 +377,8 @@ Starts a group of lightning strikes that occur every game tick
 ```json
 [
   {
-    "pointIds": {
-      pointIds
-    },
-    "spigotStrike": {
-      spigotStrike
-    }
+    "pointIds": {pointIds},
+    "spigotStrike": {spigotStrike}
   }
   //...
 ]
@@ -417,12 +406,8 @@ Triggers a group of lightning strikes to occur once.
 ```json
 [
   {
-    "pointIds": {
-      pointIds
-    },
-    "spigotStrike": {
-      spigotStrike
-    }
+    "pointIds": {pointIds},
+    "spigotStrike": {spigotStrike}
   }
   //...
 ]
@@ -459,12 +444,8 @@ world**
 ```json
 [
   {
-    "type": {
-      type
-    },
-    "amplifier": {
-      amplifier
-    }
+    "type": {type},
+    "amplifier": {amplifier}
   }
   //...
 ]
@@ -502,9 +483,7 @@ Shifts the ingame time of the world every other game tick
 ```json
 [
   {
-    "amount": {
-      amount
-    }
+    "amount": {amount}
   }
   //...
 ]
