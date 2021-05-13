@@ -1,33 +1,26 @@
 package digital.murl.aurora.effects.laser;
 
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import digital.murl.aurora.Aurora;
 import digital.murl.aurora.wrapper.WrapperPlayServerEntityDestroy;
 import digital.murl.aurora.wrapper.WrapperPlayServerEntityMetadata;
 import digital.murl.aurora.wrapper.WrapperPlayServerSpawnEntityLiving;
-import net.minecraft.server.v1_16_R3.EntityGuardian;
-import net.minecraft.server.v1_16_R3.EntitySquid;
-import net.minecraft.server.v1_16_R3.EntityTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftGuardian;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftSquid;
 import org.bukkit.entity.Entity;
 
 import java.util.UUID;
 
 public class LaserPacketFactory {
-
-  public static final Entity fakeSquid;
   private static int lastIssuedEID = 2000000000;
 
-  static {
-    fakeSquid = new CraftSquid((CraftServer) Bukkit.getServer(), new EntitySquid(
-        EntityTypes.SQUID,
-        ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle()
-    ));
-  }
+  private static final String npack =
+          "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName()
+                  .replace(".", ",").split(",")[3] + ".";
+  private static final String cpack = Bukkit.getServer().getClass().getPackage().getName() + ".";
+  private static final int version = Integer.parseInt(
+          Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]
+                  .substring(1).split("_")[1]);
 
   public static WrapperPlayServerSpawnEntityLiving createSquidPacket(Location loc) {
     WrapperPlayServerSpawnEntityLiving spawnSquidPacket = new WrapperPlayServerSpawnEntityLiving();
@@ -94,9 +87,26 @@ public class LaserPacketFactory {
   }
 
   private static Entity fakeGuardian() {
-    return new CraftGuardian((CraftServer) Bukkit.getServer(), new EntityGuardian(
+    try {
+      Object world = Class.forName(cpack + "CraftWorld").getDeclaredMethod("getHandle")
+              .invoke(Bukkit.getWorlds().get(0));
+
+
+      Object[] entityConstructorParams = version < 14 ? new Object[]{world}
+              : new Object[]{Class.forName(npack + "EntityTypes").getDeclaredField("GUARDIAN").get(null),
+              world};
+
+      return (Entity) Class.forName(cpack + "entity.CraftGuardian").getDeclaredConstructors()[0].newInstance(
+              null, Class.forName(npack + "EntityGuardian").getDeclaredConstructors()[0].newInstance(
+                      entityConstructorParams));
+    } catch (Exception e) {
+      Aurora.logger.severe(e.getMessage());
+      return null;
+    }
+
+    /*return new CraftGuardian((CraftServer) Bukkit.getServer(), new EntityGuardian(
         EntityTypes.GUARDIAN,
         ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle()
-    ));
+    ));*/
   }
 }
