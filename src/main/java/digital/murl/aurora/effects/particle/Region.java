@@ -80,6 +80,10 @@ public class Region {
           if (!Double.isNaN(yCalc)) {
             result.add(pos1.clone().add((x * xMult), (yCalc * yMult), (z * zMult)));
           }
+        }*/
+        double yCalc = function.calculate(x - (xDistance / 2), z - (zDistance / 2));
+        if (!Double.isNaN(yCalc)) {
+          result.add(pos1.clone().add((x * xMult), (yCalc * yMult), (z * zMult)));
         }
       });
     }
