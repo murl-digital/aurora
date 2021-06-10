@@ -171,6 +171,10 @@ public final class Aurora extends JavaPlugin {
         "                                          \n"
     );
     Bukkit.getLogger().info("Oooo, pretty lights");
+
+    // this is for counteracting a bug where the points load when worlds haven't been initialized.
+    // it's a little gross, but it works.
+    Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> Aurora.pointUtil.refresh());
   }
 
   @Override

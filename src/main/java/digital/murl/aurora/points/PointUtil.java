@@ -10,7 +10,7 @@ public class PointUtil {
 
   public PointUtil load() {
     points = Aurora.dataContext.loadPoints();
-    Aurora.dataContext.savePoints(points);
+    //Aurora.dataContext.savePoints(points);
     return this;
   }
 
