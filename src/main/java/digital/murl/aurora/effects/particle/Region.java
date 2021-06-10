@@ -55,7 +55,7 @@ public class Region {
       if (yMin == yMax) yMax++;
       if (zMin == zMax) zMax++;
 
-      long particleCount = Math.round(Math.scalb((xMax - xMin) * (yMax - yMin) * (zMax - zMin), (int) density));
+      long particleCount = Math.round(((xMax - xMin) * (yMax - yMin) * (zMax - zMin)) * (density * 0.001));
       Aurora.logger.info(Long.toString(particleCount));
 
       Iterator<Double> xRands = random.doubles(xMin, xMax).iterator();
@@ -70,7 +70,7 @@ public class Region {
       Function function = new Function("f(x,y)=" + equation);
       Random random = new Random();
       generateCuboid((pos1, pos2, x, y, z, xMult, yMult, zMult, xDistance, zDistance) -> {
-        if (randomized) {
+        /*if (randomized) {
           double yCalc = function.calculate(x - (xDistance / 2), z - (zDistance / 2));
           if (!Double.isNaN(yCalc)) {
             result.add(pos1.clone().add((x * xMult), (yCalc * yMult), (z * zMult)));
