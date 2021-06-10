@@ -55,6 +55,7 @@ public class RestHandler implements HttpHandler {
   private void writeResponse(HttpExchange exchange, Response response) throws IOException {
     if (response.hasEntity()) {
       exchange.sendResponseHeaders(response.getStatusCode(), response.getLength());
+      exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
       String entity = response.getEntity();
       exchange.getResponseBody().write(entity.getBytes());
     } else {
