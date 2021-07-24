@@ -55,7 +55,7 @@ public class Region {
       if (yMin == yMax) yMax++;
       if (zMin == zMax) zMax++;
 
-      long particleCount = Math.round(((xMax - xMin) * (yMax - yMin) * (zMax - zMin)) * (density * 0.001));
+      long particleCount = Math.round(((xMax - xMin) * (yMax - yMin) * (zMax - zMin)) * map(density, 0.00001, 0.01, 0, 1));
       Aurora.logger.info(Long.toString(particleCount));
 
       Iterator<Double> xRands = random.doubles(xMin, xMax).iterator();
@@ -121,6 +121,10 @@ public class Region {
         }
       }
     }
+  }
+
+  private double map(double input, double input_start, double input_end, double output_start, double output_end) {
+    return output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start);
   }
 
   @FunctionalInterface

@@ -96,6 +96,9 @@ public class LaserEffect extends Effect {
     }
 
     @Override
+    public void onPacketSending(PacketEvent event) {}
+
+    @Override
     public void onPacketReceiving(PacketEvent event) {
       if (effect.laser.isStarted() && !activePlayers.contains(event.getPlayer())) {
         try {

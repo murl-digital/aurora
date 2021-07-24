@@ -96,6 +96,9 @@ public class PotionEffect extends Effect {
     }
 
     @Override
+    public void onPacketSending(PacketEvent event) {}
+
+    @Override
     public void onPacketReceiving(PacketEvent event) {
       if (!watchList.isEmpty() && event.getPacketType() == PacketType.Play.Client.POSITION) {
         if (watchList.contains(event.getPlayer().getUniqueId())) {
