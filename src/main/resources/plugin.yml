@@ -1,0 +1,8 @@
+name: AuroraCore
+version: '${version}'
+main: digital.murl.aurora.Plugin
+api-version: 1.16
+prefix: Aurora
+authors: [ murl_digital ]
+description: A spigot plugin designed for reliable, real-time visual performances
+website: https://github.com/murl-digital/aurora
