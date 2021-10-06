@@ -1,7 +1,7 @@
 package digital.murl.aurora.effects.laser;
 
+import com.comphenix.protocol.events.PacketContainer;
 import digital.murl.aurora.Aurora;
-import digital.murl.aurora.wrapper.WrapperPlayServerEntityDestroy;
 import digital.murl.aurora.wrapper.WrapperPlayServerEntityMetadata;
 import digital.murl.aurora.wrapper.WrapperPlayServerSpawnEntityLiving;
 import org.bukkit.Location;
@@ -13,7 +13,7 @@ public class ProtocolLaser {
   private final WrapperPlayServerSpawnEntityLiving spawnGuardianPacket;
   private final WrapperPlayServerEntityMetadata guardianMetadataPacket;
   //dont ask.
-  private final WrapperPlayServerEntityDestroy theEndIsNigh;
+  private final PacketContainer theEndIsNigh;
   private boolean isActive = false;
 
 
@@ -33,7 +33,7 @@ public class ProtocolLaser {
 
   public void stop() {
     this.isActive = false;
-    Aurora.protocolManager.broadcastServerPacket(theEndIsNigh.getHandle());
+    Aurora.protocolManager.broadcastServerPacket(theEndIsNigh);
   }
 
   public boolean isStarted() {
