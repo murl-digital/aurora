@@ -21,7 +21,7 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
 
-    implementation 'com.alibaba:fastjson:1.2.71'
+    implementation 'com.alibaba:fastjson:1.2.78'
     implementation 'xyz.tozymc.spigot:commands-api:2.2'
 }
 
