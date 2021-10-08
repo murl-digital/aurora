@@ -1,4 +1,4 @@
-name: AuroraCore
+name: aurora-core
 version: '${version}'
 main: digital.murl.aurora.Plugin
 api-version: 1.16
