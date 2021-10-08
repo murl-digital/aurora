@@ -2,8 +2,9 @@ package digital.murl.aurora.points;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.jetbrains.annotations.NotNull;
 
-public class Point {
+public class Point implements Comparable<Point> {
     public final int id;
     public final String worldName;
     public final double x, y, z;
@@ -21,5 +22,10 @@ public class Point {
 
     public Location location() {
         return new Location(Bukkit.getWorld(worldName), x, y, z);
+    }
+
+    @Override
+    public int compareTo(@NotNull Point p) {
+        return Integer.compare(id, p.id);
     }
 }
