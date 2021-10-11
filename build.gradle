@@ -23,6 +23,8 @@ dependencies {
 
     implementation 'com.alibaba:fastjson:1.2.78'
     implementation 'xyz.tozymc.spigot:commands-api:2.2'
+
+    implementation 'com.dslplatform:dsl-json-java8:1.9.8'
 }
 
 def targetJavaVersion = 8
