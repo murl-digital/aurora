@@ -1,5 +1,8 @@
 package digital.murl.aurora;
 
+import com.dslplatform.json.DslJson;
+import com.dslplatform.json.JsonWriter;
+import com.dslplatform.json.runtime.Settings;
 import digital.murl.aurora.commands.PointAddCommand;
 import digital.murl.aurora.commands.PointCommand;
 import digital.murl.aurora.points.Points;
@@ -7,6 +10,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.tozymc.spigot.api.command.CommandController;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class Plugin extends JavaPlugin {
 
@@ -15,7 +21,7 @@ public final class Plugin extends JavaPlugin {
         // Plugin startup logic
         Aurora.plugin = this;
         Aurora.logger = getLogger();
-        Aurora.logger.info("it works!");
+        Aurora.logger.info("hello there.");
 
         PointCommand pointCommand = new PointCommand();
         PointAddCommand pointAddCommand = new PointAddCommand(pointCommand);
@@ -28,10 +34,40 @@ public final class Plugin extends JavaPlugin {
 
         }
 
+        Aurora.logger.info("loading points...");
         try {
             Points.load();
         } catch (IOException e) {
             Aurora.logger.severe("Failed to load points: " + e.getMessage());
+        }
+
+        Aurora.logger.info("warming up DSL-JSON...");
+        try {
+            Aurora.dslJson = new DslJson<>(Settings.withRuntime().includeServiceLoader());
+            JsonWriter writer = Aurora.dslJson.newWriter();
+
+            for (int i = 0; i < 10000; i++) {
+                HashMap<Object, Object> test = new HashMap<>();
+                test.put("test", 0);
+                test.put("data", Stream.of(new Object[][]{
+                    {"testValue", 69},
+                    {"rocks", "lots of them"},
+                    {"array", new int[]{1, 2, 3, 4, 5, 6, 7, 8}}
+                }).collect(Collectors.toMap(k -> k[0], v -> v[1])));
+                if (i % 2 == 0)
+                    test.put("sneaky bastard", 69);
+
+                Aurora.dslJson.serialize(writer, test);
+                byte[] buffer = writer.getByteBuffer();
+                int size = writer.size();
+
+                HashMap<Object, Object> test2 = (HashMap<Object, Object>) Aurora.dslJson.deserialize(HashMap.class, buffer, size);
+
+                writer.reset();
+            }
+
+        } catch (Exception ignored) {
+            Aurora.logger.warning(ignored.getMessage());
         }
     }
 
