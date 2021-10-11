@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import digital.murl.aurora.Aurora;
 import org.bukkit.Location;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -20,14 +17,8 @@ public class Points {
             throw new IllegalStateException("The aurora data folder doesn't exist");
 
         pointsFile = new File(Aurora.plugin.getDataFolder(), "points.json");
-        if (!pointsFile.exists()) {
-            FileWriter writer = new FileWriter(pointsFile);
-            writer.write("[]");
-            writer.close();
-            points = Collections.synchronizedList(new LinkedList<>());
-        }
 
-        points = new CopyOnWriteArrayList<Point>((Point[]) JSON.parseObject(new FileInputStream(pointsFile), Point[].class));
+        refresh();
     }
 
     public static void addPoint(Location location) {
@@ -64,12 +55,29 @@ public class Points {
         return Collections.unmodifiableList(points);
     }
 
-    private static void savePoints() {
-        String json = JSON.toJSONString(points, true);
-        try {
+    public static void refresh() throws IOException {
+        if (!pointsFile.exists()) {
             FileWriter writer = new FileWriter(pointsFile);
-            writer.write(json);
+            writer.write("[]");
             writer.close();
+            points = Collections.synchronizedList(new LinkedList<>());
+
+            return;
+        }
+
+        points = new CopyOnWriteArrayList<>(
+            (Point[]) JSON.parseObject(new FileInputStream(pointsFile), Point[].class)
+        );
+        // just in case the user decides to order their points file in a funny way
+        points.sort(null);
+        savePoints();
+    }
+
+    private static void savePoints() {
+        try {
+            FileOutputStream stream = new FileOutputStream(pointsFile);
+            stream.write(JSON.toJSONBytes(points));
+            stream.close();
         } catch (IOException e) {
             Aurora.logger.warning("Couldn't save points to disk: " + e.getMessage());
         }
