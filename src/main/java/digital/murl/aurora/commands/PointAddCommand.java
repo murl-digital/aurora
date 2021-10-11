@@ -1,6 +1,9 @@
 package digital.murl.aurora.commands;
 
 import digital.murl.aurora.points.Points;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +26,11 @@ public class PointAddCommand extends PlayerCommand {
             return CommandResult.SUCCESS;
         }
 
+        if (params.length < 3) {
+            sender.spigot().sendMessage(notEnoughCoords(params.length));
+            return CommandResult.WRONG_SYNTAX;
+        }
+
         double x = Double.parseDouble(params[0]);
         double y = Double.parseDouble(params[1]);
         double z = Double.parseDouble(params[2]);
@@ -31,6 +39,11 @@ public class PointAddCommand extends PlayerCommand {
         Points.addPoint(location);
 
         return CommandResult.SUCCESS;
+    }
+
+    @NotNull
+    private BaseComponent[] notEnoughCoords(int count) {
+        return new ComponentBuilder().append(String.format("Expected 3 coordinates. Got %d", count)).color(ChatColor.RED).create();
     }
 
     @NotNull
