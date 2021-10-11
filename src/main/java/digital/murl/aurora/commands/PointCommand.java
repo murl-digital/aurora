@@ -9,6 +9,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import xyz.tozymc.spigot.api.command.CombinedCommand;
 import xyz.tozymc.spigot.api.command.result.CommandResult;
@@ -41,7 +42,9 @@ public class PointCommand extends CombinedCommand {
     @NotNull
     @Override
     public TabResult onTab(@NotNull CommandSender sender, @NotNull String[] params) {
-        if (params.length == 1) return TabResult.of("", "add");
+        if (params.length == 1) return sender instanceof Player
+            ? TabResult.of("", "add")
+            : TabResult.EMPTY_RESULT;
 
         return TabResult.EMPTY_RESULT;
     }
