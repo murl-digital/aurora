@@ -35,6 +35,9 @@ _Ooooo, pretty lights_
 Aurora is a spigot plugin designed to create fast and reliable visual experiences in Minecraft. It's intended to be
 controlled in realtime via HTTP requests.
 
+## Rewrite (Aurora v2)
+Aurora is currently in the process of being rewritten, with the hopes of making existing features more stable and easy to use, alongside making extending Aurora with your own effects or even transport layers possible/simpler. Aurora v1 will just be getting small bugfixes while v2 is in progress. **V2 will NOT be compatible with the current REST API. Details on the new API will be made available once we've hammered out the spec.** You can check progress in the rewrite branch, the rewrite github project, and in the new [Discord Server](https://discord.gg/X8C76RCKTm). (oh yea we have a discord now lol)
+
 ## Installation
 
 ### Prerequisites
