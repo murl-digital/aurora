@@ -33,6 +33,23 @@ public class PointCmd implements CommandExecutor {
 
       sender.sendMessage(builder.toString());
       return true;
+
+    } else if (args[0].equals("show")) {
+      if (args.length == 3) {
+        Aurora.pointUtil.showHolograms(args[1], args[2]);
+      } else if (args.length == 2) {
+        Aurora.pointUtil.showHolograms(args[1]);
+      } else {
+        Aurora.pointUtil.showHolograms();
+      }
+      sender.sendMessage("Points now visible");
+      return true;
+
+    } else if (args[0].equals("hide")) {
+      Aurora.pointUtil.hideHolograms();
+      sender.sendMessage("Points now hidden");
+      return true;
+
     }
 
     if (sender instanceof Player) {

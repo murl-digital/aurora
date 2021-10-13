@@ -14,6 +14,7 @@ repositories {
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url 'https://oss.sonatype.org/content/groups/public/' }
     maven { url 'https://repo.dmulloy2.net/nexus/repository/public/' }
+    maven { url 'https://repo.codemc.io/repository/maven-public/' }
 }
 
 dependencies {
@@ -22,6 +23,7 @@ dependencies {
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
     compileOnly 'io.netty:netty-all:4.1.29.Final'
     compileOnly 'org.jetbrains:annotations:19.0.0'
+    compileOnly 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.6'
 
     implementation 'org.mariuszgromada.math:MathParser.org-mXparser:4.4.2'
     implementation 'com.google.code.gson:gson:2.8.6'

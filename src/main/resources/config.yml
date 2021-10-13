@@ -13,3 +13,8 @@ remote:
   # When left on auto, the plugin will try and figure the server's network ip.
   httpHostname: auto
   httpPort: 8001
+
+holograms:
+  # When showing points using holographic displays, Prefix the point id with this value (e.g. color code)
+  prefix: §l§6
+  suffix: ""

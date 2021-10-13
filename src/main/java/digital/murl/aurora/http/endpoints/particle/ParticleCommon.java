@@ -44,6 +44,11 @@ public class ParticleCommon {
           Color color = Color.fromRGB(model.options.dustColor[0], model.options.dustColor[1], model.options.dustColor[2]);
           options = new Particle.DustOptions(color, model.options.dustSize);
           break;
+        case DUST_COLOR_TRANSITION:
+          Color startColor = Color.fromRGB(model.options.dustColor[0], model.options.dustColor[1], model.options.dustColor[2]);
+          Color endColor = Color.fromRGB(model.options.toColor[0], model.options.toColor[1], model.options.toColor[2]);
+          options = new Particle.DustTransition(startColor, endColor, model.options.dustSize);
+          break;
         case ITEM_CRACK:
           Material material = Material.valueOf(model.options.materialName);
           if (!material.isItem()) {

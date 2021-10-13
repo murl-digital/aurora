@@ -48,6 +48,7 @@ public class ParticleStartEndpoint extends Endpoint {
       ParticleModel[] models = Aurora.gson.fromJson(bodyStream, ParticleModel[].class);
       return start(id, models);
     } catch (IllegalArgumentException e) {
+      Aurora.logger.warning("Something went wrong. Bad payload? " + e.toString());
       return BAD_REQUEST;
     }
   }

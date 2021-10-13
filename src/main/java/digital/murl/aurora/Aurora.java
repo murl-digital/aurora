@@ -187,4 +187,8 @@ public final class Aurora extends JavaPlugin {
       httpExecutor.shutdown();
     }
   }
+
+  public boolean isHolographicDisplaysLoaded() {
+    return Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays");
+  }
 }

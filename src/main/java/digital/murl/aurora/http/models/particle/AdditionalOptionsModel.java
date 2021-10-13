@@ -12,4 +12,7 @@ public class AdditionalOptionsModel {
 
   @SerializedName("materialName")
   public String materialName;
+
+  @SerializedName("toColor")
+  public int[] toColor;
 }

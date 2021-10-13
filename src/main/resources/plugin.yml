@@ -8,6 +8,6 @@ description: oooo, pretty lights
 commands:
   point:
     description: Points control
-    usage: "§cUsage: /<command> [add (x, y, z) | remove <id> | reload | list]"
+    usage: "§cUsage: /<command> [add (x, y, z) | remove <id> | reload | list | show [prefix] [suffix] | hide]"
   effects:
     description: Effects control
