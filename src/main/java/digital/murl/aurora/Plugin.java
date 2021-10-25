@@ -66,9 +66,12 @@ public final class Plugin extends JavaPlugin {
                 writer.reset();
             }
 
-        } catch (Exception ignored) {
-            Aurora.logger.warning(ignored.getMessage());
+        } catch (Exception e) {
+            Aurora.logger.warning(e.getMessage());
         }
+
+        Aurora.registerAgent("test", TestAgent.class);
+        Aurora.executeAgentAction("test", "test", new HashMap<>());
     }
 
     @Override
