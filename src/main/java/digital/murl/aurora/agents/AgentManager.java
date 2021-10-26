@@ -1,23 +1,44 @@
 package digital.murl.aurora.agents;
 
+import digital.murl.aurora.Action;
+
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AgentManager {
-    private static HashMap<String, Class<? extends Agent>> agents;
+    private static final ConcurrentHashMap<Integer, Agent> activeAgents;
 
     static {
-        agents = new HashMap<>();
+        activeAgents = new ConcurrentHashMap<>();
     }
 
-    public static void addAgent(String name, Class<? extends Agent> agent) {
-        agents.put(name, agent);
-    }
-
-    public static Agent getAgent(String name) throws InstantiationException, IllegalAccessException {
-        if (agents.containsKey(name)) {
-            return agents.get(name).newInstance();
+    public static void executeAgentAction(String agentName, String actionName, HashMap<Object, Object> params) {
+        Agent agent;
+        try {
+            agent = AgentRegistrar.getAgent(agentName);
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+            return;
         }
+        if (agent == null) return;
 
-        return null;
+        agent.init(params);
+        runAction(actionName, params, agent, AgentRegistrar.getAgentActions(agentName));
+    }
+
+    private static void runAction(String actionName, HashMap<Object, Object> params, Agent agent, HashMap<String, Action> actions) {
+        // TODO: replace with InvalidArgumentException
+        if (actions == null) return;
+
+        if (actions.containsKey(actionName)) {
+            actions.get(actionName).apply(agent, params);
+        }
+    }
+
+    public static void executeAgentAction(int agentId, String actionName, HashMap<Object, Object> params) {
+        if (!activeAgents.containsKey(agentId)) return;
+
+        Agent agent = activeAgents.get(agentId);
+        runAction(actionName, params, agent, AgentRegistrar.getAgentActions(agent.getClass()));
     }
 }
