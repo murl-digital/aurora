@@ -181,6 +181,7 @@ public final class Aurora extends JavaPlugin {
   public void onDisable() {
     Aurora.logger.info("Stopping currently active effects...");
     EffectManager.stopAll(true);
+    Aurora.pointUtil.hideHolograms();
     if (httpServer != null) {
       Aurora.logger.info("Shutting down HTTP server...");
       httpServer.stop(0);

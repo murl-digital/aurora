@@ -95,7 +95,7 @@ public class PointUtil {
     for (Player player : Bukkit.getOnlinePlayers()) {
       if (player.hasPermission("aurora.admin")) {
         hologram.getVisibilityManager().showTo(player);
-        Aurora.logger.info("Showing point holograms to " + player.getName());
+//        Aurora.logger.info("Showing point holograms to " + player.getName());
       }
     }
     holograms.add(hologram);

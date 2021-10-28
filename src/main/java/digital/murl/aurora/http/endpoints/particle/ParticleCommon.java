@@ -34,7 +34,8 @@ public class ParticleCommon {
           model.region.type,
           model.region.density,
           !ignoreRandomized && model.region.randomized,
-          model.region.equation
+          model.region.equation,
+          model.region.quantity
       );
       Particle particle;
       particle = Particle.valueOf(model.name);

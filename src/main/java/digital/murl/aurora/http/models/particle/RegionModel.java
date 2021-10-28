@@ -11,8 +11,13 @@ public class RegionModel {
   @SerializedName("type")
   public RegionType type;
 
+  // Relative particle count to cuboid size
   @SerializedName("density")
   public double density;
+
+  // Given particle count (known result)
+  @SerializedName("quantity")
+  public long quantity;
 
   @SerializedName("randomize")
   public boolean randomized;
