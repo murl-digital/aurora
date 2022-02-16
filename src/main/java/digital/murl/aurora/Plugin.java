@@ -70,8 +70,8 @@ public final class Plugin extends JavaPlugin {
             Aurora.logger.warning(e.getMessage());
         }
 
-        Aurora.registerAgent("test", TestAgent.class);
-        Aurora.executeAgentAction("test", "test", new HashMap<>());
+        //Aurora.registerAgent("test", TestAgent.class);
+        //Aurora.executeAgentAction("test", "test", new HashMap<>());
     }
 
     @Override
