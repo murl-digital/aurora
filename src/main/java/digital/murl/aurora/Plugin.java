@@ -4,6 +4,8 @@ import com.dslplatform.json.DslJson;
 import com.dslplatform.json.JsonWriter;
 import com.dslplatform.json.runtime.Settings;
 import digital.murl.aurora.commands.PointAddCommand;
+import digital.murl.aurora.commands.PointRefreshCommand;
+import digital.murl.aurora.commands.PointRemoveCommand;
 import digital.murl.aurora.commands.PointCommand;
 import digital.murl.aurora.points.Points;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,10 +27,14 @@ public final class Plugin extends JavaPlugin {
 
         PointCommand pointCommand = new PointCommand();
         PointAddCommand pointAddCommand = new PointAddCommand(pointCommand);
+        PointRemoveCommand pointRemoveCommand = new PointRemoveCommand(pointCommand);
+        PointRefreshCommand pointRefreshCommand = new PointRefreshCommand(pointCommand);
 
         Aurora.commandController = new CommandController(this);
         Aurora.commandController.addCommand(pointCommand);
         Aurora.commandController.addCommand(pointAddCommand);
+        Aurora.commandController.addCommand(pointRemoveCommand);
+        Aurora.commandController.addCommand(pointRefreshCommand);
 
         if (getDataFolder().mkdirs()) {
 
