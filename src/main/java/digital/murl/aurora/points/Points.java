@@ -21,50 +21,37 @@ public class Points {
         refresh();
     }
 
-    public static void addPoint(Location location) {
+    public static int addPoint(Location location) {
         while (points.stream().anyMatch(p -> p == null ? false : p.id == pointCursor))
             pointCursor++;
 
         if (pointCursor < points.size()) points.set(pointCursor, new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
         else points.add(new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
 
-        new Thread(Points::savePoints).start();
-    }
-
-    public static void addPoint(Location location, String group) {
-        while (points.stream().anyMatch(p -> p == null ? false : p.id == pointCursor))
-            pointCursor++;
-
-        if (pointCursor < points.size()) points.set(pointCursor, new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
-        else points.add(new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
-
-        groupPoint(pointCursor, group);
-
-        new Thread(Points::savePoints).start();
+        return pointCursor;
     }
 
     public static void removePoint(int id) {
         if (id > points.size()-1) return;
         points.set(id,null);
-        degroupPoint(id);
+        removePointFromGroup(id);
         if (id < pointCursor) pointCursor = id;
-        //The lambda function for removing points from groups overlaps with the threaded save points function so can't do that I guess
-        //new Thread(Points::savePoints).start();
-        savePoints();
     }
 
     public static void addPointToGroup(int id, String group) {
         groupPoint(id, group);
-        new Thread(Points::savePoints).start();
-    }
-
-    public static void removePointFromGroup(int id) {
-        degroupPoint(id);
-        new Thread(Points::savePoints).start();
     }
 
     public static void removePointFromGroup(int id, String group) {
-        degroupPoint(id, group);
+        groups.get(group).removeIf(p -> p == id);
+    }
+
+    public static void removePointFromGroup(int id) {
+        for (String group : groups.keySet())
+            removePointFromGroup(id, group);
+    }
+
+    public static void save() {
         new Thread(Points::savePoints).start();
     }
 
@@ -160,15 +147,6 @@ public class Points {
         if (groups.containsKey(group))
             groups.get(group).add(id);
         else groups.put(group, new ArrayList<>(Arrays.asList(id)));
-    }
-
-    private static void degroupPoint(int id, String group) {
-        groups.get(group).removeIf(p -> p == id);
-    }
-
-    private static void degroupPoint(int id) {
-        for (String group : groups.keySet())
-            degroupPoint(id, group);
     }
 
     private static void savePoints() {

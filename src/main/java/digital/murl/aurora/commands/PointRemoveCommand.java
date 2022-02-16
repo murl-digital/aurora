@@ -32,6 +32,7 @@ public class PointRemoveCommand extends PlayerCommand {
                 }
             }
         }
+        Points.save();
 
         return CommandResult.SUCCESS;
     }

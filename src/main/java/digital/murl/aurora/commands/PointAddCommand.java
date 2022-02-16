@@ -23,6 +23,7 @@ public class PointAddCommand extends PlayerCommand {
     public CommandResult onCommand(@NotNull Player sender, @NotNull String[] params) {
         if (params.length == 0) {
             Points.addPoint(sender.getLocation());
+            Points.save();
             return CommandResult.SUCCESS;
         }
 
@@ -50,10 +51,10 @@ public class PointAddCommand extends PlayerCommand {
 
         Location location = new Location(sender.getWorld(), p[0], p[1], p[2]);
 
-        if (params.length > 3)
-            Points.addPoint(location, params[3]);
-        else Points.addPoint(location);
-
+        int id = Points.addPoint(location);
+        for (int i = 3; i < params.length; i++)
+            Points.addPointToGroup(id, params[i]);
+        Points.save();
         return CommandResult.SUCCESS;
     }
 
@@ -75,7 +76,7 @@ public class PointAddCommand extends PlayerCommand {
         if (params.length == 3)
             return TabResult.of("",
                 String.format("%d", location.getBlockZ()), "~");
-        if (params.length == 4)
+        if (params.length > 3)
             return TabResult.of("", Points.getGroups().keySet());
 
         return TabResult.EMPTY_RESULT;
