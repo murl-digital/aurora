@@ -31,12 +31,28 @@ public class PointAddCommand extends PlayerCommand {
             return CommandResult.WRONG_SYNTAX;
         }
 
-        double x = Double.parseDouble(params[0]);
-        double y = Double.parseDouble(params[1]);
-        double z = Double.parseDouble(params[2]);
+        double[] p = new double[3];
 
-        Location location = new Location(sender.getWorld(), x, y, z);
-        Points.addPoint(location);
+        try {
+            Location l = sender.getLocation();
+            double[] sp = new double[] {l.getX(),l.getY(),l.getZ()};
+            for (int i = 0; i < 3; i++) {
+                if (params[i].equals("~"))
+                    p[i] = sp[i];
+                else if (params[i].charAt(0) == '~')
+                    p[i] = sp[i] + Double.parseDouble(params[i].substring(1));
+                else
+                    p[i] = Double.parseDouble(params[i]);
+            }
+        } catch (Exception e) {
+            return CommandResult.from(CommandResult.Type.FAILURE, "Couldn't parse coordinates.");
+        }
+
+        Location location = new Location(sender.getWorld(), p[0], p[1], p[2]);
+
+        if (params.length > 3)
+            Points.addPoint(location, params[3]);
+        else Points.addPoint(location);
 
         return CommandResult.SUCCESS;
     }
@@ -51,8 +67,12 @@ public class PointAddCommand extends PlayerCommand {
     public TabResult onTab(@NotNull Player sender, @NotNull String[] params) {
         if (params.length == 1) {
             Location location = sender.getLocation();
-            return TabResult.of("", String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()));
+            return TabResult.of("",
+                String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()),
+                "~ ~ ~");
         }
+        if (params.length == 4)
+            return TabResult.of("", Points.getGroups().keySet());
 
         return TabResult.EMPTY_RESULT;
     }

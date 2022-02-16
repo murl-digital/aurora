@@ -31,19 +31,57 @@ public class Points {
         new Thread(Points::savePoints).start();
     }
 
+    public static void addPoint(Location location, String group) {
+        while (points.stream().anyMatch(p -> p == null ? false : p.id == pointCursor))
+            pointCursor++;
+
+        if (pointCursor < points.size()) points.set(pointCursor, new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
+        else points.add(new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
+
+        groupPoint(pointCursor, group);
+
+        new Thread(Points::savePoints).start();
+    }
+
     public static void removePoint(int id) {
         if (id > points.size()-1) return;
         points.set(id,null);
-        for (String group : groups.keySet())
-            groups.get(group).removeIf(p -> p == id);
+        degroupPoint(id);
         if (id < pointCursor) pointCursor = id;
         //The lambda function for removing points from groups overlaps with the threaded save points function so can't do that I guess
         //new Thread(Points::savePoints).start();
         savePoints();
     }
 
+    public static void addPointToGroup(int id, String group) {
+        groupPoint(id, group);
+        new Thread(Points::savePoints).start();
+    }
+
+    public static void removePointFromGroup(int id) {
+        degroupPoint(id);
+        new Thread(Points::savePoints).start();
+    }
+
+    public static void removePointFromGroup(int id, String group) {
+        degroupPoint(id, group);
+        new Thread(Points::savePoints).start();
+    }
+
     public static Point getPoint(int id) {
         return id < points.size() && id > -1 ? points.get(id) : null;
+    }
+
+    public static int[] getGroupIds(String group) {
+        return groups.keySet().contains(group) ? groups.get(group).stream().mapToInt(i->i).toArray() : null;
+    }
+
+    public static Point[] getGroupPoints(String group) {
+        int[] ids = getGroupIds(group);
+        Point[] points = new Point[ids.length];
+        for (int i = 0; i < ids.length; i++)
+            points[i] = getPoint(ids[i]);
+        return points;
     }
 
     public static List<Point> getPoints() {
@@ -103,11 +141,8 @@ public class Points {
                     continue;
                 }
 
-                for (int i = 4; i < data.length; i++) {
-                    if (groups.containsKey(data[i]))
-                        groups.get(data[i]).add(id);
-                    else groups.put(data[i], new ArrayList<>(Arrays.asList(id)));
-                }
+                for (int i = 4; i < data.length; i++)
+                    groupPoint(id,data[i]);
             }
             reader.close();
 
@@ -121,6 +156,21 @@ public class Points {
         }
     }
 
+    private static void groupPoint(int id, String group) {
+        if (groups.containsKey(group))
+            groups.get(group).add(id);
+        else groups.put(group, new ArrayList<>(Arrays.asList(id)));
+    }
+
+    private static void degroupPoint(int id, String group) {
+        groups.get(group).removeIf(p -> p == id);
+    }
+
+    private static void degroupPoint(int id) {
+        for (String group : groups.keySet())
+            degroupPoint(id, group);
+    }
+
     private static void savePoints() {
         List<String> csv = new ArrayList<>();
         for (Point point : points)
@@ -131,6 +181,10 @@ public class Points {
                 csv.set(point, csv.get(point) + ',' + group);
             }
         }
+
+        while (csv.get(csv.size()-1).isEmpty())
+            csv.remove(csv.size()-1);
+
         String data = "";
         for (String r : csv)
             data += r + '\n';
