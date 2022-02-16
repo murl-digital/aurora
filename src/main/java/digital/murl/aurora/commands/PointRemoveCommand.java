@@ -1,6 +1,8 @@
 package digital.murl.aurora.commands;
 
 import digital.murl.aurora.points.Points;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import xyz.tozymc.spigot.api.command.PlayerCommand;
@@ -18,8 +20,17 @@ public class PointRemoveCommand extends PlayerCommand {
     @Override
     public CommandResult onCommand(@NotNull Player sender, @NotNull String[] params) {
         for (String param : params) {
-            int id = Integer.parseInt(param);
-            Points.removePoint(id);
+            try {
+                int id = Integer.parseInt(param);
+                Points.removePoint(id);
+            } catch (Exception e) {
+                try {
+                    for (int id : Points.getGroupIds(param))
+                        Points.removePoint(id);
+                } catch (Exception e2) {
+                    sender.spigot().sendMessage(new ComponentBuilder().append(String.format("Couldn't parse %s", param)).color(ChatColor.RED).create());
+                }
+            }
         }
 
         return CommandResult.SUCCESS;
@@ -28,6 +39,9 @@ public class PointRemoveCommand extends PlayerCommand {
     @NotNull
     @Override
     public TabResult onTab(@NotNull Player sender, @NotNull String[] params) {
+        if (params.length > 0)
+            return TabResult.of("", Points.getGroups().keySet());
+
         return TabResult.EMPTY_RESULT;
     }
 

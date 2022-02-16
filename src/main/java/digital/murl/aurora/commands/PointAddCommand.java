@@ -65,12 +65,16 @@ public class PointAddCommand extends PlayerCommand {
     @NotNull
     @Override
     public TabResult onTab(@NotNull Player sender, @NotNull String[] params) {
-        if (params.length == 1) {
-            Location location = sender.getLocation();
+        Location location = sender.getLocation();
+        if (params.length == 1)
             return TabResult.of("",
-                String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()),
-                "~ ~ ~");
-        }
+                String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()), "~ ~ ~");
+        if (params.length == 2)
+            return TabResult.of("",
+                String.format("%d %d", location.getBlockY(), location.getBlockZ()), "~ ~");
+        if (params.length == 3)
+            return TabResult.of("",
+                String.format("%d", location.getBlockZ()), "~");
         if (params.length == 4)
             return TabResult.of("", Points.getGroups().keySet());
 

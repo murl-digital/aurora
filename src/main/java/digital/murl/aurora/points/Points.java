@@ -182,7 +182,7 @@ public class Points {
             }
         }
 
-        while (csv.get(csv.size()-1).isEmpty())
+        while (csv.size() > 0 && csv.get(csv.size()-1).isEmpty())
             csv.remove(csv.size()-1);
 
         String data = "";
