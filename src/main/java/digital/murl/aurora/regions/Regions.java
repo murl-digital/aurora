@@ -56,6 +56,22 @@ public class Regions {
             JsonReader reader = new JsonReader(new FileReader(regionsFile));
             JsonArray json = gson.fromJson(reader, JsonArray.class);
 
+            for (JsonElement element : json) {
+                JsonObject object = element.getAsJsonObject();
+                String regionType = object.get("RegionType").getAsString();
+                switch (regionType) {
+                    case "World":
+                        addRegion(RegionWorld.loadJsonObject(object));
+                        break;
+                    case "Sphere":
+                        addRegion(RegionSphere.loadJsonObject(object));
+                        break;
+                    case "Cuboid":
+                        addRegion(RegionCuboid.loadJsonObject(object));
+                        break;
+                }
+            }
+
             reader.close();
         } catch (IOException e) {
             Aurora.logger.warning("Couldn't load regions from disk: " + e.getMessage());
