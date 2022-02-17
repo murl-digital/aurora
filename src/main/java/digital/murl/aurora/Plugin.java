@@ -8,6 +8,7 @@ import digital.murl.aurora.commands.PointRefreshCommand;
 import digital.murl.aurora.commands.PointRemoveCommand;
 import digital.murl.aurora.commands.PointCommand;
 import digital.murl.aurora.points.Points;
+import digital.murl.aurora.regions.Regions;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.tozymc.spigot.api.command.CommandController;
 
@@ -45,6 +46,13 @@ public final class Plugin extends JavaPlugin {
             Points.load();
         } catch (IOException e) {
             Aurora.logger.severe("Failed to load points: " + e.getMessage());
+        }
+
+        Aurora.logger.info("loading regions...");
+        try {
+            Regions.load();
+        } catch (IOException e) {
+            Aurora.logger.severe("Failed to load regions: " + e.getMessage());
         }
 
         Aurora.logger.info("warming up DSL-JSON...");
