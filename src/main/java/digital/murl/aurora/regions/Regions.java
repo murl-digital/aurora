@@ -8,8 +8,7 @@ import com.google.gson.stream.JsonReader;
 import digital.murl.aurora.Aurora;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Regions {
     private static Map<String, Region> regions;
@@ -38,7 +37,17 @@ public class Regions {
             regions.remove(id);
     }
 
-    private static void refresh() throws IOException {
+    public static Region getRegion(String id) {
+        if (regions.keySet().contains(id))
+            return regions.get(id);
+        return null;
+    }
+
+    public static List<Region> getRegions() {
+        return Collections.unmodifiableList(new ArrayList<>(regions.values()));
+    }
+
+    public static void refresh() throws IOException {
         regions = new HashMap<>();
 
         if (!regionsFile.exists()) {

@@ -7,7 +7,7 @@ public class RegionSphere extends Region {
     public final double x, y, z, r;
 
     public RegionSphere(String id, String worldName, double x, double y, double z, double r) {
-        super(id, worldName);
+        super(id, worldName, "Sphere");
 
         this.x = x;
         this.y = y;
@@ -27,7 +27,7 @@ public class RegionSphere extends Region {
     @Override
     public JsonObject createJsonObject() {
         JsonObject json = new JsonObject();
-        json.addProperty("RegionType", "Sphere");
+        json.addProperty("RegionType", type);
         json.addProperty("id", id);
         json.addProperty("world", worldName);
         json.addProperty("x", x);

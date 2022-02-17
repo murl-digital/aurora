@@ -5,7 +5,7 @@ import org.bukkit.Location;
 
 public class RegionWorld extends Region {
     public RegionWorld(String id, String worldName) {
-        super(id, worldName);
+        super(id, worldName, "World");
     }
 
     @Override
@@ -16,7 +16,7 @@ public class RegionWorld extends Region {
     @Override
     public JsonObject createJsonObject() {
         JsonObject json = new JsonObject();
-        json.addProperty("RegionType", "World");
+        json.addProperty("RegionType", type);
         json.addProperty("id", id);
         json.addProperty("world", worldName);
         return json;

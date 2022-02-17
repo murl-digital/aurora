@@ -8,7 +8,7 @@ public class RegionCuboid extends Region {
     public final double dx, dy, dz;
 
     public RegionCuboid(String id, String worldName, double x1, double y1, double z1, double x2, double y2, double z2) {
-        super(id, worldName);
+        super(id, worldName, "Cuboid");
 
         this.x1 = Math.min(x1,x2);
         this.y1 = Math.min(y1,y2);
@@ -33,7 +33,7 @@ public class RegionCuboid extends Region {
     @Override
     public JsonObject createJsonObject() {
         JsonObject json = new JsonObject();
-        json.addProperty("RegionType", "Cuboid");
+        json.addProperty("RegionType", type);
         json.addProperty("id", id);
         json.addProperty("world", worldName);
         json.addProperty("x1", x1);
