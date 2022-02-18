@@ -32,7 +32,7 @@ public class RegionCuboid extends Region {
     }
 
     @Override
-    public void populateJsonObject(Map<String, Object> data) {
+    public void populateMap(Map<String, Object> data) {
         data.put("x1", x1);
         data.put("y1", y1);
         data.put("z1", z1);
@@ -41,7 +41,7 @@ public class RegionCuboid extends Region {
         data.put("z2", z2);
     }
 
-    public static Region jsonConstructor(Map<String, Object> data) {
+    public static Region mapConstructor(Map<String, Object> data) {
         String id = (String)data.get("id");
         String world = (String)data.get("world");
         double x1 = (Double)data.get("x1");

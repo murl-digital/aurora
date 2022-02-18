@@ -16,11 +16,11 @@ public class RegionWorld extends Region {
     }
 
     @Override
-    public void populateJsonObject(Map<String, Object> data) {
+    public void populateMap(Map<String, Object> data) {
 
     }
 
-    public static Region jsonConstructor(Map<String, Object> data) {
+    public static Region mapConstructor(Map<String, Object> data) {
         String id = (String)data.get("id");
         String world = (String)data.get("world");
         return new RegionWorld(id, world);

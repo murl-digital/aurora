@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Regions {
     private static Map<String, Region> regions;
-    private static Map<String, RegionJsonConstructor> jsonConstructors = new HashMap<>();
+    private static Map<String, RegionMapConstructor> mapConstructors = new HashMap<>();
     private static Map<String, RegionParameterConstructor> parameterConstructors = new HashMap<>();
     private static Map<String, RegionParameterCompleter> parameterCompleters = new HashMap<>();
     private static List<JsonObject> failedRegions;
@@ -27,8 +27,8 @@ public class Regions {
         refresh();
     }
 
-    public static void addJsonConstructor(String type, RegionJsonConstructor constructor) {
-        jsonConstructors.put(type.toLowerCase(), constructor);
+    public static void addMapConstructor(String type, RegionMapConstructor constructor) {
+        mapConstructors.put(type.toLowerCase(), constructor);
     }
 
     public static void addParameterConstructor(String type, RegionParameterConstructor constructor) {
@@ -97,8 +97,8 @@ public class Regions {
             for (JsonElement element : json) {
                 Map<String,Object> object = gson.fromJson(element, HashMap.class);
                 String regionType = (String)object.get("RegionType");
-                if (jsonConstructors.containsKey(regionType.toLowerCase()))
-                    addRegion(jsonConstructors.get(regionType.toLowerCase()).regionConstructor(object));
+                if (mapConstructors.containsKey(regionType.toLowerCase()))
+                    addRegion(mapConstructors.get(regionType.toLowerCase()).regionConstructor(object));
                 else {
                     Aurora.logger.warning(String.format("Failed to load region of type [%s], storing in background.", regionType));
                     failedRegions.add(element.getAsJsonObject());
@@ -123,7 +123,7 @@ public class Regions {
             object.put("RegionType", region.type);
             object.put("id", region.id);
             object.put("world", region.worldName);
-            region.populateJsonObject(object);
+            region.populateMap(object);
 
             json.add(gson.toJsonTree(object));
         }

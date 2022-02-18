@@ -48,15 +48,15 @@ public final class Plugin extends JavaPlugin {
         Aurora.commandController.addCommand(regionCheckCommand);
 
         Aurora.registerRegionType("World",
-            RegionWorld::jsonConstructor,
+            RegionWorld::mapConstructor,
             RegionWorld::parameterConstructor,
             RegionWorld::parameterCompleter);
         Aurora.registerRegionType("Sphere",
-            RegionSphere::jsonConstructor,
+            RegionSphere::mapConstructor,
             RegionSphere::parameterConstructor,
             RegionSphere::parameterCompleter);
         Aurora.registerRegionType("Cuboid",
-            RegionCuboid::jsonConstructor,
+            RegionCuboid::mapConstructor,
             RegionCuboid::parameterConstructor,
             RegionCuboid::parameterCompleter);
 

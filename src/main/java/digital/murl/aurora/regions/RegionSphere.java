@@ -26,14 +26,14 @@ public class RegionSphere extends Region {
     }
 
     @Override
-    public void populateJsonObject(Map<String, Object> data) {
+    public void populateMap(Map<String, Object> data) {
         data.put("x", x);
         data.put("y", y);
         data.put("z", z);
         data.put("r", r);
     }
 
-    public static Region jsonConstructor(Map<String, Object> data) {
+    public static Region mapConstructor(Map<String, Object> data) {
         String id = (String)data.get("id");
         String world = (String)data.get("world");
         double x = (Double)data.get("x");

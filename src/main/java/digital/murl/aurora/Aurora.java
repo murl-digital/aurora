@@ -4,7 +4,6 @@ import com.dslplatform.json.DslJson;
 import digital.murl.aurora.agents.Agent;
 import digital.murl.aurora.agents.AgentManager;
 import digital.murl.aurora.agents.AgentRegistrar;
-import digital.murl.aurora.commands.RegionAddCommand;
 import digital.murl.aurora.regions.*;
 import xyz.tozymc.spigot.api.command.CommandController;
 
@@ -29,10 +28,10 @@ public class Aurora {
     }
 
     public static void registerRegionType(String type,
-                                      RegionJsonConstructor jsonConstructor,
+                                      RegionMapConstructor jsonConstructor,
                                       RegionParameterConstructor parameterConstructor,
                                       RegionParameterCompleter parameterCompleter) {
-        Regions.addJsonConstructor(type, jsonConstructor);
+        Regions.addMapConstructor(type, jsonConstructor);
         Regions.addParameterConstructor(type, parameterConstructor);
         Regions.addParameterCompleter(type, parameterCompleter);
     }

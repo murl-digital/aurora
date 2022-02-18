@@ -21,5 +21,5 @@ public abstract class Region {
 
     public abstract boolean collisionCheck(Location location);
 
-    public abstract void populateJsonObject(Map<String, Object> object);
+    public abstract void populateMap(Map<String, Object> data);
 }
