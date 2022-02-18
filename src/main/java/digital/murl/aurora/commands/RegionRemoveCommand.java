@@ -20,7 +20,7 @@ public class RegionRemoveCommand extends PlayerCommand {
     @NotNull
     @Override
     public CommandResult onCommand(@NotNull Player sender, @NotNull String[] params) {
-        if (params.length == 1)
+        if (params.length == 0)
             return CommandResult.WRONG_SYNTAX;
 
         for (String region : params)
