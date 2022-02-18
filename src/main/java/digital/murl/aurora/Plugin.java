@@ -47,9 +47,18 @@ public final class Plugin extends JavaPlugin {
         Aurora.commandController.addCommand(regionRefreshCommand);
         Aurora.commandController.addCommand(regionCheckCommand);
 
-        Regions.addRegionConstructor("World", (json) -> RegionWorld.loadJsonObject(json));
-        Regions.addRegionConstructor("Sphere", (json) -> RegionSphere.loadJsonObject(json));
-        Regions.addRegionConstructor("Cuboid", (json) -> RegionCuboid.loadJsonObject(json));
+        Aurora.registerRegionType("World",
+            RegionWorld::jsonConstructor,
+            RegionWorld::parameterConstructor,
+            RegionWorld::parameterCompleter);
+        Aurora.registerRegionType("Sphere",
+            RegionSphere::jsonConstructor,
+            RegionSphere::parameterConstructor,
+            RegionSphere::parameterCompleter);
+        Aurora.registerRegionType("Cuboid",
+            RegionCuboid::jsonConstructor,
+            RegionCuboid::parameterConstructor,
+            RegionCuboid::parameterCompleter);
 
         if (getDataFolder().mkdirs()) {
 

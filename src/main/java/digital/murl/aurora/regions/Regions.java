@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Regions {
     private static Map<String, Region> regions;
-    private static Map<String, RegionConstructor> constructors = new HashMap<>();
+    private static Map<String, RegionJsonConstructor> constructors = new HashMap<>();
     private static List<JsonObject> failedRegions;
     private static File regionsFile;
 
@@ -25,7 +25,7 @@ public class Regions {
         refresh();
     }
 
-    public static void addRegionConstructor(String name, RegionConstructor constructor) {
+    public static void addRegionConstructor(String name, RegionJsonConstructor constructor) {
         constructors.put(name.toLowerCase(), constructor);
     }
 

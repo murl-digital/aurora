@@ -1,7 +1,6 @@
 package digital.murl.aurora.commands;
 
 import digital.murl.aurora.regions.*;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import xyz.tozymc.spigot.api.command.PlayerCommand;
@@ -9,7 +8,21 @@ import xyz.tozymc.spigot.api.command.result.CommandResult;
 import xyz.tozymc.spigot.api.command.result.TabResult;
 import xyz.tozymc.spigot.api.util.bukkit.permission.PermissionWrapper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegionAddCommand extends PlayerCommand {
+
+    private static Map<String, RegionParameterConstructor> constructors = new HashMap<>();
+    private static Map<String, RegionParameterCompleter> completers = new HashMap<>();
+
+    public static void addRegionConstructor(String name, RegionParameterConstructor constructor) {
+        constructors.put(name.toLowerCase(), constructor);
+    }
+
+    public static void addRegionCompleter(String name, RegionParameterCompleter completer) {
+        completers.put(name.toLowerCase(), completer);
+    }
 
     public RegionAddCommand(RegionCommand root) {
         super(root, "add");
@@ -21,70 +34,11 @@ public class RegionAddCommand extends PlayerCommand {
         if (params.length < 2)
             return CommandResult.WRONG_SYNTAX;
 
-        if (params[1].equals("world")) {
-            if (params.length != 2)
-                return CommandResult.WRONG_SYNTAX;
-
-            Regions.addRegion(new RegionWorld(params[0], sender.getLocation().getWorld().getName()));
-            Regions.save();
-
-            return CommandResult.SUCCESS;
-        }
-
-        if (params[1].equals("sphere")) {
-            if (params.length != 6)
-                return CommandResult.WRONG_SYNTAX;
-
-            double[] p = new double[4];
-            try {
-                Location l = sender.getLocation();
-                double[] sp = new double[] {l.getX(),l.getY(),l.getZ()};
-                for (int i = 0; i < 3; i++) {
-                    if (params[i+2].equals("~"))
-                        p[i] = sp[i];
-                    else if (params[i+2].charAt(0) == '~')
-                        p[i] = sp[i] + Double.parseDouble(params[i+2].substring(1));
-                    else
-                        p[i] = Double.parseDouble(params[i+2]);
-                }
-            } catch (Exception e) {
-                return CommandResult.from(CommandResult.Type.FAILURE, "Couldn't parse coordinates.");
-            }
-            double r;
-            try {
-                r = Double.parseDouble(params[5]);
-            } catch (Exception e) {
-                return CommandResult.from(CommandResult.Type.FAILURE, "Couldn't parse radius.");
-            }
-            Regions.addRegion(new RegionSphere(params[0], sender.getLocation().getWorld().getName(), p[0], p[1], p[2], r));
-            Regions.save();
-
-            return CommandResult.SUCCESS;
-        }
-
-        if (params[1].equals("cuboid")) {
-            if (params.length != 8)
-                return CommandResult.WRONG_SYNTAX;
-
-            double[] p = new double[6];
-            try {
-                Location l = sender.getLocation();
-                double[] sp = new double[] {l.getX(),l.getY(),l.getZ(),l.getX(),l.getY(),l.getZ()};
-                for (int i = 0; i < 6; i++) {
-                    if (params[i+2].equals("~"))
-                        p[i] = sp[i];
-                    else if (params[i+2].charAt(0) == '~')
-                        p[i] = sp[i] + Double.parseDouble(params[i+2].substring(1));
-                    else
-                        p[i] = Double.parseDouble(params[i+2]);
-                }
-            } catch (Exception e) {
-                return CommandResult.from(CommandResult.Type.FAILURE, "Couldn't parse coordinates.");
-            }
-            Regions.addRegion(new RegionCuboid(params[0], sender.getLocation().getWorld().getName(), p[0], p[1], p[2], p[3], p[4], p[5]));
-            Regions.save();
-
-            return CommandResult.SUCCESS;
+        if (constructors.containsKey(params[1])) {
+            RegionParameterConstructor constructor = constructors.get(params[1]);
+            if (constructor != null)
+                return constructor.regionConstructor(sender, params);
+            CommandResult.from(CommandResult.Type.FAILURE, "This region type doesn't have a registered constructor.");
         }
 
         return CommandResult.WRONG_SYNTAX;
@@ -96,33 +50,13 @@ public class RegionAddCommand extends PlayerCommand {
         if (params.length < 2) return TabResult.EMPTY_RESULT;
 
         if (params.length == 2) return sender instanceof Player
-            ? TabResult.of("", "world", "sphere", "cuboid")
+            ? TabResult.of("", completers.keySet())
             : TabResult.EMPTY_RESULT;
 
-        Location location = sender.getLocation();
-
-        if (params[1].equals("sphere") || params[1].equals("cuboid")) {
-            if (params.length == 3)
-                return TabResult.of("",
-                    String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()), "~ ~ ~");
-            if (params.length == 4)
-                return TabResult.of("",
-                    String.format("%d %d", location.getBlockY(), location.getBlockZ()), "~ ~");
-            if (params.length == 5)
-                return TabResult.of("",
-                    String.format("%d", location.getBlockZ()), "~");
-        }
-
-        if (params[1].equals("cuboid")) {
-            if (params.length == 6)
-                return TabResult.of("",
-                    String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()), "~ ~ ~");
-            if (params.length == 7)
-                return TabResult.of("",
-                    String.format("%d %d", location.getBlockY(), location.getBlockZ()+1), "~ ~");
-            if (params.length == 8)
-                return TabResult.of("",
-                    String.format("%d", location.getBlockZ()), "~");
+        if (completers.containsKey(params[1])) {
+            RegionParameterCompleter completer = completers.get(params[1]);
+            if (completer != null)
+                return completer.parameterCompleter(sender, params);
         }
 
         return TabResult.EMPTY_RESULT;
