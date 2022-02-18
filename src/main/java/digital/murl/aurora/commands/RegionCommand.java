@@ -40,7 +40,7 @@ public class RegionCommand extends CombinedCommand {
     @Override
     public TabResult onTab(@NotNull CommandSender sender, @NotNull String[] params) {
         if (params.length == 1) return sender instanceof Player
-            ? TabResult.of("", "add", "remove", "refresh")
+            ? TabResult.of("", "add", "remove", "refresh", "check")
             : TabResult.EMPTY_RESULT;
 
         return TabResult.EMPTY_RESULT;
