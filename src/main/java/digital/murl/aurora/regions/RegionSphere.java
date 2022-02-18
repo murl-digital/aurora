@@ -25,16 +25,11 @@ public class RegionSphere extends Region {
     }
 
     @Override
-    public JsonObject createJsonObject() {
-        JsonObject json = new JsonObject();
-        json.addProperty("RegionType", type);
-        json.addProperty("id", id);
-        json.addProperty("world", worldName);
-        json.addProperty("x", x);
-        json.addProperty("y", y);
-        json.addProperty("z", z);
-        json.addProperty("r", r);
-        return json;
+    public void populateJsonObject(JsonObject object) {
+        object.addProperty("x", x);
+        object.addProperty("y", y);
+        object.addProperty("z", z);
+        object.addProperty("r", r);
     }
 
     public static Region loadJsonObject(JsonObject json) {

@@ -5,7 +5,7 @@ import com.dslplatform.json.JsonWriter;
 import com.dslplatform.json.runtime.Settings;
 import digital.murl.aurora.commands.*;
 import digital.murl.aurora.points.Points;
-import digital.murl.aurora.regions.Regions;
+import digital.murl.aurora.regions.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.tozymc.spigot.api.command.CommandController;
 
@@ -32,6 +32,7 @@ public final class Plugin extends JavaPlugin {
         RegionAddCommand regionAddCommand = new RegionAddCommand(regionCommand);
         RegionRemoveCommand regionRemoveCommand = new RegionRemoveCommand(regionCommand);
         RegionRefreshCommand regionRefreshCommand = new RegionRefreshCommand(regionCommand);
+        RegionCheckCommand regionCheckCommand = new RegionCheckCommand(regionCommand);
 
         Aurora.commandController = new CommandController(this);
 
@@ -44,6 +45,11 @@ public final class Plugin extends JavaPlugin {
         Aurora.commandController.addCommand(regionAddCommand);
         Aurora.commandController.addCommand(regionRemoveCommand);
         Aurora.commandController.addCommand(regionRefreshCommand);
+        Aurora.commandController.addCommand(regionCheckCommand);
+
+        Regions.addRegionConstructor("World", (json) -> RegionWorld.loadJsonObject(json));
+        Regions.addRegionConstructor("Sphere", (json) -> RegionSphere.loadJsonObject(json));
+        Regions.addRegionConstructor("Cuboid", (json) -> RegionCuboid.loadJsonObject(json));
 
         if (getDataFolder().mkdirs()) {
 

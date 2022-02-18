@@ -20,5 +20,5 @@ public abstract class Region {
 
     public abstract boolean collisionCheck(Location location);
 
-    public abstract JsonObject createJsonObject();
+    public abstract void populateJsonObject(JsonObject object);
 }

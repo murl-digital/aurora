@@ -31,18 +31,13 @@ public class RegionCuboid extends Region {
     }
 
     @Override
-    public JsonObject createJsonObject() {
-        JsonObject json = new JsonObject();
-        json.addProperty("RegionType", type);
-        json.addProperty("id", id);
-        json.addProperty("world", worldName);
-        json.addProperty("x1", x1);
-        json.addProperty("y1", y1);
-        json.addProperty("z1", z1);
-        json.addProperty("x2", x2);
-        json.addProperty("y2", y2);
-        json.addProperty("z2", z2);
-        return json;
+    public void populateJsonObject(JsonObject object) {
+        object.addProperty("x1", x1);
+        object.addProperty("y1", y1);
+        object.addProperty("z1", z1);
+        object.addProperty("x2", x2);
+        object.addProperty("y2", y2);
+        object.addProperty("z2", z2);
     }
 
     public static Region loadJsonObject(JsonObject json) {

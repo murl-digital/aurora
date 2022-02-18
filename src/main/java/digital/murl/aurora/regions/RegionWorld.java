@@ -14,12 +14,8 @@ public class RegionWorld extends Region {
     }
 
     @Override
-    public JsonObject createJsonObject() {
-        JsonObject json = new JsonObject();
-        json.addProperty("RegionType", type);
-        json.addProperty("id", id);
-        json.addProperty("world", worldName);
-        return json;
+    public void populateJsonObject(JsonObject object) {
+
     }
 
     public static Region loadJsonObject(JsonObject json) {

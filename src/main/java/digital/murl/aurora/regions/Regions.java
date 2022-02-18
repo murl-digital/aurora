@@ -12,6 +12,8 @@ import java.util.*;
 
 public class Regions {
     private static Map<String, Region> regions;
+    private static Map<String, RegionConstructor> constructors = new HashMap<>();
+    private static List<JsonObject> failedRegions;
     private static File regionsFile;
 
     public static void load() throws IOException {
@@ -21,6 +23,10 @@ public class Regions {
         regionsFile = new File(Aurora.plugin.getDataFolder(), "regions.json");
 
         refresh();
+    }
+
+    public static void addRegionConstructor(String name, RegionConstructor constructor) {
+        constructors.put(name.toLowerCase(), constructor);
     }
 
     public static void save() {
@@ -49,6 +55,7 @@ public class Regions {
 
     public static void refresh() throws IOException {
         regions = new HashMap<>();
+        failedRegions = new ArrayList<>();
 
         if (!regionsFile.exists()) {
             try {
@@ -68,33 +75,36 @@ public class Regions {
             for (JsonElement element : json) {
                 JsonObject object = element.getAsJsonObject();
                 String regionType = object.get("RegionType").getAsString();
-                switch (regionType) {
-                    case "World":
-                        addRegion(RegionWorld.loadJsonObject(object));
-                        break;
-                    case "Sphere":
-                        addRegion(RegionSphere.loadJsonObject(object));
-                        break;
-                    case "Cuboid":
-                        addRegion(RegionCuboid.loadJsonObject(object));
-                        break;
+                if (constructors.containsKey(regionType.toLowerCase()))
+                    addRegion(constructors.get(regionType.toLowerCase()).regionConstructor(object));
+                else {
+                    Aurora.logger.warning(String.format("Failed to load region of type [%s], storing in background.", regionType));
+                    failedRegions.add(object);
                 }
             }
 
             reader.close();
+
+            saveRegions();
         } catch (IOException e) {
             Aurora.logger.warning("Couldn't load regions from disk: " + e.getMessage());
         } catch (Exception e) {
             Aurora.logger.warning("Something unexpected happened: " + e.getMessage());
         }
-
-        saveRegions();
     }
 
     private static void saveRegions() {
         JsonArray json = new JsonArray();
-        for (Region region : regions.values())
-            json.add(region.createJsonObject());
+        for (Region region : regions.values()) {
+            JsonObject object = new JsonObject();
+            object.addProperty("RegionType", region.type);
+            object.addProperty("id", region.id);
+            object.addProperty("world", region.worldName);
+            region.populateJsonObject(object);
+            json.add(object);
+        }
+        for (JsonObject object : failedRegions)
+            json.add(object);
 
         String jsonString = json.toString();
 
