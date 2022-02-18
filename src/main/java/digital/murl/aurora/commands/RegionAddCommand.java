@@ -8,21 +8,7 @@ import xyz.tozymc.spigot.api.command.result.CommandResult;
 import xyz.tozymc.spigot.api.command.result.TabResult;
 import xyz.tozymc.spigot.api.util.bukkit.permission.PermissionWrapper;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class RegionAddCommand extends PlayerCommand {
-
-    private static Map<String, RegionParameterConstructor> constructors = new HashMap<>();
-    private static Map<String, RegionParameterCompleter> completers = new HashMap<>();
-
-    public static void addRegionConstructor(String name, RegionParameterConstructor constructor) {
-        constructors.put(name.toLowerCase(), constructor);
-    }
-
-    public static void addRegionCompleter(String name, RegionParameterCompleter completer) {
-        completers.put(name.toLowerCase(), completer);
-    }
 
     public RegionAddCommand(RegionCommand root) {
         super(root, "add");
@@ -34,14 +20,14 @@ public class RegionAddCommand extends PlayerCommand {
         if (params.length < 2)
             return CommandResult.WRONG_SYNTAX;
 
-        if (constructors.containsKey(params[1])) {
-            RegionParameterConstructor constructor = constructors.get(params[1]);
-            if (constructor != null)
-                return constructor.regionConstructor(sender, params);
-            CommandResult.from(CommandResult.Type.FAILURE, "This region type doesn't have a registered constructor.");
+        RegionParameterConstructor constructor = Regions.getParameterConstructor(params[1]);
+        if (constructor != null) {
+            RegionParameterConstructor.Result result = constructor.regionConstructor(sender, params);
+            if (result.output.isEmpty())
+                return result.success ? CommandResult.SUCCESS : CommandResult.FAILURE;
+            return CommandResult.from(result.success ? CommandResult.Type.SUCCESS : CommandResult.Type.FAILURE, result.output);
         }
-
-        return CommandResult.WRONG_SYNTAX;
+        return CommandResult.from(CommandResult.Type.FAILURE, "This region type doesn't have a registered constructor.");
     }
 
     @NotNull
@@ -50,13 +36,14 @@ public class RegionAddCommand extends PlayerCommand {
         if (params.length < 2) return TabResult.EMPTY_RESULT;
 
         if (params.length == 2) return sender instanceof Player
-            ? TabResult.of("", completers.keySet())
+            ? TabResult.of("", Regions.getRegionTypes())
             : TabResult.EMPTY_RESULT;
 
-        if (completers.containsKey(params[1])) {
-            RegionParameterCompleter completer = completers.get(params[1]);
-            if (completer != null)
-                return completer.parameterCompleter(sender, params);
+        RegionParameterCompleter completer = Regions.getParameterCompleter(params[1]);
+        if (completer != null) {
+            String[] results = completer.parameterCompleter(sender, params);
+            if (results == null || results.length == 0) return TabResult.EMPTY_RESULT;
+            return TabResult.of("", results);
         }
 
         return TabResult.EMPTY_RESULT;

@@ -1,8 +1,9 @@
 package digital.murl.aurora.regions;
 
-import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+
+import java.util.Map;
 
 public abstract class Region {
     public final String id;
@@ -20,5 +21,5 @@ public abstract class Region {
 
     public abstract boolean collisionCheck(Location location);
 
-    public abstract void populateJsonObject(JsonObject object);
+    public abstract void populateJsonObject(Map<String, Object> object);
 }

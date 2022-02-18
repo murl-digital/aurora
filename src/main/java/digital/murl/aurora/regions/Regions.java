@@ -12,7 +12,9 @@ import java.util.*;
 
 public class Regions {
     private static Map<String, Region> regions;
-    private static Map<String, RegionJsonConstructor> constructors = new HashMap<>();
+    private static Map<String, RegionJsonConstructor> jsonConstructors = new HashMap<>();
+    private static Map<String, RegionParameterConstructor> parameterConstructors = new HashMap<>();
+    private static Map<String, RegionParameterCompleter> parameterCompleters = new HashMap<>();
     private static List<JsonObject> failedRegions;
     private static File regionsFile;
 
@@ -25,8 +27,28 @@ public class Regions {
         refresh();
     }
 
-    public static void addRegionConstructor(String name, RegionJsonConstructor constructor) {
-        constructors.put(name.toLowerCase(), constructor);
+    public static void addJsonConstructor(String type, RegionJsonConstructor constructor) {
+        jsonConstructors.put(type.toLowerCase(), constructor);
+    }
+
+    public static void addParameterConstructor(String type, RegionParameterConstructor constructor) {
+        parameterConstructors.put(type.toLowerCase(), constructor);
+    }
+
+    public static void addParameterCompleter(String type, RegionParameterCompleter completer) {
+        parameterCompleters.put(type.toLowerCase(), completer);
+    }
+
+    public static RegionParameterConstructor getParameterConstructor(String type) {
+        return parameterConstructors.containsKey(type) ? parameterConstructors.get(type) : null;
+    }
+
+    public static RegionParameterCompleter getParameterCompleter(String type) {
+        return parameterCompleters.containsKey(type) ? parameterCompleters.get(type) : null;
+    }
+
+    public static Set<String> getRegionTypes() {
+        return parameterConstructors.keySet();
     }
 
     public static void save() {
@@ -73,13 +95,13 @@ public class Regions {
             JsonArray json = gson.fromJson(reader, JsonArray.class);
 
             for (JsonElement element : json) {
-                JsonObject object = element.getAsJsonObject();
-                String regionType = object.get("RegionType").getAsString();
-                if (constructors.containsKey(regionType.toLowerCase()))
-                    addRegion(constructors.get(regionType.toLowerCase()).regionConstructor(object));
+                Map<String,Object> object = gson.fromJson(element, HashMap.class);
+                String regionType = (String)object.get("RegionType");
+                if (jsonConstructors.containsKey(regionType.toLowerCase()))
+                    addRegion(jsonConstructors.get(regionType.toLowerCase()).regionConstructor(object));
                 else {
                     Aurora.logger.warning(String.format("Failed to load region of type [%s], storing in background.", regionType));
-                    failedRegions.add(object);
+                    failedRegions.add(element.getAsJsonObject());
                 }
             }
 
@@ -94,14 +116,16 @@ public class Regions {
     }
 
     private static void saveRegions() {
+        Gson gson = new Gson();
         JsonArray json = new JsonArray();
         for (Region region : regions.values()) {
-            JsonObject object = new JsonObject();
-            object.addProperty("RegionType", region.type);
-            object.addProperty("id", region.id);
-            object.addProperty("world", region.worldName);
+            Map<String, Object> object = new HashMap<>();
+            object.put("RegionType", region.type);
+            object.put("id", region.id);
+            object.put("world", region.worldName);
             region.populateJsonObject(object);
-            json.add(object);
+
+            json.add(gson.toJsonTree(object));
         }
         for (JsonObject object : failedRegions)
             json.add(object);

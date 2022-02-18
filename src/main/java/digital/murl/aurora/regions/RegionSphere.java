@@ -1,10 +1,9 @@
 package digital.murl.aurora.regions;
 
-import com.google.gson.JsonObject;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import xyz.tozymc.spigot.api.command.result.CommandResult;
-import xyz.tozymc.spigot.api.command.result.TabResult;
+
+import java.util.Map;
 
 public class RegionSphere extends Region {
     public final double x, y, z, r;
@@ -27,26 +26,26 @@ public class RegionSphere extends Region {
     }
 
     @Override
-    public void populateJsonObject(JsonObject object) {
-        object.addProperty("x", x);
-        object.addProperty("y", y);
-        object.addProperty("z", z);
-        object.addProperty("r", r);
+    public void populateJsonObject(Map<String, Object> data) {
+        data.put("x", x);
+        data.put("y", y);
+        data.put("z", z);
+        data.put("r", r);
     }
 
-    public static Region jsonConstructor(JsonObject json) {
-        String id = json.get("id").getAsString();
-        String world = json.get("world").getAsString();
-        double x = json.get("x").getAsDouble();
-        double y = json.get("y").getAsDouble();
-        double z = json.get("z").getAsDouble();
-        double r = json.get("r").getAsDouble();
+    public static Region jsonConstructor(Map<String, Object> data) {
+        String id = (String)data.get("id");
+        String world = (String)data.get("world");
+        double x = (Double)data.get("x");
+        double y = (Double)data.get("y");
+        double z = (Double)data.get("z");
+        double r = (Double)data.get("r");
         return new RegionSphere(id, world, x, y, z, r);
     }
 
-    public static CommandResult parameterConstructor(Player sender, String[] params) {
+    public static RegionParameterConstructor.Result parameterConstructor(Player sender, String[] params) {
         if (params.length != 6)
-            return CommandResult.WRONG_SYNTAX;
+            return RegionParameterConstructor.Result.WRONG_SYNTAX;
 
         double[] p = new double[4];
         try {
@@ -61,31 +60,28 @@ public class RegionSphere extends Region {
                     p[i] = Double.parseDouble(params[i+2]);
             }
         } catch (Exception e) {
-            return CommandResult.from(CommandResult.Type.FAILURE, "Couldn't parse coordinates.");
+            return new RegionParameterConstructor.Result(false, "Couldn't parse coordinates.");
         }
         double r;
         try {
             r = Double.parseDouble(params[5]);
         } catch (Exception e) {
-            return CommandResult.from(CommandResult.Type.FAILURE, "Couldn't parse radius.");
+            return new RegionParameterConstructor.Result (false, "Couldn't parse radius.");
         }
         Regions.addRegion(new RegionSphere(params[0], sender.getLocation().getWorld().getName(), p[0], p[1], p[2], r));
         Regions.save();
 
-        return CommandResult.SUCCESS;
+        return RegionParameterConstructor.Result.SUCCESS;
     }
 
-    public static TabResult parameterCompleter(Player sender, String[] params) {
+    public static String[] parameterCompleter(Player sender, String[] params) {
         Location location = sender.getLocation();
         if (params.length == 3)
-            return TabResult.of("",
-                String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()), "~ ~ ~");
+            return new String[] {String.format("%d %d %d", location.getBlockX(), location.getBlockY(), location.getBlockZ()), "~ ~ ~"};
         if (params.length == 4)
-            return TabResult.of("",
-                String.format("%d %d", location.getBlockY(), location.getBlockZ()), "~ ~");
+            return new String[] {String.format("%d %d", location.getBlockY(), location.getBlockZ()), "~ ~"};
         if (params.length == 5)
-            return TabResult.of("",
-                String.format("%d", location.getBlockZ()), "~");
-        return TabResult.EMPTY_RESULT;
+            return new String[] {String.format("%d", location.getBlockZ()), "~"};
+        return null;
     }
 }

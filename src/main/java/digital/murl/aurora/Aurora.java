@@ -32,8 +32,8 @@ public class Aurora {
                                       RegionJsonConstructor jsonConstructor,
                                       RegionParameterConstructor parameterConstructor,
                                       RegionParameterCompleter parameterCompleter) {
-        Regions.addRegionConstructor(type, jsonConstructor);
-        RegionAddCommand.addRegionConstructor(type, parameterConstructor);
-        RegionAddCommand.addRegionCompleter(type, parameterCompleter);
+        Regions.addJsonConstructor(type, jsonConstructor);
+        Regions.addParameterConstructor(type, parameterConstructor);
+        Regions.addParameterCompleter(type, parameterCompleter);
     }
 }

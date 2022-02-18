@@ -1,8 +1,8 @@
 package digital.murl.aurora.regions;
 
-import com.google.gson.JsonObject;
+import java.util.Map;
 
 @FunctionalInterface
 public interface RegionJsonConstructor {
-    Region regionConstructor(JsonObject object);
+    Region regionConstructor(Map<String, Object> data);
 }
