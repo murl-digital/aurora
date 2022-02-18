@@ -3,10 +3,7 @@ package digital.murl.aurora;
 import com.dslplatform.json.DslJson;
 import com.dslplatform.json.JsonWriter;
 import com.dslplatform.json.runtime.Settings;
-import digital.murl.aurora.commands.PointAddCommand;
-import digital.murl.aurora.commands.PointRefreshCommand;
-import digital.murl.aurora.commands.PointRemoveCommand;
-import digital.murl.aurora.commands.PointCommand;
+import digital.murl.aurora.commands.*;
 import digital.murl.aurora.points.Points;
 import digital.murl.aurora.regions.Regions;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,11 +28,22 @@ public final class Plugin extends JavaPlugin {
         PointRemoveCommand pointRemoveCommand = new PointRemoveCommand(pointCommand);
         PointRefreshCommand pointRefreshCommand = new PointRefreshCommand(pointCommand);
 
+        RegionCommand regionCommand = new RegionCommand();
+        RegionAddCommand regionAddCommand = new RegionAddCommand(regionCommand);
+        RegionRemoveCommand regionRemoveCommand = new RegionRemoveCommand(regionCommand);
+        RegionRefreshCommand regionRefreshCommand = new RegionRefreshCommand(regionCommand);
+
         Aurora.commandController = new CommandController(this);
+
         Aurora.commandController.addCommand(pointCommand);
         Aurora.commandController.addCommand(pointAddCommand);
         Aurora.commandController.addCommand(pointRemoveCommand);
         Aurora.commandController.addCommand(pointRefreshCommand);
+
+        Aurora.commandController.addCommand(regionCommand);
+        Aurora.commandController.addCommand(regionAddCommand);
+        Aurora.commandController.addCommand(regionRemoveCommand);
+        Aurora.commandController.addCommand(regionRefreshCommand);
 
         if (getDataFolder().mkdirs()) {
 
