@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import digital.murl.aurora.Aurora;
+import digital.murl.aurora.regions.distributors.RegionDistributor;
 
 import java.io.*;
 import java.util.*;
@@ -15,6 +16,7 @@ public class Regions {
     private static Map<String, RegionMapConstructor> mapConstructors = new HashMap<>();
     private static Map<String, RegionParameterConstructor> parameterConstructors = new HashMap<>();
     private static Map<String, RegionParameterCompleter> parameterCompleters = new HashMap<>();
+    private static Map<String, RegionDistributor> regionDistributors = new HashMap<>();
     private static List<JsonObject> failedRegions;
     private static File regionsFile;
 
@@ -39,6 +41,10 @@ public class Regions {
         parameterCompleters.put(type.toLowerCase(), completer);
     }
 
+    public static void addRegionDistributor(String type, RegionDistributor distributor) {
+        regionDistributors.put(type, distributor);
+    }
+
     public static RegionParameterConstructor getParameterConstructor(String type) {
         return parameterConstructors.containsKey(type) ? parameterConstructors.get(type) : null;
     }
@@ -47,8 +53,16 @@ public class Regions {
         return parameterCompleters.containsKey(type) ? parameterCompleters.get(type) : null;
     }
 
+    public static RegionDistributor getRegionDistributor(String type) {
+        return regionDistributors.containsKey(type) ? regionDistributors.get(type) : null;
+    }
+
     public static Set<String> getRegionTypes() {
         return parameterConstructors.keySet();
+    }
+
+    public static Set<String> getRegionDistributors() {
+        return regionDistributors.keySet();
     }
 
     public static void save() {
