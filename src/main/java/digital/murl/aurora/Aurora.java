@@ -1,9 +1,7 @@
 package digital.murl.aurora;
 
 import com.dslplatform.json.DslJson;
-import digital.murl.aurora.agents.Agent;
-import digital.murl.aurora.agents.AgentManager;
-import digital.murl.aurora.agents.AgentRegistrar;
+import digital.murl.aurora.agents.*;
 import xyz.tozymc.spigot.api.command.CommandController;
 
 import java.util.HashMap;

@@ -1,8 +1,6 @@
 package digital.murl.aurora.agents;
 
-import digital.murl.aurora.Action;
-
-import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Agent {
     public boolean isEphemeral = false;
