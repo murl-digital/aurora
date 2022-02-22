@@ -5,6 +5,7 @@ import digital.murl.aurora.agents.*;
 import xyz.tozymc.spigot.api.command.CommandController;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class Aurora {
@@ -14,13 +15,19 @@ public class Aurora {
 
     static CommandController commandController;
 
-    public static <T extends Agent> void registerAgent(String name, Class<T> agent) throws Exception {
-        AgentRegistrar.addAgent(name, agent);
+    public static <T extends Agent> void registerAgent(String name, Class<T> agent, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
+        AgentRegistrar.addAgent(name, agent, actions, cacheBehavior);
     }
 
-    public static void executeAgentAction(String agentName, String actionName, HashMap<Object, Object> params) {
-        if (!plugin.isEnabled()) return;
+    public static String executeAgentAction(String agentName, String actionName, Map<String, Object> params) {
+        if (!plugin.isEnabled()) return null;
 
-        AgentManager.executeAgentAction(agentName, actionName, params);
+        return AgentManager.executeAgentAction(agentName, actionName, params);
+    }
+
+    public static String executeAgentAction(String id, String agentName, String actionName, Map<String, Object> params) {
+        if (!plugin.isEnabled()) return null;
+
+        return AgentManager.executeAgentAction(agentName, actionName, params);
     }
 }
