@@ -5,6 +5,7 @@ import digital.murl.aurora.agents.Agent;
 import digital.murl.aurora.agents.AgentManager;
 import digital.murl.aurora.agents.AgentRegistrar;
 import digital.murl.aurora.regions.*;
+import digital.murl.aurora.regions.distributors.RegionDistributor;
 import xyz.tozymc.spigot.api.command.CommandController;
 
 import java.util.HashMap;
@@ -34,5 +35,9 @@ public class Aurora {
         Regions.addMapConstructor(type, jsonConstructor);
         Regions.addParameterConstructor(type, parameterConstructor);
         Regions.addParameterCompleter(type, parameterCompleter);
+    }
+
+    public static void registerRegionDistributor(String type, RegionDistributor distributor) {
+        Regions.addRegionDistributor(type, distributor);
     }
 }

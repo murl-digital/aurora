@@ -6,6 +6,7 @@ import com.dslplatform.json.runtime.Settings;
 import digital.murl.aurora.commands.*;
 import digital.murl.aurora.points.Points;
 import digital.murl.aurora.regions.*;
+import digital.murl.aurora.regions.distributors.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.tozymc.spigot.api.command.CommandController;
 
@@ -33,6 +34,7 @@ public final class Plugin extends JavaPlugin {
         RegionRemoveCommand regionRemoveCommand = new RegionRemoveCommand(regionCommand);
         RegionRefreshCommand regionRefreshCommand = new RegionRefreshCommand(regionCommand);
         RegionCheckCommand regionCheckCommand = new RegionCheckCommand(regionCommand);
+        RegionDistributeCommand regionDistributeCommand = new RegionDistributeCommand(regionCommand);
 
         Aurora.commandController = new CommandController(this);
 
@@ -46,6 +48,7 @@ public final class Plugin extends JavaPlugin {
         Aurora.commandController.addCommand(regionRemoveCommand);
         Aurora.commandController.addCommand(regionRefreshCommand);
         Aurora.commandController.addCommand(regionCheckCommand);
+        Aurora.commandController.addCommand(regionDistributeCommand);
 
         Aurora.registerRegionType("World",
             RegionWorld::mapConstructor,
@@ -59,6 +62,10 @@ public final class Plugin extends JavaPlugin {
             RegionCuboid::mapConstructor,
             RegionCuboid::parameterConstructor,
             RegionCuboid::parameterCompleter);
+
+        Aurora.registerRegionDistributor("CuboidFillGrid", CuboidDistributor::fillGrid);
+        Aurora.registerRegionDistributor("CuboidSurfaceGrid", CuboidDistributor::surfaceGrid);
+        Aurora.registerRegionDistributor("SphereSurfaceFibonacci", SphereDistributor::surfaceFibonacci);
 
         if (getDataFolder().mkdirs()) {
 
