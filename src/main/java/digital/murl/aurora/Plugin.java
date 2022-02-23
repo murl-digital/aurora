@@ -3,11 +3,10 @@ package digital.murl.aurora;
 import com.dslplatform.json.DslJson;
 import com.dslplatform.json.JsonWriter;
 import com.dslplatform.json.runtime.Settings;
-import digital.murl.aurora.commands.PointAddCommand;
-import digital.murl.aurora.commands.PointRefreshCommand;
-import digital.murl.aurora.commands.PointRemoveCommand;
-import digital.murl.aurora.commands.PointCommand;
+import digital.murl.aurora.commands.*;
 import digital.murl.aurora.points.Points;
+import digital.murl.aurora.regions.*;
+import digital.murl.aurora.regions.distributors.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.tozymc.spigot.api.command.CommandController;
 
@@ -30,11 +29,43 @@ public final class Plugin extends JavaPlugin {
         PointRemoveCommand pointRemoveCommand = new PointRemoveCommand(pointCommand);
         PointRefreshCommand pointRefreshCommand = new PointRefreshCommand(pointCommand);
 
+        RegionCommand regionCommand = new RegionCommand();
+        RegionAddCommand regionAddCommand = new RegionAddCommand(regionCommand);
+        RegionRemoveCommand regionRemoveCommand = new RegionRemoveCommand(regionCommand);
+        RegionRefreshCommand regionRefreshCommand = new RegionRefreshCommand(regionCommand);
+        RegionCheckCommand regionCheckCommand = new RegionCheckCommand(regionCommand);
+        RegionDistributeCommand regionDistributeCommand = new RegionDistributeCommand(regionCommand);
+
         Aurora.commandController = new CommandController(this);
+
         Aurora.commandController.addCommand(pointCommand);
         Aurora.commandController.addCommand(pointAddCommand);
         Aurora.commandController.addCommand(pointRemoveCommand);
         Aurora.commandController.addCommand(pointRefreshCommand);
+
+        Aurora.commandController.addCommand(regionCommand);
+        Aurora.commandController.addCommand(regionAddCommand);
+        Aurora.commandController.addCommand(regionRemoveCommand);
+        Aurora.commandController.addCommand(regionRefreshCommand);
+        Aurora.commandController.addCommand(regionCheckCommand);
+        Aurora.commandController.addCommand(regionDistributeCommand);
+
+        Aurora.registerRegionType("World",
+            RegionWorld::mapConstructor,
+            RegionWorld::parameterConstructor,
+            RegionWorld::parameterCompleter);
+        Aurora.registerRegionType("Sphere",
+            RegionSphere::mapConstructor,
+            RegionSphere::parameterConstructor,
+            RegionSphere::parameterCompleter);
+        Aurora.registerRegionType("Cuboid",
+            RegionCuboid::mapConstructor,
+            RegionCuboid::parameterConstructor,
+            RegionCuboid::parameterCompleter);
+
+        Aurora.registerRegionDistributor("CuboidFillGrid", CuboidDistributor::fillGrid);
+        Aurora.registerRegionDistributor("CuboidSurfaceGrid", CuboidDistributor::surfaceGrid);
+        Aurora.registerRegionDistributor("SphereSurfaceFibonacci", SphereDistributor::surfaceFibonacci);
 
         if (getDataFolder().mkdirs()) {
 
@@ -45,6 +76,13 @@ public final class Plugin extends JavaPlugin {
             Points.load();
         } catch (IOException e) {
             Aurora.logger.severe("Failed to load points: " + e.getMessage());
+        }
+
+        Aurora.logger.info("loading regions...");
+        try {
+            Regions.load();
+        } catch (IOException e) {
+            Aurora.logger.severe("Failed to load regions: " + e.getMessage());
         }
 
         Aurora.logger.info("warming up DSL-JSON...");
