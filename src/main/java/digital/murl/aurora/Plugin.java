@@ -28,6 +28,7 @@ public final class Plugin extends JavaPlugin {
         PointAddCommand pointAddCommand = new PointAddCommand(pointCommand);
         PointRemoveCommand pointRemoveCommand = new PointRemoveCommand(pointCommand);
         PointRefreshCommand pointRefreshCommand = new PointRefreshCommand(pointCommand);
+        PointGroupsCommand pointGroupsCommand = new PointGroupsCommand(pointCommand);
 
         RegionCommand regionCommand = new RegionCommand();
         RegionAddCommand regionAddCommand = new RegionAddCommand(regionCommand);
@@ -42,6 +43,7 @@ public final class Plugin extends JavaPlugin {
         Aurora.commandController.addCommand(pointAddCommand);
         Aurora.commandController.addCommand(pointRemoveCommand);
         Aurora.commandController.addCommand(pointRefreshCommand);
+        Aurora.commandController.addCommand(pointGroupsCommand);
 
         Aurora.commandController.addCommand(regionCommand);
         Aurora.commandController.addCommand(regionAddCommand);

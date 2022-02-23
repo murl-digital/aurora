@@ -39,7 +39,9 @@ public class Points {
     }
 
     public static void addPointToGroup(int id, String group) {
-        groupPoint(id, group);
+        if (groups.containsKey(group))
+            groups.get(group).add(id);
+        else groups.put(group, new ArrayList<>(Arrays.asList(id)));
     }
 
     public static void removePointFromGroup(int id, String group) {
@@ -49,6 +51,11 @@ public class Points {
     public static void removePointFromGroup(int id) {
         for (String group : groups.keySet())
             removePointFromGroup(id, group);
+    }
+
+    public static void removeGroup(String group) {
+        if (groups.containsKey(group))
+            groups.put(group, new ArrayList<>());
     }
 
     public static void save() {
@@ -129,7 +136,7 @@ public class Points {
                 }
 
                 for (int i = 4; i < data.length; i++)
-                    groupPoint(id,data[i]);
+                    addPointToGroup(id,data[i]);
             }
             reader.close();
 
@@ -141,12 +148,6 @@ public class Points {
         } catch (Exception e) {
             Aurora.logger.warning("Something unexpected happened: " + e.getMessage());
         }
-    }
-
-    private static void groupPoint(int id, String group) {
-        if (groups.containsKey(group))
-            groups.get(group).add(id);
-        else groups.put(group, new ArrayList<>(Arrays.asList(id)));
     }
 
     private static void savePoints() {
