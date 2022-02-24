@@ -21,8 +21,6 @@ public class PointGroupsCommand extends PlayerCommand {
     @NotNull
     @Override
     public CommandResult onCommand(@NotNull Player sender, @NotNull String[] params) {
-        sender.spigot().sendMessage(new ComponentBuilder().append("Command works :D").color(ChatColor.GREEN).create());
-
         if (params.length < 2)
             return CommandResult.WRONG_SYNTAX;
 
