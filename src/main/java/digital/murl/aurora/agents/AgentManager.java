@@ -3,6 +3,7 @@ package digital.murl.aurora.agents;
 import com.google.common.base.Throwables;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.RemovalListener;
 import digital.murl.aurora.Aurora;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,11 +16,16 @@ import java.util.concurrent.TimeUnit;
 public class AgentManager {
     private static final ConcurrentHashMap<String, Agent> activeAgents;
     private static final Cache<String, Agent> agentCache;
+    private static final RemovalListener<String, Agent> listener = r -> {
+        if (r.wasEvicted())
+            r.getValue().cleanup();
+    };
 
     static {
         activeAgents = new ConcurrentHashMap<>();
         agentCache = CacheBuilder.newBuilder()
             .expireAfterAccess(60, TimeUnit.SECONDS)
+            .removalListener(listener)
             .build();
     }
 
@@ -29,7 +35,7 @@ public class AgentManager {
         if (agent == null) return null;
 
         agent.init(params);
-        activeAgents.put(id, agent);
+        agentCache.put(id, agent);
 
         return id;
     }
@@ -41,7 +47,7 @@ public class AgentManager {
 
         agent.init(params);
         String id = generateRandomString();
-        activeAgents.put(id, agent);
+        agentCache.put(id, agent);
 
         return id;
     }
@@ -58,7 +64,7 @@ public class AgentManager {
 
         String id = "";
         agent.init(params);
-        boolean keep = actions.get(actionName).apply(agent, params);
+        Action.Result result = actions.get(actionName).apply(agent, params);
 
         switch (Objects.requireNonNull(cacheBehavior)) {
             case EPHEMERAL:
@@ -69,10 +75,75 @@ public class AgentManager {
                 break;
             case NORMAL:
                 id = generateRandomString();
-                if (keep)
+                switch (result) {
+                    case DEFAULT:
+                    case ACTIVE:
+                        activeAgents.put(id, agent);
+                        break;
+                    case INACTIVE:
+                        agentCache.put(id, agent);
+                        break;
+                }
+        }
+
+        return id;
+    }
+
+    public static String executeAgentAction(String id, String agentName, String actionName, Map<String, Object> params) {
+        Agent agent;
+        boolean wasCached = false;
+        if (!agentCache.asMap().containsKey(id) && !activeAgents.containsKey(id)) {
+            agent = getInstance(agentName);
+            if (agent == null)
+                return null;
+            agent.init(params);
+        } else {
+            agent = agentCache.getIfPresent(id);
+            if (agent == null)
+                agent = activeAgents.get(id);
+            else
+                wasCached = true;
+        }
+
+        Map<String, Action> actions = AgentRegistrar.getAgentActions(agentName);
+        CacheBehavior cacheBehavior = AgentRegistrar.getCacheBehavior(agentName);
+        if (actions == null || !actions.containsKey(actionName))
+            return null;
+        if (cacheBehavior == null)
+            return null;
+
+        Action.Result result = actions.get(actionName).apply(agent, params);
+
+        if (cacheBehavior == CacheBehavior.EPHEMERAL)
+            // pretty weird that a transport would call this method for an ephemeral but whatever
+            return id;
+
+        if (cacheBehavior == CacheBehavior.PERSISTENT) {
+            if (wasCached) {
+                // this should never happen, but just in case
+                agentCache.invalidate(id);
+                activeAgents.put(id, agent);
+            }
+
+            return id;
+        }
+
+        switch (result) {
+            case ACTIVE:
+                if (wasCached) {
+                    agentCache.invalidate(id);
                     activeAgents.put(id, agent);
-                else
+                }
+                break;
+            case INACTIVE:
+                if (!wasCached) {
+                    activeAgents.remove(id);
                     agentCache.put(id, agent);
+                }
+                break;
+            case DEFAULT:
+                // we don't have to do anything
+                break;
         }
 
         return id;

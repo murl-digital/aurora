@@ -28,6 +28,6 @@ public class Aurora {
     public static String executeAgentAction(String id, String agentName, String actionName, Map<String, Object> params) {
         if (!plugin.isEnabled()) return null;
 
-        return AgentManager.executeAgentAction(agentName, actionName, params);
+        return AgentManager.executeAgentAction(id, agentName, actionName, params);
     }
 }
