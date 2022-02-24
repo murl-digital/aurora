@@ -1,6 +1,7 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.0'
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'murl.digital'
@@ -55,4 +56,12 @@ processResources {
 shadowJar {
     archiveClassifier.set('')
     minimize()
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) {publication ->
+            project.shadow.component(publication)
+        }
+    }
 }
