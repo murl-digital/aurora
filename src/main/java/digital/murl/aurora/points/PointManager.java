@@ -61,15 +61,7 @@ public class PointManager {
     }
 
     public static int[] getGroupIds(String group) {
-        return groups.keySet().contains(group) ? groups.get(group).stream().mapToInt(i->i).toArray() : null;
-    }
-
-    public static Point[] getGroupPoints(String group) {
-        int[] ids = getGroupIds(group);
-        Point[] points = new Point[ids.length];
-        for (int i = 0; i < ids.length; i++)
-            points[i] = getPoint(ids[i]);
-        return points;
+        return groups.keySet().contains(group) ? groups.get(group).stream().mapToInt(i->i).toArray() : new int[0];
     }
 
     public static List<Point> getPoints() {

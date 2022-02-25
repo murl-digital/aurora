@@ -33,7 +33,7 @@ public class PointGroupsCommand extends PlayerCommand {
                     Points.addPointToGroup(id,params[1]);
                 } catch (Exception e) {
                     try {
-                        for (int id : Points.getGroupIds(param))
+                        for (int id : Points.getId(param))
                             Points.addPointToGroup(id,params[1]);
                     } catch (Exception e2) {
                         sender.spigot().sendMessage(new ComponentBuilder().append(String.format("Couldn't parse %s", param)).color(ChatColor.RED).create());
@@ -55,7 +55,7 @@ public class PointGroupsCommand extends PlayerCommand {
                     Points.removePointFromGroup(id,params[1]);
                 } catch (Exception e) {
                     try {
-                        for (int id : Points.getGroupIds(param))
+                        for (int id : Points.getId(param))
                             Points.removePointFromGroup(id,params[1]);
                     } catch (Exception e2) {
                         sender.spigot().sendMessage(new ComponentBuilder().append(String.format("Couldn't parse %s", param)).color(ChatColor.RED).create());
