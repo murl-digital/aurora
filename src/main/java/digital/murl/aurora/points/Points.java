@@ -1,179 +1,202 @@
 package digital.murl.aurora.points;
 
-import digital.murl.aurora.Aurora;
 import org.bukkit.Location;
 
 import java.io.*;
 import java.util.*;
 
 public class Points {
-    private static List<Point> points;
-    private static Map<String, List<Integer>> groups;
-    private static File pointsFile;
-    private static int pointCursor;
-
     public static void load() throws IOException {
-        if (!Aurora.plugin.getDataFolder().exists())
-            throw new IllegalStateException("The aurora data folder doesn't exist");
-
-        pointsFile = new File(Aurora.plugin.getDataFolder(), "points.csv");
-
-        refresh();
+        PointManager.load();
     }
 
-    public static int addPoint(Location location) {
-        while (points.stream().anyMatch(p -> p == null ? false : p.id == pointCursor))
-            pointCursor++;
-
-        if (pointCursor < points.size()) points.set(pointCursor, new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
-        else points.add(new Point(pointCursor, location.getWorld().getName(), location.getX(), location.getY(), location.getZ()));
-
-        return pointCursor;
+    public static int add(Location location) {
+        return PointManager.addPoint(location);
     }
 
-    public static void removePoint(int id) {
-        if (id > points.size()-1) return;
-        points.set(id,null);
+    public static int[] add(Location[] locations) {
+        return Arrays.stream(locations).mapToInt((location) -> PointManager.addPoint(location)).toArray();
+    }
+
+    public static void remove(int id) {
+        PointManager.removePoint(id);
         removePointFromGroup(id);
-        if (id < pointCursor) pointCursor = id;
+    }
+
+    public static void remove(int[] ids) {
+        for (int id : ids)
+            remove(id);
+    }
+
+    public static void remove(String input) {
+        try {
+            int id = Integer.parseInt(input);
+            PointManager.removePoint(id);
+            removePointFromGroup(id);
+        } catch (Exception e) {
+            remove(PointManager.getGroupIds(input));
+        }
+    }
+
+    public static void remove(String[] input) {
+        for (String item : input)
+            remove(item);
+    }
+
+    public static void remove(Object input) {
+        try {
+            remove((int)input);
+        } catch (Exception e) {
+            try {
+                remove((String)input);
+            } catch (Exception e2) {
+
+            }
+        }
+    }
+
+    public static void remove(Object[] input) {
+        for (Object item : input)
+            remove(item);
     }
 
     public static void addPointToGroup(int id, String group) {
-        if (groups.containsKey(group))
-            groups.get(group).add(id);
-        else groups.put(group, new ArrayList<>(Arrays.asList(id)));
+        PointManager.addPointToGroup(id, group);
     }
 
     public static void removePointFromGroup(int id, String group) {
-        groups.get(group).removeIf(p -> p == id);
+        PointManager.removePointFromGroup(id, group);
     }
 
     public static void removePointFromGroup(int id) {
-        for (String group : groups.keySet())
+        for (String group : PointManager.getGroups().keySet())
             removePointFromGroup(id, group);
     }
 
     public static void removeGroup(String group) {
-        if (groups.containsKey(group))
-            groups.put(group, new ArrayList<>());
+        PointManager.removeGroup(group);
     }
 
     public static void save() {
-        new Thread(Points::savePoints).start();
+        PointManager.save();
+    }
+
+    public static int[] getId(String input) {
+        try {
+            return new int[] {Integer.parseInt(input)};
+        } catch (Exception e) {
+            return PointManager.getGroupIds(input);
+        }
+    }
+
+    public static int[] getId(String[] input) {
+        List<Integer> ids = new LinkedList<>();
+        for (String item : input)
+            for (int id : getId(item))
+                ids.add(id);
+        int[] array = new int[ids.size()];
+        for (int i = 0; i < ids.size(); i++)
+            array[i] = ids.get(i);
+        return array;
+    }
+
+    public static int[] getId(Object input) {
+        try {
+            return getId((int)input);
+        } catch (Exception e) {
+            try {
+                return getId((String)input);
+            } catch (Exception e2) {
+                return new int[0];
+            }
+        }
+    }
+
+    public static int[] getId(Object[] input) {
+        List<Integer> ids = new LinkedList<>();
+        for (Object item : input)
+            for (int id : getId(item))
+                ids.add(id);
+        int[] array = new int[ids.size()];
+        for (int i = 0; i < ids.size(); i++)
+            array[i] = ids.get(i);
+        return array;
     }
 
     public static Point getPoint(int id) {
-        return id < points.size() && id > -1 ? points.get(id) : null;
+        return PointManager.getPoint(id);
     }
 
-    public static int[] getGroupIds(String group) {
-        return groups.keySet().contains(group) ? groups.get(group).stream().mapToInt(i->i).toArray() : null;
-    }
-
-    public static Point[] getGroupPoints(String group) {
-        int[] ids = getGroupIds(group);
+    public static Point[] getPoint(int[] ids) {
         Point[] points = new Point[ids.length];
         for (int i = 0; i < ids.length; i++)
-            points[i] = getPoint(ids[i]);
+            points[i] = PointManager.getPoint(ids[i]);
         return points;
     }
 
+    public static Point[] getPoint(String item) {
+        return getPoint(getId(item));
+    }
+
+    public static Point[] getPoint(String[] item) {
+        return getPoint(getId(item));
+    }
+
+    public static Point[] getPoint(Object item) {
+        return getPoint(getId(item));
+    }
+
+    public static Point[] getPoint(Object[] item) {
+        return getPoint(getId(item));
+    }
+
+    public static Location getPointLocation(Point point) {
+        return point.location();
+    }
+
+    public static Location[] getPointLocation(Point[] points) {
+        List<Location> locations = new LinkedList<>();
+        for (Point point : points)
+            locations.add(getPointLocation(point));
+        Location[] array = new Location[locations.size()];
+        for (int i = 0; i < locations.size(); i++)
+            array[i] = locations.get(i);
+        return array;
+    }
+
+    public static Location getPointLocation(int id) {
+        return getPointLocation(getPoint(id));
+    }
+
+    public static Location[] getPointLocation(int[] ids) {
+        return getPointLocation(getPoint(ids));
+    }
+
+    public static Location[] getPointLocation(String item) {
+        return getPointLocation(getPoint(item));
+    }
+
+    public static Location[] getPointLocation(String[] item) {
+        return getPointLocation(getPoint(item));
+    }
+
+    public static Location[] getPointLocation(Object item) {
+        return getPointLocation(getPoint(item));
+    }
+
+    public static Location[] getPointLocation(Object[] item) {
+        return getPointLocation(getPoint(item));
+    }
+
     public static List<Point> getPoints() {
-        return Collections.unmodifiableList(points);
+        return PointManager.getPoints();
     }
 
     public static Map<String, List<Integer>> getGroups() {
-        return Collections.unmodifiableMap(groups);
+        return PointManager.getGroups();
     }
 
     public static void refresh() throws IOException {
-        points = Collections.synchronizedList(new LinkedList<>());
-        groups = new HashMap<>();
-
-        if (!pointsFile.exists()) {
-            try {
-                FileWriter writer = new FileWriter(pointsFile);
-                writer.close();
-            } catch (IOException e){
-                Aurora.logger.warning("Couldn't create points file: " + e.getMessage());
-            }
-            return;
-        }
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(pointsFile));
-            pointCursor = -1;
-            int id = -1;
-            String row = null;
-            while ((row = reader.readLine()) != null) {
-                id++;
-
-                if (row.isEmpty()) {
-                    if (pointCursor < 0) pointCursor = id;
-                    points.add(null);
-                    continue;
-                }
-
-                String[] data = row.split(",");
-                if (data.length < 4) {
-                    Aurora.logger.warning("Missing data for point " + id);
-                    points.add(null);
-                    continue;
-                }
-
-                try {
-                    points.add(new Point(
-                        id,
-                        data[0],
-                        Double.parseDouble(data[1]),
-                        Double.parseDouble(data[2]),
-                        Double.parseDouble(data[3])
-                    ));
-                } catch (Exception e) {
-                    Aurora.logger.warning("Encountered an error while parsing data for point " + id);
-                    points.add(null);
-                    continue;
-                }
-
-                for (int i = 4; i < data.length; i++)
-                    addPointToGroup(id,data[i]);
-            }
-            reader.close();
-
-            if (pointCursor < 0) pointCursor = id < 0 ? 0 : id;
-            savePoints();
-
-        } catch (IOException e) {
-            Aurora.logger.warning("Couldn't load points from disk: " + e.getMessage());
-        } catch (Exception e) {
-            Aurora.logger.warning("Something unexpected happened: " + e.getMessage());
-        }
-    }
-
-    private static void savePoints() {
-        List<String> csv = new ArrayList<>();
-        for (Point point : points)
-            if (point == null) csv.add("");
-            else csv.add(String.format(Locale.US,"%s,%f,%f,%f",point.worldName,point.x,point.y,point.z));
-        for (String group : groups.keySet()) {
-            for (int point : groups.get(group)) {
-                csv.set(point, csv.get(point) + ',' + group);
-            }
-        }
-
-        while (csv.size() > 0 && csv.get(csv.size()-1).isEmpty())
-            csv.remove(csv.size()-1);
-
-        String data = "";
-        for (String r : csv)
-            data += r + '\n';
-
-        try {
-            FileWriter writer = new FileWriter(pointsFile);
-            writer.write(data);
-            writer.close();
-        } catch (IOException e) {
-            Aurora.logger.warning("Couldn't save points to disk: " + e.getMessage());
-        }
+        PointManager.refresh();
     }
 }
