@@ -21,18 +21,6 @@ public class Aurora {
         AgentRegistrar.addAgent(name, agent, actions, cacheBehavior);
     }
 
-    public static String executeAgentAction(String agentName, String actionName, Map<String, Object> params) {
-        if (!plugin.isEnabled()) return null;
-
-        return AgentManager.executeAgentAction(agentName, actionName, params);
-    }
-
-    public static String executeAgentAction(String id, String agentName, String actionName, Map<String, Object> params) {
-        if (!plugin.isEnabled()) return null;
-
-        return AgentManager.executeAgentAction(id, agentName, actionName, params);
-    }
-
     public static void registerRegionType(String type,
                                       RegionMapConstructor jsonConstructor,
                                       RegionParameterConstructor parameterConstructor,
