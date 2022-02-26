@@ -22,10 +22,10 @@ public class Aurora {
     }
 
     public static void registerRegionType(String type,
-                                      RegionMapConstructor jsonConstructor,
+                                      RegionMapConstructor mapConstructor,
                                       RegionParameterConstructor parameterConstructor,
                                       RegionParameterCompleter parameterCompleter) {
-        Regions.addMapConstructor(type, jsonConstructor);
+        Regions.addMapConstructor(type, mapConstructor);
         Regions.addParameterConstructor(type, parameterConstructor);
         Regions.addParameterCompleter(type, parameterCompleter);
     }
