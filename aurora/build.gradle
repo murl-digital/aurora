@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'murl.digital'
-version = '1.0-SNAPSHOT'
+version = '2.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -64,4 +64,22 @@ publishing {
             project.shadow.component(publication)
         }
     }
+}
+
+// Copy jars to dist directory
+task copyDistJars(type: Copy, dependsOn: ['jar','shadowJar']) {
+    from shadowJar
+    into "${rootDir}/dist"
+}
+
+// Copy jars to server plugins
+task copyDevServerJars(type: Copy, dependsOn: ['jar','shadowJar']) {
+    from shadowJar
+    into "${rootDir}/devserver/plugins"
+}
+
+// Also clean up the dist and plugins directories on cleanup
+clean.doFirst {
+    delete fileTree("${rootDir}/dist") { include '**/aurora-*.jar'}
+    delete fileTree("${rootDir}/devserver/plugins") { include '**/aurora-*.jar'}
 }
