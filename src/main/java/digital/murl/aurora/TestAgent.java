@@ -6,7 +6,7 @@ import digital.murl.aurora.agents.Agent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestAgent extends Agent {
+public class TestAgent implements Agent {
 
     @Override
     public void init(Map<String, Object> params) {
