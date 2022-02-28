@@ -85,6 +85,8 @@ public class Points {
         try {
             return new int[] {Integer.parseInt(input)};
         } catch (Exception e) {
+            if (input.contains(","))
+                return getId(input.split(","));
             return PointManager.getGroupIds(input);
         }
     }
@@ -102,12 +104,16 @@ public class Points {
 
     public static int[] getId(Object input) {
         try {
-            return getId((int)input);
+            return new int[]{((Double)input).intValue()};
         } catch (Exception e) {
             try {
                 return getId((String)input);
             } catch (Exception e2) {
-                return new int[0];
+                try {
+                    return getId(((List)input).toArray());
+                } catch (Exception e3) {
+                    return new int[0];
+                }
             }
         }
     }
@@ -128,10 +134,16 @@ public class Points {
     }
 
     public static Point[] getPoint(int[] ids) {
-        Point[] points = new Point[ids.length];
-        for (int i = 0; i < ids.length; i++)
-            points[i] = PointManager.getPoint(ids[i]);
-        return points;
+        List<Point> points = new LinkedList<>();
+        for (int id : ids) {
+            Point point = PointManager.getPoint(id);
+            if (point == null || points.contains(point)) continue;
+            points.add(point);
+        }
+        Point[] array = new Point[points.size()];
+        for (int i = 0; i < points.size(); i++)
+            array[i] = points.get(i);
+        return array;
     }
 
     public static Point[] getPoint(String item) {
@@ -151,7 +163,7 @@ public class Points {
     }
 
     public static Location getPointLocation(Point point) {
-        return point.location();
+        return point == null ? null : point.location();
     }
 
     public static Location[] getPointLocation(Point[] points) {
