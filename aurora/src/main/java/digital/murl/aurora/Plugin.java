@@ -37,6 +37,8 @@ public final class Plugin extends JavaPlugin {
         RegionCheckCommand regionCheckCommand = new RegionCheckCommand(regionCommand);
         RegionDistributeCommand regionDistributeCommand = new RegionDistributeCommand(regionCommand);
 
+        AgentCommand agentsCommand = new AgentCommand();
+
         Aurora.commandController = new CommandController(this);
 
         Aurora.commandController.addCommand(pointCommand);
@@ -51,6 +53,8 @@ public final class Plugin extends JavaPlugin {
         Aurora.commandController.addCommand(regionRefreshCommand);
         Aurora.commandController.addCommand(regionCheckCommand);
         Aurora.commandController.addCommand(regionDistributeCommand);
+
+        Aurora.commandController.addCommand(agentsCommand);
 
         Aurora.registerRegionType("World",
             RegionWorld::mapConstructor,
