@@ -31,23 +31,32 @@ public class AgentManager {
 
     @Nullable
     public static String createAgent(String id, String agentName, Map<String, Object> params) {
-        Agent agent = getInstance(agentName);
-        if (agent == null) return null;
-
-        agent.init(params);
-        agentCache.put(id, agent);
-
-        return id;
+        return putAgent(id, agentName, params);
     }
 
     @Nullable
     public static String createAgent(String agentName, Map<String, Object> params) {
+        return putAgent(generateRandomString(), agentName, params);
+    }
+
+    @Nullable
+    private static String putAgent(String id, String agentName, Map<String, Object> params) {
+        CacheBehavior cacheBehavior = AgentRegistrar.getCacheBehavior(agentName);
+        if (cacheBehavior == null)
+            return null;
+        if (cacheBehavior == CacheBehavior.EPHEMERAL)
+            throw new IllegalArgumentException("You can't create an agent with an ephemeral cache behavior");
+
         Agent agent = getInstance(agentName);
         if (agent == null) return null;
 
         agent.init(params);
-        String id = generateRandomString();
-        agentCache.put(id, agent);
+        switch (cacheBehavior) {
+            case PERSISTENT:
+                activeAgents.put(id, agent);
+            case NORMAL:
+                agentCache.put(id, agent);
+        }
 
         return id;
     }
