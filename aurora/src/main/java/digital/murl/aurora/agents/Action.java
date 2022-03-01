@@ -1,8 +1,5 @@
 package digital.murl.aurora.agents;
 
-import com.google.gson.JsonObject;
-import digital.murl.aurora.agents.Agent;
-
 import java.util.Map;
 
 @FunctionalInterface

@@ -142,11 +142,15 @@ public class AgentManager {
                 if (wasCached) {
                     agentCache.invalidate(id);
                     activeAgents.put(id, agent);
+                } else {
+                    activeAgents.put(id, agent);
                 }
                 break;
             case INACTIVE:
                 if (!wasCached) {
                     activeAgents.remove(id);
+                    agentCache.put(id, agent);
+                } else {
                     agentCache.put(id, agent);
                 }
                 break;
