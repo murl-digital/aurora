@@ -4,7 +4,6 @@ import com.google.common.base.Throwables;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
-import digital.murl.aurora.Aurora;
 import digital.murl.aurora.Plugin;
 import org.jetbrains.annotations.Nullable;
 
