@@ -17,8 +17,8 @@ public class EffectRegistrar {
         effectActions = new ConcurrentHashMap<>();
     }
 
-    public static void addEffect(String name, Class<? extends Effect> agent, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
-        effects.put(name, agent);
+    public static void addEffect(String name, Class<? extends Effect> effect, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
+        effects.put(name, effect);
         effectCacheBehaviors.put(name, cacheBehavior);
         effectActions.put(name, actions);
     }

@@ -7,15 +7,13 @@ import digital.murl.aurora.effects.EffectRegistrar;
 import digital.murl.aurora.effects.CacheBehavior;
 import digital.murl.aurora.regions.*;
 import digital.murl.aurora.regions.distributors.RegionDistributor;
-import xyz.tozymc.spigot.api.command.CommandController;
 
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 @SuppressWarnings("unused")
 public class Aurora {
-    public static <T extends Effect> void registerEffect(String name, Class<T> agent, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
-        EffectRegistrar.addEffect(name, agent, actions, cacheBehavior);
+    public static <T extends Effect> void registerEffect(String name, Class<T> effect, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
+        EffectRegistrar.addEffect(name, effect, actions, cacheBehavior);
     }
 
     public static void registerRegionType(String type,
