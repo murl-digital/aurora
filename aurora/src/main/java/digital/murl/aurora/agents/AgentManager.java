@@ -12,8 +12,9 @@ public class AgentManager {
         agentActions = new ConcurrentHashMap<>();
     }
 
-    public static void registerAgent(String agentName, Agent agent) {
+    public static void registerAgent(String agentName, Agent agent, Map<String, Action> actions) {
         agents.put(agentName, agent);
+        agentActions.put(agentName, actions);
     }
 
     public static void executeAgentAction(String agentName, String actionName, Map<String, Object> params) {
