@@ -36,7 +36,7 @@ public class EffectRegistrar {
             return effectActions.get(agentName);
         }
 
-        return null;
+        return new HashMap<>();
     }
 
     public static CacheBehavior getCacheBehavior(String agentName) {

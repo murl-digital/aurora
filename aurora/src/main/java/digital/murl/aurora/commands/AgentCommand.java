@@ -3,7 +3,7 @@ package digital.murl.aurora.commands;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import digital.murl.aurora.agents.AgentManager;
-import digital.murl.aurora.effects.EffectManager;
+import digital.murl.aurora.agents.Agents;
 import digital.murl.aurora.effects.EffectRegistrar;
 import digital.murl.aurora.effects.Effects;
 import org.bukkit.command.CommandSender;
@@ -16,31 +16,31 @@ import xyz.tozymc.spigot.api.util.bukkit.permission.PermissionWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EffectCommand extends CombinedCommand {
-    public EffectCommand() {
-        super("effects");
+public class AgentCommand extends CombinedCommand {
+    public AgentCommand() {
+        super("agents");
     }
 
     @NotNull
     @Override
     public CommandResult onCommand(@NotNull CommandSender sender, @NotNull String[] params) {
-        if (params.length < 3) return CommandResult.WRONG_SYNTAX;
+        if (params.length < 2) return CommandResult.WRONG_SYNTAX;
 
-        Map<String, Object> effectParams = new HashMap<>();
+        Map<String, Object> agentParams = new HashMap<>();
 
         try {
             Gson gson = new Gson();
-            JsonObject json = gson.fromJson(params[3], JsonObject.class);
-            effectParams = gson.fromJson(json, HashMap.class);
+            JsonObject json = gson.fromJson(params[2], JsonObject.class);
+            agentParams = gson.fromJson(json, HashMap.class);
         } catch (Exception e) {
-            for (int i = 3; i < params.length; i++) {
+            for (int i = 2; i < params.length; i++) {
                 String[] tag = params[i].split("=");
                 if (tag.length < 2) continue;
-                effectParams.put(tag[0],tag[1]);
+                agentParams.put(tag[0],tag[1]);
             }
         }
 
-        if (Effects.executeEffectAction(params[0], params[1], params[2], effectParams) == null)
+        if (Agents.executeAgentAction(params[0], params[1], agentParams) == null)
             return CommandResult.FAILURE;
 
         return CommandResult.SUCCESS;
@@ -50,13 +50,10 @@ public class EffectCommand extends CombinedCommand {
     @Override
     public TabResult onTab(@NotNull CommandSender sender, @NotNull String[] params) {
         if (params.length == 1)
-            return TabResult.of("", EffectManager.getAllEffectInstances());
-
-        if (params.length == 2)
             return TabResult.of("", AgentManager.getAllAgentNames());
 
-        if (params.length == 3)
-            return TabResult.of("", EffectRegistrar.getEffectActions(params[1]).keySet());
+        if (params.length == 2)
+            return TabResult.of("", AgentManager.getAgentActions(params[1]).keySet());
 
         return TabResult.EMPTY_RESULT;
     }

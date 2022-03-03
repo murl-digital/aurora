@@ -8,6 +8,8 @@ import digital.murl.aurora.Plugin;
 import digital.murl.aurora.Result;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,6 +37,13 @@ public class EffectManager {
 
     public static Result createEffect(String effectName, Map<String, Object> params) {
         return putEffect(generateRandomString(), effectName, params);
+    }
+
+    public static String[] getAllEffectInstances() {
+        List<String> effects = new LinkedList<>();
+        effects.addAll(activeEffects.keySet());
+        effects.addAll(effectCache.asMap().keySet());
+        return (String[]) effects.stream().toArray();
     }
 
     private static Result putEffect(String id, String effectName, Map<String, Object> params) {

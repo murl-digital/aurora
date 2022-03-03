@@ -1,6 +1,7 @@
 package digital.murl.aurora.agents;
 
 import digital.murl.aurora.Result;
+import digital.murl.aurora.effects.EffectAction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AgentManager {
     private static final ConcurrentHashMap<String, Agent> agents;
-    private static final ConcurrentHashMap<String, Map<String, AgentAction>> agentActions;
+    private static final ConcurrentHashMap<String, HashMap<String, AgentAction>> agentActions;
     private static final ConcurrentHashMap<String, HashMap<String, String>> agentActionSchemas;
 
     static {
@@ -17,7 +18,7 @@ public class AgentManager {
         agentActionSchemas = new ConcurrentHashMap<>();
     }
 
-    public static void registerAgent(String agentName, Agent agent, Map<String, AgentAction> actions, HashMap<String, String> actionSchemas) {
+    public static void registerAgent(String agentName, Agent agent, HashMap<String, AgentAction> actions, HashMap<String, String> actionSchemas) {
         agents.put(agentName, agent);
         agentActions.put(agentName, actions);
         agentActionSchemas.put(agentName, actionSchemas);
@@ -34,6 +35,14 @@ public class AgentManager {
             return new Result(Result.Outcome.INVALID_ARGS, String.format("Action with name %s doesn't exist for agent %s", actionName, agentName));
 
         return actions.get(agentName).apply(agent, params);
+    }
+
+    public static HashMap<String, AgentAction> getAgentActions(String agentName) {
+        if (agentActions.containsKey(agentName)) {
+            return agentActions.get(agentName);
+        }
+
+        return new HashMap<>();
     }
 
     public static HashMap<String, String> getSchemas(String agentName) {
