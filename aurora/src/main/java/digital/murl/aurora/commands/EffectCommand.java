@@ -14,9 +14,9 @@ import xyz.tozymc.spigot.api.util.bukkit.permission.PermissionWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AgentCommand  extends CombinedCommand {
-    public AgentCommand() {
-        super("agents");
+public class EffectCommand extends CombinedCommand {
+    public EffectCommand() {
+        super("effects");
     }
 
     @NotNull
@@ -24,21 +24,21 @@ public class AgentCommand  extends CombinedCommand {
     public CommandResult onCommand(@NotNull CommandSender sender, @NotNull String[] params) {
         if (params.length < 3) return CommandResult.WRONG_SYNTAX;
 
-        Map<String, Object> agentParams = new HashMap<>();
+        Map<String, Object> effectParams = new HashMap<>();
 
         try {
             Gson gson = new Gson();
             JsonObject json = gson.fromJson(params[3], JsonObject.class);
-            agentParams = gson.fromJson(json, HashMap.class);
+            effectParams = gson.fromJson(json, HashMap.class);
         } catch (Exception e) {
             for (int i = 3; i < params.length; i++) {
                 String[] tag = params[i].split("=");
                 if (tag.length < 2) continue;
-                agentParams.put(tag[0],tag[1]);
+                effectParams.put(tag[0],tag[1]);
             }
         }
 
-        if (Effects.executeEffectAction(params[0], params[1], params[2], agentParams) == null)
+        if (Effects.executeEffectAction(params[0], params[1], params[2], effectParams) == null)
             return CommandResult.FAILURE;
 
         return CommandResult.SUCCESS;

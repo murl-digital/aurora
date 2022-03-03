@@ -96,6 +96,7 @@ public class RegionManager {
         if (!regionsFile.exists()) {
             try {
                 FileWriter writer = new FileWriter(regionsFile);
+                writer.write("[]");
                 writer.close();
             } catch (IOException e){
                 Plugin.logger.warning("Couldn't create points file: " + e.getMessage());
