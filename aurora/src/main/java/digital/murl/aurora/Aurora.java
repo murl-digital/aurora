@@ -9,16 +9,15 @@ import digital.murl.aurora.regions.*;
 import digital.murl.aurora.regions.distributors.RegionDistributor;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("unused")
 public class Aurora {
-    public static <T extends Effect> void registerEffect(String name, Class<T> effect, HashMap<String, digital.murl.aurora.effects.Action> actions, CacheBehavior cacheBehavior) throws Exception {
-        EffectRegistrar.addEffect(name, effect, actions, cacheBehavior);
+    public static <T extends Effect> void registerEffect(String name, Class<T> effect, HashMap<String, digital.murl.aurora.effects.Action> actions, CacheBehavior cacheBehavior, HashMap<String, String> paramSchemas) throws Exception {
+        EffectRegistrar.addEffect(name, effect, actions, cacheBehavior, paramSchemas);
     }
 
-    public static void registerAgent(String name, Agent agent, HashMap<String, digital.murl.aurora.agents.Action> actions) {
-        AgentManager.registerAgent(name, agent, actions);
+    public static void registerAgent(String name, Agent agent, HashMap<String, digital.murl.aurora.agents.Action> actions, HashMap<String, String> paramSchemas) {
+        AgentManager.registerAgent(name, agent, actions, paramSchemas);
     }
 
     public static void registerRegionType(String type,
@@ -32,5 +31,27 @@ public class Aurora {
 
     public static void registerRegionDistributor(String type, RegionDistributor distributor) {
         Regions.addRegionDistributor(type, distributor);
+    }
+
+    public static HashMap<String, HashMap<String, String>> getEffectActionSchemas() {
+        HashMap<String, HashMap<String, String>> result = new HashMap<>();
+
+        for (String effectName :
+            EffectRegistrar.getAllEffectNames()) {
+            result.put(effectName, EffectRegistrar.getSchemas(effectName));
+        }
+
+        return result;
+    }
+
+    public static HashMap<String, HashMap<String, String>> getAgentActionSchemas() {
+        HashMap<String, HashMap<String, String>> result = new HashMap<>();
+
+        for (String agentName :
+            AgentManager.getAllAgentNames()) {
+            result.put(agentName, AgentManager.getSchemas(agentName));
+        }
+
+        return result;
     }
 }
