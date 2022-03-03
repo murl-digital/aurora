@@ -9,7 +9,6 @@ import digital.murl.aurora.Result;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -73,7 +72,7 @@ public class EffectManager {
         else
             wasCached = true;
 
-        Map<String, Action> actions = EffectRegistrar.getEffectActions(effectName);
+        Map<String, EffectAction> actions = EffectRegistrar.getEffectActions(effectName);
         CacheBehavior cacheBehavior = EffectRegistrar.getCacheBehavior(effectName);
         if (actions == null)
             return new Result(Result.Outcome.INVALID_ARGS, String.format("No actions exist for effect %s. Is the effect name correct?", effectName));
@@ -82,7 +81,7 @@ public class EffectManager {
         if (cacheBehavior == null)
             return new Result(Result.Outcome.NOT_FOUND, String.format("No cache behavior was found for effect %s. Is the effect name correct?", effectName));
 
-        Action.ActionResult result = actions.get(actionName).apply(effect, params);
+        EffectAction.ActionResult result = actions.get(actionName).apply(effect, params);
 
         if (cacheBehavior == CacheBehavior.PERSISTENT) {
             if (wasCached) {

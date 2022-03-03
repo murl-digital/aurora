@@ -1,15 +1,12 @@
 package digital.murl.aurora.effects;
 
-import com.google.common.base.Objects;
-
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class EffectRegistrar {
     private static final ConcurrentHashMap<String, Class<? extends Effect>> effects;
     private static final ConcurrentHashMap<String, CacheBehavior> effectCacheBehaviors;
-    private static final ConcurrentHashMap<String, HashMap<String, Action>> effectActions;
+    private static final ConcurrentHashMap<String, HashMap<String, EffectAction>> effectActions;
     private static final ConcurrentHashMap<String, HashMap<String, String>> effectActionSchemas;
 
     static {
@@ -19,7 +16,7 @@ public class EffectRegistrar {
         effectActionSchemas = new ConcurrentHashMap<>();
     }
 
-    public static void addEffect(String name, Class<? extends Effect> effect, HashMap<String, Action> actions, CacheBehavior cacheBehavior, HashMap<String, String> paramSchemas) throws Exception {
+    public static void addEffect(String name, Class<? extends Effect> effect, HashMap<String, EffectAction> actions, CacheBehavior cacheBehavior, HashMap<String, String> paramSchemas) throws Exception {
         effects.put(name, effect);
         effectCacheBehaviors.put(name, cacheBehavior);
         effectActions.put(name, actions);
@@ -34,7 +31,7 @@ public class EffectRegistrar {
         return null;
     }
 
-    public static HashMap<String, Action> getEffectActions(String agentName) {
+    public static HashMap<String, EffectAction> getEffectActions(String agentName) {
         if (effectActions.containsKey(agentName)) {
             return effectActions.get(agentName);
         }

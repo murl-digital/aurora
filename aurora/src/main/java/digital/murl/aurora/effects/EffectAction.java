@@ -5,7 +5,7 @@ import digital.murl.aurora.Result;
 import java.util.Map;
 
 @FunctionalInterface
-public interface Action<T extends Effect, H extends Map<String, Object>> {
+public interface EffectAction<T extends Effect, H extends Map<String, Object>> {
     /**
      * Applies an action to a given agent
      *
