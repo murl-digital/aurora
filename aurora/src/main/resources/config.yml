@@ -1,0 +1,5 @@
+effects:
+    # How long an effect stays unaccessed in the cache (in seconds)*
+    # *This doesn't necessarily mean that effects will be evicted after the given duration exactly,
+    # the cache runs cleanup operations periodically during read and write operations
+    cacheDuration: 60
