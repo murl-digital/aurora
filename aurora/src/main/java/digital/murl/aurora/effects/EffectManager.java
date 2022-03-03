@@ -155,6 +155,20 @@ public class EffectManager {
         return id;
     }
 
+    public static void shutDown() {
+        activeEffects.forEach((i, e) -> {
+            Plugin.logger.info(String.format("Shutting down effect %s...", i));
+            e.cleanup();
+        });
+        activeEffects.clear();
+        effectCache.cleanUp();
+        effectCache.asMap().forEach((i, e) -> {
+            Plugin.logger.info(String.format("Shutting down effect %s...", i));
+            e.cleanup();
+        });
+        effectCache.invalidateAll();
+    }
+
     @Nullable
     private static Effect getInstance(String agentName) {
         Effect effect;

@@ -4,6 +4,7 @@ import com.dslplatform.json.DslJson;
 import com.dslplatform.json.JsonWriter;
 import com.dslplatform.json.runtime.Settings;
 import digital.murl.aurora.commands.*;
+import digital.murl.aurora.effects.EffectManager;
 import digital.murl.aurora.points.Points;
 import digital.murl.aurora.regions.*;
 import digital.murl.aurora.regions.distributors.*;
@@ -25,7 +26,6 @@ public final class Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
         plugin = this;
         logger = getLogger();
         logger.info("hello there.");
@@ -129,6 +129,6 @@ public final class Plugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        EffectManager.shutDown();
     }
 }
