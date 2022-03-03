@@ -10,17 +10,20 @@ public class EffectRegistrar {
     private static final ConcurrentHashMap<String, Class<? extends Effect>> effects;
     private static final ConcurrentHashMap<String, CacheBehavior> effectCacheBehaviors;
     private static final ConcurrentHashMap<String, HashMap<String, Action>> effectActions;
+    private static final ConcurrentHashMap<String, HashMap<String, String>> effectActionSchemas;
 
     static {
         effects = new ConcurrentHashMap<>();
         effectCacheBehaviors = new ConcurrentHashMap<>();
         effectActions = new ConcurrentHashMap<>();
+        effectActionSchemas = new ConcurrentHashMap<>();
     }
 
-    public static void addEffect(String name, Class<? extends Effect> effect, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
+    public static void addEffect(String name, Class<? extends Effect> effect, HashMap<String, Action> actions, CacheBehavior cacheBehavior, HashMap<String, String> paramSchemas) throws Exception {
         effects.put(name, effect);
         effectCacheBehaviors.put(name, cacheBehavior);
         effectActions.put(name, actions);
+        effectActionSchemas.put(name, paramSchemas);
     }
 
     public static Effect getEffect(String name) throws InstantiationException, IllegalAccessException {
@@ -47,17 +50,11 @@ public class EffectRegistrar {
         return null;
     }
 
-    public static HashMap<String, Action> getEffectActions(Class<? extends Effect> agentClass) {
-        String name = effects
-            .entrySet()
-            .stream()
-            .filter(entry -> Objects.equal(entry.getValue(), agentClass))
-            .map(Map.Entry::getKey)
-            .findFirst()
-            .orElse("");
+    public static HashMap<String, String> getSchemas(String effectName) {
+        return effectActionSchemas.get(effectName);
+    }
 
-        if (name.equals("")) return null;
-
-        return getEffectActions(name);
+    public static String[] getAllEffectNames() {
+        return (String[]) effects.keySet().stream().toArray();
     }
 }
