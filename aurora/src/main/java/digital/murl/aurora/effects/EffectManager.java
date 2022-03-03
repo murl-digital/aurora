@@ -5,6 +5,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
 import digital.murl.aurora.Plugin;
+import digital.murl.aurora.Result;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -29,26 +30,28 @@ public class EffectManager {
             .build();
     }
 
-    @Nullable
-    public static String createEffect(String id, String effectName, Map<String, Object> params) {
+    public static Result createEffect(String id, String effectName, Map<String, Object> params) {
         return putEffect(id, effectName, params);
     }
 
-    @Nullable
-    public static String createEffect(String effectName, Map<String, Object> params) {
+    public static Result createEffect(String effectName, Map<String, Object> params) {
         return putEffect(generateRandomString(), effectName, params);
     }
 
-    @Nullable
-    private static String putEffect(String id, String effectName, Map<String, Object> params) {
+    private static Result putEffect(String id, String effectName, Map<String, Object> params) {
         CacheBehavior cacheBehavior = EffectRegistrar.getCacheBehavior(effectName);
         if (cacheBehavior == null)
-            return null;
+            return new Result(Result.Outcome.NOT_FOUND, String.format("No effect with name %s exists", effectName));
 
         Effect effect = getInstance(effectName);
-        if (effect == null) return null;
+        if (effect == null)
+            return new Result(Result.Outcome.NOT_FOUND, String.format("No effect with name %s exists", effectName));
 
-        effect.init(params);
+        Result result = effect.init(params);
+
+        if (result.outcome != Result.Outcome.SUCCESS)
+            return result;
+
         switch (cacheBehavior) {
             case PERSISTENT:
                 activeEffects.put(id, effect);
@@ -56,68 +59,30 @@ public class EffectManager {
                 effectCache.put(id, effect);
         }
 
-        return id;
+        return new Result(Result.Outcome.SUCCESS, id);
     }
 
-    public static String executeEffectAction(String effectName, String actionName, Map<String, Object> params) {
-        Effect effect = getInstance(effectName);
-        Map<String, Action> actions = EffectRegistrar.getEffectActions(effectName);
-        if (effect == null || actions == null)
-            return null;
-        if (!actions.containsKey(actionName))
-            return null;
-
-        CacheBehavior cacheBehavior = EffectRegistrar.getCacheBehavior(effectName);
-
-        String id = "";
-        effect.init(params);
-        Action.Result result = actions.get(actionName).apply(effect, params);
-
-        switch (Objects.requireNonNull(cacheBehavior)) {
-            case PERSISTENT:
-                id = generateRandomString();
-                activeEffects.put(id, effect);
-                break;
-            case NORMAL:
-                id = generateRandomString();
-                switch (result) {
-                    case DEFAULT:
-                    case ACTIVE:
-                        activeEffects.put(id, effect);
-                        break;
-                    case INACTIVE:
-                        effectCache.put(id, effect);
-                        break;
-                }
-        }
-
-        return id;
-    }
-
-    public static String executeEffectAction(String id, String effectName, String actionName, Map<String, Object> params) {
+    public static Result executeEffectAction(String id, String effectName, String actionName, Map<String, Object> params) {
         Effect effect;
         boolean wasCached = false;
-        if (!effectCache.asMap().containsKey(id) && !activeEffects.containsKey(id)) {
-            effect = getInstance(effectName);
-            if (effect == null)
-                return null;
-            effect.init(params);
-        } else {
-            effect = effectCache.getIfPresent(id);
-            if (effect == null)
-                effect = activeEffects.get(id);
-            else
-                wasCached = true;
-        }
+        if (!effectCache.asMap().containsKey(id) && !activeEffects.containsKey(id))
+            return new Result(Result.Outcome.NOT_FOUND, String.format("No effect with is %s currently exists", id));
+        effect = effectCache.getIfPresent(id);
+        if (effect == null)
+            effect = activeEffects.get(id);
+        else
+            wasCached = true;
 
         Map<String, Action> actions = EffectRegistrar.getEffectActions(effectName);
         CacheBehavior cacheBehavior = EffectRegistrar.getCacheBehavior(effectName);
-        if (actions == null || !actions.containsKey(actionName))
-            return null;
+        if (actions == null)
+            return new Result(Result.Outcome.INVALID_ARGS, String.format("No actions exist for effect %s. Is the effect name correct?", effectName));
+        if (!actions.containsKey(actionName))
+            return new Result(Result.Outcome.INVALID_ARGS, String.format("Action %s does not exist for effect %s", effectName, actionName));
         if (cacheBehavior == null)
-            return null;
+            return new Result(Result.Outcome.NOT_FOUND, String.format("No cache behavior was found for effect %s. Is the effect name correct?", effectName));
 
-        Action.Result result = actions.get(actionName).apply(effect, params);
+        Action.ActionResult result = actions.get(actionName).apply(effect, params);
 
         if (cacheBehavior == CacheBehavior.PERSISTENT) {
             if (wasCached) {
@@ -126,10 +91,10 @@ public class EffectManager {
                 activeEffects.put(id, effect);
             }
 
-            return id;
+            return result;
         }
 
-        switch (result) {
+        switch (result.activeState) {
             case ACTIVE:
                 if (wasCached) {
                     effectCache.invalidate(id);
@@ -151,7 +116,7 @@ public class EffectManager {
                 break;
         }
 
-        return id;
+        return result;
     }
 
     public static void shutDown() {
@@ -179,7 +144,7 @@ public class EffectManager {
         }
 
         if (effect == null) {
-            Plugin.logger.warning(String.format("Attempted to create an agent of type %s that doesn't exist", agentName));
+            Plugin.logger.warning(String.format("Attempted to create an effect of type %s that doesn't exist", agentName));
             return null;
         }
         return effect;
