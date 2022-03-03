@@ -22,10 +22,10 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
 
-    implementation 'com.alibaba:fastjson:1.2.78'
+    implementation 'com.dslplatform:dsl-json-java8:1.9.9'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.google.guava:guava:31.1-jre'
     implementation 'xyz.tozymc.spigot:commands-api:2.2'
-
-    implementation 'com.dslplatform:dsl-json-java8:1.9.8'
 }
 
 def targetJavaVersion = 8
