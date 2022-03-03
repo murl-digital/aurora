@@ -8,6 +8,7 @@ import digital.murl.aurora.effects.EffectManager;
 import digital.murl.aurora.points.Points;
 import digital.murl.aurora.regions.*;
 import digital.murl.aurora.regions.distributors.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.tozymc.spigot.api.command.CommandController;
 
@@ -20,6 +21,7 @@ import java.util.stream.Stream;
 public final class Plugin extends JavaPlugin {
     public static Logger logger;
     public static Plugin plugin;
+    public static FileConfiguration config;
     public static DslJson<Object> dslJson;
 
     static CommandController commandController;
@@ -80,8 +82,11 @@ public final class Plugin extends JavaPlugin {
         Aurora.registerRegionDistributor("SphereSurfaceFibonacci", SphereDistributor::surfaceFibonacci);
 
         if (getDataFolder().mkdirs()) {
-
+            logger.info("creating default config...");
+            saveDefaultConfig();
         }
+
+        config = getConfig();
 
         logger.info("loading points...");
         try {

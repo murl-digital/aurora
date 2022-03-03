@@ -25,7 +25,7 @@ public class EffectManager {
     static {
         activeEffects = new ConcurrentHashMap<>();
         effectCache = CacheBuilder.newBuilder()
-            .expireAfterAccess(60, TimeUnit.SECONDS)
+            .expireAfterAccess(Plugin.config.getInt("effects.cacheDuration"), TimeUnit.SECONDS)
             .removalListener(listener)
             .build();
     }
