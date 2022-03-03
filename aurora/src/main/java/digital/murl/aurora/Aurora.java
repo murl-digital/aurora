@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@SuppressWarnings("unused")
 public class Aurora {
     public static Logger logger;
     public static Plugin plugin;
