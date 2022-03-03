@@ -1,6 +1,7 @@
 package digital.murl.aurora;
 
-import com.dslplatform.json.DslJson;
+import digital.murl.aurora.agents.Agent;
+import digital.murl.aurora.agents.AgentManager;
 import digital.murl.aurora.effects.Action;
 import digital.murl.aurora.effects.Effect;
 import digital.murl.aurora.effects.EffectRegistrar;
@@ -14,6 +15,10 @@ import java.util.HashMap;
 public class Aurora {
     public static <T extends Effect> void registerEffect(String name, Class<T> effect, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
         EffectRegistrar.addEffect(name, effect, actions, cacheBehavior);
+    }
+
+    public static void registerAgent(String name, Agent agent) {
+        AgentManager.registerAgent(name, agent);
     }
 
     public static void registerRegionType(String type,
