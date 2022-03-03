@@ -1,9 +1,11 @@
-package digital.murl.aurora.agents;
+package digital.murl.aurora.effects;
+
+import digital.murl.aurora.effects.Effect;
 
 import java.util.Map;
 
 @FunctionalInterface
-public interface Action<T extends Agent, H extends Map<String, Object>> {
+public interface Action<T extends Effect, H extends Map<String, Object>> {
     /**
      * Applies an action to a given agent
      *

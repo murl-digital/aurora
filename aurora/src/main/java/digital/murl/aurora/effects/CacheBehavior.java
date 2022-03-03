@@ -1,4 +1,4 @@
-package digital.murl.aurora.agents;
+package digital.murl.aurora.effects;
 
 public enum CacheBehavior {
     /**
@@ -9,9 +9,5 @@ public enum CacheBehavior {
     /**
      * Persistent agents will remain until the plugin unloads. They will not be cleared before then.
      */
-    PERSISTENT,
-    /**
-     * When an agent action is called, a one off agent is created for executing that action, it is not cached.
-     */
-    EPHEMERAL
+    PERSISTENT
 }

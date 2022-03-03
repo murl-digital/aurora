@@ -1,31 +1,27 @@
 package digital.murl.aurora;
 
 import com.dslplatform.json.DslJson;
-import digital.murl.aurora.agents.*;
+import digital.murl.aurora.effects.Action;
+import digital.murl.aurora.effects.Effect;
+import digital.murl.aurora.effects.EffectRegistrar;
+import digital.murl.aurora.effects.CacheBehavior;
 import digital.murl.aurora.regions.*;
 import digital.murl.aurora.regions.distributors.RegionDistributor;
 import xyz.tozymc.spigot.api.command.CommandController;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 @SuppressWarnings("unused")
 public class Aurora {
-    public static Logger logger;
-    public static Plugin plugin;
-    public static DslJson<Object> dslJson;
-
-    static CommandController commandController;
-
-    public static <T extends Agent> void registerAgent(String name, Class<T> agent, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
-        AgentRegistrar.addAgent(name, agent, actions, cacheBehavior);
+    public static <T extends Effect> void registerEffect(String name, Class<T> agent, HashMap<String, Action> actions, CacheBehavior cacheBehavior) throws Exception {
+        EffectRegistrar.addEffect(name, agent, actions, cacheBehavior);
     }
 
     public static void registerRegionType(String type,
-                                      RegionMapConstructor mapConstructor,
-                                      RegionParameterConstructor parameterConstructor,
-                                      RegionParameterCompleter parameterCompleter) {
+                                          RegionMapConstructor mapConstructor,
+                                          RegionParameterConstructor parameterConstructor,
+                                          RegionParameterCompleter parameterCompleter) {
         Regions.addMapConstructor(type, mapConstructor);
         Regions.addParameterConstructor(type, parameterConstructor);
         Regions.addParameterCompleter(type, parameterCompleter);

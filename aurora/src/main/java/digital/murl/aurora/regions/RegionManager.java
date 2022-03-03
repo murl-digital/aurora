@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import digital.murl.aurora.Aurora;
+import digital.murl.aurora.Plugin;
 import digital.murl.aurora.regions.distributors.RegionDistributor;
 
 import java.io.*;
@@ -21,10 +21,10 @@ public class RegionManager {
     private static File regionsFile;
 
     public static void load() throws IOException {
-        if (!Aurora.plugin.getDataFolder().exists())
+        if (!Plugin.plugin.getDataFolder().exists())
             throw new IllegalStateException("The aurora data folder doesn't exist");
 
-        regionsFile = new File(Aurora.plugin.getDataFolder(), "regions.json");
+        regionsFile = new File(Plugin.plugin.getDataFolder(), "regions.json");
 
         refresh();
     }
@@ -98,7 +98,7 @@ public class RegionManager {
                 FileWriter writer = new FileWriter(regionsFile);
                 writer.close();
             } catch (IOException e){
-                Aurora.logger.warning("Couldn't create points file: " + e.getMessage());
+                Plugin.logger.warning("Couldn't create points file: " + e.getMessage());
             }
             return;
         }
@@ -114,7 +114,7 @@ public class RegionManager {
                 if (mapConstructors.containsKey(regionType.toLowerCase()))
                     addRegion(mapConstructors.get(regionType.toLowerCase()).regionConstructor(object));
                 else {
-                    Aurora.logger.warning(String.format("Failed to load region of type [%s], storing in background.", regionType));
+                    Plugin.logger.warning(String.format("Failed to load region of type [%s], storing in background.", regionType));
                     failedRegions.add(element.getAsJsonObject());
                 }
             }
@@ -123,9 +123,9 @@ public class RegionManager {
 
             saveRegions();
         } catch (IOException e) {
-            Aurora.logger.warning("Couldn't load regions from disk: " + e.getMessage());
+            Plugin.logger.warning("Couldn't load regions from disk: " + e.getMessage());
         } catch (Exception e) {
-            Aurora.logger.warning("Something unexpected happened: " + e.getMessage());
+            Plugin.logger.warning("Something unexpected happened: " + e.getMessage());
         }
     }
 
@@ -151,7 +151,7 @@ public class RegionManager {
             writer.write(jsonString);
             writer.close();
         } catch (IOException e) {
-            Aurora.logger.warning("Couldn't save regions to disk: " + e.getMessage());
+            Plugin.logger.warning("Couldn't save regions to disk: " + e.getMessage());
         }
     }
 }

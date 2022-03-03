@@ -12,17 +12,23 @@ import xyz.tozymc.spigot.api.command.CommandController;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class Plugin extends JavaPlugin {
+    public static Logger logger;
+    public static Plugin plugin;
+    public static DslJson<Object> dslJson;
+
+    static CommandController commandController;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        Aurora.plugin = this;
-        Aurora.logger = getLogger();
-        Aurora.logger.info("hello there.");
+        plugin = this;
+        logger = getLogger();
+        logger.info("hello there.");
 
         PointCommand pointCommand = new PointCommand();
         PointAddCommand pointAddCommand = new PointAddCommand(pointCommand);
@@ -39,22 +45,22 @@ public final class Plugin extends JavaPlugin {
 
         AgentCommand agentsCommand = new AgentCommand();
 
-        Aurora.commandController = new CommandController(this);
+        commandController = new CommandController(this);
 
-        Aurora.commandController.addCommand(pointCommand);
-        Aurora.commandController.addCommand(pointAddCommand);
-        Aurora.commandController.addCommand(pointRemoveCommand);
-        Aurora.commandController.addCommand(pointRefreshCommand);
-        Aurora.commandController.addCommand(pointGroupsCommand);
+        commandController.addCommand(pointCommand);
+        commandController.addCommand(pointAddCommand);
+        commandController.addCommand(pointRemoveCommand);
+        commandController.addCommand(pointRefreshCommand);
+        commandController.addCommand(pointGroupsCommand);
 
-        Aurora.commandController.addCommand(regionCommand);
-        Aurora.commandController.addCommand(regionAddCommand);
-        Aurora.commandController.addCommand(regionRemoveCommand);
-        Aurora.commandController.addCommand(regionRefreshCommand);
-        Aurora.commandController.addCommand(regionCheckCommand);
-        Aurora.commandController.addCommand(regionDistributeCommand);
+        commandController.addCommand(regionCommand);
+        commandController.addCommand(regionAddCommand);
+        commandController.addCommand(regionRemoveCommand);
+        commandController.addCommand(regionRefreshCommand);
+        commandController.addCommand(regionCheckCommand);
+        commandController.addCommand(regionDistributeCommand);
 
-        Aurora.commandController.addCommand(agentsCommand);
+        commandController.addCommand(agentsCommand);
 
         Aurora.registerRegionType("World",
             RegionWorld::mapConstructor,
@@ -77,24 +83,24 @@ public final class Plugin extends JavaPlugin {
 
         }
 
-        Aurora.logger.info("loading points...");
+        logger.info("loading points...");
         try {
             Points.load();
         } catch (IOException e) {
-            Aurora.logger.severe("Failed to load points: " + e.getMessage());
+            logger.severe("Failed to load points: " + e.getMessage());
         }
 
-        Aurora.logger.info("loading regions...");
+        logger.info("loading regions...");
         try {
             Regions.load();
         } catch (IOException e) {
-            Aurora.logger.severe("Failed to load regions: " + e.getMessage());
+            logger.severe("Failed to load regions: " + e.getMessage());
         }
 
-        Aurora.logger.info("warming up DSL-JSON...");
+        logger.info("warming up DSL-JSON...");
         try {
-            Aurora.dslJson = new DslJson<>(Settings.withRuntime().includeServiceLoader());
-            JsonWriter writer = Aurora.dslJson.newWriter();
+            dslJson = new DslJson<>(Settings.withRuntime().includeServiceLoader());
+            JsonWriter writer = dslJson.newWriter();
 
             for (int i = 0; i < 10000; i++) {
                 HashMap<Object, Object> test = new HashMap<>();
@@ -107,17 +113,17 @@ public final class Plugin extends JavaPlugin {
                 if (i % 2 == 0)
                     test.put("sneaky bastard", 69);
 
-                Aurora.dslJson.serialize(writer, test);
+                dslJson.serialize(writer, test);
                 byte[] buffer = writer.getByteBuffer();
                 int size = writer.size();
 
-                HashMap<Object, Object> test2 = (HashMap<Object, Object>) Aurora.dslJson.deserialize(HashMap.class, buffer, size);
+                HashMap<Object, Object> test2 = (HashMap<Object, Object>) dslJson.deserialize(HashMap.class, buffer, size);
 
                 writer.reset();
             }
 
         } catch (Exception e) {
-            Aurora.logger.warning(e.getMessage());
+            logger.warning(e.getMessage());
         }
     }
 

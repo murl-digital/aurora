@@ -1,6 +1,6 @@
 package digital.murl.aurora.commands;
 
-import digital.murl.aurora.Aurora;
+import digital.murl.aurora.Plugin;
 import digital.murl.aurora.points.Points;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +27,7 @@ public class PointRefreshCommand extends PlayerCommand {
         try {
             Points.refresh();
         } catch (IOException e) {
-            Aurora.logger.warning("Refresh failed: " + e.getMessage());
+            Plugin.logger.warning("Refresh failed: " + e.getMessage());
         }
 
         return CommandResult.SUCCESS;

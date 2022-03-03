@@ -1,6 +1,6 @@
 package digital.murl.aurora.points;
 
-import digital.murl.aurora.Aurora;
+import digital.murl.aurora.Plugin;
 import org.bukkit.Location;
 
 import java.io.*;
@@ -13,10 +13,10 @@ public class PointManager {
     private static int pointCursor;
 
     public static void load() throws IOException {
-        if (!Aurora.plugin.getDataFolder().exists())
+        if (!Plugin.plugin.getDataFolder().exists())
             throw new IllegalStateException("The aurora data folder doesn't exist");
 
-        pointsFile = new File(Aurora.plugin.getDataFolder(), "points.csv");
+        pointsFile = new File(Plugin.plugin.getDataFolder(), "points.csv");
 
         refresh();
     }
@@ -81,7 +81,7 @@ public class PointManager {
                 FileWriter writer = new FileWriter(pointsFile);
                 writer.close();
             } catch (IOException e){
-                Aurora.logger.warning("Couldn't create points file: " + e.getMessage());
+                Plugin.logger.warning("Couldn't create points file: " + e.getMessage());
             }
             return;
         }
@@ -102,7 +102,7 @@ public class PointManager {
 
                 String[] data = row.split(",");
                 if (data.length < 4) {
-                    Aurora.logger.warning("Missing data for point " + id);
+                    Plugin.logger.warning("Missing data for point " + id);
                     points.add(null);
                     continue;
                 }
@@ -116,7 +116,7 @@ public class PointManager {
                         Double.parseDouble(data[3])
                     ));
                 } catch (Exception e) {
-                    Aurora.logger.warning("Encountered an error while parsing data for point " + id);
+                    Plugin.logger.warning("Encountered an error while parsing data for point " + id);
                     points.add(null);
                     continue;
                 }
@@ -130,9 +130,9 @@ public class PointManager {
             savePoints();
 
         } catch (IOException e) {
-            Aurora.logger.warning("Couldn't load points from disk: " + e.getMessage());
+            Plugin.logger.warning("Couldn't load points from disk: " + e.getMessage());
         } catch (Exception e) {
-            Aurora.logger.warning("Something unexpected happened: " + e.getMessage());
+            Plugin.logger.warning("Something unexpected happened: " + e.getMessage());
         }
     }
 
@@ -159,7 +159,7 @@ public class PointManager {
             writer.write(data);
             writer.close();
         } catch (IOException e) {
-            Aurora.logger.warning("Couldn't save points to disk: " + e.getMessage());
+            Plugin.logger.warning("Couldn't save points to disk: " + e.getMessage());
         }
     }
 }

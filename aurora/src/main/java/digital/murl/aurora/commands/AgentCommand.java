@@ -2,8 +2,8 @@ package digital.murl.aurora.commands;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import digital.murl.aurora.agents.AgentRegistrar;
-import digital.murl.aurora.agents.Agents;
+import digital.murl.aurora.effects.EffectRegistrar;
+import digital.murl.aurora.effects.Effects;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import xyz.tozymc.spigot.api.command.CombinedCommand;
@@ -38,7 +38,7 @@ public class AgentCommand  extends CombinedCommand {
             }
         }
 
-        if (Agents.executeAgentAction(params[0], params[1], params[2], agentParams) == null)
+        if (Effects.executeEffectAction(params[0], params[1], params[2], agentParams) == null)
             return CommandResult.FAILURE;
 
         return CommandResult.SUCCESS;
@@ -49,7 +49,7 @@ public class AgentCommand  extends CombinedCommand {
     public TabResult onTab(@NotNull CommandSender sender, @NotNull String[] params) {
         if (params.length != 3) return TabResult.EMPTY_RESULT;
         try {
-            return TabResult.of("", AgentRegistrar.getAgentActions(params[1]).keySet());
+            return TabResult.of("", EffectRegistrar.getEffectActions(params[1]).keySet());
         } catch (Exception e) {
             return TabResult.EMPTY_RESULT;
         }
