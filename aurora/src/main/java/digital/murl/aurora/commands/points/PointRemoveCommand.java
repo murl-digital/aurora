@@ -17,19 +17,6 @@ public class PointRemoveCommand extends PlayerCommand {
     @NotNull
     @Override
     public CommandResult onCommand(@NotNull Player sender, @NotNull String[] params) {
-//        for (String param : params) {
-//            try {
-//                int id = Integer.parseInt(param);
-//                Points.remove(id);
-//            } catch (Exception e) {
-//                try {
-//                    for (int id : Points.getGroupIds(param))
-//                        Points.remove(id);
-//                } catch (Exception e2) {
-//                    sender.spigot().sendMessage(new ComponentBuilder().append(String.format("Couldn't parse %s", param)).color(ChatColor.RED).create());
-//                }
-//            }
-//        }
         Points.remove(params);
         Points.save();
 
