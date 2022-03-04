@@ -52,6 +52,8 @@ public final class Plugin extends JavaPlugin {
         commandController.addCommand(new RegionCheckCommand(regionCommand));
         commandController.addCommand(new RegionDistributeCommand(regionCommand));
 
+        commandController.addCommand(new AgentCommand());
+        commandController.addCommand(new EffectCommand());
         commandController.addCommand(new EffectCommand());
 
         Aurora.registerRegionType("World",
