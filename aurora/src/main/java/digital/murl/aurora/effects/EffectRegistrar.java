@@ -1,5 +1,9 @@
 package digital.murl.aurora.effects;
 
+import com.google.common.base.Throwables;
+import digital.murl.aurora.Plugin;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,9 +27,9 @@ public class EffectRegistrar {
         effectActionSchemas.put(name, paramSchemas);
     }
 
-    public static Effect getEffect(String name) throws InstantiationException, IllegalAccessException {
+    public static Effect getEffect(String name) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         if (effects.containsKey(name)) {
-            return effects.get(name).newInstance();
+            return effects.get(name).getDeclaredConstructor().newInstance();
         }
 
         return null;
