@@ -2,10 +2,10 @@ package digital.murl.aurora.commands;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import digital.murl.aurora.Plugin;
+import digital.murl.aurora.Result;
 import digital.murl.aurora.agents.AgentManager;
 import digital.murl.aurora.agents.Agents;
-import digital.murl.aurora.effects.EffectRegistrar;
-import digital.murl.aurora.effects.Effects;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import xyz.tozymc.spigot.api.command.CombinedCommand;
@@ -13,8 +13,10 @@ import xyz.tozymc.spigot.api.command.result.CommandResult;
 import xyz.tozymc.spigot.api.command.result.TabResult;
 import xyz.tozymc.spigot.api.util.bukkit.permission.PermissionWrapper;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class AgentCommand extends CombinedCommand {
     public AgentCommand() {
@@ -28,22 +30,26 @@ public class AgentCommand extends CombinedCommand {
 
         Map<String, Object> agentParams = new HashMap<>();
 
+        String rawJson = String.join(" ", Arrays.copyOfRange(params, 2, params.length));
         try {
             Gson gson = new Gson();
-            JsonObject json = gson.fromJson(params[2], JsonObject.class);
+            JsonObject json = gson.fromJson(rawJson, JsonObject.class);
             agentParams = gson.fromJson(json, HashMap.class);
         } catch (Exception e) {
+            Plugin.logger.log(Level.WARNING, "Could not deserialize agent json payload: ", e);
+            Plugin.logger.log(Level.WARNING, "JSON: " + rawJson);
+
             for (int i = 2; i < params.length; i++) {
                 String[] tag = params[i].split("=");
                 if (tag.length < 2) continue;
-                agentParams.put(tag[0],tag[1]);
+                agentParams.put(tag[0], tag[1]);
             }
         }
 
-        if (Agents.executeAgentAction(params[0], params[1], agentParams) == null)
-            return CommandResult.FAILURE;
+        Result result = Agents.executeAgentAction(params[0], params[1], agentParams);
+        sender.sendMessage(result.outcome.toString() + ": " + result.message);
 
-        return CommandResult.SUCCESS;
+        return result.outcome == Result.Outcome.SUCCESS ? CommandResult.SUCCESS : CommandResult.FAILURE;
     }
 
     @NotNull
@@ -53,7 +59,7 @@ public class AgentCommand extends CombinedCommand {
             return TabResult.of("", AgentManager.getAllAgentNames());
 
         if (params.length == 2)
-            return TabResult.of("", AgentManager.getAgentActions(params[1]).keySet());
+            return TabResult.of("", AgentManager.getAgentActions(params[0]).keySet());
 
         return TabResult.EMPTY_RESULT;
     }
@@ -61,18 +67,18 @@ public class AgentCommand extends CombinedCommand {
     @NotNull
     @Override
     public PermissionWrapper getPermission() {
-        return PermissionWrapper.of("test");
+        return PermissionWrapper.of("test"); // fixme
     }
 
     @NotNull
     @Override
     public String getSyntax() {
-        return "test syntax";
+        return "/agents agent_name agent_action [payload]";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "test description";
+        return "Execute agent actions";
     }
 }

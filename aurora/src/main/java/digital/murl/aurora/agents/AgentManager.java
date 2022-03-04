@@ -34,7 +34,7 @@ public class AgentManager {
         if (!actions.containsKey(actionName))
             return new Result(Result.Outcome.INVALID_ARGS, String.format("Action with name %s doesn't exist for agent %s", actionName, agentName));
 
-        return actions.get(agentName).apply(agent, params);
+        return actions.get(actionName).apply(agent, params);
     }
 
     public static HashMap<String, AgentAction> getAgentActions(String agentName) {
@@ -50,6 +50,6 @@ public class AgentManager {
     }
 
     public static String[] getAllAgentNames() {
-        return (String[]) agents.keySet().stream().toArray();
+        return agents.keySet().toArray(new String[0]);
     }
 }
