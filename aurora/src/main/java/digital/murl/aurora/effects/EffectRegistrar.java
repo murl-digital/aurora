@@ -52,6 +52,6 @@ public class EffectRegistrar {
     }
 
     public static String[] getAllEffectNames() {
-        return (String[]) effects.keySet().stream().toArray();
+        return effects.keySet().toArray(new String[0]);
     }
 }

@@ -38,12 +38,6 @@ public class AgentCommand extends CombinedCommand {
         } catch (Exception e) {
             Plugin.logger.log(Level.WARNING, "Could not deserialize agent json payload: ", e);
             Plugin.logger.log(Level.WARNING, "JSON: " + rawJson);
-
-            for (int i = 2; i < params.length; i++) {
-                String[] tag = params[i].split("=");
-                if (tag.length < 2) continue;
-                agentParams.put(tag[0], tag[1]);
-            }
         }
 
         Result result = Agents.executeAgentAction(params[0], params[1], agentParams);
