@@ -44,7 +44,7 @@ public class EffectManager {
         List<String> effects = new LinkedList<>();
         effects.addAll(activeEffects.keySet());
         effects.addAll(effectCache.asMap().keySet());
-        return (String[]) effects.stream().toArray();
+        return effects.toArray(new String[0]);
     }
 
     private static Result putEffect(String id, String effectName, Map<String, Object> params) {
