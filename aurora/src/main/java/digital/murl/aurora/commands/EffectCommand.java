@@ -59,7 +59,7 @@ public class EffectCommand extends CombinedCommand {
             return TabResult.of("", EffectManager.getAllEffectInstances());
 
         if (params.length == 2)
-            return TabResult.of("", AgentManager.getAllAgentNames());
+            return TabResult.of("", EffectRegistrar.getAllEffectNames());
 
         if (params.length == 3)
             return TabResult.of("", EffectRegistrar.getEffectActions(params[1]).keySet());
