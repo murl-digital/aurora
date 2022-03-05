@@ -13,10 +13,10 @@ import java.util.*;
 
 public class RegionManager {
     private static Map<String, Region> regions;
-    private static Map<String, RegionMapConstructor> mapConstructors = new HashMap<>();
-    private static Map<String, RegionParameterConstructor> parameterConstructors = new HashMap<>();
-    private static Map<String, RegionParameterCompleter> parameterCompleters = new HashMap<>();
-    private static Map<String, RegionDistributor> regionDistributors = new HashMap<>();
+    private static final Map<String, RegionMapConstructor> mapConstructors = new HashMap<>();
+    private static final Map<String, RegionParameterConstructor> parameterConstructors = new HashMap<>();
+    private static final Map<String, RegionParameterCompleter> parameterCompleters = new HashMap<>();
+    private static final Map<String, RegionDistributor> regionDistributors = new HashMap<>();
     private static List<JsonObject> failedRegions;
     private static File regionsFile;
 

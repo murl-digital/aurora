@@ -1,7 +1,7 @@
-package digital.murl.aurora.commands;
+package digital.murl.aurora.commands.regions;
 
 import digital.murl.aurora.Plugin;
-import digital.murl.aurora.points.Points;
+import digital.murl.aurora.regions.Regions;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import xyz.tozymc.spigot.api.command.PlayerCommand;
@@ -11,9 +11,9 @@ import xyz.tozymc.spigot.api.util.bukkit.permission.PermissionWrapper;
 
 import java.io.IOException;
 
-public class PointRefreshCommand extends PlayerCommand {
+public class RegionRefreshCommand extends PlayerCommand {
 
-    public PointRefreshCommand(PointCommand root) {
+    public RegionRefreshCommand(RegionCommand root) {
         super(root, "refresh");
     }
 
@@ -25,7 +25,7 @@ public class PointRefreshCommand extends PlayerCommand {
         }
 
         try {
-            Points.refresh();
+            Regions.refresh();
         } catch (IOException e) {
             Plugin.logger.warning("Refresh failed: " + e.getMessage());
         }

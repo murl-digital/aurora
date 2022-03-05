@@ -4,6 +4,8 @@ import com.dslplatform.json.DslJson;
 import com.dslplatform.json.JsonWriter;
 import com.dslplatform.json.runtime.Settings;
 import digital.murl.aurora.commands.*;
+import digital.murl.aurora.commands.points.*;
+import digital.murl.aurora.commands.regions.*;
 import digital.murl.aurora.effects.EffectManager;
 import digital.murl.aurora.points.Points;
 import digital.murl.aurora.regions.*;
@@ -33,38 +35,26 @@ public final class Plugin extends JavaPlugin {
         logger.info("hello there.");
 
         PointCommand pointCommand = new PointCommand();
-        PointAddCommand pointAddCommand = new PointAddCommand(pointCommand);
-        PointRemoveCommand pointRemoveCommand = new PointRemoveCommand(pointCommand);
-        PointRefreshCommand pointRefreshCommand = new PointRefreshCommand(pointCommand);
-        PointGroupsCommand pointGroupsCommand = new PointGroupsCommand(pointCommand);
-
         RegionCommand regionCommand = new RegionCommand();
-        RegionAddCommand regionAddCommand = new RegionAddCommand(regionCommand);
-        RegionRemoveCommand regionRemoveCommand = new RegionRemoveCommand(regionCommand);
-        RegionRefreshCommand regionRefreshCommand = new RegionRefreshCommand(regionCommand);
-        RegionCheckCommand regionCheckCommand = new RegionCheckCommand(regionCommand);
-        RegionDistributeCommand regionDistributeCommand = new RegionDistributeCommand(regionCommand);
-
-        AgentCommand agentCommand = new AgentCommand();
-        EffectCommand effectCommand = new EffectCommand();
 
         commandController = new CommandController(this);
 
         commandController.addCommand(pointCommand);
-        commandController.addCommand(pointAddCommand);
-        commandController.addCommand(pointRemoveCommand);
-        commandController.addCommand(pointRefreshCommand);
-        commandController.addCommand(pointGroupsCommand);
+        commandController.addCommand(new PointAddCommand(pointCommand));
+        commandController.addCommand(new PointRemoveCommand(pointCommand));
+        commandController.addCommand(new PointRefreshCommand(pointCommand));
+        commandController.addCommand(new PointGroupsCommand(pointCommand));
 
         commandController.addCommand(regionCommand);
-        commandController.addCommand(regionAddCommand);
-        commandController.addCommand(regionRemoveCommand);
-        commandController.addCommand(regionRefreshCommand);
-        commandController.addCommand(regionCheckCommand);
-        commandController.addCommand(regionDistributeCommand);
+        commandController.addCommand(new RegionAddCommand(regionCommand));
+        commandController.addCommand(new RegionRemoveCommand(regionCommand));
+        commandController.addCommand(new RegionRefreshCommand(regionCommand));
+        commandController.addCommand(new RegionCheckCommand(regionCommand));
+        commandController.addCommand(new RegionDistributeCommand(regionCommand));
 
-        commandController.addCommand(agentCommand);
-        commandController.addCommand(effectCommand);
+        commandController.addCommand(new AgentCommand());
+        commandController.addCommand(new EffectCommand());
+        commandController.addCommand(new EffectCommand());
 
         Aurora.registerRegionType("World",
             RegionWorld::mapConstructor,

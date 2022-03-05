@@ -8,6 +8,7 @@ import digital.murl.aurora.Plugin;
 import digital.murl.aurora.Result;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -146,7 +147,13 @@ public class EffectManager {
         Effect effect;
         try {
             effect = EffectRegistrar.getEffect(agentName);
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (
+            IllegalAccessException |
+                InstantiationException |
+                NoSuchMethodException |
+                InvocationTargetException e
+        ) {
+            Plugin.logger.severe(e.getMessage());
             Plugin.logger.severe(Throwables.getStackTraceAsString(e));
             return null;
         }
