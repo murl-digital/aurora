@@ -1,37 +1,31 @@
 package digital.murl.aurora.regions.distributors;
 
-import digital.murl.aurora.regions.*;
+import digital.murl.aurora.Aurora;
+import digital.murl.aurora.regions.Region;
+import digital.murl.aurora.regions.RegionCuboid;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public class CuboidDistributor {
-    public static Location[] fillGrid(RegionCuboid region, int xRes, int yRes, int zRes) {
-        Location[] points = new Location[xRes * yRes * zRes];
-        World world = Bukkit.getWorld(region.worldName);
-        int i = 0;
-        for (double zi = 0; zi < zRes; zi++) {
-            double z = (zRes > 1 ? zi / (zRes-1.0) : .5) * region.dz + region.z1;
-            for (double yi = 0; yi < yRes; yi++) {
-                double y = (yRes > 1 ? yi / (yRes-1.0) : .5) * region.dy + region.y1;
-                for (double xi = 0; xi < xRes; xi++, i++) {
-                    double x = (xRes > 1 ? xi / (xRes-1.0) : .5) * region.dx + region.x1;
-                    points[i] = new Location(world, x, y, z);
-                }
-            }
-        }
-        return points;
+import java.util.Map;
+
+public class CuboidDistributor extends Distributor {
+    private final RegionCuboid region;
+    private final int xRes, yRes, zRes;
+    private final boolean hollow;
+    private final String formula;
+
+    public CuboidDistributor(Region region, Map<String, Object> params) throws ClassCastException {
+        this.region = (RegionCuboid)region;
+        this.xRes = ((Double)params.getOrDefault("x", 1.0)).intValue();
+        this.yRes = ((Double)params.getOrDefault("y", 1.0)).intValue();
+        this.zRes = ((Double)params.getOrDefault("z", 1.0)).intValue();
+        this.hollow = (boolean)params.getOrDefault("hollow", false);
+        this.formula = (String)params.getOrDefault("formula", null);
     }
 
-    public static Location[] fillGrid(Region region, String[] params) {
-        try {
-            return fillGrid((RegionCuboid)region, Integer.parseInt(params[0]), Integer.parseInt(params[1]), Integer.parseInt(params[2]));
-        } catch (Exception e) {
-            return new Location[0];
-        }
-    }
-
-    public static Location[] surfaceGrid(RegionCuboid region, int xRes, int yRes, int zRes) {
+    @Override
+    public Location[] distribute() {
         Location[] points = new Location[xRes * yRes * zRes - (xRes - 2) * (yRes - 2) * (zRes - 2)];
         World world = Bukkit.getWorld(region.worldName);
         int i = 0;
@@ -40,7 +34,7 @@ public class CuboidDistributor {
             for (double yi = 0; yi < yRes; yi++) {
                 double y = (yRes > 1 ? yi / (yRes-1.0) : .5) * region.dy + region.y1;
                 for (double xi = 0; xi < xRes; xi++, i++) {
-                    while (zi != 0 && zi != zRes-1 && yi != 0 && yi != yRes-1 && xi != 0 && xi != xRes-1) xi++;
+                    if (hollow) while (zi != 0 && zi != zRes-1 && yi != 0 && yi != yRes-1 && xi != 0 && xi != xRes-1) xi++;
                     double x = (xRes > 1 ? xi / (xRes-1.0) : .5) * region.dx + region.x1;
                     points[i] = new Location(world, x, y, z);
                 }
@@ -49,11 +43,7 @@ public class CuboidDistributor {
         return points;
     }
 
-    public static Location[] surfaceGrid(Region region, String[] params) {
-        try {
-            return surfaceGrid((RegionCuboid)region, Integer.parseInt(params[0]), Integer.parseInt(params[1]), Integer.parseInt(params[2]));
-        } catch (Exception e) {
-            return new Location[0];
-        }
+    public static void register() {
+        Aurora.registerDistributorType("CuboidGrid", "Cuboid", CuboidDistributor.class);
     }
 }

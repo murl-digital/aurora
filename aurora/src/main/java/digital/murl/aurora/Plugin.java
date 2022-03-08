@@ -68,9 +68,8 @@ public final class Plugin extends JavaPlugin {
             RegionCuboid::parameterConstructor,
             RegionCuboid::parameterCompleter);
 
-        Aurora.registerRegionDistributor("CuboidFillGrid", CuboidDistributor::fillGrid);
-        Aurora.registerRegionDistributor("CuboidSurfaceGrid", CuboidDistributor::surfaceGrid);
-        Aurora.registerRegionDistributor("SphereSurfaceFibonacci", SphereDistributor::surfaceFibonacci);
+        CuboidDistributor.register();
+        SphereDistributor.register();
 
         if (getDataFolder().mkdirs()) {
             logger.info("creating default config...");

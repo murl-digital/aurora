@@ -1,8 +1,12 @@
 package digital.murl.aurora.commands.regions;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import digital.murl.aurora.Plugin;
 import digital.murl.aurora.regions.Region;
+import digital.murl.aurora.regions.RegionRegistrar;
 import digital.murl.aurora.regions.Regions;
-import digital.murl.aurora.regions.distributors.RegionDistributor;
+import digital.murl.aurora.regions.distributors.Distributor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -12,9 +16,8 @@ import xyz.tozymc.spigot.api.command.result.CommandResult;
 import xyz.tozymc.spigot.api.command.result.TabResult;
 import xyz.tozymc.spigot.api.util.bukkit.permission.PermissionWrapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Level;
 
 public class RegionDistributeCommand extends PlayerCommand {
 
@@ -30,10 +33,29 @@ public class RegionDistributeCommand extends PlayerCommand {
         Region region = Regions.getRegion(params[0]);
         if (region == null) return CommandResult.WRONG_SYNTAX;
 
-        RegionDistributor distributor = Regions.getRegionDistributor(params[1]);
+        Map<String, Object> distributorParams = new HashMap<>();
+
+        String rawJson = String.join(" ", Arrays.copyOfRange(params, 2, params.length));
+        try {
+            Gson gson = new Gson();
+            JsonObject json = gson.fromJson(rawJson, JsonObject.class);
+            distributorParams = gson.fromJson(json, HashMap.class);
+        } catch (Exception e) {
+            Plugin.logger.log(Level.WARNING, "Could not deserialize distributor json payload: ", e);
+            Plugin.logger.log(Level.WARNING, "JSON: " + rawJson);
+        }
+
+        Distributor distributor = null;
+
+        try {
+            distributor = RegionRegistrar.getRegionDistributor(params[1], region, distributorParams);
+        } catch (Exception e) {
+            Plugin.logger.log(Level.WARNING, "Problem initializing distributor: ", e);
+        }
+
         if (distributor == null) return CommandResult.WRONG_SYNTAX;
 
-        for (Location l : distributor.distribute(region, Arrays.copyOfRange(params, 2, params.length)))
+        for (Location l : distributor.distribute())
             sender.getWorld().spawnParticle(Particle.CLOUD, l, 1, 0,0, 0, 0);
 
         return CommandResult.SUCCESS;
@@ -51,7 +73,7 @@ public class RegionDistributeCommand extends PlayerCommand {
         }
 
         if (params.length == 2)
-            return TabResult.of("", Regions.getRegionDistributors());
+            return TabResult.of("", RegionRegistrar.getRegionDistributors());
 
 
         return TabResult.EMPTY_RESULT;
