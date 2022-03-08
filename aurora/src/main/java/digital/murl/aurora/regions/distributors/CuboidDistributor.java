@@ -26,7 +26,7 @@ public class CuboidDistributor extends Distributor {
 
     @Override
     public Location[] distribute() {
-        Location[] points = new Location[xRes * yRes * zRes - (xRes - 2) * (yRes - 2) * (zRes - 2)];
+        Location[] points = new Location[xRes * yRes * zRes - (hollow ? (xRes - 2) * (yRes - 2) * (zRes - 2) : 0)];
         World world = Bukkit.getWorld(region.worldName);
         int i = 0;
         for (double zi = 0; zi < zRes; zi++) {
