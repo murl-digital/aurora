@@ -1,6 +1,5 @@
 package digital.murl.aurora.regions;
 
-import digital.murl.aurora.effects.Effect;
 import digital.murl.aurora.regions.distributors.Distributor;
 
 import java.lang.reflect.InvocationTargetException;

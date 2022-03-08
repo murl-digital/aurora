@@ -17,11 +17,17 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        name = 'codemc'
+        url = 'https://repo.codemc.io/repository/maven-public/'
+    }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
 
+    implementation 'org.ow2.asm:asm:9.0'
+    implementation 'com.dfsek:paralithic:0.6.0'
     implementation 'com.dslplatform:dsl-json-java8:1.9.9'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.google.guava:guava:31.1-jre'
