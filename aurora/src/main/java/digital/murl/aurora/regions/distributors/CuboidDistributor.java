@@ -8,7 +8,6 @@ import digital.murl.aurora.regions.Region;
 import digital.murl.aurora.regions.RegionCuboid;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +21,8 @@ public class CuboidDistributor extends Distributor {
 
     Parser parser = new Parser();
     Scope scope = new Scope();
-    Expression expression = null;
+    List<String> expressionTypes = null;
+    List<Expression> expressions = null;
 
     public CuboidDistributor(Region region, Map<String, Object> params) throws ClassCastException {
         this.region = (RegionCuboid)region;
@@ -41,7 +41,7 @@ public class CuboidDistributor extends Distributor {
         if (params.containsKey("z")) this.zRes = ((Double)params.get("z")).intValue();
         this.hollow = (boolean)params.getOrDefault("hollow", false);
 
-        if (params.containsKey("expression")) {
+        if (params.containsKey("expressions")) {
             scope.addInvocationVariable("nx");
             scope.addInvocationVariable("ny");
             scope.addInvocationVariable("nz");
@@ -53,10 +53,20 @@ public class CuboidDistributor extends Distributor {
             scope.addInvocationVariable("wz");
             scope.addInvocationVariable("i");
             scope.addInvocationVariable("t");
-            try {
-                expression = parser.parse((String) params.get("expression"), scope);
-            } catch (Exception e) {
-                expression = null;
+
+            expressions = new LinkedList<>();
+            expressionTypes = new LinkedList<>();
+
+            List<Map<String, Object>> expressionList = (List<Map<String, Object>>)params.get("expressions");
+            for (Map<String, Object> expressionItem : expressionList) {
+                try {
+                    Expression expression = parser.parse((String)expressionItem.get("expression"), scope);
+                    String expressionType = (String)expressionItem.get("type");
+                    expressions.add(expression);
+                    expressionTypes.add(expressionType);
+                } catch (Exception e) {
+
+                }
             }
         }
         this.startTime = System.currentTimeMillis() / 1000;
@@ -65,7 +75,6 @@ public class CuboidDistributor extends Distributor {
     @Override
     public Location[] distribute() {
         List<Location> points = new LinkedList<>();
-        World world = Bukkit.getWorld(region.worldName);
 
         double min = Double.min(Double.min(region.dx,region.dy),region.dz);
         double dx = (region.dx / min);
@@ -83,18 +92,10 @@ public class CuboidDistributor extends Distributor {
                     if (hollow) while (zi != 0 && zi != zRes-1 && yi != 0 && yi != yRes-1 && xi != 0 && xi != xRes-1) xi++;
                     double x = (xRes > 1 ? xi / (xRes-1.0) : .5);
 
-                    double lx = (x*2-1) * dx;
-                    double ly = (y*2-1) * dy;
-                    double lz = (z*2-1) * dz;
+                    Location location = evaluateExpressions(x,y,z,dx,dy,dz,i,t);
 
-                    double wx = x * region.dx + region.x1;
-                    double wy = y * region.dy + region.y1;
-                    double wz = z * region.dz + region.z1;
-
-                    if (expression == null)
-                        points.add(new Location(world, wx, wy, wz));
-                    else if (expression.evaluate(x, y, z, lx, ly, lz, wx, wy, wz, i, t) > 0)
-                        points.add(new Location(world, wx, wy, wz));
+                    if (location != null)
+                        points.add(location);
                 }
             }
         }
@@ -104,6 +105,60 @@ public class CuboidDistributor extends Distributor {
             array[i] = points.get(i);
 
         return array;
+    }
+
+    private Location evaluateExpressions(double x, double y, double z, double dx, double dy, double dz, double index, double time) {
+        double wx = x * region.dx + region.x1;
+        double wy = y * region.dy + region.y1;
+        double wz = z * region.dz + region.z1;
+
+        if (expressions == null)
+            return new Location(Bukkit.getWorld(region.worldName), wx, wy, wz);
+
+        double lx = (x * 2 - 1) * dx;
+        double ly = (y * 2 - 1) * dy;
+        double lz = (z * 2 - 1) * dz;
+
+        for (int i = 0; i < expressions.size(); i++) {
+            switch (expressionTypes.get(i)) {
+                case "mask":
+                    if (expressions.get(i).evaluate(x, y, z, lx, ly, lz, wx, wy, wz, index, time) <= 0)
+                        return null;
+                    break;
+                case "map_lx":
+                    lx = expressions.get(i).evaluate(x, y, z, lx, ly, lz, wx, wy, wz, index, time);
+                    x = ((lx / dx) + 1) / 2;
+                    wx = x * region.dx + region.x1;
+                    break;
+                case "map_ly":
+                    ly = expressions.get(i).evaluate(x, y, z, lx, ly, lz, wx, wy, wz, index, time);
+                    y = ((ly / dy) + 1) / 2;
+                    wy = y * region.dy + region.y1;
+                    break;
+                case "map_lz":
+                    lz = expressions.get(i).evaluate(x, y, z, lx, ly, lz, wx, wy, wz, index, time);
+                    z = ((lz / dz) + 1) / 2;
+                    wz = z * region.dz + region.z1;
+                case "map_x":
+                    x = expressions.get(i).evaluate(x, y, z, lx, ly, lz, wx, wy, wz, index, time);
+                    lx = (x * 2 - 1) * dx;
+                    wx = x * region.dx + region.x1;
+                    break;
+                case "map_y":
+                    y = expressions.get(i).evaluate(x, y, z, lx, ly, lz, wx, wy, wz, index, time);
+                    ly = (y * 2 - 1) * dy;
+                    wy = y * region.dy + region.y1;
+                    break;
+                case "map_z":
+                    z = expressions.get(i).evaluate(x, y, z, lx, ly, lz, wx, wy, wz, index, time);
+                    lz = (z * 2 - 1) * dz;
+                    wz = z * region.dz + region.z1;
+                    break;
+                default:
+                    return null;
+            }
+        }
+        return new Location(Bukkit.getWorld(region.worldName), wx, wy, wz);
     }
 
     public static void register() {
