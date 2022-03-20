@@ -69,7 +69,7 @@ public class CuboidDistributor extends Distributor {
                 }
             }
         }
-        this.startTime = System.currentTimeMillis() / 1000;
+        this.startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class CuboidDistributor extends Distributor {
         double dy = (region.dy / min);
         double dz = (region.dz / min);
 
-        double t = System.currentTimeMillis() / 1000 - startTime;
+        double t = (System.currentTimeMillis() - startTime) / 1000.;
 
         int i = 0;
         for (double zi = 0; zi < zRes; zi++) {
