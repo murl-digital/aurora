@@ -81,7 +81,7 @@ public class CuboidDistributor extends Distributor {
         double dy = (region.dy / min);
         double dz = (region.dz / min);
 
-        double t = System.currentTimeMillis() - startTime / 1000;
+        double t = System.currentTimeMillis() / 1000 - startTime;
 
         int i = 0;
         for (double zi = 0; zi < zRes; zi++) {
