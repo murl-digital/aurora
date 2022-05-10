@@ -1,6 +1,7 @@
 package digital.murl.aurora_potions;
 
 import digital.murl.aurora.Aurora;
+import digital.murl.aurora.Plugin;
 import digital.murl.aurora.Result;
 import digital.murl.aurora.effects.CacheBehavior;
 import digital.murl.aurora.effects.Effect;
@@ -64,22 +65,27 @@ public class Potion implements Effect {
         }
 
         if (params.containsKey("active"))
-            if ((boolean)params.get("active")) {
-                if (task == null)
-                    task = Bukkit.getScheduler().runTaskTimer(Plugin.plugin, runnable, 0, 4);
-                return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.ACTIVE);
-            } else {
-                if (task != null) {
-                    task.cancel();
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.removePotionEffect(type);
-                    }
-                }
-                task = null;
-                return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.INACTIVE);
-            }
+            if ((boolean)params.get("active")) return on();
+            else return off();
 
         return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.DEFAULT);
+    }
+
+    public EffectAction.ActionResult on() {
+        if (task == null)
+            task = Bukkit.getScheduler().runTaskTimer(Plugin.plugin, runnable, 0, 4);
+        return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.ACTIVE);
+    }
+
+    public EffectAction.ActionResult off() {
+        if (task != null) {
+            task.cancel();
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                p.removePotionEffect(type);
+            }
+        }
+        task = null;
+        return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.INACTIVE);
     }
 
     public static void registerEffect() {
@@ -88,6 +94,12 @@ public class Potion implements Effect {
 
         EffectAction<Potion, Map<String, Object>> set = (a, p) -> a.set(p);
         actions.put("Set", set);
+
+        EffectAction<Potion, Map<String, Object>> on = (a, p) -> a.on();
+        actions.put("On", on);
+
+        EffectAction<Potion, Map<String, Object>> off = (a, p) -> a.off();
+        actions.put("Off", off);
 
         try {
             Aurora.registerEffect("Potion", Potion.class, actions, CacheBehavior.NORMAL, schemas);;
