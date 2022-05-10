@@ -8,7 +8,7 @@ import digital.murl.aurora.effects.EffectAction;
 import digital.murl.aurora.effects.EffectRegistrar;
 import digital.murl.aurora.effects.CacheBehavior;
 import digital.murl.aurora.regions.*;
-import digital.murl.aurora.regions.distributors.RegionDistributor;
+import digital.murl.aurora.regions.distributors.*;
 
 import java.util.HashMap;
 
@@ -31,8 +31,8 @@ public class Aurora {
         Regions.addParameterCompleter(type, parameterCompleter);
     }
 
-    public static void registerRegionDistributor(String type, RegionDistributor distributor) {
-        Regions.addRegionDistributor(type, distributor);
+    public static void registerDistributorType(String type, String regionType, Class<? extends Distributor> distributor) {
+        RegionRegistrar.addRegionDistributor(type, regionType, distributor);
     }
 
     public static HashMap<String, HashMap<String, String>> getEffectActionSchemas() {

@@ -28,7 +28,7 @@ public class RegionCuboid extends Region {
         double x = location.getX();
         double y = location.getY();
         double z = location.getZ();
-        return x > x1 && x < x2 && y > y1 && y < y2 && z > z1 && z < z2;
+        return x >= x1 && x <= x2 && y >= y1 && y <= y2 && z >= z1 && z <= z2;
     }
 
     @Override

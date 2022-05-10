@@ -1,46 +1,36 @@
 package digital.murl.aurora.regions;
 
-import digital.murl.aurora.regions.distributors.RegionDistributor;
+import digital.murl.aurora.Plugin;
+import digital.murl.aurora.regions.distributors.Distributor;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Regions {
     public static void addMapConstructor(String type, RegionMapConstructor constructor) {
-        RegionManager.addMapConstructor(type, constructor);
+        RegionRegistrar.addMapConstructor(type, constructor);
     }
 
     public static void addParameterConstructor(String type, RegionParameterConstructor constructor) {
-        RegionManager.addParameterConstructor(type, constructor);
+        RegionRegistrar.addParameterConstructor(type, constructor);
     }
 
     public static void addParameterCompleter(String type, RegionParameterCompleter completer) {
-        RegionManager.addParameterCompleter(type, completer);
-    }
-
-    public static void addRegionDistributor(String type, RegionDistributor distributor) {
-        RegionManager.addRegionDistributor(type, distributor);
+        RegionRegistrar.addParameterCompleter(type, completer);
     }
 
     public static RegionParameterConstructor getParameterConstructor(String type) {
-        return RegionManager.getParameterConstructor(type);
+        return RegionRegistrar.getParameterConstructor(type);
     }
 
     public static RegionParameterCompleter getParameterCompleter(String type) {
-        return RegionManager.getParameterCompleter(type);
-    }
-
-    public static RegionDistributor getRegionDistributor(String type) {
-        return RegionManager.getRegionDistributor(type);
+        return RegionRegistrar.getParameterCompleter(type);
     }
 
     public static Set<String> getRegionTypes() {
-        return RegionManager.getRegionTypes();
-    }
-
-    public static Set<String> getRegionDistributors() {
-        return RegionManager.getRegionDistributors();
+        return RegionRegistrar.getRegionTypes();
     }
 
     public static void addRegion(Region region) {
@@ -53,6 +43,15 @@ public class Regions {
 
     public static Region getRegion(String id) {
         return RegionManager.getRegion(id);
+    }
+
+    public static Distributor getDistributor(String type, Region region, Map<String, Object> params) {
+        try {
+            return RegionRegistrar.getRegionDistributor(type, region, params);
+        } catch (Exception e) {
+            Plugin.logger.warning("Couldn't create distributor: " + e.getMessage());
+            return null;
+        }
     }
 
     public static List<Region> getRegions() {
