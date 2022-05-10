@@ -2,6 +2,7 @@ package digital.murl.aurora_particles;
 
 import com.google.gson.internal.LinkedTreeMap;
 import digital.murl.aurora.Aurora;
+import digital.murl.aurora.Plugin;
 import digital.murl.aurora.Result;
 import digital.murl.aurora.effects.*;
 import digital.murl.aurora.effects.Effect;
@@ -106,16 +107,8 @@ public class Particles implements Effect {
         distribute();
 
         if (params.containsKey("active"))
-            if ((boolean)params.get("active") == true) {
-                if (task == null)
-                    task = Bukkit.getScheduler().runTaskTimer(Plugin.plugin, runnable, 0, 4);
-                return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.ACTIVE);
-            } else {
-                if (task != null)
-                    task.cancel();
-                task = null;
-                return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.INACTIVE);
-            }
+            if ((boolean)params.get("active") == true) return on();
+            else return off();
 
         return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.DEFAULT);
     }
