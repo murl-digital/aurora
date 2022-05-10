@@ -138,6 +138,19 @@ public class Particles implements Effect {
         return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.DEFAULT);
     }
 
+    public EffectAction.ActionResult on() {
+        if (task == null)
+            task = Bukkit.getScheduler().runTaskTimer(Plugin.plugin, runnable, 0, 4);
+        return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.ACTIVE);
+    }
+
+    public EffectAction.ActionResult off() {
+        if (task != null)
+            task.cancel();
+        task = null;
+        return new EffectAction.ActionResult(Result.Outcome.SUCCESS, "", EffectAction.ActiveState.INACTIVE);
+    }
+
     public static void registerEffect() {
         HashMap<String, EffectAction> actions = new HashMap<>();
         HashMap<String, String> schemas = new HashMap<>();
@@ -150,6 +163,12 @@ public class Particles implements Effect {
 
         EffectAction<Particles, Map<String, Object>> distribute = (a, p) -> a.distribute();
         actions.put("Distribute", distribute);
+
+        EffectAction<Particles, Map<String, Object>> on = (a, p) -> a.on();
+        actions.put("On", on);
+
+        EffectAction<Particles, Map<String, Object>> off = (a, p) -> a.off();
+        actions.put("Off", off);
 
         try {
             Aurora.registerEffect("Particles", Particles.class, actions, CacheBehavior.NORMAL, schemas);;
