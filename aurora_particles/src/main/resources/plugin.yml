@@ -1,0 +1,9 @@
+name: aurora_particles
+version: '${version}'
+main: digital.murl.aurora_particles.Plugin
+api-version: 1.16
+prefix: AuroraParticles
+authors: [ murl_digital ]
+description: An addon for Aurora that adds a particle effect.
+website: https://github.com/murl-digital/aurora
+depend: [ aurora_core ]
