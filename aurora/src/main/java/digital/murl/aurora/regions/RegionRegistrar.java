@@ -10,6 +10,9 @@ public class RegionRegistrar {
     private static final Map<String, RegionParameterConstructor> parameterConstructors = new HashMap<>();
     private static final Map<String, RegionParameterCompleter> parameterCompleters = new HashMap<>();
 
+    private static final Map<String, Class<? extends Distributor>> distributors = new HashMap<>();
+    private static final Map<String, List<String>> regionDistributors = new HashMap<>();
+
     public static void addMapConstructor(String type, RegionMapConstructor constructor) {
         mapConstructors.put(type.toLowerCase(), constructor);
     }
@@ -37,9 +40,6 @@ public class RegionRegistrar {
     public static Set<String> getRegionTypes() {
         return parameterConstructors.keySet();
     }
-
-    private static final Map<String, Class<? extends Distributor>> distributors = new HashMap<>();
-    private static final Map<String, List<String>> regionDistributors = new HashMap<>();
 
     public static void addRegionDistributor(String type, String regionType, Class<? extends Distributor> distributor) {
         distributors.put(type, distributor);
