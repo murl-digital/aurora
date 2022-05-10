@@ -3,7 +3,7 @@ version: '${version}'
 main: digital.murl.aurora_potions.Plugin
 api-version: 1.16
 prefix: AuroraPotions
-authors: [ murl_digital ]
+authors: [ murl_digital, vlams1 ]
 description: An addon for Aurora that adds a potion effect.
 website: https://github.com/murl-digital/aurora
 depend: [ aurora_core ]
