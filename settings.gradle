@@ -1,4 +1,5 @@
 rootProject.name = 'Aurora'
 include 'aurora'
+include 'aurora_potions'
 include 'aurora_osc'
 //include 'aurora-agent-holograms'
