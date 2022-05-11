@@ -1,0 +1,76 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'java'
+}
+
+group = 'murl.digital'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
+    compileOnly 'com.github.murl-digital:aurora:rewrite-distributors-rework-SNAPSHOT'
+}
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    minimize()
+}
+
+// Copy jars to dist directory
+task copyDistJars(type: Copy, dependsOn: ['jar','shadowJar']) {
+    from shadowJar
+    into "${rootDir}/dist"
+}
+
+// Copy jars to server plugins
+task copyDevServerJars(type: Copy, dependsOn: ['jar','shadowJar']) {
+    from shadowJar
+    into "${rootDir}/devserver/plugins"
+}
+
+// Also clean up the dist and plugins directories on cleanup
+clean.doFirst {
+    delete fileTree("${rootDir}/dist") { include '**/aurora_potions-*.jar'}
+    delete fileTree("${rootDir}/devserver/plugins") { include '**/aurora_potions-*.jar'}
+}
